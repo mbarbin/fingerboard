@@ -17,37 +17,68 @@ module Letter_name = struct
     | List _ as sexp ->
       raise_s [%sexp "Unexpected sexp shape", { t : t; sexp : Sexp.t }, [%here]]
   ;;
+
+  let next = function
+    | A -> B
+    | B -> C
+    | C -> D
+    | D -> E
+    | E -> F
+    | F -> G
+    | G -> A
+  ;;
+
+  let semitons_step ~from =
+    match from with
+    | A -> 2
+    | B -> 1
+    | C -> 2
+    | D -> 2
+    | E -> 1
+    | F -> 2
+    | G -> 2
+  ;;
 end
 
 module Symbol = struct
   type t =
-    | Natural
+    | Triple_flat
+    | Double_flat
     | Flat
+    | Natural
     | Sharp
     | Double_sharp
-    | Double_flat
     | Triple_sharp
-    | Triple_flat
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
   let to_string = function
-    | Natural -> ""
+    | Triple_flat -> "bbb"
+    | Double_flat -> "bb"
     | Flat -> "b"
+    | Natural -> ""
     | Sharp -> "#"
     | Double_sharp -> "##"
-    | Double_flat -> "bb"
     | Triple_sharp -> "###"
-    | Triple_flat -> "bbb"
   ;;
 
   let prefix_notation = function
-    | Natural -> ""
+    | Triple_flat -> "bbb"
+    | Double_flat -> "bb"
     | Flat -> "b"
+    | Natural -> ""
     | Sharp -> "#"
     | Double_sharp -> "x"
-    | Double_flat -> "bb"
     | Triple_sharp -> "#x"
-    | Triple_flat -> "bbb"
+  ;;
+
+  let semitons_shift = function
+    | Triple_flat -> -3
+    | Double_flat -> -2
+    | Flat -> -1
+    | Natural -> 0
+    | Sharp -> 1
+    | Double_sharp -> 2
+    | Triple_sharp -> 3
   ;;
 end
 

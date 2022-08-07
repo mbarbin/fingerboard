@@ -1,5 +1,6 @@
 open! Core
 module Interval = Interval
+module Note = Note
 
 let hello_world = [%sexp "Hello, World!"]
 

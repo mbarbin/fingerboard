@@ -14,21 +14,26 @@ module Letter_name : sig
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
   val to_string : t -> string
+  val next : t -> t
+
+  (** How many semitons are there from [t] to [next t]. *)
+  val semitons_step : from:t -> int
 end
 
 module Symbol : sig
   type t =
-    | Natural
+    | Triple_flat
+    | Double_flat
     | Flat
+    | Natural
     | Sharp
     | Double_sharp
-    | Double_flat
     | Triple_sharp
-    | Triple_flat
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
   val to_string : t -> string
   val prefix_notation : t -> string
+  val semitons_shift : t -> int
 end
 
 type t =
