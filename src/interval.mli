@@ -4,14 +4,16 @@ open! Core
 
 module Quality : sig
   type t =
+    | Doubly_diminished
+    | Diminished
+    | Minor
     | Perfect
     | Major
-    | Minor
     | Augmented
-    | Diminished
-    | Augmented' of { multiple : int }
-    | Diminished' of { multiple : int }
+    | Doubly_augmented
   [@@deriving compare, equal, hash, sexp_of]
+
+  val prefix_notation : t -> string
 end
 
 module Number : sig
@@ -34,4 +36,15 @@ module Number : sig
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
   val to_int : t -> int
+  val accepts_minor_major_quality : t -> bool
 end
+
+type t =
+  { number : Number.t
+  ; quality : Quality.t
+  }
+[@@deriving compare, equal, hash, sexp_of]
+
+val to_name : t -> string
+val to_string : t -> string
+val number_of_semitons : t -> int
