@@ -1,0 +1,26 @@
+name: Deploy-odoc
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-doc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use OCaml 4.13.x
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: 4.13.x
+          dune-cache: true
+          opam-repositories: |
+            default: https://github.com/ocaml/opam-repository.git
+#            janestreet-bleeding: https://ocaml.janestreet.com/opam-repository
+#            janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
+
+      - name: Deploy odoc to GitHub Pages
+        uses: ocaml/setup-ocaml/deploy-doc@v2
