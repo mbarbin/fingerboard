@@ -115,7 +115,15 @@ let to_string { number; quality } =
   Quality.prefix_notation quality ^ (Number.to_int number |> Int.to_string)
 ;;
 
-let to_name { number; quality } = Quality.to_name quality ^ " " ^ Number.to_name number
+let to_name { number; quality } =
+  let skip_quality =
+    match quality with
+    | Perfect -> true
+    | Doubly_diminished | Diminished | Minor | Major | Augmented | Doubly_augmented ->
+      false
+  in
+  (if skip_quality then "" else Quality.to_name quality ^ " ") ^ Number.to_name number
+;;
 
 let number_of_semitons t =
   let accepts_minor_major_quality = Number.accepts_minor_major_quality t.number in

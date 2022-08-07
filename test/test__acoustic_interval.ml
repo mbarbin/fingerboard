@@ -11,10 +11,7 @@ let%expect_test "first comparison" =
   end
   in
   let module Row = struct
-    type t =
-      { name : string
-      ; interval : Interval.t
-      }
+    type t = { interval : Interval.t }
   end
   in
   let columns =
@@ -48,6 +45,11 @@ let%expect_test "first comparison" =
                   | Minor -> Acoustic_interval.Symbolic.Just_minor_third
                   | Major -> Acoustic_interval.Symbolic.Just_major_third
                   | _ -> unimplemented [%here])
+               | Sixth ->
+                 (match t.interval.quality with
+                  | Minor -> Acoustic_interval.Symbolic.Just_minor_sixth
+                  | Major -> Acoustic_interval.Symbolic.Just_major_sixth
+                  | _ -> unimplemented [%here])
                | _ -> unimplemented [%here])
           in
           acoustic_interval
@@ -59,8 +61,7 @@ let%expect_test "first comparison" =
     in
     Ascii_table.Column.(
       [ [ create_attr "Interval" (fun (t : Row.t) ->
-            ignore t.name;
-            [], Interval.to_name t.interval)
+            [], Interval.to_name t.interval |> String.capitalize)
         ]
       ; List.map Kind.all ~f:cents_column
       ]
@@ -68,22 +69,27 @@ let%expect_test "first comparison" =
   in
   let rows =
     Row.
-      [ { name = "Octave"; interval = { Interval.number = Octave; quality = Perfect } }
-      ; { name = "Fifth"; interval = { Interval.number = Fifth; quality = Perfect } }
-      ; { name = "Fourth"; interval = { Interval.number = Fourth; quality = Perfect } }
-      ; { name = "Major third"; interval = { Interval.number = Third; quality = Major } }
-      ; { name = "Semiton"; interval = { Interval.number = Second; quality = Minor } }
+      [ { interval = { Interval.number = Octave; quality = Perfect } }
+      ; { interval = { Interval.number = Sixth; quality = Major } }
+      ; { interval = { Interval.number = Sixth; quality = Minor } }
+      ; { interval = { Interval.number = Fifth; quality = Perfect } }
+      ; { interval = { Interval.number = Fourth; quality = Perfect } }
+      ; { interval = { Interval.number = Third; quality = Major } }
+      ; { interval = { Interval.number = Second; quality = Minor } }
       ]
   in
   Ascii_table.to_string columns rows |> print_endline;
-  [%expect {|
-    ┌────────────────┬───────────────────┬──────┬─────────────┐
-    │ Interval       │ Equal_temperament │ Just │ Pythagorean │
-    ├────────────────┼───────────────────┼──────┼─────────────┤
-    │ perfect octave │              1200 │ 1200 │        1200 │
-    │ perfect fifth  │               700 │  702 │         702 │
-    │ perfect fourth │               500 │  498 │         498 │
-    │ major third    │               400 │  386 │         408 │
-    │ minor second   │               100 │  112 │          90 │
-    └────────────────┴───────────────────┴──────┴─────────────┘ |}]
+  [%expect
+    {|
+    ┌──────────────┬───────────────────┬──────┬─────────────┐
+    │ Interval     │ Equal_temperament │ Just │ Pythagorean │
+    ├──────────────┼───────────────────┼──────┼─────────────┤
+    │ Octave       │              1200 │ 1200 │        1200 │
+    │ Major sixth  │               900 │  884 │         906 │
+    │ Minor sixth  │               800 │  814 │         792 │
+    │ Fifth        │               700 │  702 │         702 │
+    │ Fourth       │               500 │  498 │         498 │
+    │ Major third  │               400 │  386 │         408 │
+    │ Minor second │               100 │  112 │          90 │
+    └──────────────┴───────────────────┴──────┴─────────────┘ |}]
 ;;

@@ -60,31 +60,31 @@ let%expect_test "sort" =
     print_s [%sexp (i : int), (canonical_interval : string), (intervals : string list)]);
   [%expect
     {|
-    (0 "perfect unison" (P1 d2))
+    (0 unison (P1 d2))
     (1 "minor second" (A1 m2 dd3))
     (2 "major second" (AA1 M2 d3))
     (3 "minor third" (A2 m3 dd4))
     (4 "major third" (AA2 M3 d4))
-    (5 "perfect fourth" (A3 P4 dd5))
+    (5 fourth (A3 P4 dd5))
     (6 "augmented fourth" (AA3 A4 d5 dd6))
-    (7 "perfect fifth" (AA4 P5 d6))
+    (7 fifth (AA4 P5 d6))
     (8 "minor sixth" (A5 m6 dd7))
     (9 "major sixth" (AA5 M6 d7))
     (10 "minor seventh" (A6 m7 dd8))
     (11 "major seventh" (AA6 M7 d8 dd9))
-    (12 "perfect octave" (A7 P8 d9))
+    (12 octave (A7 P8 d9))
     (13 "minor ninth" (AA7 A8 m9 dd10))
     (14 "major ninth" (AA8 M9 d10))
     (15 "minor tenth" (A9 m10 dd11))
     (16 "major tenth" (AA9 M10 d11))
-    (17 "perfect eleventh" (A10 P11 dd12))
+    (17 eleventh (A10 P11 dd12))
     (18 "augmented eleventh" (AA10 A11 d12 dd13))
-    (19 "perfect twelfth" (AA11 P12 d13))
+    (19 twelfth (AA11 P12 d13))
     (20 "minor thirteenth" (A12 m13 dd14))
     (21 "major thirteenth" (AA12 M13 d14))
     (22 "minor fourteeth" (A13 m14 dd15))
     (23 "major fourteeth" (AA13 M14 d15))
-    (24 "perfect double octave" (A14 P15)) |}]
+    (24 "double octave" (A14 P15)) |}]
 ;;
 
 let%expect_test "compute" =
@@ -130,7 +130,7 @@ let%expect_test "compute" =
         , (Interval.to_name interval : string)
         , (intervals : string list)]);
   [%expect {|
-    (0 P1 "perfect unison"
+    (0 P1 unison
      (Abbb-Abbb Abb-Abb Ab-Ab A-A A#-A# A##-A## A###-A### Bbbb-Bbbb Bbb-Bbb Bb-Bb
       B-B B#-B# B##-B## B###-B### Cbbb-Cbbb Cbb-Cbb Cb-Cb C-C C#-C# C##-C##
       C###-C### Dbbb-Dbbb Dbb-Dbb Db-Db D-D D#-D# D##-D## D###-D### Ebbb-Ebbb
@@ -208,7 +208,7 @@ let%expect_test "compute" =
       Cbbb-Ebb Cbb-Eb Cb-E C-E# C#-E## C##-E### Dbbb-Fb Dbb-F Db-F# D-F## D#-F###
       Ebbb-Gb Ebb-G Eb-G# E-G## E#-G### Fbbb-Abb Fbb-Ab Fb-A F-A# F#-A## F##-A###
       Gbbb-Bbb Gbb-Bb Gb-B G-B# G#-B## G##-B###))
-    (5 P4 "perfect fourth"
+    (5 P4 fourth
      (Abbb-Dbbb Abb-Dbb Ab-Db A-D A#-D# A##-D## A###-D### Bbbb-Ebbb Bbb-Ebb Bb-Eb
       B-E B#-E# B##-E## B###-E### Cbbb-Fbbb Cbb-Fbb Cb-Fb C-F C#-F# C##-F##
       C###-F### Dbbb-Gbbb Dbb-Gbb Db-Gb D-G D#-G# D##-G## D###-G### Ebbb-Abbb
@@ -244,7 +244,7 @@ let%expect_test "compute" =
       Cbb-F Cb-F# C-F## C#-F### Dbbb-Gb Dbb-G Db-G# D-G## D#-G### Ebbb-Ab Ebb-A
       Eb-A# E-A## E#-A### Fbbb-Bbb Fbb-Bb Fb-B F-B# F#-B## F##-B### Gbbb-Cb Gbb-C
       Gb-C# G-C## G#-C###))
-    (7 P5 "perfect fifth"
+    (7 P5 fifth
      (Abbb-Ebbb Abb-Ebb Ab-Eb A-E A#-E# A##-E## A###-E### Bbbb-Fbb Bbb-Fb Bb-F
       B-F# B#-F## B##-F### Cbbb-Gbbb Cbb-Gbb Cb-Gb C-G C#-G# C##-G## C###-G###
       Dbbb-Abbb Dbb-Abb Db-Ab D-A D#-A# D##-A## D###-A### Ebbb-Bbbb Ebb-Bbb Eb-Bb
@@ -327,7 +327,7 @@ let%expect_test "compute" =
       Cbbb-Bbb Cbb-Bb Cb-B C-B# C#-B## C##-B### Dbbb-Cb Dbb-C Db-C# D-C## D#-C###
       Ebbb-Db Ebb-D Eb-D# E-D## E#-D### Fbbb-Ebb Fbb-Eb Fb-E F-E# F#-E## F##-E###
       Gbbb-Fb Gbb-F Gb-F# G-F## G#-F###))
-    (12 P8 "perfect octave"
+    (12 P8 octave
      (Abbb-Abbb Abb-Abb Ab-Ab A-A A#-A# A##-A## A###-A### Bbbb-Bbbb Bbb-Bbb Bb-Bb
       B-B B#-B# B##-B## B###-B### Cbbb-Cbbb Cbb-Cbb Cb-Cb C-C C#-C# C##-C##
       C###-C### Dbbb-Dbbb Dbb-Dbb Db-Db D-D D#-D# D##-D## D###-D### Ebbb-Ebbb
@@ -409,7 +409,7 @@ let%expect_test "compute" =
       Cbbb-Ebb Cbb-Eb Cb-E C-E# C#-E## C##-E### Dbbb-Fb Dbb-F Db-F# D-F## D#-F###
       Ebbb-Gb Ebb-G Eb-G# E-G## E#-G### Fbbb-Abb Fbb-Ab Fb-A F-A# F#-A## F##-A###
       Gbbb-Bbb Gbb-Bb Gb-B G-B# G#-B## G##-B###))
-    (17 P11 "perfect eleventh"
+    (17 P11 eleventh
      (Abbb-Dbbb Abb-Dbb Ab-Db A-D A#-D# A##-D## A###-D### Bbbb-Ebbb Bbb-Ebb Bb-Eb
       B-E B#-E# B##-E## B###-E### Cbbb-Fbbb Cbb-Fbb Cb-Fb C-F C#-F# C##-F##
       C###-F### Dbbb-Gbbb Dbb-Gbb Db-Gb D-G D#-G# D##-G## D###-G### Ebbb-Abbb
@@ -445,7 +445,7 @@ let%expect_test "compute" =
       Cbb-F Cb-F# C-F## C#-F### Dbbb-Gb Dbb-G Db-G# D-G## D#-G### Ebbb-Ab Ebb-A
       Eb-A# E-A## E#-A### Fbbb-Bbb Fbb-Bb Fb-B F-B# F#-B## F##-B### Gbbb-Cb Gbb-C
       Gb-C# G-C## G#-C###))
-    (19 P12 "perfect twelfth"
+    (19 P12 twelfth
      (Abbb-Ebbb Abb-Ebb Ab-Eb A-E A#-E# A##-E## A###-E### Bbbb-Fbb Bbb-Fb Bb-F
       B-F# B#-F## B##-F### Cbbb-Gbbb Cbb-Gbb Cb-Gb C-G C#-G# C##-G## C###-G###
       Dbbb-Abbb Dbb-Abb Db-Ab D-A D#-A# D##-A## D###-A### Ebbb-Bbbb Ebb-Bbb Eb-Bb
