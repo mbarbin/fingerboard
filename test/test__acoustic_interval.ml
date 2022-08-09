@@ -182,7 +182,8 @@ let%expect_test "harmonic series and cents" =
       ]
   in
   Ascii_table.to_string columns rows |> print_endline;
-  [%expect {|
+  [%expect
+    {|
     ┌──────────┬────────────────────────────┬───────────────────────────────┐
     │ Harmonic │ Interval Above Fundamental │ Deviation in Cents From Equal │
     ├──────────┼────────────────────────────┼───────────────────────────────┤

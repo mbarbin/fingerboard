@@ -129,7 +129,8 @@ let%expect_test "compute" =
         , (Interval.to_string interval : string)
         , (Interval.to_name interval : string)
         , (intervals : string list)]);
-  [%expect {|
+  [%expect
+    {|
     (0 P1 unison
      (Abbb-Abbb Abb-Abb Ab-Ab A-A A#-A# A##-A## A###-A### Bbbb-Bbbb Bbb-Bbb Bb-Bb
       B-B B#-B# B##-B## B###-B### Cbbb-Cbbb Cbb-Cbb Cb-Cb C-C C#-C# C##-C##
