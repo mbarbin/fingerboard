@@ -17,7 +17,7 @@ module Symbolic : sig
         }
     | Equal_division_of_the_octave of
         { divisor : int
-        ; parts : int
+        ; number_of_divisions : int
         }
     | Just_diatonic_semiton
     | Just_minor_ton

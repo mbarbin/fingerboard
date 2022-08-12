@@ -11,7 +11,7 @@ module Quality = struct
     | Doubly_augmented
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
-  let to_name t = Sexp_to_string.atom_to_name t [%sexp_of: t]
+  let name t = Sexp_to_string.atom_to_name t [%sexp_of: t]
   let repeat str ~times = String.concat (List.init times ~f:(const str)) ~sep:""
 
   let rec prefix_notation = function
@@ -66,7 +66,7 @@ module Number = struct
     | Double_octave
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
-  let to_name t = Sexp_to_string.atom_to_name t [%sexp_of: t]
+  let name t = Sexp_to_string.atom_to_name t [%sexp_of: t]
 
   let to_int t =
     match List.find_mapi all ~f:(fun i t' -> Option.some_if (equal t t') i) with
@@ -108,21 +108,37 @@ end
 type t =
   { number : Number.t
   ; quality : Quality.t
+  ; additional_octaves : int
   }
 [@@deriving compare, equal, hash, sexp_of]
 
-let to_string { number; quality } =
-  Quality.prefix_notation quality ^ (Number.to_int number |> Int.to_string)
+let to_string { number; quality; additional_octaves } =
+  (if additional_octaves = 1
+  then "P8 + "
+  else if additional_octaves >= 2
+  then sprintf "%d P8 + " additional_octaves
+  else "")
+  ^ Quality.prefix_notation quality
+  ^ (Number.to_int number |> Int.to_string)
 ;;
 
-let to_name { number; quality } =
+let name { number; quality; additional_octaves } =
   let skip_quality =
     match quality with
     | Perfect -> true
     | Doubly_diminished | Diminished | Minor | Major | Augmented | Doubly_augmented ->
       false
   in
-  (if skip_quality then "" else Quality.to_name quality ^ " ") ^ Number.to_name number
+  let skip_unison =
+    Number.equal number Unison && skip_quality && additional_octaves >= 1
+  in
+  (if additional_octaves = 1
+  then sprintf "octave%s" (if skip_unison then "" else " + ")
+  else if additional_octaves >= 2
+  then sprintf "%d octaves%s" additional_octaves (if skip_unison then "" else " + ")
+  else "")
+  ^ (if skip_quality then "" else Quality.name quality ^ " ")
+  ^ if skip_unison then "" else Number.name number
 ;;
 
 let number_of_semitons t =
@@ -138,7 +154,7 @@ let number_of_semitons t =
     | Doubly_augmented -> 2
     | Doubly_diminished -> if accepts_minor_major_quality then -3 else -2
   in
-  basis + shift
+  (t.additional_octaves * 12) + basis + shift
 ;;
 
 let compute ?(plus_one_octave = false) ~(from : Note.t) ~(to_ : Note.t) () =
@@ -187,5 +203,5 @@ let compute ?(plus_one_octave = false) ~(from : Note.t) ~(to_ : Note.t) () =
     in
     aux (number_of_semitons - basis) basis_quality
   in
-  { number; quality }
+  { number; quality; additional_octaves = 0 }
 ;;

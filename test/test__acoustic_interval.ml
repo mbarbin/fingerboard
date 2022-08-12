@@ -61,7 +61,7 @@ let%expect_test "first comparison" =
     in
     Ascii_table.Column.(
       [ [ create_attr "Interval" (fun (t : Row.t) ->
-            [], Interval.to_name t.interval |> String.capitalize)
+            [], Interval.name t.interval |> String.capitalize)
         ]
       ; List.map Kind.all ~f:cents_column
       ]
@@ -69,14 +69,25 @@ let%expect_test "first comparison" =
   in
   let rows =
     Row.
-      [ { interval = { Interval.number = Octave; quality = Perfect } }
-      ; { interval = { Interval.number = Sixth; quality = Major } }
-      ; { interval = { Interval.number = Sixth; quality = Minor } }
-      ; { interval = { Interval.number = Fifth; quality = Perfect } }
-      ; { interval = { Interval.number = Fourth; quality = Perfect } }
-      ; { interval = { Interval.number = Third; quality = Major } }
-      ; { interval = { Interval.number = Third; quality = Minor } }
-      ; { interval = { Interval.number = Second; quality = Minor } }
+      [ { interval =
+            { Interval.number = Octave; quality = Perfect; additional_octaves = 0 }
+        }
+      ; { interval = { Interval.number = Sixth; quality = Major; additional_octaves = 0 }
+        }
+      ; { interval = { Interval.number = Sixth; quality = Minor; additional_octaves = 0 }
+        }
+      ; { interval =
+            { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 }
+        }
+      ; { interval =
+            { Interval.number = Fourth; quality = Perfect; additional_octaves = 0 }
+        }
+      ; { interval = { Interval.number = Third; quality = Major; additional_octaves = 0 }
+        }
+      ; { interval = { Interval.number = Third; quality = Minor; additional_octaves = 0 }
+        }
+      ; { interval = { Interval.number = Second; quality = Minor; additional_octaves = 0 }
+        }
       ]
   in
   Ascii_table.to_string columns rows |> print_endline;
@@ -100,8 +111,7 @@ let%expect_test "harmonic series and cents" =
   let module Row = struct
     type t =
       { harmonic : int
-      ; octaves : int
-      ; plus_interval : Interval.t
+      ; interval : Interval.t
       }
   end
   in
@@ -110,34 +120,15 @@ let%expect_test "harmonic series and cents" =
       [ create_attr "Harmonic" (fun (t : Row.t) -> [], Int.to_string t.harmonic)
       ; create_attr "Interval Above Fundamental" (fun (t : Row.t) ->
           ( []
-          , let octaves =
-              match t.octaves with
-              | 0 -> ""
-              | 1 -> "octave"
-              | n -> sprintf "%d octaves" n
-            and interval =
-              let name = Interval.to_name t.plus_interval in
-              if Interval.number_of_semitons t.plus_interval = 0 then "" else name
-            in
-            match octaves, interval with
-            | "", s | s, "" -> s
-            | a, b -> a ^ " + " ^ b ))
+          , if Interval.number_of_semitons t.interval = 0
+            then ""
+            else Interval.name t.interval ))
       ; create_attr ~align:Right "Deviation in Cents From Equal" (fun (t : Row.t) ->
           let harmonic =
             Acoustic_interval.of_symbolic
               (Natural_ratio { numerator = t.harmonic; denominator = 1 })
           in
-          let equal =
-            Acoustic_interval.of_symbolic
-              (Compound
-                 (Equal_tempered_12 t.plus_interval
-                 :: List.init
-                      t.octaves
-                      ~f:
-                        (const
-                           (Acoustic_interval.Symbolic.Equal_tempered_12
-                              { number = Octave; quality = Perfect }))))
-          in
+          let equal = Acoustic_interval.of_symbolic (Equal_tempered_12 t.interval) in
           let deviation =
             Acoustic_interval.cents harmonic -. Acoustic_interval.cents equal
             |> Float.iround_exn ~dir:`Nearest
@@ -151,33 +142,28 @@ let%expect_test "harmonic series and cents" =
   let rows =
     Row.
       [ { harmonic = 1
-        ; octaves = 0
-        ; plus_interval = { number = Unison; quality = Perfect }
+        ; interval = { number = Unison; quality = Perfect; additional_octaves = 0 }
         }
       ; { harmonic = 2
-        ; octaves = 1
-        ; plus_interval = { number = Unison; quality = Perfect }
+        ; interval = { number = Unison; quality = Perfect; additional_octaves = 1 }
         }
       ; { harmonic = 3
-        ; octaves = 1
-        ; plus_interval = { number = Fifth; quality = Perfect }
+        ; interval = { number = Fifth; quality = Perfect; additional_octaves = 1 }
         }
       ; { harmonic = 4
-        ; octaves = 2
-        ; plus_interval = { number = Unison; quality = Perfect }
+        ; interval = { number = Unison; quality = Perfect; additional_octaves = 2 }
         }
-      ; { harmonic = 5; octaves = 2; plus_interval = { number = Third; quality = Major } }
+      ; { harmonic = 5
+        ; interval = { number = Third; quality = Major; additional_octaves = 2 }
+        }
       ; { harmonic = 6
-        ; octaves = 2
-        ; plus_interval = { number = Fifth; quality = Perfect }
+        ; interval = { number = Fifth; quality = Perfect; additional_octaves = 2 }
         }
       ; { harmonic = 7
-        ; octaves = 2
-        ; plus_interval = { number = Seventh; quality = Minor }
+        ; interval = { number = Seventh; quality = Minor; additional_octaves = 2 }
         }
       ; { harmonic = 8
-        ; octaves = 3
-        ; plus_interval = { number = Unison; quality = Perfect }
+        ; interval = { number = Unison; quality = Perfect; additional_octaves = 3 }
         }
       ]
   in

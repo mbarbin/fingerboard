@@ -17,7 +17,7 @@ let ts =
   lazy
     (List.bind Interval.Number.all ~f:(fun number ->
        List.map (qualities number ~doubly_augmented:true) ~f:(fun quality ->
-         Interval.{ number; quality })))
+         Interval.{ number; quality; additional_octaves = 0 })))
 ;;
 
 let%expect_test "sort" =
@@ -56,7 +56,7 @@ let%expect_test "sort" =
   in
   List.iter ts ~f:(fun (i, canonical_interval, intervals) ->
     let intervals = List.map intervals ~f:Interval.to_string in
-    let canonical_interval = Interval.to_name canonical_interval in
+    let canonical_interval = Interval.name canonical_interval in
     print_s [%sexp (i : int), (canonical_interval : string), (intervals : string list)]);
   [%expect
     {|
@@ -127,7 +127,7 @@ let%expect_test "compute" =
       [%sexp
         (number_of_semitons : int)
         , (Interval.to_string interval : string)
-        , (Interval.to_name interval : string)
+        , (Interval.name interval : string)
         , (intervals : string list)]);
   [%expect
     {|

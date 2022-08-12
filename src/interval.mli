@@ -42,10 +42,11 @@ end
 type t =
   { number : Number.t
   ; quality : Quality.t
+  ; additional_octaves : int
   }
 [@@deriving compare, equal, hash, sexp_of]
 
-val to_name : t -> string
+val name : t -> string
 val to_string : t -> string
 val number_of_semitons : t -> int
 val compute : ?plus_one_octave:bool -> from:Note.t -> to_:Note.t -> unit -> t option
