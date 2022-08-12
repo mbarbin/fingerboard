@@ -18,7 +18,7 @@ module Letter_name = struct
       raise_s [%sexp "Unexpected sexp shape", { t : t; sexp : Sexp.t }, [%here]]
   ;;
 
-  let next = function
+  let succ = function
     | A -> B
     | B -> C
     | C -> D
@@ -26,6 +26,16 @@ module Letter_name = struct
     | E -> F
     | F -> G
     | G -> A
+  ;;
+
+  let pred = function
+    | A -> G
+    | B -> A
+    | C -> B
+    | D -> C
+    | E -> D
+    | F -> E
+    | G -> F
   ;;
 
   let semitons_step ~from =
@@ -79,6 +89,26 @@ module Symbol = struct
     | Sharp -> 1
     | Double_sharp -> 2
     | Triple_sharp -> 3
+  ;;
+
+  let succ = function
+    | Triple_flat -> Some Double_flat
+    | Double_flat -> Some Flat
+    | Flat -> Some Natural
+    | Natural -> Some Sharp
+    | Sharp -> Some Double_sharp
+    | Double_sharp -> Some Triple_sharp
+    | Triple_sharp -> None
+  ;;
+
+  let pred = function
+    | Triple_flat -> None
+    | Double_flat -> Some Triple_flat
+    | Flat -> Some Double_flat
+    | Natural -> Some Flat
+    | Sharp -> Some Natural
+    | Double_sharp -> Some Sharp
+    | Triple_sharp -> Some Double_sharp
   ;;
 end
 

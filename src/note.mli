@@ -14,7 +14,8 @@ module Letter_name : sig
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
   val to_string : t -> string
-  val next : t -> t
+  val pred : t -> t
+  val succ : t -> t
 
   (** How many semitons are there from [t] to [next t]. *)
   val semitons_step : from:t -> int
@@ -34,6 +35,8 @@ module Symbol : sig
   val to_string : t -> string
   val prefix_notation : t -> string
   val semitons_shift : t -> int
+  val succ : t -> t option
+  val pred : t -> t option
 end
 
 type t =

@@ -7,7 +7,7 @@ let%expect_test "semitons_step" =
     then acc
     else (
       let acc = acc + Note.Letter_name.semitons_step ~from:index in
-      aux start acc (Note.Letter_name.next index))
+      aux start acc (Note.Letter_name.succ index))
   in
   let number_of_semitons_per_octave = aux A 0 A in
   print_s [%sexp { number_of_semitons_per_octave : int }];

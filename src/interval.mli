@@ -50,3 +50,5 @@ val name : t -> string
 val to_string : t -> string
 val number_of_semitons : t -> int
 val compute : ?plus_one_octave:bool -> from:Note.t -> to_:Note.t -> unit -> t option
+val shift_up : Note.t -> t -> Note.t option
+val shift_down : Note.t -> t -> Note.t option

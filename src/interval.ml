@@ -167,7 +167,7 @@ let compute ?(plus_one_octave = false) ~(from : Note.t) ~(to_ : Note.t) () =
     let rec aux acc note =
       if Note.Letter_name.equal note to_.letter_name
       then acc + if plus_one_octave then 7 else 0
-      else aux (succ acc) (Note.Letter_name.next note)
+      else aux (succ acc) (Note.Letter_name.succ note)
     in
     aux (if cross then 8 else 1) from.letter_name
   in
@@ -176,7 +176,7 @@ let compute ?(plus_one_octave = false) ~(from : Note.t) ~(to_ : Note.t) () =
       if Note.Letter_name.equal note to_.letter_name
       then acc + if plus_one_octave then 12 else 0
       else
-        aux (acc + Note.Letter_name.semitons_step ~from:note) (Note.Letter_name.next note)
+        aux (acc + Note.Letter_name.semitons_step ~from:note) (Note.Letter_name.succ note)
     in
     aux (if cross then 12 else 0) from.letter_name
     - Note.Symbol.semitons_shift from.symbol
@@ -204,4 +204,66 @@ let compute ?(plus_one_octave = false) ~(from : Note.t) ~(to_ : Note.t) () =
     aux (number_of_semitons - basis) basis_quality
   in
   { number; quality; additional_octaves = 0 }
+;;
+
+let shift_up
+  ({ Note.letter_name; symbol = _ } as from)
+  ({ number; quality = _; additional_octaves = _ } as interval)
+  =
+  let step = Number.to_int number - 1 in
+  let target =
+    let rec aux step acc =
+      if step = 0 then acc else aux (pred step) (Note.Letter_name.succ acc)
+    in
+    aux step letter_name
+  in
+  let open Option.Let_syntax in
+  let%bind candidate = compute ~from ~to_:{ letter_name = target; symbol = Natural } () in
+  let semiton_shift = number_of_semitons interval - number_of_semitons candidate in
+  let%map symbol =
+    let rec aux shift symbol =
+      if shift = 0
+      then Some symbol
+      else if shift > 0
+      then (
+        let%bind symbol = Note.Symbol.succ symbol in
+        aux (pred shift) symbol)
+      else (
+        let%bind symbol = Note.Symbol.pred symbol in
+        aux (succ shift) symbol)
+    in
+    aux semiton_shift Note.Symbol.Natural
+  in
+  { Note.letter_name = target; symbol }
+;;
+
+let shift_down
+  ({ Note.letter_name; symbol = _ } as to_)
+  ({ number; quality = _; additional_octaves = _ } as interval)
+  =
+  let step = Number.to_int number - 1 in
+  let target =
+    let rec aux step acc =
+      if step = 0 then acc else aux (pred step) (Note.Letter_name.pred acc)
+    in
+    aux step letter_name
+  in
+  let open Option.Let_syntax in
+  let%bind candidate = compute ~from:{ letter_name = target; symbol = Natural } ~to_ () in
+  let semiton_shift = number_of_semitons interval - number_of_semitons candidate in
+  let%map symbol =
+    let rec aux shift symbol =
+      if shift = 0
+      then Some symbol
+      else if shift > 0
+      then (
+        let%bind symbol = Note.Symbol.pred symbol in
+        aux (pred shift) symbol)
+      else (
+        let%bind symbol = Note.Symbol.succ symbol in
+        aux (succ shift) symbol)
+    in
+    aux semiton_shift Note.Symbol.Natural
+  in
+  { Note.letter_name = target; symbol }
 ;;
