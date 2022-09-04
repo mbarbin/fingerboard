@@ -2,18 +2,14 @@ open! Core
 
 (** *)
 
-(* Natural ratio: maybe worth manipulating in its reduced form ? *)
-
 type t =
   | Zero
   | Equal_division_of_the_octave of
       { divisor : int
       ; number_of_divisions : int
       }
-  | Natural_ratio of
-      { numerator : int
-      ; denominator : int
-      }
+  | Natural_ratio of Natural_ratio.t
+  | Reduced_natural_ratio of Natural_ratio.Reduced.t
   | Cents of float
 
 let log2 = Caml.Float.log2
@@ -23,6 +19,11 @@ let cents = function
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
     1200. *. float_of_int number_of_divisions /. float_of_int divisor
   | Natural_ratio { numerator; denominator } ->
+    log2 (float_of_int numerator /. float_of_int denominator) *. 1200.
+  | Reduced_natural_ratio r ->
+    let { Natural_ratio.numerator; denominator } =
+      Natural_ratio.Reduced.to_natural_ratio r
+    in
     log2 (float_of_int numerator /. float_of_int denominator) *. 1200.
   | Cents x -> x
 ;;
@@ -36,9 +37,9 @@ let add t1 t2 =
     , Equal_division_of_the_octave { divisor = d2; number_of_divisions = p2 } )
     when d1 = d2 ->
     Equal_division_of_the_octave { divisor = d1; number_of_divisions = p1 + p2 }
-  | ( Natural_ratio { numerator = n1; denominator = d1 }
-    , Natural_ratio { numerator = n2; denominator = d2 } ) ->
-    Natural_ratio { numerator = n1 * n2; denominator = d1 * d2 }
+  | Natural_ratio r1, Natural_ratio r2 -> Natural_ratio (Natural_ratio.multiply r1 r2)
+  | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
+    Reduced_natural_ratio (Natural_ratio.Reduced.multiply r1 r2)
   | Cents x, Cents y -> Cents (x +. y)
   | _ -> Cents (cents t1 +. cents t2)
 ;;
@@ -72,7 +73,7 @@ module Symbolic = struct
   ;;
 end
 
-let ( /^ ) a b = Natural_ratio { numerator = a; denominator = b }
+let ( /^ ) a b = Natural_ratio (Natural_ratio.create_exn ~numerator:a ~denominator:b)
 
 let rec of_symbolic (symbolic : Symbolic.t) =
   match symbolic with
@@ -117,7 +118,8 @@ let rec of_symbolic (symbolic : Symbolic.t) =
                 (max 0 (diatonic - chromatic))
                 ~f:(const Symbolic.pythagorean_diatonic_semiton)
             ]))
-  | Natural_ratio { numerator; denominator } -> Natural_ratio { numerator; denominator }
+  | Natural_ratio { numerator; denominator } ->
+    Natural_ratio (Natural_ratio.create_exn ~numerator ~denominator)
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
     Equal_division_of_the_octave { divisor; number_of_divisions }
   | Just_diatonic_semiton -> 16 /^ 15

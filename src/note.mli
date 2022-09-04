@@ -17,7 +17,7 @@ module Letter_name : sig
   val pred : t -> t
   val succ : t -> t
 
-  (** How many semitons are there from [t] to [next t]. *)
+  (** How many semitons are there from [t] to [succ t]. *)
   val semitons_step : from:t -> int
 end
 
