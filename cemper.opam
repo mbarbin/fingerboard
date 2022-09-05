@@ -13,6 +13,7 @@ depends: [
   "core" {>= "v0.15"}
   "core_unix" {>= "v0.15"}
   "ppx_jane" {>= "v0.15"}
+  "textutils" {>= "v0.15"}
 ]
 build: [
   ["dune" "subst"] {pinned}
