@@ -95,6 +95,22 @@ let%expect_test "compute" =
     match Interval.compute ~from ~to_ () with
     | None -> ()
     | Some interval ->
+      let shift_up = Interval.shift_up from interval in
+      let shift_down = Interval.shift_down to_ interval in
+      if not
+           ([%equal: Note.t option] shift_up (Some to_)
+           && [%equal: Note.t option] shift_down (Some from))
+      then
+        raise_s
+          [%sexp
+            "Inconsistency"
+            , [%here]
+            , { from : Note.t
+              ; to_ : Note.t
+              ; interval : Interval.t
+              ; shift_up : Note.t option
+              ; shift_down : Note.t option
+              }];
       let queue =
         Hashtbl.find_or_add table interval ~default:(fun () -> Queue.create ())
       in

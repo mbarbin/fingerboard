@@ -221,7 +221,7 @@ let shift_up
   let target =
     let rec aux step letter_name octave_designation =
       if step = 0
-      then { Note.letter_name; symbol = Natural; octave_designation }
+      then { Note.letter_name; symbol = from.symbol; octave_designation }
       else
         aux
           (pred step)
@@ -244,7 +244,7 @@ let shift_up
         let%bind symbol = Note.Symbol.pred symbol in
         aux (succ shift) symbol)
     in
-    aux semiton_shift Note.Symbol.Natural
+    aux semiton_shift target.symbol
   in
   { target with symbol }
 ;;
@@ -257,7 +257,7 @@ let shift_down
   let target =
     let rec aux step letter_name octave_designation =
       if step = 0
-      then { Note.letter_name; symbol = Natural; octave_designation }
+      then { Note.letter_name; symbol = to_.symbol; octave_designation }
       else
         aux
           (pred step)
@@ -281,7 +281,7 @@ let shift_down
         let%bind symbol = Note.Symbol.succ symbol in
         aux (succ shift) symbol)
     in
-    aux semiton_shift Note.Symbol.Natural
+    aux semiton_shift target.symbol
   in
   { target with symbol }
 ;;
