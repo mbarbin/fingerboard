@@ -48,6 +48,14 @@ module Letter_name = struct
     | F -> 2
     | G -> 2
   ;;
+
+  let succ_octave_designation t ~octave_designation =
+    octave_designation + if equal t B then 1 else 0
+  ;;
+
+  let pred_octave_designation t ~octave_designation =
+    octave_designation - if equal t C then 1 else 0
+  ;;
 end
 
 module Symbol = struct
@@ -115,9 +123,12 @@ end
 type t =
   { letter_name : Letter_name.t
   ; symbol : Symbol.t
+  ; octave_designation : Octave_designation.t
   }
-[@@deriving compare, enumerate, equal, hash, sexp_of]
+[@@deriving compare, equal, hash, sexp_of]
 
-let to_string { letter_name; symbol } =
-  Letter_name.to_string letter_name ^ Symbol.to_string symbol
+let to_string { letter_name; symbol; octave_designation } =
+  Letter_name.to_string letter_name
+  ^ Symbol.to_string symbol
+  ^ Int.to_string octave_designation
 ;;

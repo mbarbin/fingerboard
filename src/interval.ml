@@ -57,13 +57,6 @@ module Number = struct
     | Sixth
     | Seventh
     | Octave
-    | Ninth
-    | Tenth
-    | Eleventh
-    | Twelfth
-    | Thirteenth
-    | Fourteeth
-    | Double_octave
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
   let name t = Sexp_to_string.atom_to_name t [%sexp_of: t]
@@ -82,8 +75,8 @@ module Number = struct
   ;;
 
   let accepts_minor_major_quality = function
-    | Unison | Fourth | Fifth | Octave | Eleventh | Twelfth | Double_octave -> false
-    | Second | Third | Sixth | Seventh | Ninth | Tenth | Thirteenth | Fourteeth -> true
+    | Unison | Fourth | Fifth | Octave -> false
+    | Second | Third | Sixth | Seventh -> true
   ;;
 
   let basis_for_number_of_semitons = function
@@ -95,13 +88,6 @@ module Number = struct
     | Sixth -> 9
     | Seventh -> 11
     | Octave -> 12
-    | Ninth -> 14
-    | Tenth -> 16
-    | Eleventh -> 17
-    | Twelfth -> 19
-    | Thirteenth -> 21
-    | Fourteeth -> 23
-    | Double_octave -> 24
   ;;
 end
 
@@ -113,13 +99,24 @@ type t =
 [@@deriving compare, equal, hash, sexp_of]
 
 let to_string { number; quality; additional_octaves } =
+  let skip_quality =
+    match quality with
+    | Perfect -> true
+    | Doubly_diminished | Diminished | Minor | Major | Augmented | Doubly_augmented ->
+      false
+  in
+  let skip_unison =
+    Number.equal number Unison && skip_quality && additional_octaves >= 1
+  in
   (if additional_octaves = 1
-  then "P8 + "
+  then sprintf "P8%s" (if skip_unison then "" else " + ")
   else if additional_octaves >= 2
-  then sprintf "%d P8 + " additional_octaves
+  then sprintf "%d P8%s" additional_octaves (if skip_unison then "" else " + ")
   else "")
-  ^ Quality.prefix_notation quality
-  ^ (Number.to_int number |> Int.to_string)
+  ^
+  if skip_unison
+  then ""
+  else Quality.prefix_notation quality ^ (Number.to_int number |> Int.to_string)
 ;;
 
 let name { number; quality; additional_octaves } =
@@ -157,33 +154,42 @@ let number_of_semitons t =
   (t.additional_octaves * 12) + basis + shift
 ;;
 
-let compute ?(plus_one_octave = false) ~(from : Note.t) ~(to_ : Note.t) () =
+let compute ~(from : Note.t) ~(to_ : Note.t) () =
   let open Option.Let_syntax in
-  let cross =
-    Note.Letter_name.equal from.letter_name to_.letter_name
-    && Note.Symbol.compare from.symbol to_.symbol > 0
-  in
-  let number_of_letter_names =
-    let rec aux acc note =
-      if Note.Letter_name.equal note to_.letter_name
-      then acc + if plus_one_octave then 7 else 0
-      else aux (succ acc) (Note.Letter_name.succ note)
-    in
-    aux (if cross then 8 else 1) from.letter_name
-  in
-  let number_of_semitons =
-    let rec aux acc note =
-      if Note.Letter_name.equal note to_.letter_name
-      then acc + if plus_one_octave then 12 else 0
+  let%bind number_of_letter_names, number_of_semitons =
+    let rec aux number_of_letter_names number_of_semitons letter_name octave_designation =
+      if octave_designation > to_.octave_designation
+      then None
+      else if Note.Letter_name.equal letter_name to_.letter_name
+              && octave_designation = to_.octave_designation
+      then
+        return
+          ( number_of_letter_names
+          , number_of_semitons
+            - Note.Symbol.semitons_shift from.symbol
+            + Note.Symbol.semitons_shift to_.symbol )
       else
-        aux (acc + Note.Letter_name.semitons_step ~from:note) (Note.Letter_name.succ note)
+        aux
+          (succ number_of_letter_names)
+          (number_of_semitons + Note.Letter_name.semitons_step ~from:letter_name)
+          (Note.Letter_name.succ letter_name)
+          (Note.Letter_name.succ_octave_designation letter_name ~octave_designation)
     in
-    aux (if cross then 12 else 0) from.letter_name
-    - Note.Symbol.semitons_shift from.symbol
-    + Note.Symbol.semitons_shift to_.symbol
+    aux 0 0 from.letter_name from.octave_designation
   in
-  let%bind () = if number_of_semitons < 0 then None else return () in
-  let number = Number.of_int number_of_letter_names in
+  let number_of_letter_names, number_of_semitons, additional_octaves =
+    if number_of_letter_names >= 7 && number_of_semitons >= 12
+    then (
+      let additional_octaves = number_of_letter_names / 7 in
+      ( number_of_letter_names - (7 * additional_octaves)
+      , number_of_semitons - (12 * additional_octaves)
+      , additional_octaves ))
+    else number_of_letter_names, number_of_semitons, 0
+  in
+  let%bind () =
+    if number_of_semitons < 0 || number_of_letter_names > 7 then None else return ()
+  in
+  let number = Number.of_int (number_of_letter_names + 1) in
   let basis = Number.basis_for_number_of_semitons number in
   let accepts_minor_major_quality = Number.accepts_minor_major_quality number in
   let basis_quality =
@@ -203,22 +209,28 @@ let compute ?(plus_one_octave = false) ~(from : Note.t) ~(to_ : Note.t) () =
     in
     aux (number_of_semitons - basis) basis_quality
   in
-  { number; quality; additional_octaves = 0 }
+  { number; quality; additional_octaves }
 ;;
 
 let shift_up
-  ({ Note.letter_name; symbol = _ } as from)
-  ({ number; quality = _; additional_octaves = _ } as interval)
+  ({ Note.letter_name; symbol = _; octave_designation } as from)
+  ({ number; quality = _; additional_octaves } as interval)
   =
-  let step = Number.to_int number - 1 in
-  let target =
-    let rec aux step acc =
-      if step = 0 then acc else aux (pred step) (Note.Letter_name.succ acc)
-    in
-    aux step letter_name
-  in
   let open Option.Let_syntax in
-  let%bind candidate = compute ~from ~to_:{ letter_name = target; symbol = Natural } () in
+  let step = Number.to_int number - 1 + (7 * additional_octaves) in
+  let target =
+    let rec aux step letter_name octave_designation =
+      if step = 0
+      then { Note.letter_name; symbol = Natural; octave_designation }
+      else
+        aux
+          (pred step)
+          (Note.Letter_name.succ letter_name)
+          (Note.Letter_name.succ_octave_designation letter_name ~octave_designation)
+    in
+    aux step letter_name octave_designation
+  in
+  let%bind candidate = compute ~from ~to_:target () in
   let semiton_shift = number_of_semitons interval - number_of_semitons candidate in
   let%map symbol =
     let rec aux shift symbol =
@@ -234,22 +246,28 @@ let shift_up
     in
     aux semiton_shift Note.Symbol.Natural
   in
-  { Note.letter_name = target; symbol }
+  { target with symbol }
 ;;
 
 let shift_down
-  ({ Note.letter_name; symbol = _ } as to_)
-  ({ number; quality = _; additional_octaves = _ } as interval)
+  ({ Note.letter_name; symbol = _; octave_designation } as to_)
+  ({ number; quality = _; additional_octaves } as interval)
   =
-  let step = Number.to_int number - 1 in
+  let step = Number.to_int number - 1 + (7 * additional_octaves) in
   let target =
-    let rec aux step acc =
-      if step = 0 then acc else aux (pred step) (Note.Letter_name.pred acc)
+    let rec aux step letter_name octave_designation =
+      if step = 0
+      then { Note.letter_name; symbol = Natural; octave_designation }
+      else
+        aux
+          (pred step)
+          (Note.Letter_name.pred letter_name)
+          (Note.Letter_name.pred_octave_designation letter_name ~octave_designation)
     in
-    aux step letter_name
+    aux step letter_name octave_designation
   in
   let open Option.Let_syntax in
-  let%bind candidate = compute ~from:{ letter_name = target; symbol = Natural } ~to_ () in
+  let%bind candidate = compute ~from:target ~to_ () in
   let semiton_shift = number_of_semitons interval - number_of_semitons candidate in
   let%map symbol =
     let rec aux shift symbol =
@@ -265,5 +283,5 @@ let shift_down
     in
     aux semiton_shift Note.Symbol.Natural
   in
-  { Note.letter_name = target; symbol }
+  { target with symbol }
 ;;

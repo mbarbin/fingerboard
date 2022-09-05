@@ -6,16 +6,21 @@ let%expect_test "major and minor" =
   let minor = force Scale.minor in
   let tonics =
     let queue = Queue.create () in
+    let octave_designation = 1 in
     let rec aux name =
-      if (not (Note.Letter_name.equal name A)) || Queue.is_empty queue
+      if (not (Note.Letter_name.equal name C)) || Queue.is_empty queue
       then (
-        Queue.enqueue queue { Note.letter_name = name; symbol = Natural };
+        Queue.enqueue
+          queue
+          { Note.letter_name = name; symbol = Natural; octave_designation };
         let succ = Note.Letter_name.succ name in
-        Queue.enqueue queue { Note.letter_name = name; symbol = Sharp };
-        Queue.enqueue queue { Note.letter_name = succ; symbol = Flat };
+        Queue.enqueue
+          queue
+          { Note.letter_name = name; symbol = Sharp; octave_designation };
+        Queue.enqueue queue { Note.letter_name = succ; symbol = Flat; octave_designation };
         aux succ)
     in
-    aux Note.Letter_name.A;
+    aux Note.Letter_name.C;
     Queue.to_list queue
   in
   let str arr = Array.map arr ~f:Note.to_string in
@@ -23,101 +28,101 @@ let%expect_test "major and minor" =
     print_s [%sexp (Scale.ascending major ~from:tonic |> str : string array)]);
   [%expect
     {|
-    (A B C# D E F# G# A)
-    (A# B# C## D# E# F## G## A#)
-    (Bb C D Eb F G A Bb)
-    (B C# D# E F# G# A# B)
-    (B# C## D## E# F## G## A## B#)
-    (Cb Db Eb Fb Gb Ab Bb Cb)
-    (C D E F G A B C)
-    (C# D# E# F# G# A# B# C#)
-    (Db Eb F Gb Ab Bb C Db)
-    (D E F# G A B C# D)
-    (D# E# F## G# A# B# C## D#)
-    (Eb F G Ab Bb C D Eb)
-    (E F# G# A B C# D# E)
-    (E# F## G## A# B# C## D## E#)
-    (Fb Gb Ab Bbb Cb Db Eb Fb)
-    (F G A Bb C D E F)
-    (F# G# A# B C# D# E# F#)
-    (Gb Ab Bb Cb Db Eb F Gb)
-    (G A B C D E F# G)
-    (G# A# B# C# D# E# F## G#)
-    (Ab Bb C Db Eb F G Ab) |}];
+    (C1 D1 E1 F1 G1 A1 B1 C2)
+    (C#1 D#1 E#1 F#1 G#1 A#1 B#1 C#2)
+    (Db1 Eb1 F1 Gb1 Ab1 Bb1 C2 Db2)
+    (D1 E1 F#1 G1 A1 B1 C#2 D2)
+    (D#1 E#1 F##1 G#1 A#1 B#1 C##2 D#2)
+    (Eb1 F1 G1 Ab1 Bb1 C2 D2 Eb2)
+    (E1 F#1 G#1 A1 B1 C#2 D#2 E2)
+    (E#1 F##1 G##1 A#1 B#1 C##2 D##2 E#2)
+    (Fb1 Gb1 Ab1 Bbb1 Cb2 Db2 Eb2 Fb2)
+    (F1 G1 A1 Bb1 C2 D2 E2 F2)
+    (F#1 G#1 A#1 B1 C#2 D#2 E#2 F#2)
+    (Gb1 Ab1 Bb1 Cb2 Db2 Eb2 F2 Gb2)
+    (G1 A1 B1 C2 D2 E2 F#2 G2)
+    (G#1 A#1 B#1 C#2 D#2 E#2 F##2 G#2)
+    (Ab1 Bb1 C2 Db2 Eb2 F2 G2 Ab2)
+    (A1 B1 C#2 D2 E2 F#2 G#2 A2)
+    (A#1 B#1 C##2 D#2 E#2 F##2 G##2 A#2)
+    (Bb1 C2 D2 Eb2 F2 G2 A2 Bb2)
+    (B1 C#2 D#2 E2 F#2 G#2 A#2 B2)
+    (B#1 C##2 D##2 E#2 F##2 G##2 A##2 B#2)
+    (Cb1 Db1 Eb1 Fb1 Gb1 Ab1 Bb1 Cb2) |}];
   List.iter tonics ~f:(fun tonic ->
     print_s [%sexp (Scale.descending major ~from:tonic |> str : string array)]);
   [%expect
     {|
-    (A G# F# E D C# B A)
-    (A# G## F## E# D# C## B# A#)
-    (Bb A G F Eb D C Bb)
-    (B A# G# F# E D# C# B)
-    (B# A## G## F## E# D## C## B#)
-    (Cb Bb Ab Gb Fb Eb Db Cb)
-    (C B A G F E D C)
-    (C# B# A# G# F# E# D# C#)
-    (Db C Bb Ab Gb F Eb Db)
-    (D C# B A G F# E D)
-    (D# C## B# A# G# F## E# D#)
-    (Eb D C Bb Ab G F Eb)
-    (E D# C# B A G# F# E)
-    (E# D## C## B# A# G## F## E#)
-    (Fb Eb Db Cb Bbb Ab Gb Fb)
-    (F E D C Bb A G F)
-    (F# E# D# C# B A# G# F#)
-    (Gb F Eb Db Cb Bb Ab Gb)
-    (G F# E D C B A G)
-    (G# F## E# D# C# B# A# G#)
-    (Ab G F Eb Db C Bb Ab) |}];
+    (C1 B0 A0 G0 F0 E0 D0 C0)
+    (C#1 B#0 A#0 G#0 F#0 E#0 D#0 C#0)
+    (Db1 C1 Bb0 Ab0 Gb0 F0 Eb0 Db0)
+    (D1 C#1 B0 A0 G0 F#0 E0 D0)
+    (D#1 C##1 B#0 A#0 G#0 F##0 E#0 D#0)
+    (Eb1 D1 C1 Bb0 Ab0 G0 F0 Eb0)
+    (E1 D#1 C#1 B0 A0 G#0 F#0 E0)
+    (E#1 D##1 C##1 B#0 A#0 G##0 F##0 E#0)
+    (Fb1 Eb1 Db1 Cb1 Bbb0 Ab0 Gb0 Fb0)
+    (F1 E1 D1 C1 Bb0 A0 G0 F0)
+    (F#1 E#1 D#1 C#1 B0 A#0 G#0 F#0)
+    (Gb1 F1 Eb1 Db1 Cb1 Bb0 Ab0 Gb0)
+    (G1 F#1 E1 D1 C1 B0 A0 G0)
+    (G#1 F##1 E#1 D#1 C#1 B#0 A#0 G#0)
+    (Ab1 G1 F1 Eb1 Db1 C1 Bb0 Ab0)
+    (A1 G#1 F#1 E1 D1 C#1 B0 A0)
+    (A#1 G##1 F##1 E#1 D#1 C##1 B#0 A#0)
+    (Bb1 A1 G1 F1 Eb1 D1 C1 Bb0)
+    (B1 A#1 G#1 F#1 E1 D#1 C#1 B0)
+    (B#1 A##1 G##1 F##1 E#1 D##1 C##1 B#0)
+    (Cb1 Bb0 Ab0 Gb0 Fb0 Eb0 Db0 Cb0) |}];
   List.iter tonics ~f:(fun tonic ->
     print_s [%sexp (Scale.ascending minor ~from:tonic |> str : string array)]);
   [%expect
     {|
-    (A B C D E F G A)
-    (A# B# C# D# E# F# G# A#)
-    (Bb C Db Eb F Gb Ab Bb)
-    (B C# D E F# G A B)
-    (B# C## D# E# F## G# A# B#)
-    (Cb Db Ebb Fb Gb Abb Bbb Cb)
-    (C D Eb F G Ab Bb C)
-    (C# D# E F# G# A B C#)
-    (Db Eb Fb Gb Ab Bbb Cb Db)
-    (D E F G A Bb C D)
-    (D# E# F# G# A# B C# D#)
-    (Eb F Gb Ab Bb Cb Db Eb)
-    (E F# G A B C D E)
-    (E# F## G# A# B# C# D# E#)
-    (Fb Gb Abb Bbb Cb Dbb Ebb Fb)
-    (F G Ab Bb C Db Eb F)
-    (F# G# A B C# D E F#)
-    (Gb Ab Bbb Cb Db Ebb Fb Gb)
-    (G A Bb C D Eb F G)
-    (G# A# B C# D# E F# G#)
-    (Ab Bb Cb Db Eb Fb Gb Ab) |}];
+    (C1 D1 Eb1 F1 G1 Ab1 Bb1 C2)
+    (C#1 D#1 E1 F#1 G#1 A1 B1 C#2)
+    (Db1 Eb1 Fb1 Gb1 Ab1 Bbb1 Cb2 Db2)
+    (D1 E1 F1 G1 A1 Bb1 C2 D2)
+    (D#1 E#1 F#1 G#1 A#1 B1 C#2 D#2)
+    (Eb1 F1 Gb1 Ab1 Bb1 Cb2 Db2 Eb2)
+    (E1 F#1 G1 A1 B1 C2 D2 E2)
+    (E#1 F##1 G#1 A#1 B#1 C#2 D#2 E#2)
+    (Fb1 Gb1 Abb1 Bbb1 Cb2 Dbb2 Ebb2 Fb2)
+    (F1 G1 Ab1 Bb1 C2 Db2 Eb2 F2)
+    (F#1 G#1 A1 B1 C#2 D2 E2 F#2)
+    (Gb1 Ab1 Bbb1 Cb2 Db2 Ebb2 Fb2 Gb2)
+    (G1 A1 Bb1 C2 D2 Eb2 F2 G2)
+    (G#1 A#1 B1 C#2 D#2 E2 F#2 G#2)
+    (Ab1 Bb1 Cb2 Db2 Eb2 Fb2 Gb2 Ab2)
+    (A1 B1 C2 D2 E2 F2 G2 A2)
+    (A#1 B#1 C#2 D#2 E#2 F#2 G#2 A#2)
+    (Bb1 C2 Db2 Eb2 F2 Gb2 Ab2 Bb2)
+    (B1 C#2 D2 E2 F#2 G2 A2 B2)
+    (B#1 C##2 D#2 E#2 F##2 G#2 A#2 B#2)
+    (Cb1 Db1 Ebb1 Fb1 Gb1 Abb1 Bbb1 Cb2) |}];
   List.iter tonics ~f:(fun tonic ->
     print_s [%sexp (Scale.descending minor ~from:tonic |> str : string array)]);
   [%expect
     {|
-    (A G F E D C B A)
-    (A# G# F# E# D# C# B# A#)
-    (Bb Ab Gb F Eb Db C Bb)
-    (B A G F# E D C# B)
-    (B# A# G# F## E# D# C## B#)
-    (Cb Bbb Abb Gb Fb Ebb Db Cb)
-    (C Bb Ab G F Eb D C)
-    (C# B A G# F# E D# C#)
-    (Db Cb Bbb Ab Gb Fb Eb Db)
-    (D C Bb A G F E D)
-    (D# C# B A# G# F# E# D#)
-    (Eb Db Cb Bb Ab Gb F Eb)
-    (E D C B A G F# E)
-    (E# D# C# B# A# G# F## E#)
-    (Fb Ebb Dbb Cb Bbb Abb Gb Fb)
-    (F Eb Db C Bb Ab G F)
-    (F# E D C# B A G# F#)
-    (Gb Fb Ebb Db Cb Bbb Ab Gb)
-    (G F Eb D C Bb A G)
-    (G# F# E D# C# B A# G#)
-    (Ab Gb Fb Eb Db Cb Bb Ab) |}];
+    (C1 Bb0 Ab0 G0 F0 Eb0 D0 C0)
+    (C#1 B0 A0 G#0 F#0 E0 D#0 C#0)
+    (Db1 Cb1 Bbb0 Ab0 Gb0 Fb0 Eb0 Db0)
+    (D1 C1 Bb0 A0 G0 F0 E0 D0)
+    (D#1 C#1 B0 A#0 G#0 F#0 E#0 D#0)
+    (Eb1 Db1 Cb1 Bb0 Ab0 Gb0 F0 Eb0)
+    (E1 D1 C1 B0 A0 G0 F#0 E0)
+    (E#1 D#1 C#1 B#0 A#0 G#0 F##0 E#0)
+    (Fb1 Ebb1 Dbb1 Cb1 Bbb0 Abb0 Gb0 Fb0)
+    (F1 Eb1 Db1 C1 Bb0 Ab0 G0 F0)
+    (F#1 E1 D1 C#1 B0 A0 G#0 F#0)
+    (Gb1 Fb1 Ebb1 Db1 Cb1 Bbb0 Ab0 Gb0)
+    (G1 F1 Eb1 D1 C1 Bb0 A0 G0)
+    (G#1 F#1 E1 D#1 C#1 B0 A#0 G#0)
+    (Ab1 Gb1 Fb1 Eb1 Db1 Cb1 Bb0 Ab0)
+    (A1 G1 F1 E1 D1 C1 B0 A0)
+    (A#1 G#1 F#1 E#1 D#1 C#1 B#0 A#0)
+    (Bb1 Ab1 Gb1 F1 Eb1 Db1 C1 Bb0)
+    (B1 A1 G1 F#1 E1 D1 C#1 B0)
+    (B#1 A#1 G#1 F##1 E#1 D#1 C##1 B#0)
+    (Cb1 Bbb0 Abb0 Gb0 Fb0 Ebb0 Db0 Cb0) |}];
   ()
 ;;

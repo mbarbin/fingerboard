@@ -119,10 +119,7 @@ let%expect_test "harmonic series and cents" =
     Ascii_table.Column.
       [ create_attr "Harmonic" (fun (t : Row.t) -> [], Int.to_string t.harmonic)
       ; create_attr "Interval Above Fundamental" (fun (t : Row.t) ->
-          ( []
-          , if Interval.number_of_semitons t.interval = 0
-            then ""
-            else Interval.name t.interval ))
+          [], Interval.name t.interval)
       ; create_attr ~align:Right "Deviation in Cents From Equal" (fun (t : Row.t) ->
           let harmonic =
             Acoustic_interval.of_symbolic
@@ -173,7 +170,7 @@ let%expect_test "harmonic series and cents" =
     ┌──────────┬────────────────────────────┬───────────────────────────────┐
     │ Harmonic │ Interval Above Fundamental │ Deviation in Cents From Equal │
     ├──────────┼────────────────────────────┼───────────────────────────────┤
-    │ 1        │                            │                             0 │
+    │ 1        │ unison                     │                             0 │
     │ 2        │ octave                     │                             0 │
     │ 3        │ octave + fifth             │                            +2 │
     │ 4        │ 2 octaves                  │                             0 │

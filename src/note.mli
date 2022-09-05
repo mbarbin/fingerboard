@@ -19,6 +19,16 @@ module Letter_name : sig
 
   (** How many semitons are there from [t] to [succ t]. *)
   val semitons_step : from:t -> int
+
+  val succ_octave_designation
+    :  t
+    -> octave_designation:Octave_designation.t
+    -> Octave_designation.t
+
+  val pred_octave_designation
+    :  t
+    -> octave_designation:Octave_designation.t
+    -> Octave_designation.t
 end
 
 module Symbol : sig
@@ -42,7 +52,8 @@ end
 type t =
   { letter_name : Letter_name.t
   ; symbol : Symbol.t
+  ; octave_designation : Octave_designation.t
   }
-[@@deriving compare, enumerate, equal, hash, sexp_of]
+[@@deriving compare, equal, hash, sexp_of]
 
 val to_string : t -> string

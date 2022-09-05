@@ -26,13 +26,6 @@ module Number : sig
     | Sixth
     | Seventh
     | Octave
-    | Ninth
-    | Tenth
-    | Eleventh
-    | Twelfth
-    | Thirteenth
-    | Fourteeth
-    | Double_octave
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
   val to_int : t -> int
@@ -49,6 +42,6 @@ type t =
 val name : t -> string
 val to_string : t -> string
 val number_of_semitons : t -> int
-val compute : ?plus_one_octave:bool -> from:Note.t -> to_:Note.t -> unit -> t option
+val compute : from:Note.t -> to_:Note.t -> unit -> t option
 val shift_up : Note.t -> t -> Note.t option
 val shift_down : Note.t -> t -> Note.t option
