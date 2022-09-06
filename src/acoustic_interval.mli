@@ -2,7 +2,16 @@ open! Core
 
 (** *)
 
-type t [@@deriving sexp_of]
+type t = private
+  | Zero
+  | Equal_division_of_the_octave of
+      { divisor : int
+      ; number_of_divisions : int
+      }
+  | Natural_ratio of Natural_ratio.t
+  | Reduced_natural_ratio of Natural_ratio.Reduced.t
+  | Cents of float
+[@@deriving sexp_of]
 
 val add : t -> t -> t
 val cents : t -> float
@@ -28,6 +37,7 @@ module Symbolic : sig
 end
 
 val of_symbolic : Symbolic.t -> t
+val unison : t
 val octave : t
 val of_cents : float -> t
 val shift_up : Frequency.t -> t -> Frequency.t

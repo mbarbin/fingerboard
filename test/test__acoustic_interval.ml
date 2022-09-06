@@ -181,3 +181,99 @@ let%expect_test "harmonic series and cents" =
     │ 8        │ 3 octaves                  │                             0 │
     └──────────┴────────────────────────────┴───────────────────────────────┘ |}]
 ;;
+
+let%expect_test "ratios" =
+  let module Interval_kind = struct
+    type t =
+      | Unison
+      | Just_diatonic_semiton
+      | Just_minor_ton
+      | Just_major_ton
+      | Just_minor_third
+      | Just_major_third
+      | Fourth
+      | Fifth
+      | Just_minor_sixth
+      | Just_major_sixth
+      | Octave
+    [@@deriving enumerate, sexp_of]
+
+    let acoustic_interval = function
+      | Unison -> Acoustic_interval.unison
+      | Just_diatonic_semiton -> Acoustic_interval.of_symbolic Just_diatonic_semiton
+      | Just_minor_ton -> Acoustic_interval.of_symbolic Just_minor_ton
+      | Just_major_ton -> Acoustic_interval.of_symbolic Just_major_ton
+      | Just_minor_third -> Acoustic_interval.of_symbolic Just_minor_third
+      | Just_major_third -> Acoustic_interval.of_symbolic Just_major_third
+      | Fourth ->
+        Acoustic_interval.of_symbolic
+          (Pythagorean { number = Fourth; quality = Perfect; additional_octaves = 0 })
+      | Fifth ->
+        Acoustic_interval.of_symbolic
+          (Pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
+      | Just_minor_sixth -> Acoustic_interval.of_symbolic Just_minor_sixth
+      | Just_major_sixth -> Acoustic_interval.of_symbolic Just_major_sixth
+      | Octave -> Acoustic_interval.octave
+    ;;
+  end
+  in
+  let module Row = struct
+    type t =
+      { interval_kind : Interval_kind.t
+      ; acoustic_interval : Acoustic_interval.t
+      ; reduced_natural_ratio : Natural_ratio.Reduced.t
+      }
+  end
+  in
+  let reduced_natural_ratio acoustic_interval =
+    match (acoustic_interval : Acoustic_interval.t) with
+    | Zero -> Natural_ratio.Reduced.one
+    | Reduced_natural_ratio nr -> nr
+    | (Natural_ratio _ | Equal_division_of_the_octave _ | Cents _) as i ->
+      raise_s [%sexp "Unexpected non ratio", [%here], (i : Acoustic_interval.t)]
+  in
+  let columns =
+    Ascii_table.Column.
+      [ create_attr "Interval" (fun (t : Row.t) ->
+          [], Sexp.to_string [%sexp (t.interval_kind : Interval_kind.t)])
+      ; create_attr ~align:Right "Ratio" (fun (t : Row.t) ->
+          ( []
+          , Natural_ratio.to_string
+              (Natural_ratio.Reduced.to_natural_ratio t.reduced_natural_ratio) ))
+      ; create_attr ~align:Right "Reduced ratio" (fun (t : Row.t) ->
+          [], Natural_ratio.Reduced.to_string t.reduced_natural_ratio)
+      ; create_attr ~align:Right "Cents" (fun (t : Row.t) ->
+          ( []
+          , t.acoustic_interval
+            |> Acoustic_interval.cents
+            |> Float.iround_exn ~dir:`Nearest
+            |> Int.to_string ))
+      ]
+  in
+  let rows =
+    List.map Interval_kind.all ~f:(fun interval_kind ->
+      let acoustic_interval = Interval_kind.acoustic_interval interval_kind in
+      { Row.interval_kind
+      ; acoustic_interval
+      ; reduced_natural_ratio = reduced_natural_ratio acoustic_interval
+      })
+  in
+  Ascii_table.to_string columns rows |> print_endline;
+  [%expect
+    {|
+    ┌───────────────────────┬─────────┬─────────────────┬───────┐
+    │ Interval              │   Ratio │   Reduced ratio │ Cents │
+    ├───────────────────────┼─────────┼─────────────────┼───────┤
+    │ Unison                │       1 │               1 │     0 │
+    │ Just_diatonic_semiton │ 16 / 15 │ 2 ^ 4 / (3 * 5) │   112 │
+    │ Just_minor_ton        │  10 / 9 │ (2 * 5) / 3 ^ 2 │   182 │
+    │ Just_major_ton        │   9 / 8 │   3 ^ 2 / 2 ^ 3 │   204 │
+    │ Just_minor_third      │   6 / 5 │     (2 * 3) / 5 │   316 │
+    │ Just_major_third      │   5 / 4 │       5 / 2 ^ 2 │   386 │
+    │ Fourth                │   4 / 3 │       2 ^ 2 / 3 │   498 │
+    │ Fifth                 │   3 / 2 │           3 / 2 │   702 │
+    │ Just_minor_sixth      │   8 / 5 │       2 ^ 3 / 5 │   814 │
+    │ Just_major_sixth      │   5 / 3 │           5 / 3 │   884 │
+    │ Octave                │       2 │               2 │  1200 │
+    └───────────────────────┴─────────┴─────────────────┴───────┘ |}]
+;;

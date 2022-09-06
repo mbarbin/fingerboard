@@ -10,7 +10,8 @@ let%expect_test "4-strings cello" =
   in
   let system = System.create ~high_vibrating_string:a ~pitch ~intervals_going_down in
   print_s [%sexp (system : System.t)];
-  [%expect {|
+  [%expect
+    {|
     ((vibrating_strings
       (((open_string ((letter_name A) (symbol Natural) (octave_designation 3)))
         (pitch 220) (roman_numeral I))

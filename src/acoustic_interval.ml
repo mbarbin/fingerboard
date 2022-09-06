@@ -88,8 +88,6 @@ let pythagorean_chromatic_semiton =
   Natural_ratio.Reduced.divide p3ton fourth
 ;;
 
-let ( /^ ) a b = Natural_ratio (Natural_ratio.create_exn ~numerator:a ~denominator:b)
-
 let rec of_symbolic (symbolic : Symbolic.t) =
   match symbolic with
   | Equal_tempered_12 interval ->
@@ -139,17 +137,51 @@ let rec of_symbolic (symbolic : Symbolic.t) =
   | Reduced_natural_ratio nr -> Reduced_natural_ratio nr
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
     Equal_division_of_the_octave { divisor; number_of_divisions }
-  | Just_diatonic_semiton -> 16 /^ 15
-  | Just_minor_ton -> 10 /^ 9
-  | Just_major_ton -> 9 /^ 10
-  | Just_minor_third -> 6 /^ 5
-  | Just_major_third -> 5 /^ 4
-  | Just_minor_sixth -> 8 /^ 5
-  | Just_major_sixth -> 10 /^ 6
+  | Just_diatonic_semiton ->
+    Reduced_natural_ratio
+      Natural_ratio.Reduced.(
+        compound
+          [ create_exn ~prime:2 ~exponent:4
+          ; create_exn ~prime:3 ~exponent:(-1)
+          ; create_exn ~prime:5 ~exponent:(-1)
+          ])
+  | Just_minor_ton ->
+    Reduced_natural_ratio
+      Natural_ratio.Reduced.(
+        compound
+          [ create_exn ~prime:2 ~exponent:1
+          ; create_exn ~prime:3 ~exponent:(-2)
+          ; create_exn ~prime:5 ~exponent:1
+          ])
+  | Just_major_ton ->
+    Reduced_natural_ratio
+      Natural_ratio.Reduced.(
+        compound [ create_exn ~prime:2 ~exponent:(-3); create_exn ~prime:3 ~exponent:2 ])
+  | Just_minor_third ->
+    Reduced_natural_ratio
+      Natural_ratio.Reduced.(
+        compound
+          [ create_exn ~prime:2 ~exponent:1
+          ; create_exn ~prime:3 ~exponent:1
+          ; create_exn ~prime:5 ~exponent:(-1)
+          ])
+  | Just_major_third ->
+    Reduced_natural_ratio
+      Natural_ratio.Reduced.(
+        compound [ create_exn ~prime:2 ~exponent:(-2); create_exn ~prime:5 ~exponent:1 ])
+  | Just_minor_sixth ->
+    Reduced_natural_ratio
+      Natural_ratio.Reduced.(
+        compound [ create_exn ~prime:2 ~exponent:3; create_exn ~prime:5 ~exponent:(-1) ])
+  | Just_major_sixth ->
+    Reduced_natural_ratio
+      Natural_ratio.Reduced.(
+        compound [ create_exn ~prime:3 ~exponent:(-1); create_exn ~prime:5 ~exponent:1 ])
   | Compound ts -> List.fold ~init:Zero ts ~f:(fun acc s -> add acc (of_symbolic s))
 ;;
 
-let octave = Equal_division_of_the_octave { divisor = 1; number_of_divisions = 1 }
+let unison = Zero
+let octave = Reduced_natural_ratio (Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:1)
 
 let shift_up frequency t =
   let of_cents cents =
