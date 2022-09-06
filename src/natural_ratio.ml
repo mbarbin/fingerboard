@@ -115,4 +115,5 @@ module Reduced = struct
   ;;
 
   let divide t1 t2 = multiply t1 (inverse t2)
+  let compound ts = List.reduce ts ~f:multiply |> Option.value ~default:one
 end

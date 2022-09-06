@@ -123,7 +123,8 @@ let%expect_test "harmonic series and cents" =
       ; create_attr ~align:Right "Deviation in Cents From Equal" (fun (t : Row.t) ->
           let harmonic =
             Acoustic_interval.of_symbolic
-              (Natural_ratio { numerator = t.harmonic; denominator = 1 })
+              (Natural_ratio
+                 (Natural_ratio.create_exn ~numerator:t.harmonic ~denominator:1))
           in
           let equal = Acoustic_interval.of_symbolic (Equal_tempered_12 t.interval) in
           let deviation =

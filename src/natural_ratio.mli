@@ -30,6 +30,7 @@ module Reduced : sig
       if it isn't. The exponent is expected to be non null. *)
   val create_exn : prime:int -> exponent:int -> t
 
+  val compound : t list -> t
   val inverse : t -> t
   val multiply : t -> t -> t
   val divide : t -> t -> t

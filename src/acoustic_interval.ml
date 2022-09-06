@@ -11,6 +11,7 @@ type t =
   | Natural_ratio of Natural_ratio.t
   | Reduced_natural_ratio of Natural_ratio.Reduced.t
   | Cents of float
+[@@deriving sexp_of]
 
 let log2 = Caml.Float.log2
 
@@ -48,10 +49,8 @@ module Symbolic = struct
   type t =
     | Equal_tempered_12 of Interval.t
     | Pythagorean of Interval.t
-    | Natural_ratio of
-        { numerator : int
-        ; denominator : int
-        }
+    | Natural_ratio of Natural_ratio.t
+    | Reduced_natural_ratio of Natural_ratio.Reduced.t
     | Equal_division_of_the_octave of
         { divisor : int
         ; number_of_divisions : int
@@ -64,14 +63,30 @@ module Symbolic = struct
     | Just_minor_sixth
     | Just_major_sixth
     | Compound of t list
-
-  let pythagorean_ton = Natural_ratio { numerator = 9; denominator = 8 }
-  let pythagorean_diatonic_semiton = Natural_ratio { numerator = 256; denominator = 243 }
-
-  let pythagorean_chromatic_semiton =
-    Natural_ratio { numerator = 2187; denominator = 2048 }
-  ;;
 end
+
+let pythagorean_ton =
+  Natural_ratio.Reduced.(
+    compound [ create_exn ~prime:3 ~exponent:2; create_exn ~prime:2 ~exponent:(-3) ])
+;;
+
+let fourth =
+  Natural_ratio.Reduced.(
+    compound [ create_exn ~prime:2 ~exponent:2; create_exn ~prime:3 ~exponent:(-1) ])
+;;
+
+let pythagorean_diatonic_semiton =
+  let p2ton = Natural_ratio.Reduced.multiply pythagorean_ton pythagorean_ton in
+  Natural_ratio.Reduced.divide fourth p2ton
+;;
+
+let pythagorean_chromatic_semiton =
+  let p3ton =
+    Natural_ratio.Reduced.multiply pythagorean_ton pythagorean_ton
+    |> Natural_ratio.Reduced.multiply pythagorean_ton
+  in
+  Natural_ratio.Reduced.divide p3ton fourth
+;;
 
 let ( /^ ) a b = Natural_ratio (Natural_ratio.create_exn ~numerator:a ~denominator:b)
 
@@ -110,16 +125,18 @@ let rec of_symbolic (symbolic : Symbolic.t) =
     of_symbolic
       (Compound
          (List.concat
-            [ List.init (min chromatic diatonic) ~f:(const Symbolic.pythagorean_ton)
+            [ List.init
+                (min chromatic diatonic)
+                ~f:(const (Symbolic.Reduced_natural_ratio pythagorean_ton))
             ; List.init
                 (max 0 (chromatic - diatonic))
-                ~f:(const Symbolic.pythagorean_chromatic_semiton)
+                ~f:(const (Symbolic.Reduced_natural_ratio pythagorean_chromatic_semiton))
             ; List.init
                 (max 0 (diatonic - chromatic))
-                ~f:(const Symbolic.pythagorean_diatonic_semiton)
+                ~f:(const (Symbolic.Reduced_natural_ratio pythagorean_diatonic_semiton))
             ]))
-  | Natural_ratio { numerator; denominator } ->
-    Natural_ratio (Natural_ratio.create_exn ~numerator ~denominator)
+  | Natural_ratio nr -> Natural_ratio nr
+  | Reduced_natural_ratio nr -> Reduced_natural_ratio nr
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
     Equal_division_of_the_octave { divisor; number_of_divisions }
   | Just_diatonic_semiton -> 16 /^ 15
@@ -130,4 +147,40 @@ let rec of_symbolic (symbolic : Symbolic.t) =
   | Just_minor_sixth -> 8 /^ 5
   | Just_major_sixth -> 10 /^ 6
   | Compound ts -> List.fold ~init:Zero ts ~f:(fun acc s -> add acc (of_symbolic s))
+;;
+
+let octave = Equal_division_of_the_octave { divisor = 1; number_of_divisions = 1 }
+
+let shift_up frequency t =
+  let of_cents cents =
+    Frequency.to_float frequency *. Caml.Float.exp2 (cents /. 1200.)
+    |> Frequency.of_float_exn
+  in
+  let of_natural_ratio { Natural_ratio.numerator; denominator } =
+    Frequency.to_float frequency *. Float.of_int numerator /. Float.of_int denominator
+    |> Frequency.of_float_exn
+  in
+  match t with
+  | Zero -> frequency
+  | (Equal_division_of_the_octave _ | Cents _) as t -> of_cents (cents t)
+  | Natural_ratio n -> of_natural_ratio n
+  | Reduced_natural_ratio rn ->
+    of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
+;;
+
+let shift_down frequency t =
+  let of_cents cents =
+    Frequency.to_float frequency /. Caml.Float.exp2 (cents /. 1200.)
+    |> Frequency.of_float_exn
+  in
+  let of_natural_ratio { Natural_ratio.numerator; denominator } =
+    Frequency.to_float frequency *. Float.of_int denominator /. Float.of_int numerator
+    |> Frequency.of_float_exn
+  in
+  match t with
+  | Zero -> frequency
+  | (Equal_division_of_the_octave _ | Cents _) as t -> of_cents (cents t)
+  | Natural_ratio n -> of_natural_ratio n
+  | Reduced_natural_ratio rn ->
+    of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
 ;;
