@@ -95,8 +95,8 @@ let%expect_test "compute" =
     match Interval.compute ~from ~to_ () with
     | None -> ()
     | Some interval ->
-      let shift_up = Interval.shift_up from interval in
-      let shift_down = Interval.shift_down to_ interval in
+      let shift_up = from |> Interval.shift_up interval in
+      let shift_down = to_ |> Interval.shift_down interval in
       if not
            ([%equal: Note.t option] shift_up (Some to_)
            && [%equal: Note.t option] shift_down (Some from))

@@ -10,7 +10,7 @@ let fold_map_opt t ~init ~f =
     Queue.enqueue queue acc;
     if i < Array.length t
     then (
-      match f acc t.(i) with
+      match f t.(i) acc with
       | None -> ()
       | Some acc -> aux acc (succ i))
   in

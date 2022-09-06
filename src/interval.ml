@@ -213,8 +213,8 @@ let compute ~(from : Note.t) ~(to_ : Note.t) () =
 ;;
 
 let shift_up
-  ({ Note.letter_name; symbol = _; octave_designation } as from)
   ({ number; quality = _; additional_octaves } as interval)
+  ({ Note.letter_name; symbol = _; octave_designation } as from)
   =
   let open Option.Let_syntax in
   let step = Number.to_int number - 1 + (7 * additional_octaves) in
@@ -250,8 +250,8 @@ let shift_up
 ;;
 
 let shift_down
-  ({ Note.letter_name; symbol = _; octave_designation } as to_)
   ({ number; quality = _; additional_octaves } as interval)
+  ({ Note.letter_name; symbol = _; octave_designation } as to_)
   =
   let step = Number.to_int number - 1 + (7 * additional_octaves) in
   let target =

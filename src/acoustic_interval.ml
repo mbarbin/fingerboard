@@ -124,6 +124,12 @@ let rec of_symbolic (symbolic : Symbolic.t) =
       (Compound
          (List.concat
             [ List.init
+                interval.additional_octaves
+                ~f:
+                  (const
+                     (Symbolic.Reduced_natural_ratio
+                        (Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:1)))
+            ; List.init
                 (min chromatic diatonic)
                 ~f:(const (Symbolic.Reduced_natural_ratio pythagorean_ton))
             ; List.init
@@ -183,7 +189,7 @@ let rec of_symbolic (symbolic : Symbolic.t) =
 let unison = Zero
 let octave = Reduced_natural_ratio (Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:1)
 
-let shift_up frequency t =
+let shift_up t frequency =
   let of_cents cents =
     Frequency.to_float frequency *. Caml.Float.exp2 (cents /. 1200.)
     |> Frequency.of_float_exn
@@ -200,7 +206,7 @@ let shift_up frequency t =
     of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
 ;;
 
-let shift_down frequency t =
+let shift_down t frequency =
   let of_cents cents =
     Frequency.to_float frequency /. Caml.Float.exp2 (cents /. 1200.)
     |> Frequency.of_float_exn

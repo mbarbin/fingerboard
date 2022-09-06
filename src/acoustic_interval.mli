@@ -40,5 +40,5 @@ val of_symbolic : Symbolic.t -> t
 val unison : t
 val octave : t
 val of_cents : float -> t
-val shift_up : Frequency.t -> t -> Frequency.t
-val shift_down : Frequency.t -> t -> Frequency.t
+val shift_up : t -> Frequency.t -> Frequency.t
+val shift_down : t -> Frequency.t -> Frequency.t

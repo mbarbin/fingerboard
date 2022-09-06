@@ -36,9 +36,10 @@ let create ~high_vibrating_string ~pitch ~intervals_going_down =
       ~f:(fun previous_string (interval, acoustic_interval) ->
       let v =
         { Vibrating_string.open_string =
-            Interval.shift_down previous_string.open_string interval
+            previous_string.open_string
+            |> Interval.shift_down interval
             |> Option.value_exn ~here:[%here]
-        ; pitch = Acoustic_interval.shift_down previous_string.pitch acoustic_interval
+        ; pitch = previous_string.pitch |> Acoustic_interval.shift_down acoustic_interval
         ; roman_numeral = Roman_numeral.succ_exn previous_string.roman_numeral
         }
       in
@@ -56,16 +57,14 @@ let reset_pitch t roman_numeral ~pitch =
   (* Tune going up. *)
   for i = index - 1 downto 0 do
     t.vibrating_strings.(i).pitch
-      <- Acoustic_interval.shift_up
-           t.vibrating_strings.(i + 1).pitch
-           (snd t.intervals_going_down.(i))
+      <- t.vibrating_strings.(i + 1).pitch
+         |> Acoustic_interval.shift_up (snd t.intervals_going_down.(i))
   done;
   (* Tune going down. *)
   for i = index + 1 to Array.length t.vibrating_strings - 1 do
     t.vibrating_strings.(i).pitch
-      <- Acoustic_interval.shift_down
-           t.vibrating_strings.(i - 1).pitch
-           (snd t.intervals_going_down.(i - 1))
+      <- t.vibrating_strings.(i - 1).pitch
+         |> Acoustic_interval.shift_down (snd t.intervals_going_down.(i - 1))
   done;
   ()
 ;;

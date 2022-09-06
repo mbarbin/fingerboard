@@ -5,6 +5,7 @@ type t =
   | II
   | III
   | IV
+  | V
 [@@deriving compare, equal, enumerate, hash, sexp_of]
 
 let to_string t = Sexp.to_string [%sexp (t : t)]
@@ -14,6 +15,7 @@ let to_int = function
   | II -> 2
   | III -> 3
   | IV -> 4
+  | V -> 5
 ;;
 
 let of_int_exn = function
@@ -21,6 +23,7 @@ let of_int_exn = function
   | 2 -> II
   | 3 -> III
   | 4 -> IV
+  | 5 -> V
   | i -> raise_s [%sexp "Out of bounds", [%here], (i : int)]
 ;;
 
