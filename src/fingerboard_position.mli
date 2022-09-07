@@ -2,13 +2,15 @@ open! Core
 
 (** A position is a fingerboard location that is not characterized by
    any string, but rather designated that position that is available
-   on all strings at the same relative distance of the open strings.
-   It has a name for convenience when in use within a system.
+   on all strings at the same relative distance to the open strings. A
+   position is given a name for convenience when in use within a
+   system.
 
     A position may serve for playing several notes (with systems with
    enharmony or tempered systems). Some system may also have distinct
-   positions to play the same notes, using slightly different pitches,
-   so there is no one-to-one match between a note and a position. *)
+   positions to play the same notes, using slightly different pitches
+   depending on which scale or tonality it belogs, so there is no
+   one-to-one match between a note and a position. *)
 
 type t [@@deriving compare, equal, hash, sexp_of]
 
@@ -28,3 +30,5 @@ val create_exn
   :  name:string
   -> acoustic_interval_to_the_open_string:Acoustic_interval.t
   -> t
+
+val open_string : t

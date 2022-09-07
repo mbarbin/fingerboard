@@ -12,6 +12,14 @@ type t =
   | Cents of float
 [@@deriving sexp_of]
 
+let to_string = function
+  | Zero -> "unison"
+  | Equal_division_of_the_octave { divisor; number_of_divisions } ->
+    sprintf "%d-%dedo" number_of_divisions divisor
+  | Reduced_natural_ratio nr -> Natural_ratio.Reduced.to_string nr
+  | Cents c -> sprintf "%0.2f cents" c
+;;
+
 let log2 = Caml.Float.log2
 
 let to_cents = function
@@ -39,6 +47,47 @@ let add t1 t2 =
     Reduced_natural_ratio (Natural_ratio.Reduced.multiply r1 r2)
   | Cents x, Cents y -> Cents (x +. y)
   | _ -> Cents (to_cents t1 +. to_cents t2)
+;;
+
+let remove t1 t2 =
+  match t1, t2 with
+  | t, Zero -> Some t
+  | ( Equal_division_of_the_octave { divisor = d1; number_of_divisions = p1 }
+    , Equal_division_of_the_octave { divisor = d2; number_of_divisions = p2 } )
+    when d1 = d2 ->
+    let p = p1 - p2 in
+    (match Int.compare p 0 |> Ordering.of_int with
+     | Less -> None
+     | Equal -> Some Zero
+     | Greater ->
+       Some (Equal_division_of_the_octave { divisor = d1; number_of_divisions = p }))
+  | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
+    let r = Natural_ratio.Reduced.divide r1 r2 in
+    let { Natural_ratio.numerator; denominator } =
+      Natural_ratio.Reduced.to_natural_ratio r
+    in
+    (match Int.compare numerator denominator |> Ordering.of_int with
+     | Less -> None
+     | Equal -> Some Zero
+     | Greater -> Some (Reduced_natural_ratio r))
+  | _ ->
+    let cents = to_cents t1 -. to_cents t2 in
+    (match Float.compare cents 0. |> Ordering.of_int with
+     | Less -> None
+     | Equal -> Some Zero
+     | Greater -> Some (Cents cents))
+;;
+
+let equal t1 t2 =
+  match t1, t2 with
+  | Zero, Zero -> true
+  | ( Equal_division_of_the_octave { divisor = d1; number_of_divisions = p1 }
+    , Equal_division_of_the_octave { divisor = d2; number_of_divisions = p2 } )
+    when d1 = d2 -> p1 = p2
+  | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
+    Natural_ratio.Reduced.equal r1 r2
+  | Cents x, Cents y -> Float.equal x y
+  | _ -> Float.equal (to_cents t1) (to_cents t2)
 ;;
 
 let compound ts = List.reduce ts ~f:add |> Option.value ~default:Zero

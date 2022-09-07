@@ -1,6 +1,43 @@
 open! Core
 open! Cemper
 
+let test_pitch_exn ~system ~(intervals_going_down : Characterised_interval.t array) =
+  (* We test that the pitch is the same for the open string and the
+     position on the next vibrating string at the position of the
+     interval between the two vibrating strings. *)
+  for i = 1 to Array.length intervals_going_down do
+    let high = Roman_numeral.of_int_exn i in
+    let low = Roman_numeral.succ_exn high in
+    let open_string =
+      System.pitch
+        system
+        { fingerboard_position = Fingerboard_position.open_string; string_number = high }
+    in
+    let unison =
+      System.pitch
+        system
+        { fingerboard_position =
+            Fingerboard_position.create_exn
+              ~name:"unison"
+              ~acoustic_interval_to_the_open_string:
+                intervals_going_down.(i - 1).acoustic_interval
+        ; string_number = low
+        }
+    in
+    if not (Frequency.equal open_string unison)
+    then
+      raise_s
+        [%sexp
+          "Unexpected pitch calculation"
+          , [%here]
+          , { high : Roman_numeral.t
+            ; low : Roman_numeral.t
+            ; open_string : Frequency.t
+            ; unison : Frequency.t
+            }]
+  done
+;;
+
 let%expect_test "4-strings cello" =
   let a = { Note.letter_name = A; symbol = Natural; octave_designation = 3 } in
   let pitch = Frequency.a4_440 |> Acoustic_interval.shift_down Acoustic_interval.octave in
@@ -13,6 +50,7 @@ let%expect_test "4-strings cello" =
          ~acoustic_interval:(Acoustic_interval.pythagorean fifth))
   in
   let system = System.create ~high_vibrating_string:a ~pitch ~intervals_going_down in
+  test_pitch_exn ~system ~intervals_going_down;
   print_s [%sexp (system : System.t)];
   [%expect
     {|
@@ -38,6 +76,81 @@ let%expect_test "4-strings cello" =
         (acoustic_interval
          (Reduced_natural_ratio
           (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))) |}];
+  (* Creating a few positions and check the intervals between them. *)
+  let fourth =
+    Fingerboard_position.create_exn
+      ~name:"4th"
+      ~acoustic_interval_to_the_open_string:
+        (Acoustic_interval.pythagorean
+           { number = Fourth; quality = Perfect; additional_octaves = 0 })
+  in
+  let just_minor_ton =
+    Fingerboard_position.create_exn
+      ~name:"2MZ"
+      ~acoustic_interval_to_the_open_string:Acoustic_interval.just_minor_ton
+  in
+  let pythagorean_minor_third =
+    Fingerboard_position.create_exn
+      ~name:"2mP"
+      ~acoustic_interval_to_the_open_string:
+        (Acoustic_interval.pythagorean
+           { number = Third; quality = Minor; additional_octaves = 0 })
+  in
+  let i =
+    System.acoustic_interval
+      system
+      ~from:{ fingerboard_position = fourth; string_number = III }
+      ~to_:{ fingerboard_position = pythagorean_minor_third; string_number = I }
+    |> Option.value_exn ~here:[%here]
+  in
+  assert (Acoustic_interval.equal i Acoustic_interval.octave);
+  print_string (Acoustic_interval.to_string i);
+  [%expect {| 2 |}];
+  let i =
+    System.acoustic_interval
+      system
+      ~from:{ fingerboard_position = fourth; string_number = III }
+      ~to_:{ fingerboard_position = just_minor_ton; string_number = II }
+    |> Option.value_exn ~here:[%here]
+  in
+  assert (Acoustic_interval.equal i Acoustic_interval.just_major_third);
+  print_string (Acoustic_interval.to_string i);
+  [%expect {| 5 / 2 ^ 2 |}];
+  let i =
+    System.acoustic_interval
+      system
+      ~from:{ fingerboard_position = fourth; string_number = III }
+      ~to_:{ fingerboard_position = pythagorean_minor_third; string_number = II }
+    |> Option.value_exn ~here:[%here]
+  in
+  assert (
+    Acoustic_interval.equal
+      i
+      (Acoustic_interval.pythagorean
+         { number = Fourth; quality = Perfect; additional_octaves = 0 }));
+  print_string (Acoustic_interval.to_string i);
+  [%expect {| 2 ^ 2 / 3 |}];
+  let i =
+    System.acoustic_interval
+      system
+      ~from:
+        { fingerboard_position = Fingerboard_position.open_string; string_number = II }
+      ~to_:{ fingerboard_position = just_minor_ton; string_number = I }
+    |> Option.value_exn ~here:[%here]
+  in
+  assert (Acoustic_interval.equal i Acoustic_interval.just_major_sixth);
+  print_string (Acoustic_interval.to_string i);
+  [%expect {| 5 / 3 |}];
+  let i =
+    System.acoustic_interval
+      system
+      ~from:{ fingerboard_position = just_minor_ton; string_number = I }
+      ~to_:{ fingerboard_position = pythagorean_minor_third; string_number = I }
+    |> Option.value_exn ~here:[%here]
+  in
+  assert (Acoustic_interval.equal i Acoustic_interval.just_diatonic_semiton);
+  print_string (Acoustic_interval.to_string i);
+  [%expect {| 2 ^ 4 / (3 * 5) |}];
   ()
 ;;
 
@@ -58,6 +171,7 @@ let%expect_test "picollo cello" =
          ~acoustic_interval:(Acoustic_interval.pythagorean fifth))
   in
   let system = System.create ~high_vibrating_string:e ~pitch ~intervals_going_down in
+  test_pitch_exn ~system ~intervals_going_down;
   print_s [%sexp (system : System.t)];
   [%expect
     {|
@@ -118,6 +232,7 @@ let%expect_test "5th Bach's suite for cello" =
       ]
   in
   let system = System.create ~high_vibrating_string:g ~pitch ~intervals_going_down in
+  test_pitch_exn ~system ~intervals_going_down;
   print_s [%sexp (system : System.t)];
   [%expect
     {|
@@ -163,6 +278,7 @@ let%expect_test "Kodaly sonata for cello solo" =
     |]
   in
   let system = System.create ~high_vibrating_string:a ~pitch ~intervals_going_down in
+  test_pitch_exn ~system ~intervals_going_down;
   print_s [%sexp (system : System.t)];
   [%expect
     {|
@@ -203,6 +319,7 @@ let%expect_test "reset-pitch" =
          ~acoustic_interval:(Acoustic_interval.pythagorean fifth))
   in
   let system = System.create ~high_vibrating_string:a ~pitch ~intervals_going_down in
+  test_pitch_exn ~system ~intervals_going_down;
   let sexp1 = [%sexp (system : System.t)] in
   let change ~f =
     f ();

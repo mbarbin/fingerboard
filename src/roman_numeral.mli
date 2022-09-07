@@ -6,7 +6,13 @@ open! Core
    increasing numbers going down. For example, the lower C string on
    the 4-strings cello is IV (4). *)
 
-type t [@@deriving compare, equal, enumerate, hash, sexp_of]
+type t =
+  | I
+  | II
+  | III
+  | IV
+  | V
+[@@deriving compare, equal, enumerate, hash, sexp_of]
 
 val to_string : t -> string
 

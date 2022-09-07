@@ -12,9 +12,18 @@ type t = private
   | Cents of float
 [@@deriving sexp_of]
 
+val to_string : t -> string
 val compound : t list -> t
 val add : t -> t -> t
+
+(** [remove t1 t2] Returns None if t2 is larger than t1. *)
+val remove : t -> t -> t option
+
 val to_cents : t -> float
+
+(** Convert to cents if the two are not of the same shape. *)
+val equal : t -> t -> bool
+
 val unison : t
 val octave : t
 val equal_tempered_12 : Interval.t -> t

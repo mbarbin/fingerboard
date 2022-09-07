@@ -69,15 +69,48 @@ let reset_pitch t roman_numeral ~pitch =
   ()
 ;;
 
-let pitch (_ : t) (_ : Fingerboard_location.t) : Frequency.t = assert false
+let vibrating_string_exn (t : t) string_number =
+  let index = Roman_numeral.to_int string_number - 1 in
+  if index < 0 || index >= Array.length t.vibrating_strings
+  then (
+    let available = Array.map t.vibrating_strings ~f:(fun t -> t.roman_numeral) in
+    raise_s
+      [%sexp
+        "String number out of bounds"
+        , [%here]
+        , { string_number : Roman_numeral.t; available : Roman_numeral.t array }])
+  else t.vibrating_strings.(index)
+;;
+
+let pitch (t : t) { Fingerboard_location.fingerboard_position; string_number } =
+  let vibrating_string = vibrating_string_exn t string_number in
+  let interval =
+    Fingerboard_position.acoustic_interval_to_the_open_string fingerboard_position
+  in
+  Acoustic_interval.shift_up interval vibrating_string.pitch
+;;
 
 let acoustic_interval
-  (_ : t)
-  ~from:(_ : Fingerboard_location.t)
-  ~to_:(_ : Fingerboard_location.t)
-  : Acoustic_interval.t option
+  (t : t)
+  ~from:{ Fingerboard_location.fingerboard_position = p1; string_number = s1 }
+  ~to_:{ Fingerboard_location.fingerboard_position = p2; string_number = s2 }
   =
-  assert false
+  let (_ : Vibrating_string.t) = vibrating_string_exn t s1 in
+  let (_ : Vibrating_string.t) = vibrating_string_exn t s2 in
+  let i1 = Roman_numeral.to_int s1
+  and i2 = Roman_numeral.to_int s2 in
+  let interval_between_strings = ref Acoustic_interval.unison in
+  for i = min i1 i2 to max i1 i2 - 1 do
+    interval_between_strings
+      := Acoustic_interval.add
+           !interval_between_strings
+           t.intervals_going_down.(i - 1).acoustic_interval
+  done;
+  Acoustic_interval.remove
+    (Acoustic_interval.add
+       !interval_between_strings
+       (Fingerboard_position.acoustic_interval_to_the_open_string p2))
+    (Fingerboard_position.acoustic_interval_to_the_open_string p1)
 ;;
 
 let add_fingerboard_position_exn (_ : t) (_ : Fingerboard_position.t) : unit =

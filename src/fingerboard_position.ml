@@ -37,3 +37,7 @@ let create_exn ~name ~acoustic_interval_to_the_open_string =
   in
   { name; basis_vibrating_string_portion; at_octave = 0 }
 ;;
+
+let open_string =
+  create_exn ~name:"0" ~acoustic_interval_to_the_open_string:Acoustic_interval.unison
+;;
