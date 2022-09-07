@@ -54,7 +54,7 @@ let%expect_test "first comparison" =
         (Sexp.to_string [%sexp (kind : Kind.t)])
         (fun (t : Row.t) ->
           acoustic_interval t kind
-          |> Acoustic_interval.cents
+          |> Acoustic_interval.to_cents
           |> Float.iround_exn ~dir:`Nearest
           |> Int.to_string
           |> fun i -> [], i)
@@ -128,7 +128,7 @@ let%expect_test "harmonic series and cents" =
           in
           let equal = Acoustic_interval.of_symbolic (Equal_tempered_12 t.interval) in
           let deviation =
-            Acoustic_interval.cents harmonic -. Acoustic_interval.cents equal
+            Acoustic_interval.to_cents harmonic -. Acoustic_interval.to_cents equal
             |> Float.iround_exn ~dir:`Nearest
           in
           ( []
@@ -245,7 +245,7 @@ let%expect_test "ratios" =
       ; create_attr ~align:Right "Cents" (fun (t : Row.t) ->
           ( []
           , t.acoustic_interval
-            |> Acoustic_interval.cents
+            |> Acoustic_interval.to_cents
             |> Float.iround_exn ~dir:`Nearest
             |> Int.to_string ))
       ]

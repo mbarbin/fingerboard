@@ -1,5 +1,6 @@
 open! Core
 module Acoustic_interval = Acoustic_interval
+module Characterised_interval = Characterized_interval
 module Frequency = Frequency
 module Interval = Interval
 module Natural_ratio = Natural_ratio

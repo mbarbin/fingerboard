@@ -15,7 +15,7 @@ type t =
 
 let log2 = Caml.Float.log2
 
-let cents = function
+let to_cents = function
   | Zero -> 0.
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
     1200. *. float_of_int number_of_divisions /. float_of_int divisor
@@ -42,7 +42,7 @@ let add t1 t2 =
   | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
     Reduced_natural_ratio (Natural_ratio.Reduced.multiply r1 r2)
   | Cents x, Cents y -> Cents (x +. y)
-  | _ -> Cents (cents t1 +. cents t2)
+  | _ -> Cents (to_cents t1 +. to_cents t2)
 ;;
 
 module Symbolic = struct
@@ -200,7 +200,7 @@ let shift_up t frequency =
   in
   match t with
   | Zero -> frequency
-  | (Equal_division_of_the_octave _ | Cents _) as t -> of_cents (cents t)
+  | (Equal_division_of_the_octave _ | Cents _) as t -> t |> to_cents |> of_cents
   | Natural_ratio n -> of_natural_ratio n
   | Reduced_natural_ratio rn ->
     of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
@@ -217,7 +217,7 @@ let shift_down t frequency =
   in
   match t with
   | Zero -> frequency
-  | (Equal_division_of_the_octave _ | Cents _) as t -> of_cents (cents t)
+  | (Equal_division_of_the_octave _ | Cents _) as t -> t |> to_cents |> of_cents
   | Natural_ratio n -> of_natural_ratio n
   | Reduced_natural_ratio rn ->
     of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)

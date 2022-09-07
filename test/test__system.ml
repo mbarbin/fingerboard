@@ -6,7 +6,11 @@ let%expect_test "4-strings cello" =
   let pitch = Frequency.a4_440 |> Acoustic_interval.shift_down Acoustic_interval.octave in
   let intervals_going_down =
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
-    Array.create ~len:3 (fifth, Acoustic_interval.of_symbolic (Pythagorean fifth))
+    Array.create
+      ~len:3
+      (Characterised_interval.create_exn
+         ~interval:fifth
+         ~acoustic_interval:(Acoustic_interval.of_symbolic (Pythagorean fifth)))
   in
   let system = System.create ~high_vibrating_string:a ~pitch ~intervals_going_down in
   print_s [%sexp (system : System.t)];
@@ -22,15 +26,18 @@ let%expect_test "4-strings cello" =
        ((open_string ((letter_name C) (symbol Natural) (octave_designation 2)))
         (pitch 65.185185185185176) (roman_numeral IV))))
      (intervals_going_down
-      ((((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-       (((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-       (((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))) |}];
+      (((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))) |}];
   ()
 ;;
 
@@ -44,7 +51,11 @@ let%expect_test "picollo cello" =
   in
   let intervals_going_down =
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
-    Array.create ~len:4 (fifth, Acoustic_interval.of_symbolic (Pythagorean fifth))
+    Array.create
+      ~len:4
+      (Characterised_interval.create_exn
+         ~interval:fifth
+         ~acoustic_interval:(Acoustic_interval.of_symbolic (Pythagorean fifth)))
   in
   let system = System.create ~high_vibrating_string:e ~pitch ~intervals_going_down in
   print_s [%sexp (system : System.t)];
@@ -62,18 +73,22 @@ let%expect_test "picollo cello" =
        ((open_string ((letter_name C) (symbol Natural) (octave_designation 2)))
         (pitch 65.185185185185176) (roman_numeral V))))
      (intervals_going_down
-      ((((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-       (((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-       (((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-       (((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))) |}];
+      (((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))) |}];
   ()
 ;;
 
@@ -91,8 +106,15 @@ let%expect_test "5th Bach's suite for cello" =
     in
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
     Array.concat
-      [ [| fourth, Acoustic_interval.of_symbolic (Pythagorean fourth) |]
-      ; Array.create ~len:2 (fifth, Acoustic_interval.of_symbolic (Pythagorean fifth))
+      [ [| Characterised_interval.create_exn
+             ~interval:fourth
+             ~acoustic_interval:(Acoustic_interval.of_symbolic (Pythagorean fourth))
+        |]
+      ; Array.create
+          ~len:2
+          (Characterised_interval.create_exn
+             ~interval:fifth
+             ~acoustic_interval:(Acoustic_interval.of_symbolic (Pythagorean fifth)))
       ]
   in
   let system = System.create ~high_vibrating_string:g ~pitch ~intervals_going_down in
@@ -109,15 +131,18 @@ let%expect_test "5th Bach's suite for cello" =
        ((open_string ((letter_name C) (symbol Natural) (octave_designation 2)))
         (pitch 65.185185185185176) (roman_numeral IV))))
      (intervals_going_down
-      ((((number Fourth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-       (((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-       (((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))) |}];
+      (((interval ((number Fourth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent 2)) ((prime 3) (exponent -1))))))
+       ((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))) |}];
   ()
 ;;
 
@@ -126,10 +151,15 @@ let%expect_test "Kodaly sonata for cello solo" =
   let pitch = Frequency.a4_440 |> Acoustic_interval.shift_down Acoustic_interval.octave in
   let intervals_going_down =
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
-    [| fifth, Acoustic_interval.of_symbolic (Pythagorean fifth)
-     ; ( { Interval.number = Sixth; quality = Minor; additional_octaves = 0 }
-       , Acoustic_interval.of_symbolic Just_minor_sixth )
-     ; fifth, Acoustic_interval.of_symbolic (Pythagorean fifth)
+    [| Characterised_interval.create_exn
+         ~interval:fifth
+         ~acoustic_interval:(Acoustic_interval.of_symbolic (Pythagorean fifth))
+     ; Characterised_interval.create_exn
+         ~interval:{ Interval.number = Sixth; quality = Minor; additional_octaves = 0 }
+         ~acoustic_interval:(Acoustic_interval.of_symbolic Just_minor_sixth)
+     ; Characterised_interval.create_exn
+         ~interval:fifth
+         ~acoustic_interval:(Acoustic_interval.of_symbolic (Pythagorean fifth))
     |]
   in
   let system = System.create ~high_vibrating_string:a ~pitch ~intervals_going_down in
@@ -146,15 +176,18 @@ let%expect_test "Kodaly sonata for cello solo" =
        ((open_string ((letter_name B) (symbol Natural) (octave_designation 1)))
         (pitch 61.111111111111107) (roman_numeral IV))))
      (intervals_going_down
-      ((((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-       (((number Sixth) (quality Minor) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent 3)) ((prime 5) (exponent -1)))))
-       (((number Fifth) (quality Perfect) (additional_octaves 0))
-        (Reduced_natural_ratio
-         (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))) |}];
+      (((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((interval ((number Sixth) (quality Minor) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent 3)) ((prime 5) (exponent -1))))))
+       ((interval ((number Fifth) (quality Perfect) (additional_octaves 0)))
+        (acoustic_interval
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))) |}];
   ()
 ;;
 
@@ -163,7 +196,11 @@ let%expect_test "reset-pitch" =
   let pitch = Frequency.a4_440 |> Acoustic_interval.shift_down Acoustic_interval.octave in
   let intervals_going_down =
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
-    Array.create ~len:3 (fifth, Acoustic_interval.of_symbolic (Pythagorean fifth))
+    Array.create
+      ~len:3
+      (Characterised_interval.create_exn
+         ~interval:fifth
+         ~acoustic_interval:(Acoustic_interval.of_symbolic (Pythagorean fifth)))
   in
   let system = System.create ~high_vibrating_string:a ~pitch ~intervals_going_down in
   let sexp1 = [%sexp (system : System.t)] in
@@ -208,9 +245,9 @@ let%expect_test "reset-pitch" =
     -     65.185185185185176                                                      +     65.481481481481481
          )                                                                             )
          (roman_numeral IV))))                                                         (roman_numeral IV))))
-                                                                    ...8 unchanged lines...
-         (Reduced_natural_ratio                                                        (Reduced_natural_ratio
-          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))                     (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))) |}];
+                                                                    ...11 unchanged lines...
+          (Reduced_natural_ratio                                                        (Reduced_natural_ratio
+           (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))))                    (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))) |}];
   change ~f:(fun () ->
     System.reset_pitch
       system
@@ -239,8 +276,8 @@ let%expect_test "reset-pitch" =
     -     65.185185185185176                                                      +     65.333333333333329
          )                                                                             )
          (roman_numeral IV))))                                                         (roman_numeral IV))))
-                                                                    ...8 unchanged lines...
-         (Reduced_natural_ratio                                                        (Reduced_natural_ratio
-          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))                     (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))) |}];
+                                                                    ...11 unchanged lines...
+          (Reduced_natural_ratio                                                        (Reduced_natural_ratio
+           (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))))                    (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))) |}];
   ()
 ;;

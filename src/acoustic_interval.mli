@@ -14,7 +14,7 @@ type t = private
 [@@deriving sexp_of]
 
 val add : t -> t -> t
-val cents : t -> float
+val to_cents : t -> float
 
 module Symbolic : sig
   type t =
