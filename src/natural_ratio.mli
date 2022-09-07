@@ -42,6 +42,6 @@ module Reduced : sig
   (** When both the numerator and denominator and below a small bound,
      this function can be used to instantiate a [t]. Raises if out of
      supported bounds. *)
-  val of_small_natural_ratio_exn : natural_ratio -> t
+  val of_small_natural_ratio_exn : numerator:int -> denominator:int -> t
 end
 with type natural_ratio := t

@@ -181,34 +181,123 @@ let%expect_test "ratios" =
   let module Interval_kind = struct
     type t =
       | Unison
+      | Syntonic_comma
+      | Pythagorean_comma
+      | Pythagorean_diatonic_semiton
       | Just_diatonic_semiton
+      | Pythagorean_chromatic_semiton
       | Just_minor_ton
       | Just_major_ton
+      | Pythagorean_minor_third
       | Just_minor_third
       | Just_major_third
+      | Pythagorean_major_third
       | Fourth
       | Fifth
+      | Pythagorean_minor_sixth
       | Just_minor_sixth
       | Just_major_sixth
+      | Pythagorean_major_sixth
+      | Pythagorean_minor_seventh
+      | Minor_seventh_as_fifth_plus_just_minor_third
+      | Major_seventh_as_fifth_plus_just_major_third
+      | Pythagorean_major_seventh
       | Octave
     [@@deriving enumerate, sexp_of]
 
+    let pythagorean_comma =
+      (* 6 tons minus an octave. *)
+      [ Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:81 ~denominator:64
+      ; Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:81 ~denominator:64
+      ; Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:81 ~denominator:64
+      ; Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:(-1)
+      ]
+      |> Natural_ratio.Reduced.compound
+    ;;
+
+    let syntonic_comma =
+      (* 2 P tons minus a Just major third *)
+      [ Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:9 ~denominator:8
+      ; Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:9 ~denominator:8
+      ; Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:4 ~denominator:5
+      ]
+      |> Natural_ratio.Reduced.compound
+    ;;
+
     let acoustic_interval = function
       | Unison -> Acoustic_interval.unison
+      | Syntonic_comma -> Acoustic_interval.reduced_natural_ratio syntonic_comma
+      | Pythagorean_comma -> Acoustic_interval.reduced_natural_ratio pythagorean_comma
+      | Pythagorean_diatonic_semiton -> Acoustic_interval.pythagorean_diatonic_semiton
       | Just_diatonic_semiton -> Acoustic_interval.just_diatonic_semiton
+      | Pythagorean_chromatic_semiton -> Acoustic_interval.pythagorean_chromatic_semiton
       | Just_minor_ton -> Acoustic_interval.just_minor_ton
       | Just_major_ton -> Acoustic_interval.just_major_ton
+      | Pythagorean_minor_third ->
+        Acoustic_interval.pythagorean
+          { number = Third; quality = Minor; additional_octaves = 0 }
       | Just_minor_third -> Acoustic_interval.just_minor_third
       | Just_major_third -> Acoustic_interval.just_major_third
+      | Pythagorean_major_third ->
+        Acoustic_interval.pythagorean
+          { number = Third; quality = Major; additional_octaves = 0 }
       | Fourth ->
         Acoustic_interval.pythagorean
           { number = Fourth; quality = Perfect; additional_octaves = 0 }
       | Fifth ->
         Acoustic_interval.pythagorean
           { number = Fifth; quality = Perfect; additional_octaves = 0 }
+      | Pythagorean_minor_sixth ->
+        Acoustic_interval.pythagorean
+          { number = Sixth; quality = Minor; additional_octaves = 0 }
       | Just_minor_sixth -> Acoustic_interval.just_minor_sixth
       | Just_major_sixth -> Acoustic_interval.just_major_sixth
+      | Pythagorean_major_sixth ->
+        Acoustic_interval.pythagorean
+          { number = Sixth; quality = Major; additional_octaves = 0 }
+      | Pythagorean_minor_seventh ->
+        Acoustic_interval.pythagorean
+          { number = Seventh; quality = Minor; additional_octaves = 0 }
+      | Minor_seventh_as_fifth_plus_just_minor_third ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
+            just_minor_third)
+      | Major_seventh_as_fifth_plus_just_major_third ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
+            just_major_third)
+      | Pythagorean_major_seventh ->
+        Acoustic_interval.pythagorean
+          { number = Seventh; quality = Major; additional_octaves = 0 }
       | Octave -> Acoustic_interval.octave
+    ;;
+
+    let to_53_edo = function
+      | Unison -> 0
+      | Syntonic_comma -> 1
+      | Pythagorean_comma -> 1
+      | Pythagorean_diatonic_semiton -> 4
+      | Just_diatonic_semiton -> 5
+      | Pythagorean_chromatic_semiton -> 5
+      | Just_minor_ton -> 8
+      | Just_major_ton -> 9
+      | Pythagorean_minor_third -> 13
+      | Just_minor_third -> 14
+      | Just_major_third -> 17
+      | Pythagorean_major_third -> 18
+      | Fourth -> 22
+      | Fifth -> 31
+      | Pythagorean_minor_sixth -> 35
+      | Just_minor_sixth -> 36
+      | Just_major_sixth -> 39
+      | Pythagorean_major_sixth -> 40
+      | Pythagorean_minor_seventh -> 44
+      | Minor_seventh_as_fifth_plus_just_minor_third -> 45
+      | Major_seventh_as_fifth_plus_just_major_third -> 48
+      | Pythagorean_major_seventh -> 49
+      | Octave -> 53
     ;;
   end
   in
@@ -217,6 +306,7 @@ let%expect_test "ratios" =
       { interval_kind : Interval_kind.t
       ; acoustic_interval : Acoustic_interval.t
       ; reduced_natural_ratio : Natural_ratio.Reduced.t
+      ; to_53_edo : int
       }
   end
   in
@@ -243,6 +333,19 @@ let%expect_test "ratios" =
             |> Acoustic_interval.to_cents
             |> Float.iround_exn ~dir:`Nearest
             |> Int.to_string ))
+      ; create_attr ~align:Right "53 EDO #" (fun (t : Row.t) ->
+          [], Int.to_string t.to_53_edo)
+      ; create_attr ~align:Right "53 EDO cents" (fun (t : Row.t) ->
+          let cents =
+            Acoustic_interval.equal_division_of_the_octave
+              ~divisor:53
+              ~number_of_divisions:t.to_53_edo
+            |> Acoustic_interval.to_cents
+          in
+          let ref_cents = t.acoustic_interval |> Acoustic_interval.to_cents in
+          let diff = cents -. ref_cents in
+          let sign = if Float.compare diff 0. >= 0 then "+" else "" in
+          [], sprintf "%d (%s%0.3f)" (Float.iround_exn ~dir:`Nearest cents) sign diff)
       ]
   in
   let rows =
@@ -251,24 +354,37 @@ let%expect_test "ratios" =
       { Row.interval_kind
       ; acoustic_interval
       ; reduced_natural_ratio = reduced_natural_ratio acoustic_interval
+      ; to_53_edo = Interval_kind.to_53_edo interval_kind
       })
   in
-  Ascii_table.to_string columns rows |> print_endline;
+  Ascii_table.to_string ~limit_width_to:500 columns rows |> print_endline;
   [%expect
     {|
-    ┌───────────────────────┬─────────┬─────────────────┬───────┐
-    │ Interval              │   Ratio │   Reduced ratio │ Cents │
-    ├───────────────────────┼─────────┼─────────────────┼───────┤
-    │ Unison                │       1 │               1 │     0 │
-    │ Just_diatonic_semiton │ 16 / 15 │ 2 ^ 4 / (3 * 5) │   112 │
-    │ Just_minor_ton        │  10 / 9 │ (2 * 5) / 3 ^ 2 │   182 │
-    │ Just_major_ton        │   9 / 8 │   3 ^ 2 / 2 ^ 3 │   204 │
-    │ Just_minor_third      │   6 / 5 │     (2 * 3) / 5 │   316 │
-    │ Just_major_third      │   5 / 4 │       5 / 2 ^ 2 │   386 │
-    │ Fourth                │   4 / 3 │       2 ^ 2 / 3 │   498 │
-    │ Fifth                 │   3 / 2 │           3 / 2 │   702 │
-    │ Just_minor_sixth      │   8 / 5 │       2 ^ 3 / 5 │   814 │
-    │ Just_major_sixth      │   5 / 3 │           5 / 3 │   884 │
-    │ Octave                │       2 │               2 │  1200 │
-    └───────────────────────┴─────────┴─────────────────┴───────┘ |}]
+    ┌──────────────────────────────────────────────┬─────────────────┬─────────────────────┬───────┬──────────┬───────────────┐
+    │ Interval                                     │           Ratio │       Reduced ratio │ Cents │ 53 EDO # │  53 EDO cents │
+    ├──────────────────────────────────────────────┼─────────────────┼─────────────────────┼───────┼──────────┼───────────────┤
+    │ Unison                                       │               1 │                   1 │     0 │        0 │    0 (+0.000) │
+    │ Syntonic_comma                               │         81 / 80 │ 3 ^ 4 / (2 ^ 4 * 5) │    22 │        1 │   23 (+1.135) │
+    │ Pythagorean_comma                            │ 531441 / 524288 │     3 ^ 12 / 2 ^ 19 │    23 │        1 │   23 (-0.819) │
+    │ Pythagorean_diatonic_semiton                 │       256 / 243 │       2 ^ 8 / 3 ^ 5 │    90 │        4 │   91 (+0.341) │
+    │ Just_diatonic_semiton                        │         16 / 15 │     2 ^ 4 / (3 * 5) │   112 │        5 │  113 (+1.476) │
+    │ Pythagorean_chromatic_semiton                │     2187 / 2048 │      3 ^ 7 / 2 ^ 11 │   114 │        5 │  113 (-0.477) │
+    │ Just_minor_ton                               │          10 / 9 │     (2 * 5) / 3 ^ 2 │   182 │        8 │  181 (-1.272) │
+    │ Just_major_ton                               │           9 / 8 │       3 ^ 2 / 2 ^ 3 │   204 │        9 │  204 (-0.136) │
+    │ Pythagorean_minor_third                      │         32 / 27 │       2 ^ 5 / 3 ^ 3 │   294 │       13 │  294 (+0.205) │
+    │ Just_minor_third                             │           6 / 5 │         (2 * 3) / 5 │   316 │       14 │  317 (+1.340) │
+    │ Just_major_third                             │           5 / 4 │           5 / 2 ^ 2 │   386 │       17 │  385 (-1.408) │
+    │ Pythagorean_major_third                      │         81 / 64 │       3 ^ 4 / 2 ^ 6 │   408 │       18 │  408 (-0.273) │
+    │ Fourth                                       │           4 / 3 │           2 ^ 2 / 3 │   498 │       22 │  498 (+0.068) │
+    │ Fifth                                        │           3 / 2 │               3 / 2 │   702 │       31 │  702 (-0.068) │
+    │ Pythagorean_minor_sixth                      │        128 / 81 │       2 ^ 7 / 3 ^ 4 │   792 │       35 │  792 (+0.273) │
+    │ Just_minor_sixth                             │           8 / 5 │           2 ^ 3 / 5 │   814 │       36 │  815 (+1.408) │
+    │ Just_major_sixth                             │           5 / 3 │               5 / 3 │   884 │       39 │  883 (-1.340) │
+    │ Pythagorean_major_sixth                      │         27 / 16 │       3 ^ 3 / 2 ^ 4 │   906 │       40 │  906 (-0.205) │
+    │ Pythagorean_minor_seventh                    │          16 / 9 │       2 ^ 4 / 3 ^ 2 │   996 │       44 │  996 (+0.136) │
+    │ Minor_seventh_as_fifth_plus_just_minor_third │           9 / 5 │           3 ^ 2 / 5 │  1018 │       45 │ 1019 (+1.272) │
+    │ Major_seventh_as_fifth_plus_just_major_third │          15 / 8 │     (3 * 5) / 2 ^ 3 │  1088 │       48 │ 1087 (-1.476) │
+    │ Pythagorean_major_seventh                    │       243 / 128 │       3 ^ 5 / 2 ^ 7 │  1110 │       49 │ 1109 (-0.341) │
+    │ Octave                                       │               2 │                   2 │  1200 │       53 │ 1200 (+0.000) │
+    └──────────────────────────────────────────────┴─────────────────┴─────────────────────┴───────┴──────────┴───────────────┘ |}]
 ;;

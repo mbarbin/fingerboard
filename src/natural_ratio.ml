@@ -59,8 +59,6 @@ let primes_to_100 =
 ;;
 
 module Reduced = struct
-  type natural_ratio = t [@@deriving sexp_of]
-
   module One = struct
     type t =
       { prime : int
@@ -154,7 +152,7 @@ module Reduced = struct
   let divide t1 t2 = multiply t1 (inverse t2)
   let compound ts = List.reduce ts ~f:multiply |> Option.value ~default:one
 
-  let of_small_natural_ratio_exn ({ numerator; denominator } as natural_ratio) =
+  let of_small_natural_ratio_exn ~numerator ~denominator =
     match
       let open Option.Let_syntax in
       let rec aux acc i ~exponent =
@@ -173,6 +171,6 @@ module Reduced = struct
     with
     | Some t -> t
     | None ->
-      raise_s [%sexp "Unsupported ratio", [%here], (natural_ratio : natural_ratio)]
+      raise_s [%sexp "Unsupported ratio", [%here], { numerator : int; denominator : int }]
   ;;
 end

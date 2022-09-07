@@ -56,7 +56,9 @@ let%expect_test "reduce" =
   ]
   |> List.iter ~f:(fun (a, b) ->
        let natural_ratio = Natural_ratio.create_exn ~numerator:a ~denominator:b in
-       let reduced = Natural_ratio.Reduced.of_small_natural_ratio_exn natural_ratio in
+       let reduced =
+         Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:a ~denominator:b
+       in
        print_s
          [%sexp
            (Natural_ratio.to_string natural_ratio : string)

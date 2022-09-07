@@ -18,6 +18,8 @@ val to_cents : t -> float
 val unison : t
 val octave : t
 val equal_tempered_12 : Interval.t -> t
+val pythagorean_diatonic_semiton : t
+val pythagorean_chromatic_semiton : t
 val pythagorean : Interval.t -> t
 val reduced_natural_ratio : Natural_ratio.Reduced.t -> t
 val small_natural_ratio_exn : numerator:int -> denominator:int -> t

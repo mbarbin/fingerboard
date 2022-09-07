@@ -42,6 +42,13 @@ let add t1 t2 =
 ;;
 
 let compound ts = List.reduce ts ~f:add |> Option.value ~default:Zero
+let unison = Zero
+let octave = Reduced_natural_ratio (Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:1)
+
+let equal_tempered_12 interval =
+  Equal_division_of_the_octave
+    { divisor = 12; number_of_divisions = Interval.number_of_semitons interval }
+;;
 
 let pythagorean_ton =
   Natural_ratio.Reduced.(
@@ -55,7 +62,7 @@ let fourth =
 
 let pythagorean_diatonic_semiton =
   let p2ton = Natural_ratio.Reduced.multiply pythagorean_ton pythagorean_ton in
-  Natural_ratio.Reduced.divide fourth p2ton
+  Reduced_natural_ratio (Natural_ratio.Reduced.divide fourth p2ton)
 ;;
 
 let pythagorean_chromatic_semiton =
@@ -63,15 +70,7 @@ let pythagorean_chromatic_semiton =
     Natural_ratio.Reduced.multiply pythagorean_ton pythagorean_ton
     |> Natural_ratio.Reduced.multiply pythagorean_ton
   in
-  Natural_ratio.Reduced.divide p3ton fourth
-;;
-
-let unison = Zero
-let octave = Reduced_natural_ratio (Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:1)
-
-let equal_tempered_12 interval =
-  Equal_division_of_the_octave
-    { divisor = 12; number_of_divisions = Interval.number_of_semitons interval }
+  Reduced_natural_ratio (Natural_ratio.Reduced.divide p3ton fourth)
 ;;
 
 let pythagorean (interval : Interval.t) =
@@ -101,18 +100,10 @@ let pythagorean (interval : Interval.t) =
     let chromatic = chromatic + chromatic_shift in
     chromatic, diatonic
   in
-  [ List.init
-      interval.additional_octaves
-      ~f:
-        (const
-           (Reduced_natural_ratio (Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:1)))
+  [ List.init interval.additional_octaves ~f:(const octave)
   ; List.init (min chromatic diatonic) ~f:(const (Reduced_natural_ratio pythagorean_ton))
-  ; List.init
-      (max 0 (chromatic - diatonic))
-      ~f:(const (Reduced_natural_ratio pythagorean_chromatic_semiton))
-  ; List.init
-      (max 0 (diatonic - chromatic))
-      ~f:(const (Reduced_natural_ratio pythagorean_diatonic_semiton))
+  ; List.init (max 0 (chromatic - diatonic)) ~f:(const pythagorean_chromatic_semiton)
+  ; List.init (max 0 (diatonic - chromatic)) ~f:(const pythagorean_diatonic_semiton)
   ]
   |> List.concat
   |> compound
@@ -121,8 +112,7 @@ let pythagorean (interval : Interval.t) =
 let reduced_natural_ratio nr = Reduced_natural_ratio nr
 
 let small_natural_ratio_exn ~numerator ~denominator =
-  Natural_ratio.create_exn ~numerator ~denominator
-  |> Natural_ratio.Reduced.of_small_natural_ratio_exn
+  Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator ~denominator
   |> reduced_natural_ratio
 ;;
 
