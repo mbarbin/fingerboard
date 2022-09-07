@@ -24,4 +24,7 @@ val at_octave : t -> octave:int -> t
 (** Expected to be given a vibrating string portion that is between
    the open string and the first octave. Other positions at higher
    octave may be constructed using [at_octave]. *)
-val create : name:string -> acoustic_interval_to_the_open_string:Acoustic_interval.t -> t
+val create_exn
+  :  name:string
+  -> acoustic_interval_to_the_open_string:Acoustic_interval.t
+  -> t
