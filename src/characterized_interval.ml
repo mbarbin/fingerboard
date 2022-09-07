@@ -13,8 +13,7 @@ let allowed_deviation_from_equal_tempered_12_in_cents =
 
 let check_deviation_exn ~interval ~acoustic_interval =
   let tempered_12_equivalent_in_cents =
-    Acoustic_interval.of_symbolic (Equal_tempered_12 interval)
-    |> Acoustic_interval.to_cents
+    Acoustic_interval.equal_tempered_12 interval |> Acoustic_interval.to_cents
   in
   let in_cents = Acoustic_interval.to_cents acoustic_interval in
   let deviation = Float.abs (tempered_12_equivalent_in_cents -. in_cents) in

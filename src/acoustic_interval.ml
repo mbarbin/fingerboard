@@ -8,7 +8,6 @@ type t =
       { divisor : int
       ; number_of_divisions : int
       }
-  | Natural_ratio of Natural_ratio.t
   | Reduced_natural_ratio of Natural_ratio.Reduced.t
   | Cents of float
 [@@deriving sexp_of]
@@ -19,8 +18,6 @@ let to_cents = function
   | Zero -> 0.
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
     1200. *. float_of_int number_of_divisions /. float_of_int divisor
-  | Natural_ratio { numerator; denominator } ->
-    log2 (float_of_int numerator /. float_of_int denominator) *. 1200.
   | Reduced_natural_ratio r ->
     let { Natural_ratio.numerator; denominator } =
       Natural_ratio.Reduced.to_natural_ratio r
@@ -38,18 +35,18 @@ let add t1 t2 =
     , Equal_division_of_the_octave { divisor = d2; number_of_divisions = p2 } )
     when d1 = d2 ->
     Equal_division_of_the_octave { divisor = d1; number_of_divisions = p1 + p2 }
-  | Natural_ratio r1, Natural_ratio r2 -> Natural_ratio (Natural_ratio.multiply r1 r2)
   | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
     Reduced_natural_ratio (Natural_ratio.Reduced.multiply r1 r2)
   | Cents x, Cents y -> Cents (x +. y)
   | _ -> Cents (to_cents t1 +. to_cents t2)
 ;;
 
+let compound ts = List.reduce ts ~f:add |> Option.value ~default:Zero
+
 module Symbolic = struct
   type t =
     | Equal_tempered_12 of Interval.t
     | Pythagorean of Interval.t
-    | Natural_ratio of Natural_ratio.t
     | Reduced_natural_ratio of Natural_ratio.Reduced.t
     | Equal_division_of_the_octave of
         { divisor : int
@@ -139,7 +136,6 @@ let rec of_symbolic (symbolic : Symbolic.t) =
                 (max 0 (diatonic - chromatic))
                 ~f:(const (Symbolic.Reduced_natural_ratio pythagorean_diatonic_semiton))
             ]))
-  | Natural_ratio nr -> Natural_ratio nr
   | Reduced_natural_ratio nr -> Reduced_natural_ratio nr
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
     Equal_division_of_the_octave { divisor; number_of_divisions }
@@ -188,6 +184,27 @@ let rec of_symbolic (symbolic : Symbolic.t) =
 
 let unison = Zero
 let octave = Reduced_natural_ratio (Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:1)
+let equal_tempered_12 interval = of_symbolic (Equal_tempered_12 interval)
+let pythagorean interval = of_symbolic (Pythagorean interval)
+let reduced_natural_ratio nr = of_symbolic (Reduced_natural_ratio nr)
+
+let small_natural_ratio_exn ~numerator ~denominator =
+  Natural_ratio.create_exn ~numerator ~denominator
+  |> Natural_ratio.Reduced.of_small_natural_ratio_exn
+  |> reduced_natural_ratio
+;;
+
+let equal_division_of_the_octave ~divisor ~number_of_divisions =
+  of_symbolic (Equal_division_of_the_octave { divisor; number_of_divisions })
+;;
+
+let just_diatonic_semiton = of_symbolic Just_diatonic_semiton
+let just_minor_ton = of_symbolic Just_minor_ton
+let just_major_ton = of_symbolic Just_major_ton
+let just_minor_third = of_symbolic Just_minor_third
+let just_major_third = of_symbolic Just_major_third
+let just_minor_sixth = of_symbolic Just_minor_sixth
+let just_major_sixth = of_symbolic Just_major_sixth
 
 let shift_up t frequency =
   let of_cents cents =
@@ -201,7 +218,6 @@ let shift_up t frequency =
   match t with
   | Zero -> frequency
   | (Equal_division_of_the_octave _ | Cents _) as t -> t |> to_cents |> of_cents
-  | Natural_ratio n -> of_natural_ratio n
   | Reduced_natural_ratio rn ->
     of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
 ;;
@@ -218,7 +234,6 @@ let shift_down t frequency =
   match t with
   | Zero -> frequency
   | (Equal_division_of_the_octave _ | Cents _) as t -> t |> to_cents |> of_cents
-  | Natural_ratio n -> of_natural_ratio n
   | Reduced_natural_ratio rn ->
     of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
 ;;

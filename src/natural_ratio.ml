@@ -28,7 +28,39 @@ let multiply { numerator = n1; denominator = d1 } { numerator = n2; denominator 
 
 let divide t1 t2 = multiply t1 (inverse t2)
 
+let primes_to_100 =
+  [ 2
+  ; 3
+  ; 5
+  ; 7
+  ; 11
+  ; 13
+  ; 17
+  ; 19
+  ; 23
+  ; 29
+  ; 31
+  ; 37
+  ; 41
+  ; 43
+  ; 47
+  ; 53
+  ; 59
+  ; 61
+  ; 67
+  ; 71
+  ; 73
+  ; 79
+  ; 83
+  ; 89
+  ; 97
+  ]
+  |> Set.of_list (module Int)
+;;
+
 module Reduced = struct
+  type natural_ratio = t [@@deriving sexp_of]
+
   module One = struct
     type t =
       { prime : int
@@ -67,7 +99,12 @@ module Reduced = struct
   ;;
 
   let create_exn ~prime ~exponent =
-    assert (exponent <> 0);
+    if prime < 100 && not (Set.mem primes_to_100 prime)
+    then raise_s [%sexp "Not a prime number", [%here], { prime : int }];
+    if exponent = 0
+    then
+      raise_s
+        [%sexp "Non-null exponent expected", [%here], { prime : int; exponent : int }];
     [ { One.prime; exponent } ]
   ;;
 
@@ -116,4 +153,26 @@ module Reduced = struct
 
   let divide t1 t2 = multiply t1 (inverse t2)
   let compound ts = List.reduce ts ~f:multiply |> Option.value ~default:one
+
+  let of_small_natural_ratio_exn ({ numerator; denominator } as natural_ratio) =
+    match
+      let open Option.Let_syntax in
+      let rec aux acc i ~exponent =
+        if i = 1
+        then return acc
+        else (
+          let%bind prime =
+            match Set.find primes_to_100 ~f:(fun prime -> i mod prime = 0) with
+            | Some _ as some -> some
+            | None -> if i < 10_000 then Some i else None
+          in
+          aux (multiply acc (create_exn ~prime ~exponent)) (i / prime) ~exponent)
+      in
+      let%bind acc = aux one numerator ~exponent:1 in
+      aux acc denominator ~exponent:(-1)
+    with
+    | Some t -> t
+    | None ->
+      raise_s [%sexp "Unsupported ratio", [%here], (natural_ratio : natural_ratio)]
+  ;;
 end

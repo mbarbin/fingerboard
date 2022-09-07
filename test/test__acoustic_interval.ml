@@ -20,32 +20,29 @@ let%expect_test "first comparison" =
         [%sexp
           "Unimplemented", (here : Source_code_position.t), (t.interval : Interval.t)]
     in
-    let symbolic =
-      match (kind : Kind.t) with
-      | Equal_temperament -> Acoustic_interval.Symbolic.Equal_tempered_12 t.interval
-      | Pythagorean -> Acoustic_interval.Symbolic.Pythagorean t.interval
-      | Just ->
-        (match t.interval.number with
-         | Octave | Fifth | Fourth ->
-           assert (Interval.Quality.equal t.interval.quality Perfect);
-           Acoustic_interval.Symbolic.Pythagorean t.interval
-         | Second ->
-           (match t.interval.quality with
-            | Minor -> Acoustic_interval.Symbolic.Just_diatonic_semiton
-            | _ -> unimplemented [%here])
-         | Third ->
-           (match t.interval.quality with
-            | Minor -> Acoustic_interval.Symbolic.Just_minor_third
-            | Major -> Acoustic_interval.Symbolic.Just_major_third
-            | _ -> unimplemented [%here])
-         | Sixth ->
-           (match t.interval.quality with
-            | Minor -> Acoustic_interval.Symbolic.Just_minor_sixth
-            | Major -> Acoustic_interval.Symbolic.Just_major_sixth
-            | _ -> unimplemented [%here])
-         | _ -> unimplemented [%here])
-    in
-    symbolic |> Acoustic_interval.of_symbolic
+    match (kind : Kind.t) with
+    | Equal_temperament -> Acoustic_interval.equal_tempered_12 t.interval
+    | Pythagorean -> Acoustic_interval.pythagorean t.interval
+    | Just ->
+      (match t.interval.number with
+       | Octave | Fifth | Fourth ->
+         assert (Interval.Quality.equal t.interval.quality Perfect);
+         Acoustic_interval.pythagorean t.interval
+       | Second ->
+         (match t.interval.quality with
+          | Minor -> Acoustic_interval.just_diatonic_semiton
+          | _ -> unimplemented [%here])
+       | Third ->
+         (match t.interval.quality with
+          | Minor -> Acoustic_interval.just_minor_third
+          | Major -> Acoustic_interval.just_major_third
+          | _ -> unimplemented [%here])
+       | Sixth ->
+         (match t.interval.quality with
+          | Minor -> Acoustic_interval.just_minor_sixth
+          | Major -> Acoustic_interval.just_major_sixth
+          | _ -> unimplemented [%here])
+       | _ -> unimplemented [%here])
   in
   let columns =
     let cents_column kind =
@@ -122,11 +119,9 @@ let%expect_test "harmonic series and cents" =
           [], Interval.name t.interval)
       ; create_attr ~align:Right "Deviation in Cents From Equal" (fun (t : Row.t) ->
           let harmonic =
-            Acoustic_interval.of_symbolic
-              (Natural_ratio
-                 (Natural_ratio.create_exn ~numerator:t.harmonic ~denominator:1))
+            Acoustic_interval.small_natural_ratio_exn ~numerator:t.harmonic ~denominator:1
           in
-          let equal = Acoustic_interval.of_symbolic (Equal_tempered_12 t.interval) in
+          let equal = Acoustic_interval.equal_tempered_12 t.interval in
           let deviation =
             Acoustic_interval.to_cents harmonic -. Acoustic_interval.to_cents equal
             |> Float.iround_exn ~dir:`Nearest
@@ -200,19 +195,19 @@ let%expect_test "ratios" =
 
     let acoustic_interval = function
       | Unison -> Acoustic_interval.unison
-      | Just_diatonic_semiton -> Acoustic_interval.of_symbolic Just_diatonic_semiton
-      | Just_minor_ton -> Acoustic_interval.of_symbolic Just_minor_ton
-      | Just_major_ton -> Acoustic_interval.of_symbolic Just_major_ton
-      | Just_minor_third -> Acoustic_interval.of_symbolic Just_minor_third
-      | Just_major_third -> Acoustic_interval.of_symbolic Just_major_third
+      | Just_diatonic_semiton -> Acoustic_interval.just_diatonic_semiton
+      | Just_minor_ton -> Acoustic_interval.just_minor_ton
+      | Just_major_ton -> Acoustic_interval.just_major_ton
+      | Just_minor_third -> Acoustic_interval.just_minor_third
+      | Just_major_third -> Acoustic_interval.just_major_third
       | Fourth ->
-        Acoustic_interval.of_symbolic
-          (Pythagorean { number = Fourth; quality = Perfect; additional_octaves = 0 })
+        Acoustic_interval.pythagorean
+          { number = Fourth; quality = Perfect; additional_octaves = 0 }
       | Fifth ->
-        Acoustic_interval.of_symbolic
-          (Pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
-      | Just_minor_sixth -> Acoustic_interval.of_symbolic Just_minor_sixth
-      | Just_major_sixth -> Acoustic_interval.of_symbolic Just_major_sixth
+        Acoustic_interval.pythagorean
+          { number = Fifth; quality = Perfect; additional_octaves = 0 }
+      | Just_minor_sixth -> Acoustic_interval.just_minor_sixth
+      | Just_major_sixth -> Acoustic_interval.just_major_sixth
       | Octave -> Acoustic_interval.octave
     ;;
   end
@@ -229,7 +224,7 @@ let%expect_test "ratios" =
     match (acoustic_interval : Acoustic_interval.t) with
     | Zero -> Natural_ratio.Reduced.one
     | Reduced_natural_ratio nr -> nr
-    | (Natural_ratio _ | Equal_division_of_the_octave _ | Cents _) as i ->
+    | (Equal_division_of_the_octave _ | Cents _) as i ->
       raise_s [%sexp "Unexpected non ratio", [%here], (i : Acoustic_interval.t)]
   in
   let columns =
