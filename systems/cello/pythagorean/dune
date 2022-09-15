@@ -1,0 +1,7 @@
+(library
+ (name cemper_cello_system_pythagorean)
+ (flags -w +a-4-40-41-42-44-66 -warn-error +a)
+ (libraries core cemper sexp_diff textutils.ascii_table)
+ (inline_tests)
+ (preprocess
+  (pps ppx_jane)))

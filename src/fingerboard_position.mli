@@ -14,6 +14,9 @@ open! Core
 
 type t [@@deriving compare, equal, hash, sexp_of]
 
+(** Retrieve the name supplied with [t] was created. *)
+val name : t -> string
+
 (** A string identifier constituted from the name and the octave
    designation. *)
 val to_string : t -> string

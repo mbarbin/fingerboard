@@ -24,6 +24,9 @@ val to_cents : t -> float
 (** Convert to cents if the two are not of the same shape. *)
 val equal : t -> t -> bool
 
+(** Convert to cents, and compare the two. *)
+val compare : t -> t -> int
+
 val unison : t
 val octave : t
 val equal_tempered_12 : Interval.t -> t

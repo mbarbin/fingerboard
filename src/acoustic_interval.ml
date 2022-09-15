@@ -90,6 +90,7 @@ let equal t1 t2 =
   | _ -> Float.equal (to_cents t1) (to_cents t2)
 ;;
 
+let compare t1 t2 = Float.compare (to_cents t1) (to_cents t2)
 let compound ts = List.reduce ts ~f:add |> Option.value ~default:Zero
 let unison = Zero
 let octave = Reduced_natural_ratio (Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:1)

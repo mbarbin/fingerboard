@@ -19,6 +19,8 @@ end
 type t =
   { vibrating_strings : Vibrating_string.t array
   ; intervals_going_down : Characterized_interval.t array
+  ; mutable fingerboard_positions : Fingerboard_position.t list
+       [@sexp_drop_if List.is_empty]
   }
 [@@deriving sexp_of]
 
@@ -48,6 +50,7 @@ let create ~high_vibrating_string ~pitch ~intervals_going_down =
   in
   { vibrating_strings = Array.concat [ [| high_vibrating_string |]; other_strings ]
   ; intervals_going_down
+  ; fingerboard_positions = []
   }
 ;;
 
@@ -113,12 +116,127 @@ let acoustic_interval
     (Fingerboard_position.acoustic_interval_to_the_open_string p1)
 ;;
 
-let add_fingerboard_position_exn (_ : t) (_ : Fingerboard_position.t) : unit =
-  assert false
+let fingerboard_positions t = t.fingerboard_positions
+
+let find_fingerboard_position (t : t) ~name =
+  List.find t.fingerboard_positions ~f:(fun fingerboard_position ->
+    String.equal name (Fingerboard_position.name fingerboard_position))
 ;;
 
-let fingerboard_positions (_ : t) : Fingerboard_position.t list = assert false
+let find_fingerboard_position_exn t ~name =
+  match find_fingerboard_position t ~name with
+  | Some x -> x
+  | None -> raise_s [%sexp "Fingerboard_position not found", [%here], { name : string }]
+;;
 
-let find_fingerboard_position_exn (_ : t) ~name:(_ : string) : Fingerboard_position.t =
-  assert false
+let add_fingerboard_position_exn
+  ?(on_n_octaves = 3)
+  (t : t)
+  (fingerboard_position : Fingerboard_position.t)
+  =
+  if Acoustic_interval.compare
+       (Fingerboard_position.acoustic_interval_to_the_open_string fingerboard_position)
+       Acoustic_interval.octave
+     > 0
+  then
+    raise_s
+      [%sexp
+        "Interval out of bounds"
+        , [%here]
+        , { fingerboard_position : Fingerboard_position.t }];
+  let name = Fingerboard_position.name fingerboard_position in
+  (match find_fingerboard_position t ~name with
+   | None -> ()
+   | Some existing_fingerboard_position ->
+     raise_s
+       [%sexp
+         "Duplicated fingerboard position's name"
+         , [%here]
+         , { name : string
+           ; fingerboard_position : Fingerboard_position.t
+           ; existing_fingerboard_position : Fingerboard_position.t
+           }]);
+  let fingerboard_positions =
+    List.init on_n_octaves ~f:(fun i ->
+      Fingerboard_position.at_octave fingerboard_position ~octave:i)
+    @ t.fingerboard_positions
+    |> List.sort
+         ~compare:
+           (Comparable.lift
+              Acoustic_interval.compare
+              ~f:Fingerboard_position.acoustic_interval_to_the_open_string)
+  in
+  t.fingerboard_positions <- fingerboard_positions
+;;
+
+let exists_fingerboard_position t fingerboard_position =
+  List.exists t.fingerboard_positions ~f:(fun p ->
+    Fingerboard_position.equal p fingerboard_position)
+;;
+
+let exists_fingerboard_location
+  t
+  { Fingerboard_location.fingerboard_position; string_number }
+  =
+  let index = Roman_numeral.to_int string_number - 1 in
+  index >= 0
+  && index < Array.length t.vibrating_strings
+  && exists_fingerboard_position t fingerboard_position
+;;
+
+let find_next_located_note
+  (t : t)
+  { Located_note.note; fingerboard_location }
+  (characterized_interval : Characterized_interval.t)
+  =
+  let open Option.Let_syntax in
+  let index = Roman_numeral.to_int fingerboard_location.string_number in
+  let%bind fingerboard_location =
+    List.find_map (List.init index ~f:Fn.id) ~f:(fun index ->
+      let string_number = Roman_numeral.of_int_exn (index + 1) in
+      match
+        List.find t.fingerboard_positions ~f:(fun fingerboard_position ->
+          match
+            acoustic_interval
+              t
+              ~from:fingerboard_location
+              ~to_:{ fingerboard_position; string_number }
+          with
+          | None -> false
+          | Some found_interval ->
+            Acoustic_interval.equal
+              found_interval
+              characterized_interval.acoustic_interval)
+      with
+      | None -> None
+      | Some fingerboard_position ->
+        Some { Fingerboard_location.fingerboard_position; string_number })
+  in
+  let%bind note = Interval.shift_up characterized_interval.interval note in
+  return { Located_note.note; fingerboard_location }
+;;
+
+let open_string t string_number =
+  let open Option.Let_syntax in
+  let index = Roman_numeral.to_int string_number - 1 in
+  let%bind vibrating_string =
+    if index >= 0 && index < Array.length t.vibrating_strings
+    then return t.vibrating_strings.(index)
+    else None
+  in
+  let%bind fingerboard_position =
+    match List.hd t.fingerboard_positions with
+    | None -> None
+    | Some fingerboard_position ->
+      if Acoustic_interval.equal
+           Acoustic_interval.unison
+           (Fingerboard_position.acoustic_interval_to_the_open_string
+              fingerboard_position)
+      then return fingerboard_position
+      else None
+  in
+  return
+    { Located_note.note = vibrating_string.open_string
+    ; fingerboard_location = { fingerboard_position; string_number }
+    }
 ;;

@@ -1,7 +1,7 @@
 open! Core
 open! Cemper
 
-let test_pitch_exn ~system ~(intervals_going_down : Characterised_interval.t array) =
+let test_pitch_exn ~system ~(intervals_going_down : Characterized_interval.t array) =
   (* We test that the pitch is the same for the open string and the
      position on the next vibrating string at the position of the
      interval between the two vibrating strings. *)
@@ -45,7 +45,7 @@ let%expect_test "4-strings cello" =
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
     Array.create
       ~len:3
-      (Characterised_interval.create_exn
+      (Characterized_interval.create_exn
          ~interval:fifth
          ~acoustic_interval:(Acoustic_interval.pythagorean fifth))
   in
@@ -166,7 +166,7 @@ let%expect_test "picollo cello" =
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
     Array.create
       ~len:4
-      (Characterised_interval.create_exn
+      (Characterized_interval.create_exn
          ~interval:fifth
          ~acoustic_interval:(Acoustic_interval.pythagorean fifth))
   in
@@ -220,13 +220,13 @@ let%expect_test "5th Bach's suite for cello" =
     in
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
     Array.concat
-      [ [| Characterised_interval.create_exn
+      [ [| Characterized_interval.create_exn
              ~interval:fourth
              ~acoustic_interval:(Acoustic_interval.pythagorean fourth)
         |]
       ; Array.create
           ~len:2
-          (Characterised_interval.create_exn
+          (Characterized_interval.create_exn
              ~interval:fifth
              ~acoustic_interval:(Acoustic_interval.pythagorean fifth))
       ]
@@ -266,13 +266,13 @@ let%expect_test "Kodaly sonata for cello solo" =
   let pitch = Frequency.a4_440 |> Acoustic_interval.shift_down Acoustic_interval.octave in
   let intervals_going_down =
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
-    [| Characterised_interval.create_exn
+    [| Characterized_interval.create_exn
          ~interval:fifth
          ~acoustic_interval:(Acoustic_interval.pythagorean fifth)
-     ; Characterised_interval.create_exn
+     ; Characterized_interval.create_exn
          ~interval:{ Interval.number = Sixth; quality = Minor; additional_octaves = 0 }
          ~acoustic_interval:Acoustic_interval.just_minor_sixth
-     ; Characterised_interval.create_exn
+     ; Characterized_interval.create_exn
          ~interval:fifth
          ~acoustic_interval:(Acoustic_interval.pythagorean fifth)
     |]
@@ -314,7 +314,7 @@ let%expect_test "reset-pitch" =
     let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
     Array.create
       ~len:3
-      (Characterised_interval.create_exn
+      (Characterized_interval.create_exn
          ~interval:fifth
          ~acoustic_interval:(Acoustic_interval.pythagorean fifth))
   in

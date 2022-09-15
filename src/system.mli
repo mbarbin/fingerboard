@@ -31,18 +31,41 @@ val acoustic_interval
    - the locations that are at the same distance to the open string on
    all other strings;
 
-   - the locations on the same string at higher octaves.
+   - the locations on the same string at higher octaves. By default, 3
+   locations on the strings are added, on 3 octaves. This may be
+   controled by the [on_n_octaves] parameter.
 
-   The name must be unique and not previously known by that system.
-   Because positions are systematically added at the octaves of the
-   given string portion, the one given as reference for a new position
-   is expected to be lower than one octave to the open string. *)
-val add_fingerboard_position_exn : t -> Fingerboard_position.t -> unit
+   The position's name must be unique within a system, that is a
+   fingerboard position with the same name must not have been
+   previously added to that system. Because positions are
+   systematically added at the octaves of the given string portion,
+   the one given as reference for a new position is expected to be
+   lower than one octave to the open string. *)
+val add_fingerboard_position_exn
+  :  ?on_n_octaves:int
+  -> t
+  -> Fingerboard_position.t
+  -> unit
 
 (** Returns the list of fingerboard_positions known by this system, retuned in the
    order they are found going up the fingerboard starting from the
    open string. *)
 val fingerboard_positions : t -> Fingerboard_position.t list
 
-(** Find the position created with the given name if present or raise. *)
+(** Find the position created with the given name if present or raise.
+   The position returned is that of the first octave on the string. *)
 val find_fingerboard_position_exn : t -> name:string -> Fingerboard_position.t
+
+(** Check whether given positions and locations are present in the system. *)
+
+val exists_fingerboard_position : t -> Fingerboard_position.t -> bool
+val exists_fingerboard_location : t -> Fingerboard_location.t -> bool
+
+val find_next_located_note
+  :  t
+  -> Located_note.t
+  -> Characterized_interval.t
+  -> Located_note.t option
+
+(** Return the given located_note if a position was added to the system for the open string. *)
+val open_string : t -> Roman_numeral.t -> Located_note.t option
