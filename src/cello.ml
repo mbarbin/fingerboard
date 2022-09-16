@@ -279,3 +279,7 @@ let fingerboard_position name =
     ~acoustic_interval_to_the_open_string:
       (Fingerboard_position_name.acoustic_interval_to_the_open_string name)
 ;;
+
+let fingerboard_highest_note =
+  { Note.letter_name = E; symbol = Natural; octave_designation = 6 }
+;;

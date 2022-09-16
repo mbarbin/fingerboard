@@ -107,3 +107,8 @@ module Fingerboard_position_name : sig
 end
 
 val fingerboard_position : Fingerboard_position_name.t -> Fingerboard_position.t
+
+(** The selection of this particular note is somewhat arbitrary,
+   anything around that note is realistic here. This is used to limit
+   the generation of scales and positions. *)
+val fingerboard_highest_note : Note.t

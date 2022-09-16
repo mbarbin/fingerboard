@@ -1,12 +1,6 @@
 open! Core
 open! Cemper
 
-let fingerboard_high_bound =
-  (* The selection of this particular note is somewhat arbitrary,
-     anything around that note is realistic here. *)
-  { Note.letter_name = E; symbol = Natural; octave_designation = 6 }
-;;
-
 let lower_c =
   let t = force Just.t in
   System.open_string t IV |> Option.value_exn ~here:[%here]
@@ -15,7 +9,7 @@ let lower_c =
 let make_scale t ~characterized_scale ~from =
   let rec aux acc scale (located_note : Located_note.t) =
     if Option.is_some
-         (Interval.compute ~from:fingerboard_high_bound ~to_:located_note.note ())
+         (Interval.compute ~from:Cello.fingerboard_highest_note ~to_:located_note.note ())
     then acc
     else (
       match scale with
