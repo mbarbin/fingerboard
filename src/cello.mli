@@ -81,11 +81,24 @@ module Fingerboard_position_name : sig
     val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
   end
 
+  module Just : sig
+    type t =
+      [ `M2z
+      | `M3z
+      | `P5z
+      | `P8z
+      ]
+    [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+    val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+  end
+
   type t =
     [ `open_string
     | Edo12.t
     | Edo53.t
     | Pythagorean.t
+    | Just.t
     ]
   [@@deriving compare, equal, hash, sexp_of]
 

@@ -213,11 +213,44 @@ module Fingerboard_position_name = struct
     ;;
   end
 
+  module Just = struct
+    type t =
+      [ `M2z
+      | `M3z
+      | `P5z
+      | `P8z
+      ]
+    [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+    let sexp_of_t : t -> Sexp.t = function
+      | `P5z -> Atom "5z"
+      | `P8z -> Atom "8z"
+      | (`M2z | `M3z) as t -> sexp_of_t t
+    ;;
+
+    let acoustic_interval_to_the_open_string (t : t) =
+      match (t : t) with
+      | `M2z -> Acoustic_interval.just_minor_ton
+      | `M3z -> Acoustic_interval.just_major_third
+      | `P5z ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Fourth; quality = Perfect; additional_octaves = 0 })
+            just_minor_ton)
+      | `P8z ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Seventh; quality = Minor; additional_octaves = 0 })
+            just_minor_ton)
+    ;;
+  end
+
   type t =
     [ `open_string
     | Edo12.t
     | Edo53.t
     | Pythagorean.t
+    | Just.t
     ]
   [@@deriving compare, equal, hash, sexp_of]
 
@@ -226,6 +259,7 @@ module Fingerboard_position_name = struct
     | #Edo12.t as t -> [%sexp (t : Edo12.t)]
     | #Edo53.t as t -> [%sexp (t : Edo53.t)]
     | #Pythagorean.t as t -> [%sexp (t : Pythagorean.t)]
+    | #Just.t as t -> [%sexp (t : Just.t)]
   ;;
 
   let acoustic_interval_to_the_open_string : t -> Acoustic_interval.t = function
@@ -233,6 +267,7 @@ module Fingerboard_position_name = struct
     | #Edo12.t as t -> t |> Edo12.acoustic_interval_to_the_open_string
     | #Edo53.t as t -> t |> Edo53.acoustic_interval_to_the_open_string
     | #Pythagorean.t as t -> t |> Pythagorean.acoustic_interval_to_the_open_string
+    | #Just.t as t -> t |> Just.acoustic_interval_to_the_open_string
   ;;
 
   let to_string t = Sexp.to_string [%sexp (t : t)]
