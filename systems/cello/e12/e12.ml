@@ -19,7 +19,11 @@ let add_positions t =
   List.iter
     ~f:(fun name ->
       System.add_fingerboard_position_exn t (Cello.fingerboard_position name))
-    [ `open_string; `m2e; `M2e; `m3e; `M3e; `P4e; `A4e; `P5e; `m6e; `M6e; `m7e; `M7e ]
+    (List.concat
+       [ [ `open_string ]
+       ; (Cello.Fingerboard_position_name.Edo12.all
+           :> Cello.Fingerboard_position_name.t list)
+       ])
 ;;
 
 let t =
