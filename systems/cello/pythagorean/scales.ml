@@ -48,263 +48,238 @@ let%expect_test "c_scale" =
     (((note ((letter_name C) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
-          (at_octave 0)))
+         ((name P1) (at_octave 0)
+          (basis_acoustic_interval_to_the_open_string Zero)))
         (string_number IV))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2)
+         ((name M2) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
-          (at_octave 0)))
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))))
         (string_number IV))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M3)
+         ((name M3) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -6)) ((prime 3) (exponent 4)))))
-          (at_octave 0)))
+            (((prime 2) (exponent -6)) ((prime 3) (exponent 4)))))))
         (string_number IV))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-          (at_octave 0)))
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))))
         (string_number IV))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
-          (at_octave 0)))
+         ((name P1) (at_octave 0)
+          (basis_acoustic_interval_to_the_open_string Zero)))
         (string_number III))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2)
+         ((name M2) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
-          (at_octave 0)))
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))))
         (string_number III))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M3)
+         ((name M3) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -6)) ((prime 3) (exponent 4)))))
-          (at_octave 0)))
+            (((prime 2) (exponent -6)) ((prime 3) (exponent 4)))))))
         (string_number III))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-          (at_octave 0)))
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))))
         (string_number III))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
-          (at_octave 0)))
+         ((name P1) (at_octave 0)
+          (basis_acoustic_interval_to_the_open_string Zero)))
         (string_number II))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2)
+         ((name M2) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
-          (at_octave 0)))
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))))
         (string_number II))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3)
+         ((name m3) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
-          (at_octave 0)))
+            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))))
         (string_number II))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-          (at_octave 0)))
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))))
         (string_number II))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
-          (at_octave 0)))
+         ((name P1) (at_octave 0)
+          (basis_acoustic_interval_to_the_open_string Zero)))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2)
+         ((name M2) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
-          (at_octave 0)))
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3)
+         ((name m3) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
-          (at_octave 0)))
+            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-          (at_octave 0)))
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P5)
+         ((name P5) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-          (at_octave 0)))
+            (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))
         (string_number I))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m6)
+         ((name m6) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 7)) ((prime 3) (exponent -4)))))
-          (at_octave 0)))
+            (((prime 2) (exponent 7)) ((prime 3) (exponent -4)))))))
         (string_number I))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m7)
+         ((name m7) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 4)) ((prime 3) (exponent -2)))))
-          (at_octave 0)))
+            (((prime 2) (exponent 4)) ((prime 3) (exponent -2)))))))
         (string_number I))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
-          (at_octave 1)))
+         ((name P1) (at_octave 1)
+          (basis_acoustic_interval_to_the_open_string Zero)))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2)
+         ((name M2) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
-          (at_octave 1)))
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3)
+         ((name m3) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
-          (at_octave 1)))
+            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-          (at_octave 1)))
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P5)
+         ((name P5) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-          (at_octave 1)))
+            (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))
         (string_number I))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m6)
+         ((name m6) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 7)) ((prime 3) (exponent -4)))))
-          (at_octave 1)))
+            (((prime 2) (exponent 7)) ((prime 3) (exponent -4)))))))
         (string_number I))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m7)
+         ((name m7) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 4)) ((prime 3) (exponent -2)))))
-          (at_octave 1)))
+            (((prime 2) (exponent 4)) ((prime 3) (exponent -2)))))))
         (string_number I))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
-          (at_octave 2)))
+         ((name P1) (at_octave 2)
+          (basis_acoustic_interval_to_the_open_string Zero)))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2)
+         ((name M2) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
-          (at_octave 2)))
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 6)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3)
+         ((name m3) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
-          (at_octave 2)))
+            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 6)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-          (at_octave 2)))
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 6)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P5)
+         ((name P5) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
            (Reduced_natural_ratio
-            (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-          (at_octave 2)))
+            (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))
         (string_number I))))) |}];
   ()
 ;;

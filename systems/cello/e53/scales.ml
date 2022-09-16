@@ -84,250 +84,219 @@ let%expect_test "c_just_scale" =
     (((note ((letter_name C) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
+         ((name P1) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))))
         (string_number IV))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2p)
+         ((name M2p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))))
         (string_number IV))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M3z)
+         ((name M3z) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17)))))
         (string_number IV))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number IV))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
+         ((name P1) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))))
         (string_number III))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2z)
+         ((name M2z) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))))
         (string_number III))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M3z)
+         ((name M3z) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17)))))
         (string_number III))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number III))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
+         ((name P1) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))))
         (string_number II))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2z)
+         ((name M2z) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))))
         (string_number II))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3p)
+         ((name m3p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))))
         (string_number II))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number II))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name 5z)
+         ((name 5z) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))))
         (string_number II))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2z)
+         ((name M2z) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3p)
+         ((name m3p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name 5z)
+         ((name 5z) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))))
         (string_number I))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m6p)
+         ((name m6p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))))
         (string_number I))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m7p)
+         ((name m7p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))))
         (string_number I))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name 8z)
+         ((name 8z) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52)))))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2z)
+         ((name M2z) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3p)
+         ((name m3p) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name 5z)
+         ((name 5z) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))))
         (string_number I))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m6p)
+         ((name m6p) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))))
         (string_number I))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m7p)
+         ((name m7p) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))))
         (string_number I))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name 8z)
+         ((name 8z) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52)))))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2z)
+         ((name M2z) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))
-          (at_octave 2)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 6)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3p)
+         ((name m3p) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-          (at_octave 2)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 6)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 2)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 6)))
       (fingerboard_location
        ((fingerboard_position
-         ((name 5z)
+         ((name 5z) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))
-          (at_octave 2)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))))
         (string_number I))))) |}];
   ()
 ;;
@@ -357,250 +326,219 @@ let%expect_test "c_pythagorean_scale" =
     (((note ((letter_name C) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
+         ((name P1) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))))
         (string_number IV))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2p)
+         ((name M2p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))))
         (string_number IV))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M3p)
+         ((name M3p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18)))))
         (string_number IV))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number IV))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
+         ((name P1) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))))
         (string_number III))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2p)
+         ((name M2p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))))
         (string_number III))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M3p)
+         ((name M3p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18)))))
         (string_number III))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number III))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
+         ((name P1) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))))
         (string_number II))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2p)
+         ((name M2p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))))
         (string_number II))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3p)
+         ((name m3p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))))
         (string_number II))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number II))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
+         ((name P1) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2p)
+         ((name M2p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3p)
+         ((name m3p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P5)
+         ((name P5) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31)))))
         (string_number I))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m6p)
+         ((name m6p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))))
         (string_number I))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m7p)
+         ((name m7p) (at_octave 0)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))
-          (at_octave 0)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))))
         (string_number I))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
+         ((name P1) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2p)
+         ((name M2p) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3p)
+         ((name m3p) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P5)
+         ((name P5) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31)))))
         (string_number I))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m6p)
+         ((name m6p) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))))
         (string_number I))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m7p)
+         ((name m7p) (at_octave 1)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))
-          (at_octave 1)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))))
         (string_number I))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
+         ((name P1) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-          (at_octave 2)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name M2p)
+         ((name M2p) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-          (at_octave 2)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 6)))
       (fingerboard_location
        ((fingerboard_position
-         ((name m3p)
+         ((name m3p) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-          (at_octave 2)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 6)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P4)
+         ((name P4) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-          (at_octave 2)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 6)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P5)
+         ((name P5) (at_octave 2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31)))
-          (at_octave 2)))
+           (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31)))))
         (string_number I))))) |}];
   ()
 ;;

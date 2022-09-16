@@ -85,341 +85,275 @@ let%expect_test "sexp_of_t" =
          (Reduced_natural_ratio
           (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))
      (fingerboard_positions
-      (((name P1) (basis_acoustic_interval_to_the_open_string Zero)
-        (at_octave 0))
-       ((name m2)
+      (((name P1) (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string Zero))
+       ((name m2) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 8)) ((prime 3) (exponent -5)))))
-        (at_octave 0))
-       ((name A1)
+          (((prime 2) (exponent 8)) ((prime 3) (exponent -5))))))
+       ((name A1) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -11)) ((prime 3) (exponent 7)))))
-        (at_octave 0))
-       ((name d3)
+          (((prime 2) (exponent -11)) ((prime 3) (exponent 7))))))
+       ((name d3) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 16)) ((prime 3) (exponent -10)))))
-        (at_octave 0))
-       ((name M2)
+          (((prime 2) (exponent 16)) ((prime 3) (exponent -10))))))
+       ((name M2) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
-        (at_octave 0))
-       ((name m3)
+          (((prime 2) (exponent -3)) ((prime 3) (exponent 2))))))
+       ((name m3) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
-        (at_octave 0))
-       ((name A2)
+          (((prime 2) (exponent 5)) ((prime 3) (exponent -3))))))
+       ((name A2) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -14)) ((prime 3) (exponent 9)))))
-        (at_octave 0))
-       ((name d4)
+          (((prime 2) (exponent -14)) ((prime 3) (exponent 9))))))
+       ((name d4) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 13)) ((prime 3) (exponent -8)))))
-        (at_octave 0))
-       ((name M3)
+          (((prime 2) (exponent 13)) ((prime 3) (exponent -8))))))
+       ((name M3) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -6)) ((prime 3) (exponent 4)))))
-        (at_octave 0))
-       ((name P4)
+          (((prime 2) (exponent -6)) ((prime 3) (exponent 4))))))
+       ((name P4) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-        (at_octave 0))
-       ((name A3)
+          (((prime 2) (exponent 2)) ((prime 3) (exponent -1))))))
+       ((name A3) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -17)) ((prime 3) (exponent 11)))))
-        (at_octave 0))
-       ((name d5)
+          (((prime 2) (exponent -17)) ((prime 3) (exponent 11))))))
+       ((name d5) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 10)) ((prime 3) (exponent -6)))))
-        (at_octave 0))
-       ((name A4)
+          (((prime 2) (exponent 10)) ((prime 3) (exponent -6))))))
+       ((name A4) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -9)) ((prime 3) (exponent 6)))))
-        (at_octave 0))
-       ((name d6)
+          (((prime 2) (exponent -9)) ((prime 3) (exponent 6))))))
+       ((name d6) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 18)) ((prime 3) (exponent -11)))))
-        (at_octave 0))
-       ((name P5)
+          (((prime 2) (exponent 18)) ((prime 3) (exponent -11))))))
+       ((name P5) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-        (at_octave 0))
-       ((name m6)
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((name m6) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 7)) ((prime 3) (exponent -4)))))
-        (at_octave 0))
-       ((name A5)
+          (((prime 2) (exponent 7)) ((prime 3) (exponent -4))))))
+       ((name A5) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -12)) ((prime 3) (exponent 8)))))
-        (at_octave 0))
-       ((name d7)
+          (((prime 2) (exponent -12)) ((prime 3) (exponent 8))))))
+       ((name d7) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 15)) ((prime 3) (exponent -9)))))
-        (at_octave 0))
-       ((name M6)
+          (((prime 2) (exponent 15)) ((prime 3) (exponent -9))))))
+       ((name M6) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -4)) ((prime 3) (exponent 3)))))
-        (at_octave 0))
-       ((name m7)
+          (((prime 2) (exponent -4)) ((prime 3) (exponent 3))))))
+       ((name m7) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 4)) ((prime 3) (exponent -2)))))
-        (at_octave 0))
-       ((name A6)
+          (((prime 2) (exponent 4)) ((prime 3) (exponent -2))))))
+       ((name A6) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -15)) ((prime 3) (exponent 10)))))
-        (at_octave 0))
-       ((name d8)
+          (((prime 2) (exponent -15)) ((prime 3) (exponent 10))))))
+       ((name d8) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 12)) ((prime 3) (exponent -7)))))
-        (at_octave 0))
-       ((name M7)
+          (((prime 2) (exponent 12)) ((prime 3) (exponent -7))))))
+       ((name M7) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -7)) ((prime 3) (exponent 5)))))
-        (at_octave 0))
-       ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
-        (at_octave 1))
-       ((name m2)
+          (((prime 2) (exponent -7)) ((prime 3) (exponent 5))))))
+       ((name P1) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string Zero))
+       ((name m2) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 8)) ((prime 3) (exponent -5)))))
-        (at_octave 1))
-       ((name A1)
+          (((prime 2) (exponent 8)) ((prime 3) (exponent -5))))))
+       ((name A1) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -11)) ((prime 3) (exponent 7)))))
-        (at_octave 1))
-       ((name d3)
+          (((prime 2) (exponent -11)) ((prime 3) (exponent 7))))))
+       ((name d3) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 16)) ((prime 3) (exponent -10)))))
-        (at_octave 1))
-       ((name M2)
+          (((prime 2) (exponent 16)) ((prime 3) (exponent -10))))))
+       ((name M2) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
-        (at_octave 1))
-       ((name m3)
+          (((prime 2) (exponent -3)) ((prime 3) (exponent 2))))))
+       ((name m3) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
-        (at_octave 1))
-       ((name A2)
+          (((prime 2) (exponent 5)) ((prime 3) (exponent -3))))))
+       ((name A2) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -14)) ((prime 3) (exponent 9)))))
-        (at_octave 1))
-       ((name d4)
+          (((prime 2) (exponent -14)) ((prime 3) (exponent 9))))))
+       ((name d4) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 13)) ((prime 3) (exponent -8)))))
-        (at_octave 1))
-       ((name M3)
+          (((prime 2) (exponent 13)) ((prime 3) (exponent -8))))))
+       ((name M3) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -6)) ((prime 3) (exponent 4)))))
-        (at_octave 1))
-       ((name P4)
+          (((prime 2) (exponent -6)) ((prime 3) (exponent 4))))))
+       ((name P4) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-        (at_octave 1))
-       ((name A3)
+          (((prime 2) (exponent 2)) ((prime 3) (exponent -1))))))
+       ((name A3) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -17)) ((prime 3) (exponent 11)))))
-        (at_octave 1))
-       ((name d5)
+          (((prime 2) (exponent -17)) ((prime 3) (exponent 11))))))
+       ((name d5) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 10)) ((prime 3) (exponent -6)))))
-        (at_octave 1))
-       ((name A4)
+          (((prime 2) (exponent 10)) ((prime 3) (exponent -6))))))
+       ((name A4) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -9)) ((prime 3) (exponent 6)))))
-        (at_octave 1))
-       ((name d6)
+          (((prime 2) (exponent -9)) ((prime 3) (exponent 6))))))
+       ((name d6) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 18)) ((prime 3) (exponent -11)))))
-        (at_octave 1))
-       ((name P5)
+          (((prime 2) (exponent 18)) ((prime 3) (exponent -11))))))
+       ((name P5) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-        (at_octave 1))
-       ((name m6)
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((name m6) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 7)) ((prime 3) (exponent -4)))))
-        (at_octave 1))
-       ((name A5)
+          (((prime 2) (exponent 7)) ((prime 3) (exponent -4))))))
+       ((name A5) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -12)) ((prime 3) (exponent 8)))))
-        (at_octave 1))
-       ((name d7)
+          (((prime 2) (exponent -12)) ((prime 3) (exponent 8))))))
+       ((name d7) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 15)) ((prime 3) (exponent -9)))))
-        (at_octave 1))
-       ((name M6)
+          (((prime 2) (exponent 15)) ((prime 3) (exponent -9))))))
+       ((name M6) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -4)) ((prime 3) (exponent 3)))))
-        (at_octave 1))
-       ((name m7)
+          (((prime 2) (exponent -4)) ((prime 3) (exponent 3))))))
+       ((name m7) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 4)) ((prime 3) (exponent -2)))))
-        (at_octave 1))
-       ((name A6)
+          (((prime 2) (exponent 4)) ((prime 3) (exponent -2))))))
+       ((name A6) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -15)) ((prime 3) (exponent 10)))))
-        (at_octave 1))
-       ((name d8)
+          (((prime 2) (exponent -15)) ((prime 3) (exponent 10))))))
+       ((name d8) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 12)) ((prime 3) (exponent -7)))))
-        (at_octave 1))
-       ((name M7)
+          (((prime 2) (exponent 12)) ((prime 3) (exponent -7))))))
+       ((name M7) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -7)) ((prime 3) (exponent 5)))))
-        (at_octave 1))
-       ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
-        (at_octave 2))
-       ((name m2)
+          (((prime 2) (exponent -7)) ((prime 3) (exponent 5))))))
+       ((name P1) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string Zero))
+       ((name m2) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 8)) ((prime 3) (exponent -5)))))
-        (at_octave 2))
-       ((name A1)
+          (((prime 2) (exponent 8)) ((prime 3) (exponent -5))))))
+       ((name A1) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -11)) ((prime 3) (exponent 7)))))
-        (at_octave 2))
-       ((name d3)
+          (((prime 2) (exponent -11)) ((prime 3) (exponent 7))))))
+       ((name d3) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 16)) ((prime 3) (exponent -10)))))
-        (at_octave 2))
-       ((name M2)
+          (((prime 2) (exponent 16)) ((prime 3) (exponent -10))))))
+       ((name M2) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
-        (at_octave 2))
-       ((name m3)
+          (((prime 2) (exponent -3)) ((prime 3) (exponent 2))))))
+       ((name m3) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
-        (at_octave 2))
-       ((name A2)
+          (((prime 2) (exponent 5)) ((prime 3) (exponent -3))))))
+       ((name A2) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -14)) ((prime 3) (exponent 9)))))
-        (at_octave 2))
-       ((name d4)
+          (((prime 2) (exponent -14)) ((prime 3) (exponent 9))))))
+       ((name d4) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 13)) ((prime 3) (exponent -8)))))
-        (at_octave 2))
-       ((name M3)
+          (((prime 2) (exponent 13)) ((prime 3) (exponent -8))))))
+       ((name M3) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -6)) ((prime 3) (exponent 4)))))
-        (at_octave 2))
-       ((name P4)
+          (((prime 2) (exponent -6)) ((prime 3) (exponent 4))))))
+       ((name P4) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
-        (at_octave 2))
-       ((name A3)
+          (((prime 2) (exponent 2)) ((prime 3) (exponent -1))))))
+       ((name A3) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -17)) ((prime 3) (exponent 11)))))
-        (at_octave 2))
-       ((name d5)
+          (((prime 2) (exponent -17)) ((prime 3) (exponent 11))))))
+       ((name d5) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 10)) ((prime 3) (exponent -6)))))
-        (at_octave 2))
-       ((name A4)
+          (((prime 2) (exponent 10)) ((prime 3) (exponent -6))))))
+       ((name A4) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -9)) ((prime 3) (exponent 6)))))
-        (at_octave 2))
-       ((name d6)
+          (((prime 2) (exponent -9)) ((prime 3) (exponent 6))))))
+       ((name d6) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 18)) ((prime 3) (exponent -11)))))
-        (at_octave 2))
-       ((name P5)
+          (((prime 2) (exponent 18)) ((prime 3) (exponent -11))))))
+       ((name P5) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
-        (at_octave 2))
-       ((name m6)
+          (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))
+       ((name m6) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 7)) ((prime 3) (exponent -4)))))
-        (at_octave 2))
-       ((name A5)
+          (((prime 2) (exponent 7)) ((prime 3) (exponent -4))))))
+       ((name A5) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -12)) ((prime 3) (exponent 8)))))
-        (at_octave 2))
-       ((name d7)
+          (((prime 2) (exponent -12)) ((prime 3) (exponent 8))))))
+       ((name d7) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 15)) ((prime 3) (exponent -9)))))
-        (at_octave 2))
-       ((name M6)
+          (((prime 2) (exponent 15)) ((prime 3) (exponent -9))))))
+       ((name M6) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -4)) ((prime 3) (exponent 3)))))
-        (at_octave 2))
-       ((name m7)
+          (((prime 2) (exponent -4)) ((prime 3) (exponent 3))))))
+       ((name m7) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 4)) ((prime 3) (exponent -2)))))
-        (at_octave 2))
-       ((name A6)
+          (((prime 2) (exponent 4)) ((prime 3) (exponent -2))))))
+       ((name A6) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -15)) ((prime 3) (exponent 10)))))
-        (at_octave 2))
-       ((name d8)
+          (((prime 2) (exponent -15)) ((prime 3) (exponent 10))))))
+       ((name d8) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent 12)) ((prime 3) (exponent -7)))))
-        (at_octave 2))
-       ((name M7)
+          (((prime 2) (exponent 12)) ((prime 3) (exponent -7))))))
+       ((name M7) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
-          (((prime 2) (exponent -7)) ((prime 3) (exponent 5)))))
-        (at_octave 2))))) |}];
+          (((prime 2) (exponent -7)) ((prime 3) (exponent 5))))))))) |}];
   ()
 ;;

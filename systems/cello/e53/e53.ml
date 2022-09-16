@@ -86,269 +86,203 @@ let%expect_test "sexp_of_t" =
         (acoustic_interval
          (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31))))))
      (fingerboard_positions
-      (((name P1)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-        (at_octave 0))
-       ((name A1z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 4)))
-        (at_octave 0))
-       ((name m2z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 5)))
-        (at_octave 0))
-       ((name M2z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))
-        (at_octave 0))
-       ((name M2p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-        (at_octave 0))
-       ((name m3p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-        (at_octave 0))
-       ((name m3z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 14)))
-        (at_octave 0))
-       ((name M3z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17)))
-        (at_octave 0))
-       ((name M3p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18)))
-        (at_octave 0))
-       ((name P4)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-        (at_octave 0))
-       ((name 4z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 23)))
-        (at_octave 0))
-       ((name A4z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 26)))
-        (at_octave 0))
-       ((name d5z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 27)))
-        (at_octave 0))
-       ((name 5z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))
-        (at_octave 0))
-       ((name P5)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31)))
-        (at_octave 0))
-       ((name m6p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))
-        (at_octave 0))
-       ((name m6z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 36)))
-        (at_octave 0))
-       ((name m7p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))
-        (at_octave 0))
-       ((name m7z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 45)))
-        (at_octave 0))
-       ((name M7z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 48)))
-        (at_octave 0))
-       ((name M7p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 49)))
-        (at_octave 0))
-       ((name 8z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52)))
-        (at_octave 0))
-       ((name P1)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-        (at_octave 1))
-       ((name A1z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 4)))
-        (at_octave 1))
-       ((name m2z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 5)))
-        (at_octave 1))
-       ((name M2z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))
-        (at_octave 1))
-       ((name M2p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-        (at_octave 1))
-       ((name m3p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-        (at_octave 1))
-       ((name m3z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 14)))
-        (at_octave 1))
-       ((name M3z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17)))
-        (at_octave 1))
-       ((name M3p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18)))
-        (at_octave 1))
-       ((name P4)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-        (at_octave 1))
-       ((name 4z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 23)))
-        (at_octave 1))
-       ((name A4z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 26)))
-        (at_octave 1))
-       ((name d5z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 27)))
-        (at_octave 1))
-       ((name 5z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))
-        (at_octave 1))
-       ((name P5)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31)))
-        (at_octave 1))
-       ((name m6p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))
-        (at_octave 1))
-       ((name m6z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 36)))
-        (at_octave 1))
-       ((name m7p)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))
-        (at_octave 1))
-       ((name m7z)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 45)))
-        (at_octave 1))
-       ((name M7z)
+      (((name P1) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 48)))
-        (at_octave 1))
-       ((name M7p)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0))))
+       ((name A1z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 49)))
-        (at_octave 1))
-       ((name 8z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 4))))
+       ((name m2z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52)))
-        (at_octave 1))
-       ((name P1)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 5))))
+       ((name M2z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0)))
-        (at_octave 2))
-       ((name A1z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8))))
+       ((name M2p) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 4)))
-        (at_octave 2))
-       ((name m2z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9))))
+       ((name m3p) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 5)))
-        (at_octave 2))
-       ((name M2z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13))))
+       ((name m3z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8)))
-        (at_octave 2))
-       ((name M2p)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 14))))
+       ((name M3z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9)))
-        (at_octave 2))
-       ((name m3p)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17))))
+       ((name M3p) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13)))
-        (at_octave 2))
-       ((name m3z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18))))
+       ((name P4) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 14)))
-        (at_octave 2))
-       ((name M3z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22))))
+       ((name 4z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17)))
-        (at_octave 2))
-       ((name M3p)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 23))))
+       ((name A4z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18)))
-        (at_octave 2))
-       ((name P4)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 26))))
+       ((name d5z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22)))
-        (at_octave 2))
-       ((name 4z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 27))))
+       ((name 5z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 23)))
-        (at_octave 2))
-       ((name A4z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30))))
+       ((name P5) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 26)))
-        (at_octave 2))
-       ((name d5z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31))))
+       ((name m6p) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 27)))
-        (at_octave 2))
-       ((name 5z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35))))
+       ((name m6z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30)))
-        (at_octave 2))
-       ((name P5)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 36))))
+       ((name m7p) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31)))
-        (at_octave 2))
-       ((name m6p)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44))))
+       ((name m7z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35)))
-        (at_octave 2))
-       ((name m6z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 45))))
+       ((name M7z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 36)))
-        (at_octave 2))
-       ((name m7p)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 48))))
+       ((name M7p) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44)))
-        (at_octave 2))
-       ((name m7z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 49))))
+       ((name 8z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 45)))
-        (at_octave 2))
-       ((name M7z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52))))
+       ((name P1) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 48)))
-        (at_octave 2))
-       ((name M7p)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0))))
+       ((name A1z) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 49)))
-        (at_octave 2))
-       ((name 8z)
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 4))))
+       ((name m2z) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52)))
-        (at_octave 2))))) |}];
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 5))))
+       ((name M2z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8))))
+       ((name M2p) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9))))
+       ((name m3p) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13))))
+       ((name m3z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 14))))
+       ((name M3z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17))))
+       ((name M3p) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18))))
+       ((name P4) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22))))
+       ((name 4z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 23))))
+       ((name A4z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 26))))
+       ((name d5z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 27))))
+       ((name 5z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30))))
+       ((name P5) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31))))
+       ((name m6p) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35))))
+       ((name m6z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 36))))
+       ((name m7p) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44))))
+       ((name m7z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 45))))
+       ((name M7z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 48))))
+       ((name M7p) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 49))))
+       ((name 8z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52))))
+       ((name P1) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 0))))
+       ((name A1z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 4))))
+       ((name m2z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 5))))
+       ((name M2z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 8))))
+       ((name M2p) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 9))))
+       ((name m3p) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 13))))
+       ((name m3z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 14))))
+       ((name M3z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 17))))
+       ((name M3p) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 18))))
+       ((name P4) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 22))))
+       ((name 4z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 23))))
+       ((name A4z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 26))))
+       ((name d5z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 27))))
+       ((name 5z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 30))))
+       ((name P5) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 31))))
+       ((name m6p) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 35))))
+       ((name m6z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 36))))
+       ((name m7p) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44))))
+       ((name m7z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 45))))
+       ((name M7z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 48))))
+       ((name M7p) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 49))))
+       ((name 8z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 52))))))) |}];
   ()
 ;;

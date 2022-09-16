@@ -2,8 +2,8 @@ open! Core
 
 type t =
   { name : string
-  ; basis_acoustic_interval_to_the_open_string : Acoustic_interval.t
   ; at_octave : int
+  ; basis_acoustic_interval_to_the_open_string : Acoustic_interval.t
   }
 [@@deriving compare, equal, hash, sexp_of]
 
@@ -35,8 +35,8 @@ let create_exn ~name ~acoustic_interval_to_the_open_string =
               (Acoustic_interval.to_cents acoustic_interval_to_the_open_string : Float.t)
           }];
   { name
-  ; basis_acoustic_interval_to_the_open_string = acoustic_interval_to_the_open_string
   ; at_octave = 0
+  ; basis_acoustic_interval_to_the_open_string = acoustic_interval_to_the_open_string
   }
 ;;
 
