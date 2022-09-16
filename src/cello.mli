@@ -83,9 +83,15 @@ module Fingerboard_position_name : sig
 
   module Just : sig
     type t =
-      [ `M2z
+      [ `m2z
+      | `M2z
+      | `m3z
       | `M3z
+      | `P4z
+      | `d5z
       | `P5z
+      | `m6z
+      | `d8z
       | `P8z
       ]
     [@@deriving compare, equal, enumerate, hash, sexp_of]

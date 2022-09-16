@@ -215,28 +215,58 @@ module Fingerboard_position_name = struct
 
   module Just = struct
     type t =
-      [ `M2z
+      [ `m2z
+      | `M2z
+      | `m3z
       | `M3z
+      | `P4z
+      | `d5z
       | `P5z
+      | `m6z
+      | `d8z
       | `P8z
       ]
     [@@deriving compare, equal, enumerate, hash, sexp_of]
 
     let sexp_of_t : t -> Sexp.t = function
+      | `P4z -> Atom "4z"
       | `P5z -> Atom "5z"
       | `P8z -> Atom "8z"
-      | (`M2z | `M3z) as t -> sexp_of_t t
+      | (`m2z | `M2z | `m3z | `M3z | `d5z | `m6z | `d8z) as t -> sexp_of_t t
     ;;
 
     let acoustic_interval_to_the_open_string (t : t) =
       match (t : t) with
+      | `m2z -> Acoustic_interval.just_diatonic_semiton
       | `M2z -> Acoustic_interval.just_minor_ton
+      | `m3z -> Acoustic_interval.just_minor_third
       | `M3z -> Acoustic_interval.just_major_third
+      | `P4z ->
+        Acoustic_interval.(
+          remove
+            (pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
+            just_minor_ton)
+        |> Option.value_exn ~here:[%here]
+      | `d5z ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Fourth; quality = Perfect; additional_octaves = 0 })
+            just_diatonic_semiton)
       | `P5z ->
         Acoustic_interval.(
           add
             (pythagorean { number = Fourth; quality = Perfect; additional_octaves = 0 })
             just_minor_ton)
+      | `m6z ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
+            just_diatonic_semiton)
+      | `d8z ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Seventh; quality = Minor; additional_octaves = 0 })
+            just_diatonic_semiton)
       | `P8z ->
         Acoustic_interval.(
           add
