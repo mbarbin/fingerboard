@@ -106,7 +106,7 @@ module Fingerboard_position_name : sig
     | Pythagorean.t
     | Just.t
     ]
-  [@@deriving compare, equal, hash, sexp_of]
+  [@@deriving compare, equal, enumerate, hash, sexp_of]
 
   val to_string : t -> string
   val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t

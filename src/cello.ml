@@ -282,7 +282,7 @@ module Fingerboard_position_name = struct
     | Pythagorean.t
     | Just.t
     ]
-  [@@deriving compare, equal, hash, sexp_of]
+  [@@deriving compare, equal, enumerate, hash, sexp_of]
 
   let sexp_of_t : t -> Sexp.t = function
     | `open_string -> Atom "0"
