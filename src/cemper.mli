@@ -1,5 +1,6 @@
 open! Core
 module Acoustic_interval = Acoustic_interval
+module Cello = Cello
 module Characterized_interval = Characterized_interval
 module Fingerboard_location = Fingerboard_location
 module Fingerboard_position = Fingerboard_position

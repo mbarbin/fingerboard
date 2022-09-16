@@ -15,34 +15,11 @@ let create () =
   System.create ~high_vibrating_string:a ~pitch ~intervals_going_down
 ;;
 
-let name = function
-  | 0 -> "P1"
-  | 1 -> "m2"
-  | 2 -> "M2"
-  | 3 -> "m3"
-  | 4 -> "M3"
-  | 5 -> "P4"
-  | 6 -> "A4"
-  | 7 -> "P5"
-  | 8 -> "m6"
-  | 9 -> "M6"
-  | 10 -> "m7"
-  | 11 -> "M7"
-  | i -> raise_s [%sexp "Out of bounds", [%here], (i : int)]
-;;
-
 let add_positions t =
-  for i = 0 to 11 do
-    let fingerboard_position =
-      Fingerboard_position.create_exn
-        ~name:(name i)
-        ~acoustic_interval_to_the_open_string:
-          (Acoustic_interval.equal_division_of_the_octave
-             ~divisor:12
-             ~number_of_divisions:i)
-    in
-    System.add_fingerboard_position_exn t fingerboard_position
-  done
+  List.iter
+    ~f:(fun name ->
+      System.add_fingerboard_position_exn t (Cello.fingerboard_position name))
+    [ `open_string; `m2e; `M2e; `m3e; `M3e; `P4e; `A4e; `P5e; `m6e; `M6e; `m7e; `M7e ]
 ;;
 
 let t =
@@ -77,112 +54,106 @@ let%expect_test "sexp_of_t" =
         (acoustic_interval
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7))))))
      (fingerboard_positions
-      (((name P1) (at_octave 0)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0))))
-       ((name m2) (at_octave 0)
+      (((name 0) (at_octave 0) (basis_acoustic_interval_to_the_open_string Zero))
+       ((name m2e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 1))))
-       ((name M2) (at_octave 0)
+       ((name M2e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2))))
-       ((name m3) (at_octave 0)
+       ((name m3e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3))))
-       ((name M3) (at_octave 0)
+       ((name M3e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4))))
-       ((name P4) (at_octave 0)
+       ((name 4e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5))))
-       ((name A4) (at_octave 0)
+       ((name A4e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 6))))
-       ((name P5) (at_octave 0)
+       ((name 5e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7))))
-       ((name m6) (at_octave 0)
+       ((name m6e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8))))
-       ((name M6) (at_octave 0)
+       ((name M6e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 9))))
-       ((name m7) (at_octave 0)
+       ((name m7e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10))))
-       ((name M7) (at_octave 0)
+       ((name M7e) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 11))))
-       ((name P1) (at_octave 1)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0))))
-       ((name m2) (at_octave 1)
+       ((name 0) (at_octave 1) (basis_acoustic_interval_to_the_open_string Zero))
+       ((name m2e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 1))))
-       ((name M2) (at_octave 1)
+       ((name M2e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2))))
-       ((name m3) (at_octave 1)
+       ((name m3e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3))))
-       ((name M3) (at_octave 1)
+       ((name M3e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4))))
-       ((name P4) (at_octave 1)
+       ((name 4e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5))))
-       ((name A4) (at_octave 1)
+       ((name A4e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 6))))
-       ((name P5) (at_octave 1)
+       ((name 5e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7))))
-       ((name m6) (at_octave 1)
+       ((name m6e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8))))
-       ((name M6) (at_octave 1)
+       ((name M6e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 9))))
-       ((name m7) (at_octave 1)
+       ((name m7e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10))))
-       ((name M7) (at_octave 1)
+       ((name M7e) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 11))))
-       ((name P1) (at_octave 2)
-        (basis_acoustic_interval_to_the_open_string
-         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0))))
-       ((name m2) (at_octave 2)
+       ((name 0) (at_octave 2) (basis_acoustic_interval_to_the_open_string Zero))
+       ((name m2e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 1))))
-       ((name M2) (at_octave 2)
+       ((name M2e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2))))
-       ((name m3) (at_octave 2)
+       ((name m3e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3))))
-       ((name M3) (at_octave 2)
+       ((name M3e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4))))
-       ((name P4) (at_octave 2)
+       ((name 4e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5))))
-       ((name A4) (at_octave 2)
+       ((name A4e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 6))))
-       ((name P5) (at_octave 2)
+       ((name 5e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7))))
-       ((name m6) (at_octave 2)
+       ((name m6e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8))))
-       ((name M6) (at_octave 2)
+       ((name M6e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 9))))
-       ((name m7) (at_octave 2)
+       ((name m7e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10))))
-       ((name M7) (at_octave 2)
+       ((name M7e) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 11))))))) |}]
 ;;
