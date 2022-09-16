@@ -128,10 +128,96 @@ module Fingerboard_position_name = struct
     ;;
   end
 
+  module Pythagorean = struct
+    type t =
+      [ `m2p
+      | `A1p
+      | `d3p
+      | `M2p
+      | `m3p
+      | `A2p
+      | `d4p
+      | `M3p
+      | `P4p
+      | `A3p
+      | `d5p
+      | `A4p
+      | `d6p
+      | `P5p
+      | `m6p
+      | `A5p
+      | `d7p
+      | `M6p
+      | `m7p
+      | `A6p
+      | `d8p
+      | `M7p
+      ]
+    [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+    let sexp_of_t : t -> Sexp.t = function
+      | `P4p -> Atom "4p"
+      | `P5p -> Atom "5p"
+      | ( `m2p
+        | `A1p
+        | `d3p
+        | `M2p
+        | `m3p
+        | `A2p
+        | `d4p
+        | `M3p
+        | `A3p
+        | `d5p
+        | `A4p
+        | `d6p
+        | `m6p
+        | `A5p
+        | `d7p
+        | `M6p
+        | `m7p
+        | `A6p
+        | `d8p
+        | `M7p ) as t -> sexp_of_t t
+    ;;
+
+    let acoustic_interval_to_the_open_string (t : t) =
+      let interval =
+        let ( ~. ) quality number =
+          { Interval.number; quality; additional_octaves = 0 }
+        in
+        match (t : t) with
+        | `m2p -> ~.Minor Second
+        | `A1p -> ~.Augmented Unison
+        | `d3p -> ~.Diminished Third
+        | `M2p -> ~.Major Second
+        | `m3p -> ~.Minor Third
+        | `A2p -> ~.Augmented Second
+        | `d4p -> ~.Diminished Fourth
+        | `M3p -> ~.Major Third
+        | `P4p -> ~.Perfect Fourth
+        | `A3p -> ~.Augmented Third
+        | `d5p -> ~.Diminished Fifth
+        | `A4p -> ~.Augmented Fourth
+        | `d6p -> ~.Diminished Sixth
+        | `P5p -> ~.Perfect Fifth
+        | `m6p -> ~.Minor Sixth
+        | `A5p -> ~.Augmented Fifth
+        | `d7p -> ~.Diminished Seventh
+        | `M6p -> ~.Major Sixth
+        | `m7p -> ~.Minor Seventh
+        | `A6p -> ~.Augmented Sixth
+        | `d8p -> ~.Diminished Octave
+        | `M7p -> ~.Major Seventh
+      in
+      Acoustic_interval.pythagorean interval
+    ;;
+  end
+
   type t =
     [ `open_string
     | Edo12.t
     | Edo53.t
+    | Pythagorean.t
     ]
   [@@deriving compare, equal, hash, sexp_of]
 
@@ -139,12 +225,14 @@ module Fingerboard_position_name = struct
     | `open_string -> Atom "0"
     | #Edo12.t as t -> [%sexp (t : Edo12.t)]
     | #Edo53.t as t -> [%sexp (t : Edo53.t)]
+    | #Pythagorean.t as t -> [%sexp (t : Pythagorean.t)]
   ;;
 
   let acoustic_interval_to_the_open_string : t -> Acoustic_interval.t = function
     | `open_string -> Acoustic_interval.unison
-    | #Edo12.t as t -> Edo12.acoustic_interval_to_the_open_string t
-    | #Edo53.t as t -> Edo53.acoustic_interval_to_the_open_string t
+    | #Edo12.t as t -> t |> Edo12.acoustic_interval_to_the_open_string
+    | #Edo53.t as t -> t |> Edo53.acoustic_interval_to_the_open_string
+    | #Pythagorean.t as t -> t |> Pythagorean.acoustic_interval_to_the_open_string
   ;;
 
   let to_string t = Sexp.to_string [%sexp (t : t)]

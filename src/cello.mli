@@ -51,10 +51,41 @@ module Fingerboard_position_name : sig
     val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
   end
 
+  module Pythagorean : sig
+    type t =
+      [ `m2p
+      | `A1p
+      | `d3p
+      | `M2p
+      | `m3p
+      | `A2p
+      | `d4p
+      | `M3p
+      | `P4p
+      | `A3p
+      | `d5p
+      | `A4p
+      | `d6p
+      | `P5p
+      | `m6p
+      | `A5p
+      | `d7p
+      | `M6p
+      | `m7p
+      | `A6p
+      | `d8p
+      | `M7p
+      ]
+    [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+    val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+  end
+
   type t =
     [ `open_string
     | Edo12.t
     | Edo53.t
+    | Pythagorean.t
     ]
   [@@deriving compare, equal, hash, sexp_of]
 
