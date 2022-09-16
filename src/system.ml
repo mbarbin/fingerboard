@@ -240,3 +240,18 @@ let open_string t string_number =
     ; fingerboard_location = { fingerboard_position; string_number }
     }
 ;;
+
+let make_scale t ~characterized_scale ~from ~to_ =
+  let rec aux acc scale (located_note : Located_note.t) =
+    if Option.is_some (Interval.compute ~from:to_ ~to_:located_note.note ())
+    then acc
+    else (
+      match scale with
+      | [] -> aux acc characterized_scale located_note
+      | hd :: tl ->
+        (match find_next_located_note t located_note hd with
+         | None -> acc
+         | Some next_located_note -> aux (next_located_note :: acc) tl next_located_note))
+  in
+  aux [ from ] [] from |> List.rev
+;;

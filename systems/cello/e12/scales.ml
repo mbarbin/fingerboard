@@ -20,19 +20,11 @@ let characterized_major_scale =
 
 let c_scale =
   let t = force E12.t in
-  let rec aux acc scale (located_note : Located_note.t) =
-    if Option.is_some
-         (Interval.compute ~from:Cello.fingerboard_highest_note ~to_:located_note.note ())
-    then acc
-    else (
-      match scale with
-      | [] -> aux acc characterized_major_scale located_note
-      | hd :: tl ->
-        (match System.find_next_located_note t located_note hd with
-         | None -> acc
-         | Some next_located_note -> aux (next_located_note :: acc) tl next_located_note))
-  in
-  aux [ lower_c ] [] lower_c |> List.rev
+  System.make_scale
+    t
+    ~characterized_scale:characterized_major_scale
+    ~from:lower_c
+    ~to_:Cello.fingerboard_highest_note
 ;;
 
 let%expect_test "c_scale" =

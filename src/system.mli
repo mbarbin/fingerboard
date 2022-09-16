@@ -69,3 +69,20 @@ val find_next_located_note
 
 (** Return the given located_note if a position was added to the system for the open string. *)
 val open_string : t -> Roman_numeral.t -> Located_note.t option
+
+(** Try and go up from the first supplied located note, according to
+   the characterized scale supplied. If no available positions are
+   available to produce the right intervals, the scales stops and the
+   degree built so far are returned. If the degree of the scale have
+   all been used before reaching the highest note desired, the same
+   scale is reused from that point.
+
+   This function will favor going up on the strings, and play with
+   longer vibrating strings rather than using high positions on lower
+   strings (when multiple choices exist). *)
+val make_scale
+  :  t
+  -> characterized_scale:Characterized_scale.t
+  -> from:Located_note.t
+  -> to_:Note.t
+  -> Located_note.t list

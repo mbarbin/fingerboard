@@ -6,22 +6,6 @@ let lower_c =
   System.open_string t IV |> Option.value_exn ~here:[%here]
 ;;
 
-let make_scale t ~characterized_scale ~from =
-  let rec aux acc scale (located_note : Located_note.t) =
-    if Option.is_some
-         (Interval.compute ~from:Cello.fingerboard_highest_note ~to_:located_note.note ())
-    then acc
-    else (
-      match scale with
-      | [] -> aux acc characterized_scale located_note
-      | hd :: tl ->
-        (match System.find_next_located_note t located_note hd with
-         | None -> acc
-         | Some next_located_note -> aux (next_located_note :: acc) tl next_located_note))
-  in
-  aux [ from ] [] from |> List.rev
-;;
-
 let characterized_major_just_scale =
   let second quality acoustic_interval =
     let interval = { Interval.number = Second; quality; additional_octaves = 0 } in
@@ -35,7 +19,11 @@ let characterized_major_just_scale =
 
 let c_just_scale =
   let t = force Just.t in
-  make_scale t ~characterized_scale:characterized_major_just_scale ~from:lower_c
+  System.make_scale
+    t
+    ~characterized_scale:characterized_major_just_scale
+    ~from:lower_c
+    ~to_:Cello.fingerboard_highest_note
 ;;
 
 let%expect_test "c_just_scale" =
@@ -312,7 +300,11 @@ let characterized_major_pythagorean_scale =
 
 let c_pythagorean_scale =
   let t = force Just.t in
-  make_scale t ~characterized_scale:characterized_major_pythagorean_scale ~from:lower_c
+  System.make_scale
+    t
+    ~characterized_scale:characterized_major_pythagorean_scale
+    ~from:lower_c
+    ~to_:Cello.fingerboard_highest_note
 ;;
 
 let%expect_test "c_pythagorean_scale" =
