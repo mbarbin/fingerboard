@@ -9,8 +9,9 @@ type t = private
       ; number_of_divisions : int
       }
   | Reduced_natural_ratio of Natural_ratio.Reduced.t
+  | Octaves of { number_of_octaves : int }
   | Cents of float
-[@@deriving sexp_of]
+[@@deriving hash, sexp_of]
 
 val to_string : t -> string
 val compound : t list -> t

@@ -9,6 +9,7 @@ type t =
       ; number_of_divisions : int
       }
   | Reduced_natural_ratio of Natural_ratio.Reduced.t
+  | Octaves of { number_of_octaves : int }
   | Cents of float
 [@@deriving sexp_of]
 
@@ -17,6 +18,8 @@ let to_string = function
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
     sprintf "%d-%dedo" number_of_divisions divisor
   | Reduced_natural_ratio nr -> Natural_ratio.Reduced.to_string nr
+  | Octaves { number_of_octaves } ->
+    sprintf "%d octave%s" number_of_octaves (if number_of_octaves = 1 then "" else "s")
   | Cents c -> sprintf "%0.2f cents" c
 ;;
 
@@ -25,31 +28,57 @@ let log2 = Caml.Float.log2
 let to_cents = function
   | Zero -> 0.
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
-    1200. *. float_of_int number_of_divisions /. float_of_int divisor
+    1200. /. float_of_int divisor *. float_of_int number_of_divisions
   | Reduced_natural_ratio r ->
     let { Natural_ratio.numerator; denominator } =
       Natural_ratio.Reduced.to_natural_ratio r
     in
-    log2 (float_of_int numerator /. float_of_int denominator) *. 1200.
+    1200. *. log2 (float_of_int numerator /. float_of_int denominator)
+  | Octaves { number_of_octaves } -> 1200 * number_of_octaves |> float_of_int
   | Cents x -> x
 ;;
 
+let hash t = Float.hash (to_cents t)
+let hash_fold_t state t = Float.hash_fold_t state (to_cents t)
 let of_cents x = Cents x
 
-let add t1 t2 =
+let aux_reduced_natural_ratio_of_octaves ~number_of_octaves =
+  Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:number_of_octaves
+;;
+
+let reduced_natural_ratio_of_octaves ~number_of_octaves =
+  Reduced_natural_ratio (aux_reduced_natural_ratio_of_octaves ~number_of_octaves)
+;;
+
+let equal_division_of_the_octave_of_octaves ~divisor ~number_of_octaves =
+  Equal_division_of_the_octave
+    { divisor; number_of_divisions = divisor * number_of_octaves }
+;;
+
+let rec add t1 t2 =
   match t1, t2 with
   | Zero, t | t, Zero -> t
   | ( Equal_division_of_the_octave { divisor = d1; number_of_divisions = p1 }
     , Equal_division_of_the_octave { divisor = d2; number_of_divisions = p2 } )
     when d1 = d2 ->
     Equal_division_of_the_octave { divisor = d1; number_of_divisions = p1 + p2 }
+  | Octaves { number_of_octaves = n1 }, Octaves { number_of_octaves = n2 } ->
+    Octaves { number_of_octaves = n1 + n2 }
   | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
     Reduced_natural_ratio (Natural_ratio.Reduced.multiply r1 r2)
+  | Octaves { number_of_octaves }, (Reduced_natural_ratio _ as ratio)
+  | (Reduced_natural_ratio _ as ratio), Octaves { number_of_octaves } ->
+    add (reduced_natural_ratio_of_octaves ~number_of_octaves) ratio
+  | ( Octaves { number_of_octaves }
+    , (Equal_division_of_the_octave { divisor; number_of_divisions = _ } as division) )
+  | ( (Equal_division_of_the_octave { divisor; number_of_divisions = _ } as division)
+    , Octaves { number_of_octaves } ) ->
+    add (equal_division_of_the_octave_of_octaves ~divisor ~number_of_octaves) division
   | Cents x, Cents y -> Cents (x +. y)
   | _ -> Cents (to_cents t1 +. to_cents t2)
 ;;
 
-let remove t1 t2 =
+let rec remove t1 t2 =
   match t1, t2 with
   | t, Zero -> Some t
   | ( Equal_division_of_the_octave { divisor = d1; number_of_divisions = p1 }
@@ -61,6 +90,12 @@ let remove t1 t2 =
      | Equal -> Some Zero
      | Greater ->
        Some (Equal_division_of_the_octave { divisor = d1; number_of_divisions = p }))
+  | Octaves { number_of_octaves = n1 }, Octaves { number_of_octaves = n2 } ->
+    let n = n1 - n2 in
+    (match Int.compare n 0 |> Ordering.of_int with
+     | Less -> None
+     | Equal -> Some Zero
+     | Greater -> Some (Octaves { number_of_octaves = n }))
   | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
     let r = Natural_ratio.Reduced.divide r1 r2 in
     let { Natural_ratio.numerator; denominator } =
@@ -70,6 +105,16 @@ let remove t1 t2 =
      | Less -> None
      | Equal -> Some Zero
      | Greater -> Some (Reduced_natural_ratio r))
+  | Octaves { number_of_octaves }, (Reduced_natural_ratio _ as t2) ->
+    remove (reduced_natural_ratio_of_octaves ~number_of_octaves) t2
+  | (Reduced_natural_ratio _ as t1), Octaves { number_of_octaves } ->
+    remove t1 (reduced_natural_ratio_of_octaves ~number_of_octaves)
+  | ( Octaves { number_of_octaves }
+    , (Equal_division_of_the_octave { divisor; number_of_divisions = _ } as t2) ) ->
+    remove (equal_division_of_the_octave_of_octaves ~divisor ~number_of_octaves) t2
+  | ( (Equal_division_of_the_octave { divisor; number_of_divisions = _ } as t1)
+    , Octaves { number_of_octaves } ) ->
+    remove t1 (equal_division_of_the_octave_of_octaves ~divisor ~number_of_octaves)
   | _ ->
     let cents = to_cents t1 -. to_cents t2 in
     (match Float.compare cents 0. |> Ordering.of_int with
@@ -78,14 +123,23 @@ let remove t1 t2 =
      | Greater -> Some (Cents cents))
 ;;
 
-let equal t1 t2 =
+let rec equal t1 t2 =
   match t1, t2 with
   | Zero, Zero -> true
   | ( Equal_division_of_the_octave { divisor = d1; number_of_divisions = p1 }
     , Equal_division_of_the_octave { divisor = d2; number_of_divisions = p2 } )
     when d1 = d2 -> p1 = p2
+  | Octaves { number_of_octaves = n1 }, Octaves { number_of_octaves = n2 } -> n1 = n2
   | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
     Natural_ratio.Reduced.equal r1 r2
+  | Octaves { number_of_octaves }, (Reduced_natural_ratio _ as ratio)
+  | (Reduced_natural_ratio _ as ratio), Octaves { number_of_octaves } ->
+    equal (reduced_natural_ratio_of_octaves ~number_of_octaves) ratio
+  | ( Octaves { number_of_octaves }
+    , (Equal_division_of_the_octave { divisor; number_of_divisions = _ } as division) )
+  | ( (Equal_division_of_the_octave { divisor; number_of_divisions = _ } as division)
+    , Octaves { number_of_octaves } ) ->
+    equal (equal_division_of_the_octave_of_octaves ~divisor ~number_of_octaves) division
   | Cents x, Cents y -> Float.equal x y
   | _ -> Float.equal (to_cents t1) (to_cents t2)
 ;;
@@ -93,7 +147,7 @@ let equal t1 t2 =
 let compare t1 t2 = Float.compare (to_cents t1) (to_cents t2)
 let compound ts = List.reduce ts ~f:add |> Option.value ~default:Zero
 let unison = Zero
-let octave = Reduced_natural_ratio (Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:1)
+let octave = Octaves { number_of_octaves = 1 }
 
 let equal_tempered_12 interval =
   Equal_division_of_the_octave
@@ -192,6 +246,9 @@ let shift_up t frequency =
   match t with
   | Zero -> frequency
   | (Equal_division_of_the_octave _ | Cents _) as t -> t |> to_cents |> of_cents
+  | Octaves { number_of_octaves } ->
+    let rn = aux_reduced_natural_ratio_of_octaves ~number_of_octaves in
+    of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
   | Reduced_natural_ratio rn ->
     of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
 ;;
@@ -208,6 +265,9 @@ let shift_down t frequency =
   match t with
   | Zero -> frequency
   | (Equal_division_of_the_octave _ | Cents _) as t -> t |> to_cents |> of_cents
+  | Octaves { number_of_octaves } ->
+    let rn = aux_reduced_natural_ratio_of_octaves ~number_of_octaves in
+    of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
   | Reduced_natural_ratio rn ->
     of_natural_ratio (Natural_ratio.Reduced.to_natural_ratio rn)
 ;;

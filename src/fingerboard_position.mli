@@ -9,7 +9,7 @@ open! Core
     A position may serve for playing several notes (with systems with
    enharmony or tempered systems). Some system may also have distinct
    positions to play the same notes, using slightly different pitches
-   depending on which scale or tonality it belogs, so there is no
+   depending on which scale or tonality it belongs, so there is no
    one-to-one match between a note and a position. *)
 
 type t [@@deriving compare, equal, hash, sexp_of]

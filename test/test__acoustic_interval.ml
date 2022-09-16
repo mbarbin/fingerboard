@@ -177,6 +177,30 @@ let%expect_test "harmonic series and cents" =
     └──────────┴────────────────────────────┴───────────────────────────────┘ |}]
 ;;
 
+let%expect_test "equal corner cases" =
+  let base =
+    Acoustic_interval.equal_division_of_the_octave ~divisor:53 ~number_of_divisions:52
+  in
+  let i1 =
+    Acoustic_interval.(
+      add base (equal_division_of_the_octave ~divisor:53 ~number_of_divisions:9))
+  in
+  let i2 =
+    Acoustic_interval.(
+      add octave (equal_division_of_the_octave ~divisor:53 ~number_of_divisions:8))
+  in
+  print_s [%sexp (Acoustic_interval.equal i1 i2 : bool)];
+  [%expect {| true |}];
+  let i3 =
+    Acoustic_interval.(
+      remove i2 (equal_division_of_the_octave ~divisor:53 ~number_of_divisions:9))
+    |> Option.value_exn ~here:[%here]
+  in
+  print_s [%sexp (Acoustic_interval.equal i3 base : bool)];
+  [%expect {| true |}];
+  ()
+;;
+
 let%expect_test "ratios" =
   let module Interval_kind = struct
     type t =
@@ -313,6 +337,8 @@ let%expect_test "ratios" =
   let reduced_natural_ratio acoustic_interval =
     match (acoustic_interval : Acoustic_interval.t) with
     | Zero -> Natural_ratio.Reduced.one
+    | Octaves { number_of_octaves } ->
+      Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:number_of_octaves
     | Reduced_natural_ratio nr -> nr
     | (Equal_division_of_the_octave _ | Cents _) as i ->
       raise_s [%sexp "Unexpected non ratio", [%here], (i : Acoustic_interval.t)]

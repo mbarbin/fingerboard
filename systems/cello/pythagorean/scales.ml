@@ -8,7 +8,7 @@ let fingerboard_high_bound =
 ;;
 
 let lower_c =
-  let t = force E12.t in
+  let t = force Pythagorean.t in
   System.open_string t IV |> Option.value_exn ~here:[%here]
 ;;
 
@@ -17,7 +17,7 @@ let characterized_major_scale =
     let interval = { Interval.number = Second; quality; additional_octaves = 0 } in
     Characterized_interval.create_exn
       ~interval
-      ~acoustic_interval:(Acoustic_interval.equal_tempered_12 interval)
+      ~acoustic_interval:(Acoustic_interval.pythagorean interval)
   in
   let ton = second Major in
   let semiton = second Minor in
@@ -25,7 +25,7 @@ let characterized_major_scale =
 ;;
 
 let c_scale =
-  let t = force E12.t in
+  let t = force Pythagorean.t in
   let rec aux acc scale (located_note : Located_note.t) =
     if Option.is_some
          (Interval.compute ~from:fingerboard_high_bound ~to_:located_note.note ())
@@ -48,9 +48,7 @@ let%expect_test "c_scale" =
     (((note ((letter_name C) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
-          (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))
+         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
           (at_octave 0)))
         (string_number IV))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 2)))
@@ -58,7 +56,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name M2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
           (at_octave 0)))
         (string_number IV))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 2)))
@@ -66,7 +65,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name M3)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -6)) ((prime 3) (exponent 4)))))
           (at_octave 0)))
         (string_number IV))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 2)))
@@ -74,15 +74,14 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name P4)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
           (at_octave 0)))
         (string_number IV))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 2)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
-          (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))
+         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
           (at_octave 0)))
         (string_number III))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 2)))
@@ -90,7 +89,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name M2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
           (at_octave 0)))
         (string_number III))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 2)))
@@ -98,7 +98,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name M3)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -6)) ((prime 3) (exponent 4)))))
           (at_octave 0)))
         (string_number III))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 3)))
@@ -106,15 +107,14 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name P4)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
           (at_octave 0)))
         (string_number III))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
-          (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))
+         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
           (at_octave 0)))
         (string_number II))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 3)))
@@ -122,7 +122,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name M2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
           (at_octave 0)))
         (string_number II))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 3)))
@@ -130,7 +131,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name m3)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
           (at_octave 0)))
         (string_number II))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 3)))
@@ -138,15 +140,14 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name P4)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
           (at_octave 0)))
         (string_number II))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 3)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
-          (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))
+         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
           (at_octave 0)))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 3)))
@@ -154,7 +155,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name M2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
           (at_octave 0)))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 4)))
@@ -162,7 +164,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name m3)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
           (at_octave 0)))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 4)))
@@ -170,7 +173,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name P4)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
           (at_octave 0)))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 4)))
@@ -178,7 +182,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name P5)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
           (at_octave 0)))
         (string_number I))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 4)))
@@ -186,7 +191,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name m6)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 7)) ((prime 3) (exponent -4)))))
           (at_octave 0)))
         (string_number I))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 4)))
@@ -194,15 +200,14 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name m7)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 4)) ((prime 3) (exponent -2)))))
           (at_octave 0)))
         (string_number I))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 4)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
-          (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))
+         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
           (at_octave 1)))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 4)))
@@ -210,7 +215,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name M2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
           (at_octave 1)))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 5)))
@@ -218,7 +224,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name m3)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
           (at_octave 1)))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 5)))
@@ -226,7 +233,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name P4)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
           (at_octave 1)))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 5)))
@@ -234,7 +242,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name P5)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
           (at_octave 1)))
         (string_number I))))
      ((note ((letter_name F) (symbol Natural) (octave_designation 5)))
@@ -242,7 +251,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name m6)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 7)) ((prime 3) (exponent -4)))))
           (at_octave 1)))
         (string_number I))))
      ((note ((letter_name G) (symbol Natural) (octave_designation 5)))
@@ -250,15 +260,14 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name m7)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 4)) ((prime 3) (exponent -2)))))
           (at_octave 1)))
         (string_number I))))
      ((note ((letter_name A) (symbol Natural) (octave_designation 5)))
       (fingerboard_location
        ((fingerboard_position
-         ((name P1)
-          (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))
+         ((name P1) (basis_acoustic_interval_to_the_open_string Zero)
           (at_octave 2)))
         (string_number I))))
      ((note ((letter_name B) (symbol Natural) (octave_designation 5)))
@@ -266,7 +275,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name M2)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -3)) ((prime 3) (exponent 2)))))
           (at_octave 2)))
         (string_number I))))
      ((note ((letter_name C) (symbol Natural) (octave_designation 6)))
@@ -274,7 +284,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name m3)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 5)) ((prime 3) (exponent -3)))))
           (at_octave 2)))
         (string_number I))))
      ((note ((letter_name D) (symbol Natural) (octave_designation 6)))
@@ -282,7 +293,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name P4)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent 2)) ((prime 3) (exponent -1)))))
           (at_octave 2)))
         (string_number I))))
      ((note ((letter_name E) (symbol Natural) (octave_designation 6)))
@@ -290,7 +302,8 @@ let%expect_test "c_scale" =
        ((fingerboard_position
          ((name P5)
           (basis_acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7)))
+           (Reduced_natural_ratio
+            (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))
           (at_octave 2)))
         (string_number I))))) |}];
   ()

@@ -16,18 +16,18 @@ let create () =
 ;;
 
 let name = function
-  | 0 -> "0"
-  | 1 -> "2m"
-  | 2 -> "2M"
-  | 3 -> "3m"
-  | 4 -> "3M"
+  | 0 -> "P1"
+  | 1 -> "m2"
+  | 2 -> "M2"
+  | 3 -> "m3"
+  | 4 -> "M3"
   | 5 -> "P4"
   | 6 -> "A4"
   | 7 -> "P5"
-  | 8 -> "6m"
-  | 9 -> "6M"
-  | 10 -> "7m"
-  | 11 -> "7M"
+  | 8 -> "m6"
+  | 9 -> "M6"
+  | 10 -> "m7"
+  | 11 -> "M7"
   | i -> raise_s [%sexp "Out of bounds", [%here], (i : int)]
 ;;
 
@@ -77,184 +77,148 @@ let%expect_test "sexp_of_t" =
         (acoustic_interval
          (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7))))))
      (fingerboard_positions
-      (((name 0)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))))
+      (((name P1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))
         (at_octave 0))
-       ((name 2m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 1)))))
+       ((name m2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 1)))
         (at_octave 0))
-       ((name 2M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))))
+       ((name M2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))
         (at_octave 0))
-       ((name 3m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))))
+       ((name m3)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))
         (at_octave 0))
-       ((name 3M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4)))))
+       ((name M3)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4)))
         (at_octave 0))
        ((name P4)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))))
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))
         (at_octave 0))
        ((name A4)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 6)))))
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 6)))
         (at_octave 0))
        ((name P5)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7)))))
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7)))
         (at_octave 0))
-       ((name 6m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8)))))
+       ((name m6)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8)))
         (at_octave 0))
-       ((name 6M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 9)))))
+       ((name M6)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 9)))
         (at_octave 0))
-       ((name 7m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10)))))
+       ((name m7)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10)))
         (at_octave 0))
-       ((name 7M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 11)))))
+       ((name M7)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 11)))
         (at_octave 0))
-       ((name 0)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))))
+       ((name P1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))
         (at_octave 1))
-       ((name 2m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 1)))))
+       ((name m2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 1)))
         (at_octave 1))
-       ((name 2M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))))
+       ((name M2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))
         (at_octave 1))
-       ((name 3m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))))
+       ((name m3)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))
         (at_octave 1))
-       ((name 3M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4)))))
+       ((name M3)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4)))
         (at_octave 1))
        ((name P4)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))))
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))
         (at_octave 1))
        ((name A4)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 6)))))
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 6)))
         (at_octave 1))
        ((name P5)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7)))))
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7)))
         (at_octave 1))
-       ((name 6m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8)))))
+       ((name m6)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8)))
         (at_octave 1))
-       ((name 6M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 9)))))
+       ((name M6)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 9)))
         (at_octave 1))
-       ((name 7m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10)))))
+       ((name m7)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10)))
         (at_octave 1))
-       ((name 7M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 11)))))
+       ((name M7)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 11)))
         (at_octave 1))
-       ((name 0)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))))
+       ((name P1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 0)))
         (at_octave 2))
-       ((name 2m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 1)))))
+       ((name m2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 1)))
         (at_octave 2))
-       ((name 2M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))))
+       ((name M2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 2)))
         (at_octave 2))
-       ((name 3m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))))
+       ((name m3)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 3)))
         (at_octave 2))
-       ((name 3M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4)))))
+       ((name M3)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 4)))
         (at_octave 2))
        ((name P4)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))))
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 5)))
         (at_octave 2))
        ((name A4)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 6)))))
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 6)))
         (at_octave 2))
        ((name P5)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7)))))
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 7)))
         (at_octave 2))
-       ((name 6m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8)))))
+       ((name m6)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 8)))
         (at_octave 2))
-       ((name 6M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 9)))))
+       ((name M6)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 9)))
         (at_octave 2))
-       ((name 7m)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10)))))
+       ((name m7)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 10)))
         (at_octave 2))
-       ((name 7M)
-        (basis_vibrating_string_portion
-         ((acoustic_interval_to_the_open_string
-           (Equal_division_of_the_octave (divisor 12) (number_of_divisions 11)))))
+       ((name M7)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 12) (number_of_divisions 11)))
         (at_octave 2))))) |}]
 ;;

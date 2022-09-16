@@ -2,7 +2,7 @@ open! Core
 
 type t =
   { name : string
-  ; basis_vibrating_string_portion : Vibrating_string_portion.t
+  ; basis_acoustic_interval_to_the_open_string : Acoustic_interval.t
   ; at_octave : int
   }
 [@@deriving compare, equal, hash, sexp_of]
@@ -11,8 +11,7 @@ let name t = t.name
 let to_string t = sprintf "%s-%d" t.name t.at_octave
 
 let acoustic_interval_to_the_open_string t =
-  Vibrating_string_portion.acoustic_interval_to_the_open_string
-    t.basis_vibrating_string_portion
+  t.basis_acoustic_interval_to_the_open_string
   :: List.init t.at_octave ~f:(const Acoustic_interval.octave)
   |> List.reduce ~f:Acoustic_interval.add
   |> Option.value ~default:Acoustic_interval.unison
@@ -35,11 +34,10 @@ let create_exn ~name ~acoustic_interval_to_the_open_string =
           ; in_cents =
               (Acoustic_interval.to_cents acoustic_interval_to_the_open_string : Float.t)
           }];
-  let basis_vibrating_string_portion =
-    Vibrating_string_portion.of_acoustic_interval_to_the_open_string
-      acoustic_interval_to_the_open_string
-  in
-  { name; basis_vibrating_string_portion; at_octave = 0 }
+  { name
+  ; basis_acoustic_interval_to_the_open_string = acoustic_interval_to_the_open_string
+  ; at_octave = 0
+  }
 ;;
 
 let open_string =
