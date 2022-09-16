@@ -283,3 +283,9 @@ let fingerboard_position name =
 let fingerboard_highest_note =
   { Note.letter_name = E; symbol = Natural; octave_designation = 6 }
 ;;
+
+let find_fingerboard_position_exn system fingerboard_position_name =
+  System.find_fingerboard_position_exn
+    system
+    ~name:(Fingerboard_position_name.to_string fingerboard_position_name)
+;;

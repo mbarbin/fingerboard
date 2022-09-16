@@ -3,15 +3,9 @@ open! Cemper
 
 let%expect_test "edo53 and octaves" =
   let t = force E53.t in
-  let az =
-    System.find_fingerboard_position_exn
-      t
-      ~name:(Cello.Fingerboard_position_name.to_string `P8z_e53)
-  in
+  let az = Cello.find_fingerboard_position_exn t `P8z_e53 in
   let bz =
-    System.find_fingerboard_position_exn
-      t
-      ~name:(Cello.Fingerboard_position_name.to_string `M2z_e53)
+    Cello.find_fingerboard_position_exn t `M2z_e53
     |> Fingerboard_position.at_octave ~octave:1
   in
   let i =

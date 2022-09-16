@@ -112,3 +112,8 @@ val fingerboard_position : Fingerboard_position_name.t -> Fingerboard_position.t
    anything around that note is realistic here. This is used to limit
    the generation of scales and positions. *)
 val fingerboard_highest_note : Note.t
+
+val find_fingerboard_position_exn
+  :  System.t
+  -> Fingerboard_position_name.t
+  -> Fingerboard_position.t
