@@ -114,6 +114,12 @@ end
 
 val fingerboard_position : Fingerboard_position_name.t -> Fingerboard_position.t
 
+val add_fingerboard_position_exn
+  :  ?on_n_octaves:int
+  -> System.t
+  -> Fingerboard_position_name.t
+  -> unit
+
 (** The selection of this particular note is somewhat arbitrary,
    anything around that note is realistic here. This is used to limit
    the generation of scales and positions. *)

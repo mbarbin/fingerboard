@@ -17,8 +17,7 @@ let create () =
 
 let add_positions t =
   List.iter
-    ~f:(fun name ->
-      System.add_fingerboard_position_exn t (Cello.fingerboard_position name))
+    ~f:(fun name -> Cello.add_fingerboard_position_exn t name)
     (List.concat
        [ [ `open_string ]
        ; (Cello.Fingerboard_position_name.Pythagorean.all

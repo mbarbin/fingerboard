@@ -310,6 +310,13 @@ let fingerboard_position name =
       (Fingerboard_position_name.acoustic_interval_to_the_open_string name)
 ;;
 
+let add_fingerboard_position_exn ?on_n_octaves system fingerboard_position_name =
+  System.add_fingerboard_position_exn
+    ?on_n_octaves
+    system
+    (fingerboard_position fingerboard_position_name)
+;;
+
 let fingerboard_highest_note =
   { Note.letter_name = E; symbol = Natural; octave_designation = 6 }
 ;;
