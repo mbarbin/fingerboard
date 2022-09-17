@@ -298,6 +298,32 @@ let%expect_test "c_just_scale" =
   ()
 ;;
 
+let%expect_test "c_just_scale" =
+  print_s
+    [%sexp
+      (c_just_scale |> List.map ~f:Located_note.to_abbrev : Located_note.Abbrev.t list)];
+  [%expect
+    {|
+    ((C2 0-0 IV) (D2 M2p-0 IV) (E2 M3z-0 IV) (F2 4p-0 IV) (G2 0-0 III)
+     (A2 M2z-0 III) (B2 M3z-0 III) (C3 4p-0 III) (D3 0-0 II) (E3 M2z-0 II)
+     (F3 m3p-0 II) (G3 4p-0 II) (A3 5z-0 II) (B3 M2z-0 I) (C4 m3p-0 I)
+     (D4 4p-0 I) (E4 5z-0 I) (F4 m6p-0 I) (G4 m7p-0 I) (A4 8z-0 I) (B4 M2z-1 I)
+     (C5 m3p-1 I) (D5 4p-1 I) (E5 5z-1 I) (F5 m6p-1 I) (G5 m7p-1 I) (A5 8z-1 I)
+     (B5 M2z-2 I) (C6 m3p-2 I) (D6 4p-2 I) (E6 5z-2 I)) |}];
+  print_s
+    [%sexp (c_just_scale |> Located_note.to_scales_abbrev : Located_note.Scales_abbrev.t)];
+  [%expect
+    {|
+    ((IV ((C2 0-0) (D2 M2p-0) (E2 M3z-0) (F2 4p-0)))
+     (III ((G2 0-0) (A2 M2z-0) (B2 M3z-0) (C3 4p-0)))
+     (II ((D3 0-0) (E3 M2z-0) (F3 m3p-0) (G3 4p-0) (A3 5z-0)))
+     (I
+      ((B3 M2z-0) (C4 m3p-0) (D4 4p-0) (E4 5z-0) (F4 m6p-0) (G4 m7p-0) (A4 8z-0)
+       (B4 M2z-1) (C5 m3p-1) (D5 4p-1) (E5 5z-1) (F5 m6p-1) (G5 m7p-1) (A5 8z-1)
+       (B5 M2z-2) (C6 m3p-2) (D6 4p-2) (E6 5z-2)))) |}];
+  ()
+;;
+
 let c_pythagorean_scale =
   let t = force Just.t in
   make_scale t ~characterized_scale:characterized_major_pythagorean_scale ~from:lower_c

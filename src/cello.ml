@@ -303,6 +303,12 @@ module Fingerboard_position_name = struct
   let to_string t = Sexp.to_string [%sexp (t : t)]
 end
 
+let a_string = { Note.letter_name = A; symbol = Natural; octave_designation = 3 }
+
+let a_string_frequency_220 =
+  Frequency.a4_440 |> Acoustic_interval.shift_down Acoustic_interval.octave
+;;
+
 let fingerboard_position name =
   Fingerboard_position.create_exn
     ~name:(Fingerboard_position_name.to_string name)
@@ -315,6 +321,28 @@ let add_fingerboard_position_exn ?on_n_octaves system fingerboard_position_name 
     ?on_n_octaves
     system
     (fingerboard_position fingerboard_position_name)
+;;
+
+let fifth_system ?acoustic_interval () =
+  let intervals_going_down =
+    let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
+    let acoustic_interval =
+      match acoustic_interval with
+      | Some i -> i
+      | None -> Acoustic_interval.pythagorean fifth
+    in
+    Array.create
+      ~len:3
+      (Characterized_interval.create_exn ~interval:fifth ~acoustic_interval)
+  in
+  let system =
+    System.create
+      ~high_vibrating_string:a_string
+      ~pitch:a_string_frequency_220
+      ~intervals_going_down
+  in
+  add_fingerboard_position_exn system `open_string;
+  system
 ;;
 
 let fingerboard_highest_note =

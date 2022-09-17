@@ -112,6 +112,11 @@ module Fingerboard_position_name : sig
   val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
 end
 
+(** Create a system with 4 strings tuned in fifth and initialise the
+   open_string position. Default tuning the cello to pythagorean
+   fifths, but this may be overrided. *)
+val fifth_system : ?acoustic_interval:Acoustic_interval.t -> unit -> System.t
+
 val fingerboard_position : Fingerboard_position_name.t -> Fingerboard_position.t
 
 val add_fingerboard_position_exn

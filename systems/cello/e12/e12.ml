@@ -2,27 +2,17 @@ open! Core
 open! Cemper
 
 let create () =
-  let a = { Note.letter_name = A; symbol = Natural; octave_designation = 3 } in
-  let pitch = Frequency.a4_440 |> Acoustic_interval.shift_down Acoustic_interval.octave in
-  let intervals_going_down =
-    let fifth = { Interval.number = Fifth; quality = Perfect; additional_octaves = 0 } in
-    Array.create
-      ~len:3
-      (Characterized_interval.create_exn
-         ~interval:fifth
-         ~acoustic_interval:(Acoustic_interval.equal_tempered_12 fifth))
-  in
-  System.create ~high_vibrating_string:a ~pitch ~intervals_going_down
+  Cello.fifth_system
+    ~acoustic_interval:
+      (Acoustic_interval.equal_tempered_12
+         { number = Fifth; quality = Perfect; additional_octaves = 0 })
+    ()
 ;;
 
 let add_positions t =
   List.iter
     ~f:(fun name -> Cello.add_fingerboard_position_exn t name)
-    (List.concat
-       [ [ `open_string ]
-       ; (Cello.Fingerboard_position_name.Edo12.all
-           :> Cello.Fingerboard_position_name.t list)
-       ])
+    (Cello.Fingerboard_position_name.Edo12.all :> Cello.Fingerboard_position_name.t list)
 ;;
 
 let t =
