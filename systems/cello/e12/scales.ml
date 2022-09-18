@@ -1,18 +1,6 @@
 open! Core
 open! Cemper
 
-let characterized_major_scale =
-  let second quality =
-    let interval = { Interval.number = Second; quality; additional_octaves = 0 } in
-    Characterized_interval.create_exn
-      ~interval
-      ~acoustic_interval:(Acoustic_interval.equal_tempered_12 interval)
-  in
-  let ton = second Major in
-  let semiton = second Minor in
-  [ ton; ton; semiton; ton; ton; ton; semiton ]
-;;
-
 let make_scale t ~characterized_scale ~from =
   System.make_scale t ~characterized_scale ~from ~to_:Cello.fingerboard_highest_note
 ;;
@@ -24,7 +12,7 @@ let lower_c =
 
 let c_scale =
   let t = force E12.t in
-  make_scale t ~characterized_scale:characterized_major_scale ~from:lower_c
+  make_scale t ~characterized_scale:Characterized_scale.major_e12 ~from:lower_c
 ;;
 
 let%expect_test "c_scale" =
@@ -257,7 +245,7 @@ let lower_e_flat =
 
 let e_flat_scale =
   let t = force E12.t in
-  make_scale t ~characterized_scale:characterized_major_scale ~from:lower_e_flat
+  make_scale t ~characterized_scale:Characterized_scale.major_e12 ~from:lower_e_flat
 ;;
 
 let%expect_test "e_flat_scale" =

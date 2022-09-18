@@ -1,29 +1,6 @@
 open! Core
 open! Cemper
 
-let characterized_major_just_scale =
-  let second quality acoustic_interval =
-    let interval = { Interval.number = Second; quality; additional_octaves = 0 } in
-    Characterized_interval.create_exn ~interval ~acoustic_interval
-  in
-  let minor_ton = second Major Acoustic_interval.just_minor_ton in
-  let major_ton = second Major Acoustic_interval.just_major_ton in
-  let semiton = second Minor Acoustic_interval.just_diatonic_semiton in
-  [ major_ton; minor_ton; semiton; major_ton; minor_ton; major_ton; semiton ]
-;;
-
-let characterized_major_pythagorean_scale =
-  let second quality =
-    let interval = { Interval.number = Second; quality; additional_octaves = 0 } in
-    Characterized_interval.create_exn
-      ~interval
-      ~acoustic_interval:(Acoustic_interval.pythagorean interval)
-  in
-  let ton = second Major in
-  let semiton = second Minor in
-  [ ton; ton; semiton; ton; ton; ton; semiton ]
-;;
-
 let make_scale t ~characterized_scale ~from =
   System.make_scale t ~characterized_scale ~from ~to_:Cello.fingerboard_highest_note
 ;;
@@ -35,7 +12,7 @@ let lower_c =
 
 let c_just_scale =
   let t = force Just.t in
-  make_scale t ~characterized_scale:characterized_major_just_scale ~from:lower_c
+  make_scale t ~characterized_scale:Characterized_scale.major_just ~from:lower_c
 ;;
 
 let%expect_test "c_just_scale" =
@@ -326,7 +303,7 @@ let%expect_test "c_just_scale" =
 
 let c_pythagorean_scale =
   let t = force Just.t in
-  make_scale t ~characterized_scale:characterized_major_pythagorean_scale ~from:lower_c
+  make_scale t ~characterized_scale:Characterized_scale.major_pythagorean ~from:lower_c
 ;;
 
 let%expect_test "c_pythagorean_scale" =
@@ -584,7 +561,7 @@ let lower_ez_flat =
 
 let e_flat_just_major_scale =
   let t = force Just.t in
-  make_scale t ~characterized_scale:characterized_major_just_scale ~from:lower_ez_flat
+  make_scale t ~characterized_scale:Characterized_scale.major_just ~from:lower_ez_flat
 ;;
 
 let%expect_test "e_flat_just_major_scale" =
@@ -849,7 +826,7 @@ let ez_flat_pythagorean_major_scale =
   let t = force Just.t in
   make_scale
     t
-    ~characterized_scale:characterized_major_pythagorean_scale
+    ~characterized_scale:Characterized_scale.major_pythagorean
     ~from:lower_ez_flat
 ;;
 
@@ -892,7 +869,7 @@ let ep_flat_pythagorean_major_scale =
   let t = force Just.t in
   make_scale
     t
-    ~characterized_scale:characterized_major_pythagorean_scale
+    ~characterized_scale:Characterized_scale.major_pythagorean
     ~from:lower_ep_flat
 ;;
 
