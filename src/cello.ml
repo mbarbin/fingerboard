@@ -224,6 +224,7 @@ module Fingerboard_position_name = struct
       [ `A1z
       | `m2z
       | `M2z
+      | `d3z
       | `m3z
       | `M3z
       | `d4z
@@ -247,6 +248,7 @@ module Fingerboard_position_name = struct
       | ( `A1z
         | `m2z
         | `M2z
+        | `d3z
         | `m3z
         | `M3z
         | `d4z
@@ -266,6 +268,11 @@ module Fingerboard_position_name = struct
         |> Option.value_exn ~here:[%here]
       | `m2z -> Acoustic_interval.just_diatonic_semiton
       | `M2z -> Acoustic_interval.just_minor_ton
+      | `d3z ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Second; quality = Minor; additional_octaves = 0 })
+            just_diatonic_semiton)
       | `m3z -> Acoustic_interval.just_minor_third
       | `M3z -> Acoustic_interval.just_major_third
       | `d4z ->

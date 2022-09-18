@@ -503,12 +503,16 @@ let lower_gz_flat =
 let%expect_test "g_flat_major_just" =
   let scale = make_major_just_scale ~from:lower_gz_flat in
   print_s [%sexp (List.length scale : int)];
-  [%expect {| 10 |}];
+  [%expect {| 28 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
     ((IV ((Gb2 d5z))) (III ((Ab2 m2z) (Bb2 m3p) (Cb3 d4z) (Db3 d5z)))
-     (II ((Eb3 m2p) (F3 m3p) (Gb3 d4z) (Ab3 d5z))) (I ((Bb3 m2p)))) |}];
+     (II ((Eb3 m2p) (F3 m3p) (Gb3 d4z) (Ab3 d5z)))
+     (I
+      ((Bb3 m2p) (Cb4 d3z) (Db4 d4z) (Eb4 d5p) (F4 m6p) (Gb4 d7z) (Ab4 d8z)
+       (Bb4 m2p-1) (Cb5 d3z-1) (Db5 d4z-1) (Eb5 d5p-1) (F5 m6p-1) (Gb5 d7z-1)
+       (Ab5 d8z-1) (Bb5 m2p-2) (Cb6 d3z-2) (Db6 d4z-2) (Eb6 d5p-2) (F6 m6p-2)))) |}];
   ()
 ;;
 
