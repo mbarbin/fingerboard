@@ -14,11 +14,11 @@ let to_abbrev { note; fingerboard_location = { fingerboard_position; string_numb
   Note.to_string note, Fingerboard_position.to_string fingerboard_position, string_number
 ;;
 
-module Scales_abbrev = struct
+module Scale_abbrev = struct
   type t = (Roman_numeral.t * (string * string) list) list [@@deriving sexp_of]
 end
 
-let to_scales_abbrev ts =
+let to_scale_abbrev ts =
   List.group ts ~break:(fun t1 t2 ->
     not
       (Roman_numeral.equal

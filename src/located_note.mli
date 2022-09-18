@@ -15,8 +15,8 @@ end
 
 val to_abbrev : t -> Abbrev.t
 
-module Scales_abbrev : sig
+module Scale_abbrev : sig
   type t [@@deriving sexp_of]
 end
 
-val to_scales_abbrev : t list -> Scales_abbrev.t
+val to_scale_abbrev : t list -> Scale_abbrev.t
