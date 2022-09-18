@@ -59,6 +59,7 @@ let%expect_test "positions and cents" =
     │ M3z-e53  │  384.91 │
     │ M3z      │  386.31 │
     │ M3e      │  400.00 │
+    │ d4z      │  405.87 │
     │ M3p-e53  │  407.55 │
     │ M3p      │  407.82 │
     │ 4p       │  498.04 │
@@ -69,6 +70,7 @@ let%expect_test "positions and cents" =
     │ A3p      │  521.51 │
     │ d5p      │  588.27 │
     │ A4z-e53  │  588.68 │
+    │ A4z      │  590.22 │
     │ A4e      │  600.00 │
     │ d5z      │  609.78 │
     │ d5z-e53  │  611.32 │
@@ -87,7 +89,9 @@ let%expect_test "positions and cents" =
     │ A5p      │  815.64 │
     │ d7p      │  882.40 │
     │ M6z-e53  │  883.02 │
+    │ M6z      │  884.36 │
     │ M6e      │  900.00 │
+    │ d7z      │  903.91 │
     │ M6p-e53  │  905.66 │
     │ M6p      │  905.87 │
     │ m7p      │  996.09 │
@@ -97,6 +101,7 @@ let%expect_test "positions and cents" =
     │ A6p      │ 1019.55 │
     │ d8p      │ 1086.31 │
     │ M7z-e53  │ 1086.79 │
+    │ M7z      │ 1088.27 │
     │ M7e      │ 1100.00 │
     │ d8z      │ 1107.82 │
     │ M7p-e53  │ 1109.43 │

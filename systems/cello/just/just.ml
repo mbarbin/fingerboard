@@ -97,6 +97,11 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent -2)) ((prime 5) (exponent 1))))))
+       ((name d4z) (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent 9)) ((prime 3) (exponent -4))
+           ((prime 5) (exponent -1))))))
        ((name M3p) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -118,6 +123,11 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 10)) ((prime 3) (exponent -6))))))
+       ((name A4z) (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -5)) ((prime 3) (exponent 2))
+           ((prime 5) (exponent 1))))))
        ((name d5z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -156,6 +166,15 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 15)) ((prime 3) (exponent -9))))))
+       ((name M6z) (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 3) (exponent -1)) ((prime 5) (exponent 1))))))
+       ((name d7z) (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent 11)) ((prime 3) (exponent -5))
+           ((prime 5) (exponent -1))))))
        ((name M6p) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -172,6 +191,11 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 12)) ((prime 3) (exponent -7))))))
+       ((name M7z) (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -3)) ((prime 3) (exponent 1))
+           ((prime 5) (exponent 1))))))
        ((name d8z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -234,6 +258,11 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent -2)) ((prime 5) (exponent 1))))))
+       ((name d4z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent 9)) ((prime 3) (exponent -4))
+           ((prime 5) (exponent -1))))))
        ((name M3p) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -255,6 +284,11 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 10)) ((prime 3) (exponent -6))))))
+       ((name A4z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -5)) ((prime 3) (exponent 2))
+           ((prime 5) (exponent 1))))))
        ((name d5z) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -293,6 +327,15 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 15)) ((prime 3) (exponent -9))))))
+       ((name M6z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 3) (exponent -1)) ((prime 5) (exponent 1))))))
+       ((name d7z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent 11)) ((prime 3) (exponent -5))
+           ((prime 5) (exponent -1))))))
        ((name M6p) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -309,6 +352,11 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 12)) ((prime 3) (exponent -7))))))
+       ((name M7z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -3)) ((prime 3) (exponent 1))
+           ((prime 5) (exponent 1))))))
        ((name d8z) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -371,6 +419,11 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent -2)) ((prime 5) (exponent 1))))))
+       ((name d4z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent 9)) ((prime 3) (exponent -4))
+           ((prime 5) (exponent -1))))))
        ((name M3p) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -392,6 +445,11 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 10)) ((prime 3) (exponent -6))))))
+       ((name A4z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -5)) ((prime 3) (exponent 2))
+           ((prime 5) (exponent 1))))))
        ((name d5z) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -430,6 +488,15 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 15)) ((prime 3) (exponent -9))))))
+       ((name M6z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 3) (exponent -1)) ((prime 5) (exponent 1))))))
+       ((name d7z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent 11)) ((prime 3) (exponent -5))
+           ((prime 5) (exponent -1))))))
        ((name M6p) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -446,6 +513,11 @@ let%expect_test "sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 12)) ((prime 3) (exponent -7))))))
+       ((name M7z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -3)) ((prime 3) (exponent 1))
+           ((prime 5) (exponent 1))))))
        ((name d8z) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio

@@ -89,10 +89,15 @@ module Fingerboard_position_name : sig
       | `M2z
       | `m3z
       | `M3z
+      | `d4z
       | `P4z
+      | `A4z
       | `d5z
       | `P5z
       | `m6z
+      | `M6z
+      | `d7z
+      | `M7z
       | `d8z
       | `P8z
       ]

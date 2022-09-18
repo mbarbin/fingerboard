@@ -86,6 +86,35 @@ let%expect_test "c_major_pythagorean" =
   ()
 ;;
 
+let lower_cp_sharp =
+  let t = force E53.t in
+  { Located_note.note = { letter_name = C; symbol = Sharp; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `m2z_e53
+      ; string_number = IV
+      }
+  }
+;;
+
+let%expect_test "c_sharp_major_pythagorean" =
+  let scale = make_major_pythagorean_scale ~from:lower_cp_sharp in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 31 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((IV ((C#2 m2z-e53) (D#2 m3z-e53) (E#2 4z-e53) (F#2 d5z-e53)))
+     (III ((G#2 m2z-e53) (A#2 m3z-e53) (B#2 4z-e53) (C#3 d5z-e53)))
+     (II ((D#3 m2z-e53) (E#3 m3z-e53) (F#3 M3p-e53) (G#3 d5z-e53)))
+     (I
+      ((A#3 m2z-e53) (B#3 m3z-e53) (C#4 M3p-e53) (D#4 d5z-e53) (E#4 m6z-e53)
+       (F#4 M6p-e53) (G#4 M7p-e53) (A#4 m2z-e53-1) (B#4 m3z-e53-1)
+       (C#5 M3p-e53-1) (D#5 d5z-e53-1) (E#5 m6z-e53-1) (F#5 M6p-e53-1)
+       (G#5 M7p-e53-1) (A#5 m2z-e53-2) (B#5 m3z-e53-2) (C#6 M3p-e53-2)
+       (D#6 d5z-e53-2) (E#6 m6z-e53-2)))) |}];
+  ()
+;;
+
 let lower_dp_flat =
   let t = force E53.t in
   { Located_note.note = { letter_name = D; symbol = Flat; octave_designation = 2 }
@@ -415,6 +444,35 @@ let%expect_test "f_sharp_major_just" =
        (D#5 A4z-e53-1) (E#5 m6p-e53-1) (F#5 M6p-e53-1) (G#5 M7p-e53-1)
        (A#5 A1z-e53-2) (B5 M2p-e53-2) (C#6 M3p-e53-2) (D#6 A4z-e53-2)
        (E#6 m6p-e53-2)))) |}];
+  ()
+;;
+
+let lower_gp_flat =
+  let t = force E53.t in
+  { Located_note.note = { letter_name = G; symbol = Flat; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `A4z_e53
+      ; string_number = IV
+      }
+  }
+;;
+
+let%expect_test "g_flat_major_pythagorean" =
+  let scale = make_major_pythagorean_scale ~from:lower_gp_flat in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 28 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((IV ((Gb2 A4z-e53)))
+     (III ((Ab2 A1z-e53) (Bb2 m3p-e53) (Cb3 M3z-e53) (Db3 A4z-e53)))
+     (II ((Eb3 A1z-e53) (F3 m3p-e53) (Gb3 M3z-e53) (Ab3 A4z-e53)))
+     (I
+      ((Bb3 A1z-e53) (Cb4 M2z-e53) (Db4 M3z-e53) (Eb4 A4z-e53) (F4 m6p-e53)
+       (Gb4 M6z-e53) (Ab4 M7z-e53) (Bb4 A1z-e53-1) (Cb5 M2z-e53-1)
+       (Db5 M3z-e53-1) (Eb5 A4z-e53-1) (F5 m6p-e53-1) (Gb5 M6z-e53-1)
+       (Ab5 M7z-e53-1) (Bb5 A1z-e53-2) (Cb6 M2z-e53-2) (Db6 M3z-e53-2)
+       (Eb6 A4z-e53-2) (F6 m6p-e53-2)))) |}];
   ()
 ;;
 

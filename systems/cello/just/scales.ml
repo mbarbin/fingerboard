@@ -302,6 +302,9 @@ let%expect_test "c_major_just" =
   ()
 ;;
 
+(* Since [Just] is a superset of [Pythagorean], it supports all of the
+   same pythagorean scales. We only test one here, since they all
+   already appear in [pythagorean/scales.ml]. *)
 let%expect_test "c_major_pythagorean" =
   let scale = make_major_pythagorean_scale ~from:lower_c in
   print_s [%sexp (List.length scale : int)];
@@ -316,6 +319,60 @@ let%expect_test "c_major_pythagorean" =
       ((A3 0) (B3 M2p) (C4 m3p) (D4 4p) (E4 5p) (F4 m6p) (G4 m7p) (A4 0-1)
        (B4 M2p-1) (C5 m3p-1) (D5 4p-1) (E5 5p-1) (F5 m6p-1) (G5 m7p-1) (A5 0-2)
        (B5 M2p-2) (C6 m3p-2) (D6 4p-2) (E6 5p-2)))) |}];
+  ()
+;;
+
+let lower_dz_flat =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = D; symbol = Flat; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `m2z
+      ; string_number = IV
+      }
+  }
+;;
+
+let%expect_test "d_flat_major_just" =
+  let scale = make_major_just_scale ~from:lower_dz_flat in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 31 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((IV ((Db2 m2z) (Eb2 m3z) (F2 4p) (Gb2 d5z)))
+     (III ((Ab2 m2z) (Bb2 m3p) (C3 4p) (Db3 d5z)))
+     (II ((Eb3 m2z) (F3 m3p) (Gb3 d4z) (Ab3 d5z)))
+     (I
+      ((Bb3 m2p) (C4 m3p) (Db4 d4z) (Eb4 d5z) (F4 m6p) (Gb4 d7z) (Ab4 d8z)
+       (Bb4 m2p-1) (C5 m3p-1) (Db5 d4z-1) (Eb5 d5z-1) (F5 m6p-1) (Gb5 d7z-1)
+       (Ab5 d8z-1) (Bb5 m2p-2) (C6 m3p-2) (Db6 d4z-2) (Eb6 d5z-2) (F6 m6p-2)))) |}];
+  ()
+;;
+
+let lower_d =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = D; symbol = Natural; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `M2p
+      ; string_number = IV
+      }
+  }
+;;
+
+let%expect_test "d_major_just" =
+  let scale = make_major_just_scale ~from:lower_d in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 30 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((IV ((D2 M2p) (E2 M3p) (F#2 A4z)))
+     (III ((G2 0) (A2 M2p) (B2 M3z) (C#3 A4z)))
+     (II ((D3 0) (E3 M2p) (F#3 M3z) (G3 4p)))
+     (I
+      ((A3 0) (B3 M2z) (C#4 M3z) (D4 4p) (E4 5p) (F#4 M6z) (G4 m7p) (A4 0-1)
+       (B4 M2z-1) (C#5 M3z-1) (D5 4p-1) (E5 5p-1) (F#5 M6z-1) (G5 m7p-1)
+       (A5 0-2) (B5 M2z-2) (C#6 M3z-2) (D6 4p-2) (E6 5p-2)))) |}];
   ()
 ;;
 
@@ -345,38 +402,229 @@ let%expect_test "e_flat_major_just" =
   ()
 ;;
 
-let%expect_test "ez_flat_major_pythagorean" =
-  let scale = make_major_pythagorean_scale ~from:lower_ez_flat in
-  print_s [%sexp (List.length scale : int)];
-  [%expect {| 2 |}];
-  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
-  [%expect {|
-    ((IV ((Eb2 m3z) (F2 4z)))) |}];
-  ()
-;;
-
-let lower_ep_flat =
+let lower_e =
   let t = force Just.t in
-  { Located_note.note = { letter_name = E; symbol = Flat; octave_designation = 2 }
+  { Located_note.note = { letter_name = E; symbol = Natural; octave_designation = 2 }
   ; fingerboard_location =
-      { fingerboard_position = Cello.find_fingerboard_position_exn t `m3p
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `M3p
       ; string_number = IV
       }
   }
 ;;
 
-let%expect_test "ep_flat_major_pythagorean" =
-  let scale = make_major_pythagorean_scale ~from:lower_ep_flat in
+let%expect_test "e_major_just" =
+  let scale = make_major_just_scale ~from:lower_e in
   print_s [%sexp (List.length scale : int)];
-  [%expect {| 30 |}];
+  [%expect {| 2 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect {|
+    ((IV ((E2 M3p) (F#2 A4p)))) |}];
+  ()
+;;
+
+let lower_fp =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = F; symbol = Natural; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `P4p
+      ; string_number = IV
+      }
+  }
+;;
+
+let%expect_test "fp_major_just" =
+  let scale = make_major_just_scale ~from:lower_fp in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 12 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((Eb2 m3p) (F2 4p))) (III ((G2 0) (Ab2 m2p) (Bb2 m3p) (C3 4p)))
-     (II ((D3 0) (Eb3 m2p) (F3 m3p) (G3 4p) (Ab3 d5p)))
+    ((IV ((F2 4p))) (III ((G2 0) (A2 M2z) (Bb2 m3p) (C3 4p) (D3 5z)))
+     (II ((E3 M2z) (F3 m3p) (G3 4p) (A3 5z))) (I ((Bb3 m2p) (C4 m3p)))) |}];
+  ()
+;;
+
+let lower_fz =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = F; symbol = Natural; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `P4z
+      ; string_number = IV
+      }
+  }
+;;
+
+let%expect_test "fz_major_just" =
+  let scale = make_major_just_scale ~from:lower_fz in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 1 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect {|
+    ((IV ((F2 4z)))) |}];
+  ()
+;;
+
+let lower_f_sharp =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = F; symbol = Sharp; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `A4p
+      ; string_number = IV
+      }
+  }
+;;
+
+let%expect_test "f_sharp_major_just" =
+  let scale = make_major_just_scale ~from:lower_f_sharp in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 2 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect {|
+    ((IV ((F#2 A4p))) (III ((G#2 A1p)))) |}];
+  ()
+;;
+
+let lower_gz_flat =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = G; symbol = Flat; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `d5z
+      ; string_number = IV
+      }
+  }
+;;
+
+let%expect_test "g_flat_major_just" =
+  let scale = make_major_just_scale ~from:lower_gz_flat in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 10 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((IV ((Gb2 d5z))) (III ((Ab2 m2z) (Bb2 m3p) (Cb3 d4z) (Db3 d5z)))
+     (II ((Eb3 m2p) (F3 m3p) (Gb3 d4z) (Ab3 d5z))) (I ((Bb3 m2p)))) |}];
+  ()
+;;
+
+let lower_g =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = G; symbol = Natural; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `open_string
+      ; string_number = III
+      }
+  }
+;;
+
+let%expect_test "g_major_just" =
+  let scale = make_major_just_scale ~from:lower_g in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 27 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((III ((G2 0) (A2 M2p) (B2 M3z) (C3 4p)))
+     (II ((D3 0) (E3 M2z) (F#3 M3z) (G3 4p)))
      (I
-      ((Bb3 m2p) (C4 m3p) (D4 4p) (Eb4 d5p) (F4 m6p) (G4 m7p) (Ab4 d8p)
-       (Bb4 m2p-1) (C5 m3p-1) (D5 4p-1) (Eb5 d5p-1) (F5 m6p-1) (G5 m7p-1)
-       (Ab5 d8p-1) (Bb5 m2p-2) (C6 m3p-2) (D6 4p-2) (Eb6 d5p-2) (F6 m6p-2)))) |}];
+      ((A3 0) (B3 M2z) (C4 m3p) (D4 4p) (E4 5z) (F#4 M6z) (G4 m7p) (A4 0-1)
+       (B4 M2z-1) (C5 m3p-1) (D5 4p-1) (E5 5z-1) (F#5 M6z-1) (G5 m7p-1) (A5 0-2)
+       (B5 M2z-2) (C6 m3p-2) (D6 4p-2) (E6 5z-2)))) |}];
+  ()
+;;
+
+let lower_az_flat =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = A; symbol = Flat; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `m2z
+      ; string_number = III
+      }
+  }
+;;
+
+let%expect_test "a_flat_major_just" =
+  let scale = make_major_just_scale ~from:lower_az_flat in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 27 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((III ((Ab2 m2z) (Bb2 m3z) (C3 4p) (Db3 d5z)))
+     (II ((Eb3 m2z) (F3 m3p) (G3 4p) (Ab3 d5z)))
+     (I
+      ((Bb3 m2z) (C4 m3p) (Db4 d4z) (Eb4 d5z) (F4 m6p) (G4 m7p) (Ab4 d8z)
+       (Bb4 m2z-1) (C5 m3p-1) (Db5 d4z-1) (Eb5 d5z-1) (F5 m6p-1) (G5 m7p-1)
+       (Ab5 d8z-1) (Bb5 m2z-2) (C6 m3p-2) (Db6 d4z-2) (Eb6 d5z-2) (F6 m6p-2)))) |}];
+  ()
+;;
+
+let lower_a =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = A; symbol = Natural; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `M2p
+      ; string_number = III
+      }
+  }
+;;
+
+let%expect_test "a_major_just" =
+  let scale = make_major_just_scale ~from:lower_a in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 26 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((III ((A2 M2p) (B2 M3p) (C#3 A4z)))
+     (II ((D3 0) (E3 M2p) (F#3 M3z) (G#3 A4z)))
+     (I
+      ((A3 0) (B3 M2p) (C#4 M3z) (D4 4p) (E4 5p) (F#4 M6z) (G#4 M7z) (A4 0-1)
+       (B4 M2p-1) (C#5 M3z-1) (D5 4p-1) (E5 5p-1) (F#5 M6z-1) (G#5 M7z-1)
+       (A5 0-2) (B5 M2p-2) (C#6 M3z-2) (D6 4p-2) (E6 5p-2)))) |}];
+  ()
+;;
+
+let lower_bz_flat =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = B; symbol = Flat; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `m3z
+      ; string_number = III
+      }
+  }
+;;
+
+let%expect_test "b_flat_major_just" =
+  let scale = make_major_just_scale ~from:lower_bz_flat in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 26 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((III ((Bb2 m3z) (C3 4z))) (II ((D3 0) (Eb3 m2z) (F3 m3z) (G3 4p)))
+     (I
+      ((A3 0) (Bb3 m2z) (C4 m3z) (D4 4p) (Eb4 d5z) (F4 m6z) (G4 m7p) (A4 0-1)
+       (Bb4 m2z-1) (C5 m3z-1) (D5 4p-1) (Eb5 d5z-1) (F5 m6z-1) (G5 m7p-1)
+       (A5 0-2) (Bb5 m2z-2) (C6 m3z-2) (D6 4p-2) (Eb6 d5z-2) (F6 m6z-2)))) |}];
+  ()
+;;
+
+let lower_bp =
+  let t = force Just.t in
+  { Located_note.note = { letter_name = B; symbol = Natural; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `M3p
+      ; string_number = III
+      }
+  }
+;;
+
+let%expect_test "b_major_just" =
+  let scale = make_major_just_scale ~from:lower_bp in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 2 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect {|
+    ((III ((B2 M3p) (C#3 A4p)))) |}];
   ()
 ;;

@@ -225,10 +225,15 @@ module Fingerboard_position_name = struct
       | `M2z
       | `m3z
       | `M3z
+      | `d4z
       | `P4z
+      | `A4z
       | `d5z
       | `P5z
       | `m6z
+      | `M6z
+      | `d7z
+      | `M7z
       | `d8z
       | `P8z
       ]
@@ -238,7 +243,8 @@ module Fingerboard_position_name = struct
       | `P4z -> Atom "4z"
       | `P5z -> Atom "5z"
       | `P8z -> Atom "8z"
-      | (`m2z | `M2z | `m3z | `M3z | `d5z | `m6z | `d8z) as t -> sexp_of_t t
+      | (`m2z | `M2z | `m3z | `M3z | `d4z | `A4z | `d5z | `m6z | `M6z | `d7z | `M7z | `d8z)
+        as t -> sexp_of_t t
     ;;
 
     let acoustic_interval_to_the_open_string (t : t) =
@@ -247,11 +253,22 @@ module Fingerboard_position_name = struct
       | `M2z -> Acoustic_interval.just_minor_ton
       | `m3z -> Acoustic_interval.just_minor_third
       | `M3z -> Acoustic_interval.just_major_third
+      | `d4z ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Third; quality = Minor; additional_octaves = 0 })
+            just_diatonic_semiton)
       | `P4z ->
         Acoustic_interval.(
           remove
             (pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
             just_minor_ton)
+        |> Option.value_exn ~here:[%here]
+      | `A4z ->
+        Acoustic_interval.(
+          remove
+            (pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
+            just_diatonic_semiton)
         |> Option.value_exn ~here:[%here]
       | `d5z ->
         Acoustic_interval.(
@@ -263,11 +280,18 @@ module Fingerboard_position_name = struct
           add
             (pythagorean { number = Fourth; quality = Perfect; additional_octaves = 0 })
             just_minor_ton)
-      | `m6z ->
+      | `m6z -> Acoustic_interval.just_minor_sixth
+      | `M6z -> Acoustic_interval.just_major_sixth
+      | `d7z ->
+        Acoustic_interval.(
+          add
+            (pythagorean { number = Sixth; quality = Minor; additional_octaves = 0 })
+            just_diatonic_semiton)
+      | `M7z ->
         Acoustic_interval.(
           add
             (pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
-            just_diatonic_semiton)
+            just_major_third)
       | `d8z ->
         Acoustic_interval.(
           add
