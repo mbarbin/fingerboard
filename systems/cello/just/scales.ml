@@ -415,10 +415,16 @@ let lower_e =
 let%expect_test "e_major_just" =
   let scale = make_major_just_scale ~from:lower_e in
   print_s [%sexp (List.length scale : int)];
-  [%expect {| 2 |}];
+  [%expect {| 29 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
-  [%expect {|
-    ((IV ((E2 M3p) (F#2 A4p)))) |}];
+  [%expect
+    {|
+    ((IV ((E2 M3p) (F#2 A4p))) (III ((G#2 A1z) (A2 M2p) (B2 M3p) (C#3 A4z)))
+     (II ((D#3 A1z) (E3 M2p) (F#3 M3p) (G#3 A4z)))
+     (I
+      ((A3 0) (B3 M2p) (C#4 M3z) (D#4 A4z) (E4 5p) (F#4 M6p) (G#4 M7z) (A4 0-1)
+       (B4 M2p-1) (C#5 M3z-1) (D#5 A4z-1) (E5 5p-1) (F#5 M6p-1) (G#5 M7z-1)
+       (A5 0-2) (B5 M2p-2) (C#6 M3z-2) (D#6 A4z-2) (E6 5p-2)))) |}];
   ()
 ;;
 
@@ -622,9 +628,14 @@ let lower_bp =
 let%expect_test "b_major_just" =
   let scale = make_major_just_scale ~from:lower_bp in
   print_s [%sexp (List.length scale : int)];
-  [%expect {| 2 |}];
+  [%expect {| 25 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
-  [%expect {|
-    ((III ((B2 M3p) (C#3 A4p)))) |}];
+  [%expect
+    {|
+    ((III ((B2 M3p) (C#3 A4p))) (II ((D#3 A1z) (E3 M2p) (F#3 M3p) (G#3 A4z)))
+     (I
+      ((A#3 A1z) (B3 M2p) (C#4 M3p) (D#4 A4z) (E4 5p) (F#4 M6p) (G#4 M7z)
+       (A#4 A1z-1) (B4 M2p-1) (C#5 M3p-1) (D#5 A4z-1) (E5 5p-1) (F#5 M6p-1)
+       (G#5 M7z-1) (A#5 A1z-2) (B5 M2p-2) (C#6 M3p-2) (D#6 A4z-2) (E6 5p-2)))) |}];
   ()
 ;;

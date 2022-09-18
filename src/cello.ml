@@ -221,7 +221,8 @@ module Fingerboard_position_name = struct
 
   module Just = struct
     type t =
-      [ `m2z
+      [ `A1z
+      | `m2z
       | `M2z
       | `m3z
       | `M3z
@@ -243,12 +244,26 @@ module Fingerboard_position_name = struct
       | `P4z -> Atom "4z"
       | `P5z -> Atom "5z"
       | `P8z -> Atom "8z"
-      | (`m2z | `M2z | `m3z | `M3z | `d4z | `A4z | `d5z | `m6z | `M6z | `d7z | `M7z | `d8z)
-        as t -> sexp_of_t t
+      | ( `A1z
+        | `m2z
+        | `M2z
+        | `m3z
+        | `M3z
+        | `d4z
+        | `A4z
+        | `d5z
+        | `m6z
+        | `M6z
+        | `d7z
+        | `M7z
+        | `d8z ) as t -> sexp_of_t t
     ;;
 
     let acoustic_interval_to_the_open_string (t : t) =
       match (t : t) with
+      | `A1z ->
+        Acoustic_interval.(remove just_major_ton just_diatonic_semiton)
+        |> Option.value_exn ~here:[%here]
       | `m2z -> Acoustic_interval.just_diatonic_semiton
       | `M2z -> Acoustic_interval.just_minor_ton
       | `m3z -> Acoustic_interval.just_minor_third

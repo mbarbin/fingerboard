@@ -39,6 +39,7 @@ let%expect_test "positions and cents" =
     │ 0        │    0.00 │
     │ m2p      │   90.22 │
     │ A1z-e53  │   90.57 │
+    │ A1z      │   92.18 │
     │ m2e      │  100.00 │
     │ m2z      │  111.73 │
     │ m2z-e53  │  113.21 │
