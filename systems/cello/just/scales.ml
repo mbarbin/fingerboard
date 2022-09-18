@@ -284,22 +284,21 @@ let%expect_test "c_major_just" =
     [%sexp (scale |> List.map ~f:Located_note.to_abbrev : Located_note.Abbrev.t list)];
   [%expect
     {|
-    ((C2 0-0 IV) (D2 M2p-0 IV) (E2 M3z-0 IV) (F2 4p-0 IV) (G2 0-0 III)
-     (A2 M2z-0 III) (B2 M3z-0 III) (C3 4p-0 III) (D3 0-0 II) (E3 M2z-0 II)
-     (F3 m3p-0 II) (G3 4p-0 II) (A3 5z-0 II) (B3 M2z-0 I) (C4 m3p-0 I)
-     (D4 4p-0 I) (E4 5z-0 I) (F4 m6p-0 I) (G4 m7p-0 I) (A4 8z-0 I) (B4 M2z-1 I)
-     (C5 m3p-1 I) (D5 4p-1 I) (E5 5z-1 I) (F5 m6p-1 I) (G5 m7p-1 I) (A5 8z-1 I)
-     (B5 M2z-2 I) (C6 m3p-2 I) (D6 4p-2 I) (E6 5z-2 I)) |}];
+    ((C2 0 IV) (D2 M2p IV) (E2 M3z IV) (F2 4p IV) (G2 0 III) (A2 M2z III)
+     (B2 M3z III) (C3 4p III) (D3 0 II) (E3 M2z II) (F3 m3p II) (G3 4p II)
+     (A3 5z II) (B3 M2z I) (C4 m3p I) (D4 4p I) (E4 5z I) (F4 m6p I) (G4 m7p I)
+     (A4 8z I) (B4 M2z-1 I) (C5 m3p-1 I) (D5 4p-1 I) (E5 5z-1 I) (F5 m6p-1 I)
+     (G5 m7p-1 I) (A5 8z-1 I) (B5 M2z-2 I) (C6 m3p-2 I) (D6 4p-2 I) (E6 5z-2 I)) |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((C2 0-0) (D2 M2p-0) (E2 M3z-0) (F2 4p-0)))
-     (III ((G2 0-0) (A2 M2z-0) (B2 M3z-0) (C3 4p-0)))
-     (II ((D3 0-0) (E3 M2z-0) (F3 m3p-0) (G3 4p-0) (A3 5z-0)))
+    ((IV ((C2 0) (D2 M2p) (E2 M3z) (F2 4p)))
+     (III ((G2 0) (A2 M2z) (B2 M3z) (C3 4p)))
+     (II ((D3 0) (E3 M2z) (F3 m3p) (G3 4p) (A3 5z)))
      (I
-      ((B3 M2z-0) (C4 m3p-0) (D4 4p-0) (E4 5z-0) (F4 m6p-0) (G4 m7p-0) (A4 8z-0)
-       (B4 M2z-1) (C5 m3p-1) (D5 4p-1) (E5 5z-1) (F5 m6p-1) (G5 m7p-1) (A5 8z-1)
-       (B5 M2z-2) (C6 m3p-2) (D6 4p-2) (E6 5z-2)))) |}];
+      ((B3 M2z) (C4 m3p) (D4 4p) (E4 5z) (F4 m6p) (G4 m7p) (A4 8z) (B4 M2z-1)
+       (C5 m3p-1) (D5 4p-1) (E5 5z-1) (F5 m6p-1) (G5 m7p-1) (A5 8z-1) (B5 M2z-2)
+       (C6 m3p-2) (D6 4p-2) (E6 5z-2)))) |}];
   ()
 ;;
 
@@ -310,13 +309,13 @@ let%expect_test "c_major_pythagorean" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((C2 0-0) (D2 M2p-0) (E2 M3p-0) (F2 4p-0)))
-     (III ((G2 0-0) (A2 M2p-0) (B2 M3p-0) (C3 4p-0)))
-     (II ((D3 0-0) (E3 M2p-0) (F3 m3p-0) (G3 4p-0)))
+    ((IV ((C2 0) (D2 M2p) (E2 M3p) (F2 4p)))
+     (III ((G2 0) (A2 M2p) (B2 M3p) (C3 4p)))
+     (II ((D3 0) (E3 M2p) (F3 m3p) (G3 4p)))
      (I
-      ((A3 0-0) (B3 M2p-0) (C4 m3p-0) (D4 4p-0) (E4 5p-0) (F4 m6p-0) (G4 m7p-0)
-       (A4 0-1) (B4 M2p-1) (C5 m3p-1) (D5 4p-1) (E5 5p-1) (F5 m6p-1) (G5 m7p-1)
-       (A5 0-2) (B5 M2p-2) (C6 m3p-2) (D6 4p-2) (E6 5p-2)))) |}];
+      ((A3 0) (B3 M2p) (C4 m3p) (D4 4p) (E4 5p) (F4 m6p) (G4 m7p) (A4 0-1)
+       (B4 M2p-1) (C5 m3p-1) (D5 4p-1) (E5 5p-1) (F5 m6p-1) (G5 m7p-1) (A5 0-2)
+       (B5 M2p-2) (C6 m3p-2) (D6 4p-2) (E6 5p-2)))) |}];
   ()
 ;;
 
@@ -337,14 +336,12 @@ let%expect_test "e_flat_major_just" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((Eb2 m3z-0) (F2 4z-0)))
-     (III ((G2 0-0) (Ab2 m2z-0) (Bb2 m3z-0) (C3 4p-0)))
-     (II ((D3 0-0) (Eb3 m2z-0) (F3 m3z-0) (G3 4p-0) (Ab3 d5z-0)))
+    ((IV ((Eb2 m3z) (F2 4z))) (III ((G2 0) (Ab2 m2z) (Bb2 m3z) (C3 4p)))
+     (II ((D3 0) (Eb3 m2z) (F3 m3z) (G3 4p) (Ab3 d5z)))
      (I
-      ((Bb3 m2z-0) (C4 m3p-0) (D4 4p-0) (Eb4 d5z-0) (F4 m6z-0) (G4 m7p-0)
-       (Ab4 d8z-0) (Bb4 m2z-1) (C5 m3p-1) (D5 4p-1) (Eb5 d5z-1) (F5 m6z-1)
-       (G5 m7p-1) (Ab5 d8z-1) (Bb5 m2z-2) (C6 m3p-2) (D6 4p-2) (Eb6 d5z-2)
-       (F6 m6z-2)))) |}];
+      ((Bb3 m2z) (C4 m3p) (D4 4p) (Eb4 d5z) (F4 m6z) (G4 m7p) (Ab4 d8z)
+       (Bb4 m2z-1) (C5 m3p-1) (D5 4p-1) (Eb5 d5z-1) (F5 m6z-1) (G5 m7p-1)
+       (Ab5 d8z-1) (Bb5 m2z-2) (C6 m3p-2) (D6 4p-2) (Eb6 d5z-2) (F6 m6z-2)))) |}];
   ()
 ;;
 
@@ -354,7 +351,7 @@ let%expect_test "ez_flat_major_pythagorean" =
   [%expect {| 2 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect {|
-    ((IV ((Eb2 m3z-0) (F2 4z-0)))) |}];
+    ((IV ((Eb2 m3z) (F2 4z)))) |}];
   ()
 ;;
 
@@ -375,13 +372,11 @@ let%expect_test "ep_flat_major_pythagorean" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((Eb2 m3p-0) (F2 4p-0)))
-     (III ((G2 0-0) (Ab2 m2p-0) (Bb2 m3p-0) (C3 4p-0)))
-     (II ((D3 0-0) (Eb3 m2p-0) (F3 m3p-0) (G3 4p-0) (Ab3 d5p-0)))
+    ((IV ((Eb2 m3p) (F2 4p))) (III ((G2 0) (Ab2 m2p) (Bb2 m3p) (C3 4p)))
+     (II ((D3 0) (Eb3 m2p) (F3 m3p) (G3 4p) (Ab3 d5p)))
      (I
-      ((Bb3 m2p-0) (C4 m3p-0) (D4 4p-0) (Eb4 d5p-0) (F4 m6p-0) (G4 m7p-0)
-       (Ab4 d8p-0) (Bb4 m2p-1) (C5 m3p-1) (D5 4p-1) (Eb5 d5p-1) (F5 m6p-1)
-       (G5 m7p-1) (Ab5 d8p-1) (Bb5 m2p-2) (C6 m3p-2) (D6 4p-2) (Eb6 d5p-2)
-       (F6 m6p-2)))) |}];
+      ((Bb3 m2p) (C4 m3p) (D4 4p) (Eb4 d5p) (F4 m6p) (G4 m7p) (Ab4 d8p)
+       (Bb4 m2p-1) (C5 m3p-1) (D5 4p-1) (Eb5 d5p-1) (F5 m6p-1) (G5 m7p-1)
+       (Ab5 d8p-1) (Bb5 m2p-2) (C6 m3p-2) (D6 4p-2) (Eb6 d5p-2) (F6 m6p-2)))) |}];
   ()
 ;;

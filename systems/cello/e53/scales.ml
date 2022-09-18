@@ -57,12 +57,12 @@ let%expect_test "c_major_just" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((C2 0-0) (D2 M2p-e53-0) (E2 M3z-e53-0) (F2 4p-e53-0)))
-     (III ((G2 0-0) (A2 M2z-e53-0) (B2 M3z-e53-0) (C3 4p-e53-0)))
-     (II ((D3 0-0) (E3 M2z-e53-0) (F3 m3p-e53-0) (G3 4p-e53-0) (A3 5z-e53-0)))
+    ((IV ((C2 0) (D2 M2p-e53) (E2 M3z-e53) (F2 4p-e53)))
+     (III ((G2 0) (A2 M2z-e53) (B2 M3z-e53) (C3 4p-e53)))
+     (II ((D3 0) (E3 M2z-e53) (F3 m3p-e53) (G3 4p-e53) (A3 5z-e53)))
      (I
-      ((B3 M2z-e53-0) (C4 m3p-e53-0) (D4 4p-e53-0) (E4 5z-e53-0) (F4 m6p-e53-0)
-       (G4 m7p-e53-0) (A4 8z-e53-0) (B4 M2z-e53-1) (C5 m3p-e53-1) (D5 4p-e53-1)
+      ((B3 M2z-e53) (C4 m3p-e53) (D4 4p-e53) (E4 5z-e53) (F4 m6p-e53)
+       (G4 m7p-e53) (A4 8z-e53) (B4 M2z-e53-1) (C5 m3p-e53-1) (D5 4p-e53-1)
        (E5 5z-e53-1) (F5 m6p-e53-1) (G5 m7p-e53-1) (A5 8z-e53-1) (B5 M2z-e53-2)
        (C6 m3p-e53-2) (D6 4p-e53-2) (E6 5z-e53-2)))) |}];
   ()
@@ -75,14 +75,14 @@ let%expect_test "c_major_pythagorean" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((C2 0-0) (D2 M2p-e53-0) (E2 M3p-e53-0) (F2 4p-e53-0)))
-     (III ((G2 0-0) (A2 M2p-e53-0) (B2 M3p-e53-0) (C3 4p-e53-0)))
-     (II ((D3 0-0) (E3 M2p-e53-0) (F3 m3p-e53-0) (G3 4p-e53-0)))
+    ((IV ((C2 0) (D2 M2p-e53) (E2 M3p-e53) (F2 4p-e53)))
+     (III ((G2 0) (A2 M2p-e53) (B2 M3p-e53) (C3 4p-e53)))
+     (II ((D3 0) (E3 M2p-e53) (F3 m3p-e53) (G3 4p-e53)))
      (I
-      ((A3 0-0) (B3 M2p-e53-0) (C4 m3p-e53-0) (D4 4p-e53-0) (E4 5p-e53-0)
-       (F4 m6p-e53-0) (G4 m7p-e53-0) (A4 0-1) (B4 M2p-e53-1) (C5 m3p-e53-1)
-       (D5 4p-e53-1) (E5 5p-e53-1) (F5 m6p-e53-1) (G5 m7p-e53-1) (A5 0-2)
-       (B5 M2p-e53-2) (C6 m3p-e53-2) (D6 4p-e53-2) (E6 5p-e53-2)))) |}];
+      ((A3 0) (B3 M2p-e53) (C4 m3p-e53) (D4 4p-e53) (E4 5p-e53) (F4 m6p-e53)
+       (G4 m7p-e53) (A4 0-1) (B4 M2p-e53-1) (C5 m3p-e53-1) (D5 4p-e53-1)
+       (E5 5p-e53-1) (F5 m6p-e53-1) (G5 m7p-e53-1) (A5 0-2) (B5 M2p-e53-2)
+       (C6 m3p-e53-2) (D6 4p-e53-2) (E6 5p-e53-2)))) |}];
   ()
 ;;
 
@@ -103,15 +103,15 @@ let%expect_test "e_flat_major_just" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((Eb2 m3z-e53-0) (F2 4z-e53-0)))
-     (III ((G2 0-0) (Ab2 m2z-e53-0) (Bb2 m3z-e53-0) (C3 4p-e53-0)))
-     (II ((D3 0-0) (Eb3 m2z-e53-0) (F3 m3z-e53-0) (G3 4p-e53-0) (Ab3 d5z-e53-0)))
+    ((IV ((Eb2 m3z-e53) (F2 4z-e53)))
+     (III ((G2 0) (Ab2 m2z-e53) (Bb2 m3z-e53) (C3 4p-e53)))
+     (II ((D3 0) (Eb3 m2z-e53) (F3 m3z-e53) (G3 4p-e53) (Ab3 d5z-e53)))
      (I
-      ((Bb3 m2z-e53-0) (C4 m3p-e53-0) (D4 4p-e53-0) (Eb4 d5z-e53-0)
-       (F4 m6z-e53-0) (G4 m7p-e53-0) (Ab4 M7p-e53-0) (Bb4 m2z-e53-1)
-       (C5 m3p-e53-1) (D5 4p-e53-1) (Eb5 d5z-e53-1) (F5 m6z-e53-1) (G5 m7p-e53-1)
-       (Ab5 M7p-e53-1) (Bb5 m2z-e53-2) (C6 m3p-e53-2) (D6 4p-e53-2)
-       (Eb6 d5z-e53-2) (F6 m6z-e53-2)))) |}];
+      ((Bb3 m2z-e53) (C4 m3p-e53) (D4 4p-e53) (Eb4 d5z-e53) (F4 m6z-e53)
+       (G4 m7p-e53) (Ab4 M7p-e53) (Bb4 m2z-e53-1) (C5 m3p-e53-1) (D5 4p-e53-1)
+       (Eb5 d5z-e53-1) (F5 m6z-e53-1) (G5 m7p-e53-1) (Ab5 M7p-e53-1)
+       (Bb5 m2z-e53-2) (C6 m3p-e53-2) (D6 4p-e53-2) (Eb6 d5z-e53-2)
+       (F6 m6z-e53-2)))) |}];
   ()
 ;;
 
@@ -126,7 +126,7 @@ let%expect_test "ez_flat_major_pythagorean" =
   [%expect {| 2 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect {|
-    ((IV ((Eb2 m3z-e53-0) (F2 4z-e53-0)))) |}];
+    ((IV ((Eb2 m3z-e53) (F2 4z-e53)))) |}];
   ()
 ;;
 
@@ -147,14 +147,14 @@ let%expect_test "e_flat_major_pythagorean" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((Eb2 m3p-e53-0) (F2 4p-e53-0)))
-     (III ((G2 0-0) (Ab2 A1z-e53-0) (Bb2 m3p-e53-0) (C3 4p-e53-0)))
-     (II ((D3 0-0) (Eb3 A1z-e53-0) (F3 m3p-e53-0) (G3 4p-e53-0) (Ab3 A4z-e53-0)))
+    ((IV ((Eb2 m3p-e53) (F2 4p-e53)))
+     (III ((G2 0) (Ab2 A1z-e53) (Bb2 m3p-e53) (C3 4p-e53)))
+     (II ((D3 0) (Eb3 A1z-e53) (F3 m3p-e53) (G3 4p-e53) (Ab3 A4z-e53)))
      (I
-      ((Bb3 A1z-e53-0) (C4 m3p-e53-0) (D4 4p-e53-0) (Eb4 A4z-e53-0)
-       (F4 m6p-e53-0) (G4 m7p-e53-0) (Ab4 M7z-e53-0) (Bb4 A1z-e53-1)
-       (C5 m3p-e53-1) (D5 4p-e53-1) (Eb5 A4z-e53-1) (F5 m6p-e53-1) (G5 m7p-e53-1)
-       (Ab5 M7z-e53-1) (Bb5 A1z-e53-2) (C6 m3p-e53-2) (D6 4p-e53-2)
-       (Eb6 A4z-e53-2) (F6 m6p-e53-2)))) |}];
+      ((Bb3 A1z-e53) (C4 m3p-e53) (D4 4p-e53) (Eb4 A4z-e53) (F4 m6p-e53)
+       (G4 m7p-e53) (Ab4 M7z-e53) (Bb4 A1z-e53-1) (C5 m3p-e53-1) (D5 4p-e53-1)
+       (Eb5 A4z-e53-1) (F5 m6p-e53-1) (G5 m7p-e53-1) (Ab5 M7z-e53-1)
+       (Bb5 A1z-e53-2) (C6 m3p-e53-2) (D6 4p-e53-2) (Eb6 A4z-e53-2)
+       (F6 m6p-e53-2)))) |}];
   ()
 ;;
