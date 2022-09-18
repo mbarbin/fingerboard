@@ -5,16 +5,23 @@ let make_scale t ~characterized_scale ~from =
   System.make_scale t ~characterized_scale ~from ~to_:Cello.fingerboard_highest_note
 ;;
 
+let make_major_pythagorean_scale ~from =
+  let t = force Just.t in
+  make_scale t ~characterized_scale:Characterized_scale.major_pythagorean ~from
+;;
+
+let make_major_just_scale ~from =
+  let t = force Just.t in
+  make_scale t ~characterized_scale:Characterized_scale.major_just ~from
+;;
+
 let lower_c =
   let t = force Just.t in
   System.open_string t IV |> Option.value_exn ~here:[%here]
 ;;
 
 let%expect_test "c_major_just" =
-  let scale =
-    let t = force Just.t in
-    make_scale t ~characterized_scale:Characterized_scale.major_just ~from:lower_c
-  in
+  let scale = make_major_just_scale ~from:lower_c in
   print_s [%sexp (scale : Located_note.t list)];
   [%expect
     {|
@@ -297,10 +304,7 @@ let%expect_test "c_major_just" =
 ;;
 
 let%expect_test "c_major_pythagorean" =
-  let scale =
-    let t = force Just.t in
-    make_scale t ~characterized_scale:Characterized_scale.major_pythagorean ~from:lower_c
-  in
+  let scale = make_major_pythagorean_scale ~from:lower_c in
   print_s [%sexp (List.length scale : int)];
   [%expect {| 31 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
@@ -327,10 +331,7 @@ let lower_ez_flat =
 ;;
 
 let%expect_test "e_flat_major_just" =
-  let scale =
-    let t = force Just.t in
-    make_scale t ~characterized_scale:Characterized_scale.major_just ~from:lower_ez_flat
-  in
+  let scale = make_major_just_scale ~from:lower_ez_flat in
   print_s [%sexp (List.length scale : int)];
   [%expect {| 30 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
@@ -348,13 +349,7 @@ let%expect_test "e_flat_major_just" =
 ;;
 
 let%expect_test "ez_flat_major_pythagorean" =
-  let scale =
-    let t = force Just.t in
-    make_scale
-      t
-      ~characterized_scale:Characterized_scale.major_pythagorean
-      ~from:lower_ez_flat
-  in
+  let scale = make_major_pythagorean_scale ~from:lower_ez_flat in
   print_s [%sexp (List.length scale : int)];
   [%expect {| 2 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
@@ -374,13 +369,7 @@ let lower_ep_flat =
 ;;
 
 let%expect_test "ep_flat_major_pythagorean" =
-  let scale =
-    let t = force Just.t in
-    make_scale
-      t
-      ~characterized_scale:Characterized_scale.major_pythagorean
-      ~from:lower_ep_flat
-  in
+  let scale = make_major_pythagorean_scale ~from:lower_ep_flat in
   print_s [%sexp (List.length scale : int)];
   [%expect {| 30 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
