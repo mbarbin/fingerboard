@@ -40,6 +40,8 @@ module Fingerboard_position_name : sig
       | `P5p_e53
       | `m6p_e53
       | `m6z_e53
+      | `M6z_e53
+      | `M6p_e53
       | `m7p_e53
       | `m7z_e53
       | `M7z_e53

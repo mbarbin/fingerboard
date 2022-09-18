@@ -60,6 +60,8 @@ module Fingerboard_position_name = struct
       | `P5p_e53
       | `m6p_e53
       | `m6z_e53
+      | `M6z_e53
+      | `M6p_e53
       | `m7p_e53
       | `m7z_e53
       | `M7z_e53
@@ -86,6 +88,8 @@ module Fingerboard_position_name = struct
         | `d5z_e53
         | `m6p_e53
         | `m6z_e53
+        | `M6z_e53
+        | `M6p_e53
         | `m7p_e53
         | `m7z_e53
         | `M7z_e53
@@ -118,6 +122,8 @@ module Fingerboard_position_name = struct
         | `P5p_e53 -> 31
         | `m6p_e53 -> 35
         | `m6z_e53 -> 36
+        | `M6z_e53 -> 39
+        | `M6p_e53 -> 40
         | `m7p_e53 -> 44
         | `m7z_e53 -> 45
         | `M7z_e53 -> 48

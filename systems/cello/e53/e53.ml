@@ -95,6 +95,12 @@ let%expect_test "sexp_of_t" =
        ((name m6z-e53) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 53) (number_of_divisions 36))))
+       ((name M6z-e53) (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 39))))
+       ((name M6p-e53) (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 40))))
        ((name m7p-e53) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44))))
@@ -159,6 +165,12 @@ let%expect_test "sexp_of_t" =
        ((name m6z-e53) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 53) (number_of_divisions 36))))
+       ((name M6z-e53) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 39))))
+       ((name M6p-e53) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 40))))
        ((name m7p-e53) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44))))
@@ -223,6 +235,12 @@ let%expect_test "sexp_of_t" =
        ((name m6z-e53) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 53) (number_of_divisions 36))))
+       ((name M6z-e53) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 39))))
+       ((name M6p-e53) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave (divisor 53) (number_of_divisions 40))))
        ((name m7p-e53) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Equal_division_of_the_octave (divisor 53) (number_of_divisions 44))))
