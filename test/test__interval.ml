@@ -1,5 +1,5 @@
 open! Core
-open! Cemper
+open! Fingerboard
 
 let qualities number ~doubly_augmented =
   let open Interval.Quality in

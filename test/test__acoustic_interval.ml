@@ -1,5 +1,5 @@
 open! Core
-open! Cemper
+open! Fingerboard
 
 let%expect_test "first comparison" =
   let module Kind = struct

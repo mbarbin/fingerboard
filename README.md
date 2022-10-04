@@ -1,4 +1,4 @@
-# Cemper
+# Fingerboard
 
-[![Actions Status](https://github.com/mbarbin/cemper/workflows/CI/badge.svg)](https://github.com/mbarbin/cemper/actions/workflows/ci.yml)
-[![Deploy odoc Actions Status](https://github.com/mbarbin/cemper/workflows/Deploy-odoc/badge.svg)](https://github.com/mbarbin/cemper/actions/workflows/deploy-odoc.yml)
+[![Actions Status](https://github.com/mbarbin/fingerboard/workflows/CI/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/ci.yml)
+[![Deploy odoc Actions Status](https://github.com/mbarbin/fingerboard/workflows/Deploy-odoc/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/deploy-odoc.yml)

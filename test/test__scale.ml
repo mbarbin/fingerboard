@@ -1,5 +1,5 @@
 open! Core
-open! Cemper
+open! Fingerboard
 
 let%expect_test "major and minor" =
   let major = force Scale.major in

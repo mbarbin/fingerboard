@@ -1,5 +1,5 @@
 open! Core
-open! Cemper
+open! Fingerboard
 
 let%expect_test "round-trip" =
   List.iter Roman_numeral.all ~f:(fun n1 ->

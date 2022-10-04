@@ -1,6 +1,6 @@
 (executable
  (name main)
- (public_name cemper)
- (package cemper)
+ (public_name fingerboard)
+ (package fingerboard)
  (flags -w +a-4-40-41-42-44-66 -warn-error +a)
- (libraries core core_unix.command_unix cemper))
+ (libraries core core_unix.command_unix fingerboard))

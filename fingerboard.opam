@@ -1,12 +1,12 @@
 opam-version: "2.0"
-synopsis: "Setting up various temperaments on the cello fingerboard"
-description: "Setting up various temperaments on the cello fingerboard"
+synopsis: "Studying various temperaments and intervals on the cello fingerboard"
+description: "Studying various temperaments and intervals on the cello fingerboard"
 maintainer: "Mathieu Barbin"
 authors: "Mathieu Barbin"
 license: "MIT"
-homepage: "https://github.com/mbarbin/cemper"
-doc: "https://github.com/mbarbin/cemper"
-bug-reports: "https://github.com/mbarbin/cemper/issues"
+homepage: "https://github.com/mbarbin/fingerboard"
+doc: "https://github.com/mbarbin/fingerboard"
+bug-reports: "https://github.com/mbarbin/fingerboard/issues"
 depends: [
   "ocaml" {>= "4.13"}
   "dune" {>= "2.0.0"}
@@ -21,4 +21,4 @@ build: [
   ["dune" "build" "-p" name "-j" jobs]
   ["dune" "runtest" "-p" name "-j" jobs] {with-test}
 ]
-dev-repo: "git+https://github.com/mbarbin/cemper.git"
+dev-repo: "git+https://github.com/mbarbin/fingerboard.git"

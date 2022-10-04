@@ -1,6 +1,6 @@
 (library
- (name cemper)
- (public_name cemper)
+ (name fingerboard)
+ (public_name fingerboard)
  (flags -w +a-4-40-41-42-44-66 -warn-error +a)
  (libraries core)
  (preprocess

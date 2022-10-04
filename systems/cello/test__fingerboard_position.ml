@@ -1,5 +1,5 @@
 open! Core
-open! Cemper
+open! Fingerboard
 
 let fingerboard_positions =
   List.map Cello.Fingerboard_position_name.all ~f:(fun t ->

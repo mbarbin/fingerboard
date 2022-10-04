@@ -1,5 +1,5 @@
 open! Core
-open! Cemper
+open! Fingerboard
 
 let make_scale t ~characterized_scale ~from =
   System.make_scale t ~characterized_scale ~from ~to_:Cello.fingerboard_highest_note

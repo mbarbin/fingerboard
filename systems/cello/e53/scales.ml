@@ -1,5 +1,5 @@
 open! Core
-open! Cemper
+open! Fingerboard
 
 let%expect_test "edo53 and octaves" =
   let t = force E53.t in
