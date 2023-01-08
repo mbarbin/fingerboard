@@ -17,11 +17,7 @@ module Fingerboard_position_name = struct
       ]
     [@@deriving compare, equal, enumerate, hash, sexp_of]
 
-    let sexp_of_t : t -> Sexp.t = function
-      | `P4e -> Atom "4e"
-      | `P5e -> Atom "5e"
-      | (`m2e | `M2e | `m3e | `M3e | `A4e | `m6e | `M6e | `m7e | `M7e) as t -> sexp_of_t t
-    ;;
+    let sexp_of_t t = Sexp_to_string.position sexp_of_t t
 
     let acoustic_interval_to_the_open_string (t : t) =
       let number_of_divisions =
@@ -70,38 +66,7 @@ module Fingerboard_position_name = struct
       ]
     [@@deriving compare, equal, enumerate, hash, sexp_of]
 
-    let sexp_of_t : t -> Sexp.t = function
-      | `P4p_e53 -> Atom "4p-e53"
-      | `P4z_e53 -> Atom "4z-e53"
-      | `P5z_e53 -> Atom "5z-e53"
-      | `P5p_e53 -> Atom "5p-e53"
-      | `P8z_e53 -> Atom "8z-e53"
-      | ( `A1z_e53
-        | `m2z_e53
-        | `M2z_e53
-        | `M2p_e53
-        | `m3p_e53
-        | `m3z_e53
-        | `M3z_e53
-        | `M3p_e53
-        | `A4z_e53
-        | `d5z_e53
-        | `m6p_e53
-        | `m6z_e53
-        | `M6z_e53
-        | `M6p_e53
-        | `m7p_e53
-        | `m7z_e53
-        | `M7z_e53
-        | `M7p_e53 ) as t ->
-        (match sexp_of_t t with
-         | List _ -> assert false
-         | Atom atom ->
-           Atom
-             (String.map atom ~f:(function
-               | '_' -> '-'
-               | c -> c)))
-    ;;
+    let sexp_of_t t = Sexp_to_string.position sexp_of_t t
 
     let acoustic_interval_to_the_open_string (t : t) =
       let number_of_divisions =
@@ -161,30 +126,7 @@ module Fingerboard_position_name = struct
       ]
     [@@deriving compare, equal, enumerate, hash, sexp_of]
 
-    let sexp_of_t : t -> Sexp.t = function
-      | `P4p -> Atom "4p"
-      | `P5p -> Atom "5p"
-      | ( `m2p
-        | `A1p
-        | `d3p
-        | `M2p
-        | `m3p
-        | `A2p
-        | `d4p
-        | `M3p
-        | `A3p
-        | `d5p
-        | `A4p
-        | `d6p
-        | `m6p
-        | `A5p
-        | `d7p
-        | `M6p
-        | `m7p
-        | `A6p
-        | `d8p
-        | `M7p ) as t -> sexp_of_t t
-    ;;
+    let sexp_of_t t = Sexp_to_string.position sexp_of_t t
 
     let acoustic_interval_to_the_open_string (t : t) =
       let interval =
@@ -241,25 +183,7 @@ module Fingerboard_position_name = struct
       ]
     [@@deriving compare, equal, enumerate, hash, sexp_of]
 
-    let sexp_of_t : t -> Sexp.t = function
-      | `P4z -> Atom "4z"
-      | `P5z -> Atom "5z"
-      | `P8z -> Atom "8z"
-      | ( `A1z
-        | `m2z
-        | `M2z
-        | `d3z
-        | `m3z
-        | `M3z
-        | `d4z
-        | `A4z
-        | `d5z
-        | `m6z
-        | `M6z
-        | `d7z
-        | `M7z
-        | `d8z ) as t -> sexp_of_t t
-    ;;
+    let sexp_of_t t = Sexp_to_string.position sexp_of_t t
 
     let acoustic_interval_to_the_open_string (t : t) =
       match (t : t) with
