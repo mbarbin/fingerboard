@@ -29,6 +29,7 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
     let columns =
       Ascii_table.Column.
         [ create_attr
+            ~align:Right
             "String"
             (fun (_, { Vibrating_string.open_string = _; pitch = _; roman_numeral }) ->
             [], Roman_numeral.to_string roman_numeral)
@@ -36,7 +37,7 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
             [], Note.to_string t.open_string)
         ; create_attr ~align:Right "Pitch" (fun (_, (t : Vibrating_string.t)) ->
             [], sprintf "%0.2f" (Frequency.to_float t.pitch))
-        ; create_attr "Interval going down" (fun (i, _) ->
+        ; create_attr "Interval" (fun (i, _) ->
             if i >= Array.length intervals_going_down
             then [], ""
             else (
@@ -48,6 +49,14 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
                   "%s - %s"
                   (Interval.to_string interval)
                   (Acoustic_interval.to_string acoustic_interval) )))
+        ; create_attr "Cents" (fun (i, _) ->
+            if i >= Array.length intervals_going_down
+            then [], ""
+            else (
+              let { Characterized_interval.acoustic_interval; _ } =
+                intervals_going_down.(i)
+              in
+              [], Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval)))
         ]
     in
     Ascii_table.to_string
