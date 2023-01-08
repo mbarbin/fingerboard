@@ -2,6 +2,9 @@ open! Core
 
 type t [@@deriving sexp_of]
 
+(** Display t in the form of multiple tables in a human readable way. *)
+val to_ascii_tables : t -> string
+
 (** Instantiate a system with open strings starting from the highest
    vibrating strings, and with open strings following the given
    intervals while going down the instruments. The resulting system is

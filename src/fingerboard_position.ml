@@ -17,6 +17,18 @@ let acoustic_interval_to_the_open_string t =
   |> Option.value ~default:Acoustic_interval.unison
 ;;
 
+let ascii_table_columns =
+  Ascii_table.Column.
+    [ create_attr "Name" (fun t -> [], to_string t)
+    ; create_attr ~align:Right "Interval to the open string" (fun t ->
+        let acoustic_interval = acoustic_interval_to_the_open_string t in
+        let cents = Acoustic_interval.to_cents acoustic_interval in
+        ( []
+        , sprintf "%s (%0.2f cents)" (Acoustic_interval.to_string acoustic_interval) cents
+        ))
+    ]
+;;
+
 let at_octave t ~octave = { t with at_octave = octave }
 
 let create_exn ~name ~acoustic_interval_to_the_open_string =

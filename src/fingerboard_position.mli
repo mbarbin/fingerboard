@@ -21,6 +21,7 @@ val name : t -> string
    designation. *)
 val to_string : t -> string
 
+val ascii_table_columns : t Ascii_table.Column.t list
 val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
 
 (** Returns the same position some number of octaves higher. *)

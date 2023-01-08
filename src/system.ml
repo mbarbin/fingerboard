@@ -24,6 +24,41 @@ type t =
   }
 [@@deriving sexp_of]
 
+let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_positions } =
+  let vibrating_strings =
+    let columns =
+      Ascii_table.Column.
+        [ create_attr
+            "String"
+            (fun (_, { Vibrating_string.open_string = _; pitch = _; roman_numeral }) ->
+            [], Roman_numeral.to_string roman_numeral)
+        ; create_attr "Note" (fun (_, (t : Vibrating_string.t)) ->
+            [], Note.to_string t.open_string)
+        ; create_attr ~align:Right "Pitch" (fun (_, (t : Vibrating_string.t)) ->
+            [], sprintf "%0.2f" (Frequency.to_float t.pitch))
+        ; create_attr "Interval going down" (fun (i, _) ->
+            if i >= Array.length intervals_going_down
+            then [], ""
+            else (
+              let { Characterized_interval.interval; acoustic_interval } =
+                intervals_going_down.(i)
+              in
+              ( []
+              , sprintf
+                  "%s - %s"
+                  (Interval.to_string interval)
+                  (Acoustic_interval.to_string acoustic_interval) )))
+        ]
+    in
+    Ascii_table.to_string
+      columns
+      (Array.to_list vibrating_strings |> List.mapi ~f:(fun i v -> i, v))
+  and fingerboard_positions =
+    Ascii_table.to_string Fingerboard_position.ascii_table_columns fingerboard_positions
+  in
+  [ vibrating_strings; fingerboard_positions ] |> String.concat ~sep:"\n"
+;;
+
 let create ~high_vibrating_string ~pitch ~intervals_going_down =
   let high_vibrating_string =
     { Vibrating_string.open_string = high_vibrating_string
