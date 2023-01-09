@@ -4,6 +4,7 @@ module Cello = Cello
 module Cents = Cents
 module Characterized_interval = Characterized_interval
 module Characterized_scale = Characterized_scale
+module Double_stop = Double_stop
 module Fingerboard_location = Fingerboard_location
 module Fingerboard_position = Fingerboard_position
 module Frequency = Frequency

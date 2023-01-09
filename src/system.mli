@@ -89,3 +89,11 @@ val make_scale
   -> from:Located_note.t
   -> to_:Note.t
   -> Located_note.t list
+
+module Double_stops : sig
+  type system
+  type t = Double_stop.t list
+
+  val to_ascii_table : system -> t -> string
+end
+with type system := t
