@@ -35,7 +35,7 @@ required to play each note. We then can reason about and exhibit
 various facts involving these positions, while being able to verify
 these facts programmatically, and display them with various format.
 
-An example extracted from file `systems/cello/just/scales.ml`
+An example extracted from file [systems/cello/just/scales.ml](systems/cello/just/scales.ml)
 displaying the names of the positions involved in playing the E Major
 Just Scale on a cello tuned in perfect fifth:
 
@@ -49,7 +49,7 @@ Just Scale on a cello tuned in perfect fifth:
    (A5 0-2) (B5 M2p-2) (C#6 M3z-2) (D#6 A4z-2) (E6 5p-2))))
 ```
 
-Another example from file `systems/cello/e53/scales` explores the
+Another example from file [systems/cello/e53/scales.ml](systems/cello/e53/scales.ml) explores the
 difference between the scales of D Flat Major Pythagorean and its Just
 counterpart, approximated in a [53
 edo](https://en.wikipedia.org/wiki/53_equal_temperament) system maped
