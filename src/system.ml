@@ -304,14 +304,57 @@ module Double_stops = struct
   type system = t
   type t = Double_stop.t list
 
-  let to_ascii_table (_t : system) double_stops =
+  let to_ascii_table (system : system) double_stops =
     let columns =
-      Ascii_table.Column.
-        [ create_attr "Low" (fun (t : Double_stop.t) ->
-            [], Note.to_string t.low_note.note)
-        ; create_attr "High" (fun (t : Double_stop.t) ->
-            [], Note.to_string t.high_note.note)
+      let open Ascii_table.Column in
+      let common_columns ~name ~(f : Double_stop.t -> Located_note.t) =
+        [ create_attr name (fun t -> [], Note.to_string (f t).note)
+        ; create_attr "String" (fun t ->
+            [], Roman_numeral.to_string (f t).fingerboard_location.string_number)
+        ; create_attr "Pos" (fun t ->
+            ( []
+            , Fingerboard_position.to_string
+                (f t).fingerboard_location.fingerboard_position ))
+        ; create_attr "Cents" (fun t ->
+            let acoustic_interval =
+              Fingerboard_position.acoustic_interval_to_the_open_string
+                (f t).fingerboard_location.fingerboard_position
+            in
+            let cents = Acoustic_interval.to_cents acoustic_interval in
+            [], Cents.to_string_nearest cents)
         ]
+      in
+      [ common_columns ~name:"Low" ~f:(fun (t : Double_stop.t) -> t.low_note)
+      ; common_columns ~name:"High" ~f:(fun (t : Double_stop.t) -> t.high_note)
+      ; [ create_attr "Interval" (fun (t : Double_stop.t) ->
+            let interval =
+              Interval.compute ~from:t.low_note.note ~to_:t.high_note.note ()
+              |> Option.value_exn ~here:[%here]
+            in
+            let acoustic_interval =
+              acoustic_interval
+                system
+                ~from:t.low_note.fingerboard_location
+                ~to_:t.high_note.fingerboard_location
+              |> Option.value_exn ~here:[%here]
+            in
+            ( []
+            , sprintf
+                "%s - %s"
+                (Interval.to_string interval)
+                (Acoustic_interval.to_string acoustic_interval) ))
+        ; create_attr "Cents" (fun (t : Double_stop.t) ->
+            let acoustic_interval =
+              acoustic_interval
+                system
+                ~from:t.low_note.fingerboard_location
+                ~to_:t.high_note.fingerboard_location
+              |> Option.value_exn ~here:[%here]
+            in
+            [], Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval))
+        ]
+      ]
+      |> List.concat
     in
     Ascii_table.to_string columns double_stops
   ;;
