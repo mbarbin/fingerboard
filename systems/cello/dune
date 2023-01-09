@@ -1,7 +1,0 @@
-(library
- (name fingerboard_cello_system)
- (flags -w +a-4-40-41-42-44-66 -warn-error +a)
- (libraries core fingerboard sexp_diff textutils.ascii_table)
- (inline_tests)
- (preprocess
-  (pps ppx_jane)))
