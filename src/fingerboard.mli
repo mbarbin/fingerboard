@@ -14,6 +14,7 @@ module Note = Note
 module Roman_numeral = Roman_numeral
 module Scale = Scale
 module System = System
+module Zarlinean_combination = Zarlinean_combination
 
 val hello_world : Sexp.t
 val main : Command.t

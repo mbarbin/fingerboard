@@ -4,7 +4,10 @@ open! Core
    convention, roman numerals are used to designate the vibrating
    strings of the instruments, with I (1) being the higher string, and
    increasing numbers going down. For example, the lower C string on
-   the 4-strings cello is IV (4). *)
+   the 4-strings cello is IV (4).
+
+    Roman numeral can also be used to designate the degree of the
+   notes in a scale, with I beeing the tonic, V the dominant, etc. *)
 
 type t =
   | I
@@ -12,6 +15,8 @@ type t =
   | III
   | IV
   | V
+  | VI
+  | VII
 [@@deriving compare, equal, enumerate, hash, sexp_of]
 
 val to_string : t -> string
