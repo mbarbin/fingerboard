@@ -67,7 +67,7 @@ module Reduced = struct
     [@@deriving equal, sexp_of]
 
     let to_string { prime; exponent } =
-      if exponent = 1 then sprintf "%d" prime else sprintf "%d ^ %d" prime exponent
+      if exponent = 1 then sprintf "%d" prime else sprintf "%d^%d" prime exponent
     ;;
 
     let inverse { prime; exponent = e } = { prime; exponent = -1 * e }

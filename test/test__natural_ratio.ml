@@ -30,11 +30,11 @@ let%expect_test "reduced" =
   print_string (Natural_ratio.Reduced.to_string (one // two));
   [%expect {| 1 / 2 |}];
   print_string (Natural_ratio.Reduced.to_string ((two ** three ** four) // five));
-  [%expect {| (2 ^ 3 * 3) / 5 |}];
+  [%expect {| (2^3 * 3) / 5 |}];
   print_string (Natural_ratio.Reduced.to_string (((3 ^^ 2) // (2 ^^ 3)) ** (3 ^^ -1)));
-  [%expect {| 3 / 2 ^ 3 |}];
+  [%expect {| 3 / 2^3 |}];
   print_string Natural_ratio.Reduced.(to_string (inverse ((3 ^^ 2) // (2 ^^ 3))));
-  [%expect {| 2 ^ 3 / 3 ^ 2 |}];
+  [%expect {| 2^3 / 3^2 |}];
   print_string
     (Natural_ratio.to_string
        (Natural_ratio.Reduced.to_natural_ratio ((3 ^^ 2) // (2 ^^ 3))));
@@ -65,14 +65,14 @@ let%expect_test "reduce" =
            , (Natural_ratio.Reduced.to_string reduced : string)]);
   [%expect
     {|
-    ("9 / 8" "3 ^ 2 / 2 ^ 3")
+    ("9 / 8" "3^2 / 2^3")
     ("1 / 3" "1 / 3")
     (1 1)
     (17 17)
     ("34 / 15" "(2 * 17) / (3 * 5)")
-    ("64 / 129" "2 ^ 6 / (3 * 43)")
-    ("2146 / 3048" "(29 * 37) / (2 ^ 2 * 3 * 127)")
-    ("99 / 2480" "(3 ^ 2 * 11) / (2 ^ 4 * 5 * 31)")
-    ("4900 / 5634" "(2 * 5 ^ 2 * 7 ^ 2) / (3 ^ 2 * 313)") |}];
+    ("64 / 129" "2^6 / (3 * 43)")
+    ("2146 / 3048" "(29 * 37) / (2^2 * 3 * 127)")
+    ("99 / 2480" "(3^2 * 11) / (2^4 * 5 * 31)")
+    ("4900 / 5634" "(2 * 5^2 * 7^2) / (3^2 * 313)") |}];
   ()
 ;;

@@ -115,7 +115,7 @@ let%expect_test "4-strings cello" =
   in
   assert (Acoustic_interval.equal i Acoustic_interval.just_major_third);
   print_string (Acoustic_interval.to_string i);
-  [%expect {| 5 / 2 ^ 2 |}];
+  [%expect {| 5 / 2^2 |}];
   let i =
     System.acoustic_interval
       system
@@ -129,7 +129,7 @@ let%expect_test "4-strings cello" =
       (Acoustic_interval.pythagorean
          { number = Fourth; quality = Perfect; additional_octaves = 0 }));
   print_string (Acoustic_interval.to_string i);
-  [%expect {| 2 ^ 2 / 3 |}];
+  [%expect {| 2^2 / 3 |}];
   let i =
     System.acoustic_interval
       system
@@ -150,7 +150,7 @@ let%expect_test "4-strings cello" =
   in
   assert (Acoustic_interval.equal i Acoustic_interval.just_diatonic_semiton);
   print_string (Acoustic_interval.to_string i);
-  [%expect {| 2 ^ 4 / (3 * 5) |}];
+  [%expect {| 2^4 / (3 * 5) |}];
   ()
 ;;
 
