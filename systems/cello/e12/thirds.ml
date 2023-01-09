@@ -11,14 +11,9 @@ let make_major_scale_in_third ~from =
     ~to_:Cello.fingerboard_highest_note
 ;;
 
-let lower_c =
-  let t = force E12.t in
-  System.open_string t IV |> Option.value_exn ~here:[%here]
-;;
-
 let%expect_test "c_major" =
   let t = force E12.t in
-  let scale = make_major_scale_in_third ~from:lower_c in
+  let scale = make_major_scale_in_third ~from:Scales.lower_c in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
     {|
@@ -55,19 +50,9 @@ let%expect_test "c_major" =
     └─────┴────────┴───────┴───────┴──────┴────────┴───────┴───────┴──────────────┴───────┘ |}]
 ;;
 
-let lower_e_flat =
-  let t = force E12.t in
-  { Located_note.note = { letter_name = E; symbol = Flat; octave_designation = 2 }
-  ; fingerboard_location =
-      { fingerboard_position = Cello.find_fingerboard_position_exn t `m3e
-      ; string_number = IV
-      }
-  }
-;;
-
 let%expect_test "e_flat_major" =
   let t = force E12.t in
-  let scale = make_major_scale_in_third ~from:lower_e_flat in
+  let scale = make_major_scale_in_third ~from:Scales.lower_e_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
     {|

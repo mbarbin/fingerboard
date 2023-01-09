@@ -384,7 +384,7 @@ module Double_stops = struct
       ]
       |> List.concat
     in
-    Ascii_table.to_string columns double_stops
+    Ascii_table.to_string ~limit_width_to:500 columns double_stops
   ;;
 
   let make_scale (t : system) ~characterized_scale ~interval_number ~from ~to_ =
