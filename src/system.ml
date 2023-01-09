@@ -300,6 +300,34 @@ let make_scale t ~characterized_scale ~from ~to_ =
   aux [ from ] [] from |> List.rev
 ;;
 
+let find_same_note_one_string_down t { Located_note.note; fingerboard_location } =
+  with_return (fun { return } ->
+    let string_number =
+      let index = Roman_numeral.to_int fingerboard_location.string_number in
+      if index >= Array.length t.vibrating_strings
+      then return None
+      else Roman_numeral.of_int_exn (index + 1)
+    in
+    match
+      List.find t.fingerboard_positions ~f:(fun fingerboard_position ->
+        match
+          acoustic_interval
+            t
+            ~from:{ fingerboard_position; string_number }
+            ~to_:fingerboard_location
+        with
+        | None -> false
+        | Some found_interval ->
+          Acoustic_interval.equal found_interval Acoustic_interval.unison)
+    with
+    | None -> None
+    | Some fingerboard_position ->
+      Some
+        { Located_note.note
+        ; fingerboard_location = { fingerboard_position; string_number }
+        })
+;;
+
 module Double_stops = struct
   type system = t
   type t = Double_stop.t list
@@ -357,5 +385,33 @@ module Double_stops = struct
       |> List.concat
     in
     Ascii_table.to_string columns double_stops
+  ;;
+
+  let make_scale (t : system) ~characterized_scale ~interval_number ~from ~to_ =
+    let scale = make_scale t ~characterized_scale ~from ~to_ in
+    let double_stops =
+      let rec aux acc = function
+        | [] -> acc
+        | low_note :: tl as scale ->
+          (match List.nth scale (interval_number - 1) with
+           | None -> acc
+           | Some high_note ->
+             let acc =
+               let low_note =
+                 if Roman_numeral.equal
+                      low_note.Located_note.fingerboard_location.string_number
+                      high_note.Located_note.fingerboard_location.string_number
+                 then find_same_note_one_string_down t low_note
+                 else Some low_note
+               in
+               match low_note with
+               | None -> acc
+               | Some low_note -> Double_stop.{ low_note; high_note } :: acc
+             in
+             aux acc tl)
+      in
+      aux [] scale |> List.rev
+    in
+    double_stops
   ;;
 end

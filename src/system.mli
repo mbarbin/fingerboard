@@ -90,10 +90,24 @@ val make_scale
   -> to_:Note.t
   -> Located_note.t list
 
+(** Given a located note, find a position on the lower string next to
+   where it is that yields the same note. Returns [None] if such a
+   position does not exists, or if the given note is already played on
+   the lowest string available. *)
+val find_same_note_one_string_down : t -> Located_note.t -> Located_note.t option
+
 module Double_stops : sig
   type system
   type t = Double_stop.t list
 
   val to_ascii_table : system -> t -> string
+
+  val make_scale
+    :  system
+    -> characterized_scale:Characterized_scale.t
+    -> interval_number:int
+    -> from:Located_note.t
+    -> to_:Note.t
+    -> t
 end
 with type system := t
