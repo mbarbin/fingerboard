@@ -515,6 +515,11 @@ let%expect_test "Just.sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 7)) ((prime 3) (exponent -4))))))
+       ((name A5z) (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -8)) ((prime 3) (exponent 4))
+           ((prime 5) (exponent 1))))))
        ((name m6z) (at_octave 0)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -686,6 +691,11 @@ let%expect_test "Just.sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 7)) ((prime 3) (exponent -4))))))
+       ((name A5z) (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -8)) ((prime 3) (exponent 4))
+           ((prime 5) (exponent 1))))))
        ((name m6z) (at_octave 1)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
@@ -857,6 +867,11 @@ let%expect_test "Just.sexp_of_t" =
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio
           (((prime 2) (exponent 7)) ((prime 3) (exponent -4))))))
+       ((name A5z) (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Reduced_natural_ratio
+          (((prime 2) (exponent -8)) ((prime 3) (exponent 4))
+           ((prime 5) (exponent 1))))))
        ((name m6z) (at_octave 2)
         (basis_acoustic_interval_to_the_open_string
          (Reduced_natural_ratio

@@ -96,6 +96,7 @@ module Fingerboard_position_name : sig
       | `A4z
       | `d5z
       | `P5z
+      | `A5z
       | `m6z
       | `M6z
       | `d7z

@@ -85,6 +85,7 @@ let%expect_test "positions and cents" =
     │ 5p       │  701.96 │
     │ m6p      │  792.18 │
     │ m6p-e53  │  792.45 │
+    │ A5z      │  794.13 │
     │ m6e      │  800.00 │
     │ m6z      │  813.69 │
     │ m6z-e53  │  815.09 │
