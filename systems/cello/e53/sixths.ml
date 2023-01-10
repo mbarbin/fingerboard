@@ -11,12 +11,12 @@ let make_scale ~characterized_scale ~from =
     ~to_:Cello.fingerboard_highest_note
 ;;
 
-let make_major_just_scale ~from =
-  make_scale ~characterized_scale:Characterized_scale.major_just_e53 ~from
-;;
-
 let make_major_pythagorean_scale ~from =
   make_scale ~characterized_scale:Characterized_scale.major_pythagorean_e53 ~from
+;;
+
+let make_major_just_scale ~from =
+  make_scale ~characterized_scale:Characterized_scale.major_just_e53 ~from
 ;;
 
 let%expect_test "c_major_just" =

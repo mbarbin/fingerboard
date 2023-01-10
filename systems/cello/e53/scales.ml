@@ -35,14 +35,14 @@ let make_scale t ~characterized_scale ~from =
   System.make_scale t ~characterized_scale ~from ~to_:Cello.fingerboard_highest_note
 ;;
 
-let make_major_just_scale ~from =
-  let t = force E53.t in
-  make_scale t ~characterized_scale:Characterized_scale.major_just_e53 ~from
-;;
-
 let make_major_pythagorean_scale ~from =
   let t = force E53.t in
   make_scale t ~characterized_scale:Characterized_scale.major_pythagorean_e53 ~from
+;;
+
+let make_major_just_scale ~from =
+  let t = force E53.t in
+  make_scale t ~characterized_scale:Characterized_scale.major_just_e53 ~from
 ;;
 
 let lower_c =
