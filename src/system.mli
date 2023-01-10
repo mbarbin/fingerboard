@@ -102,8 +102,23 @@ module Double_stops : sig
 
   val to_ascii_table : system -> t -> string
 
-  val make_scale
+  module Adjustment : sig
+    type t =
+      { from : Acoustic_interval.t
+      ; to_ : Acoustic_interval.t
+      }
+  end
+
+  val ajust
     :  system
+    -> characterized_scale:Characterized_scale.t
+    -> adjustment:Adjustment.t
+    -> t
+    -> t
+
+  val make_scale
+    :  ?adjustment:Adjustment.t
+    -> system
     -> characterized_scale:Characterized_scale.t
     -> interval_number:Interval.Number.t
     -> from:Located_note.t

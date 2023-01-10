@@ -387,7 +387,114 @@ module Double_stops = struct
     Ascii_table.to_string ~limit_width_to:500 columns double_stops
   ;;
 
-  let make_scale (t : system) ~characterized_scale ~interval_number ~from ~to_ =
+  module Adjustment = struct
+    type t =
+      { from : Acoustic_interval.t
+      ; to_ : Acoustic_interval.t
+      }
+
+    module Choice_criteria = struct
+      (* The type is minted in such a way that the compare function
+         must prioritize the lower values. *)
+      type t = { exists_open_string_with_that_note : bool } [@@deriving compare]
+
+      let of_located_note
+        (system : system)
+        ~characterized_scale:_
+        (located_note : Located_note.t)
+        =
+        { exists_open_string_with_that_note =
+            Array.exists system.vibrating_strings ~f:(fun v ->
+              Note.equal
+                v.open_string
+                { located_note.note with
+                  octave_designation = v.open_string.octave_designation
+                })
+        }
+      ;;
+    end
+  end
+
+  let ajust
+    (system : system)
+    ~characterized_scale
+    ~adjustment:{ Adjustment.from; to_ }
+    (t : t)
+    =
+    List.map t ~f:(fun ({ Double_stop.low_note; high_note } as double_stop) ->
+      let actual_interval =
+        acoustic_interval
+          system
+          ~from:low_note.fingerboard_location
+          ~to_:high_note.fingerboard_location
+        |> Option.value_exn ~here:[%here]
+      in
+      if not (Acoustic_interval.equal actual_interval from)
+      then double_stop
+      else (
+        let adjusted_low_note =
+          let string_number = low_note.fingerboard_location.string_number in
+          match
+            List.find system.fingerboard_positions ~f:(fun fingerboard_position ->
+              match
+                acoustic_interval
+                  system
+                  ~from:{ fingerboard_position; string_number }
+                  ~to_:high_note.fingerboard_location
+              with
+              | None -> false
+              | Some found_interval -> Acoustic_interval.equal found_interval to_)
+          with
+          | None -> None
+          | Some fingerboard_position ->
+            Some
+              { low_note with
+                fingerboard_location = { fingerboard_position; string_number }
+              }
+        in
+        let adjusted_high_note =
+          let string_number = high_note.fingerboard_location.string_number in
+          match
+            List.find system.fingerboard_positions ~f:(fun fingerboard_position ->
+              match
+                acoustic_interval
+                  system
+                  ~from:low_note.fingerboard_location
+                  ~to_:{ fingerboard_position; string_number }
+              with
+              | None -> false
+              | Some found_interval -> Acoustic_interval.equal found_interval to_)
+          with
+          | None -> None
+          | Some fingerboard_position ->
+            Some
+              { high_note with
+                fingerboard_location = { fingerboard_position; string_number }
+              }
+        in
+        match adjusted_low_note, adjusted_high_note with
+        | None, None -> (* No adjustment available. *) double_stop
+        | Some low_note, None -> { Double_stop.low_note; high_note }
+        | None, Some high_note -> { Double_stop.low_note; high_note }
+        | Some adjusted_low_note, Some adjusted_high_note ->
+          (match
+             Adjustment.Choice_criteria.compare
+               (Adjustment.Choice_criteria.of_located_note
+                  system
+                  ~characterized_scale
+                  low_note)
+               (Adjustment.Choice_criteria.of_located_note
+                  system
+                  ~characterized_scale
+                  high_note)
+             |> Ordering.of_int
+           with
+           | Less | Equal -> { Double_stop.low_note = adjusted_low_note; high_note }
+           | Greater -> { Double_stop.low_note; high_note = adjusted_high_note })))
+  ;;
+
+  let make_scale ?adjustment (t : system) ~characterized_scale ~interval_number ~from ~to_
+    =
     let scale = make_scale t ~characterized_scale ~from ~to_ in
     let double_stops =
       let index = Interval.Number.to_int interval_number - 1 in
@@ -424,6 +531,8 @@ module Double_stops = struct
       in
       aux [] scale |> List.rev
     in
-    double_stops
+    match adjustment with
+    | None -> double_stops
+    | Some adjustment -> ajust t ~characterized_scale ~adjustment double_stops
   ;;
 end
