@@ -6,7 +6,7 @@ let make_major_scale_in_third ~from =
   System.Double_stops.make_scale
     t
     ~characterized_scale:Characterized_scale.major_e12
-    ~interval_number:3
+    ~interval_number:Third
     ~from
     ~to_:Cello.fingerboard_highest_note
 ;;

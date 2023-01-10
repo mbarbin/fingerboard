@@ -6,7 +6,7 @@ let make_scale_in_third ~characterized_scale ~from =
   System.Double_stops.make_scale
     t
     ~characterized_scale
-    ~interval_number:3
+    ~interval_number:Third
     ~from
     ~to_:Cello.fingerboard_highest_note
 ;;

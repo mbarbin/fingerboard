@@ -105,7 +105,7 @@ module Double_stops : sig
   val make_scale
     :  system
     -> characterized_scale:Characterized_scale.t
-    -> interval_number:int
+    -> interval_number:Interval.Number.t
     -> from:Located_note.t
     -> to_:Note.t
     -> t

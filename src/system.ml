@@ -390,10 +390,11 @@ module Double_stops = struct
   let make_scale (t : system) ~characterized_scale ~interval_number ~from ~to_ =
     let scale = make_scale t ~characterized_scale ~from ~to_ in
     let double_stops =
+      let index = Interval.Number.to_int interval_number - 1 in
       let rec aux acc = function
         | [] -> acc
         | low_note :: tl as scale ->
-          (match List.nth scale (interval_number - 1) with
+          (match List.nth scale index with
            | None -> acc
            | Some high_note ->
              let acc =
