@@ -25,11 +25,11 @@ let%expect_test "c_major" =
     │ C2  │ IV     │ 0     │ 0     │ A2   │ III    │ M2e   │ 200   │ M6 - 9-12edo │ 900   │
     │ D2  │ IV     │ M2e   │ 200   │ B2   │ III    │ M3e   │ 400   │ M6 - 9-12edo │ 900   │
     │ E2  │ IV     │ M3e   │ 400   │ C3   │ III    │ 4e    │ 500   │ m6 - 8-12edo │ 800   │
-    │ F2  │ IV     │ 4e    │ 500   │ D3   │ II     │ 0     │ 0     │ M6 - 9-12edo │ 900   │
+    │ F2  │ IV     │ 4e    │ 500   │ D3   │ III    │ 5e    │ 700   │ M6 - 9-12edo │ 900   │
     │ G2  │ III    │ 0     │ 0     │ E3   │ II     │ M2e   │ 200   │ M6 - 9-12edo │ 900   │
     │ A2  │ III    │ M2e   │ 200   │ F3   │ II     │ m3e   │ 300   │ m6 - 8-12edo │ 800   │
     │ B2  │ III    │ M3e   │ 400   │ G3   │ II     │ 4e    │ 500   │ m6 - 8-12edo │ 800   │
-    │ C3  │ III    │ 4e    │ 500   │ A3   │ I      │ 0     │ 0     │ M6 - 9-12edo │ 900   │
+    │ C3  │ III    │ 4e    │ 500   │ A3   │ II     │ 5e    │ 700   │ M6 - 9-12edo │ 900   │
     │ D3  │ II     │ 0     │ 0     │ B3   │ I      │ M2e   │ 200   │ M6 - 9-12edo │ 900   │
     │ E3  │ II     │ M2e   │ 200   │ C4   │ I      │ m3e   │ 300   │ m6 - 8-12edo │ 800   │
     │ F3  │ II     │ m3e   │ 300   │ D4   │ I      │ 4e    │ 500   │ M6 - 9-12edo │ 900   │
@@ -61,7 +61,7 @@ let%expect_test "e_flat_major" =
     │ Low │ String │ Pos   │ Cents │ High │ String │ Pos   │ Cents │ Interval     │ Cents │
     ├─────┼────────┼───────┼───────┼──────┼────────┼───────┼───────┼──────────────┼───────┤
     │ Eb2 │ IV     │ m3e   │ 300   │ C3   │ III    │ 4e    │ 500   │ M6 - 9-12edo │ 900   │
-    │ F2  │ IV     │ 4e    │ 500   │ D3   │ II     │ 0     │ 0     │ M6 - 9-12edo │ 900   │
+    │ F2  │ IV     │ 4e    │ 500   │ D3   │ III    │ 5e    │ 700   │ M6 - 9-12edo │ 900   │
     │ G2  │ III    │ 0     │ 0     │ Eb3  │ II     │ m2e   │ 100   │ m6 - 8-12edo │ 800   │
     │ Ab2 │ III    │ m2e   │ 100   │ F3   │ II     │ m3e   │ 300   │ M6 - 9-12edo │ 900   │
     │ Bb2 │ III    │ m3e   │ 300   │ G3   │ II     │ 4e    │ 500   │ M6 - 9-12edo │ 900   │

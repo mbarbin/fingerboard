@@ -398,16 +398,27 @@ module Double_stops = struct
            | None -> acc
            | Some high_note ->
              let acc =
-               let low_note =
-                 if Roman_numeral.equal
-                      low_note.Located_note.fingerboard_location.string_number
-                      high_note.Located_note.fingerboard_location.string_number
-                 then find_same_note_one_string_down t low_note
-                 else Some low_note
+               let double_stop =
+                 let low_index =
+                   Roman_numeral.to_int
+                     low_note.Located_note.fingerboard_location.string_number
+                 and high_index =
+                   Roman_numeral.to_int
+                     high_note.Located_note.fingerboard_location.string_number
+                 in
+                 if low_index = high_index
+                 then
+                   find_same_note_one_string_down t low_note
+                   |> Option.map ~f:(fun low_note -> { Double_stop.low_note; high_note })
+                 else if low_index = high_index + 2
+                 then
+                   find_same_note_one_string_down t high_note
+                   |> Option.map ~f:(fun high_note -> { Double_stop.low_note; high_note })
+                 else Some { Double_stop.low_note; high_note }
                in
-               match low_note with
+               match double_stop with
                | None -> acc
-               | Some low_note -> Double_stop.{ low_note; high_note } :: acc
+               | Some double_stop -> double_stop :: acc
              in
              aux acc tl)
       in

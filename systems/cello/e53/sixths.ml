@@ -31,7 +31,7 @@ let%expect_test "c_major_just" =
     │ C2  │ IV     │ 0         │ 0     │ A2   │ III    │ M2z-e53   │ 181   │ M6 - 39-53edo │ 883   │
     │ D2  │ IV     │ M2p-e53   │ 204   │ B2   │ III    │ M3z-e53   │ 385   │ M6 - 39-53edo │ 883   │
     │ E2  │ IV     │ M3z-e53   │ 385   │ C3   │ III    │ 4p-e53    │ 498   │ m6 - 36-53edo │ 815   │
-    │ F2  │ IV     │ 4p-e53    │ 498   │ D3   │ II     │ 0         │ 0     │ M6 - 40-53edo │ 906   │
+    │ F2  │ IV     │ 4p-e53    │ 498   │ D3   │ III    │ 5p-e53    │ 702   │ M6 - 40-53edo │ 906   │
     │ G2  │ III    │ 0         │ 0     │ E3   │ II     │ M2z-e53   │ 181   │ M6 - 39-53edo │ 883   │
     │ A2  │ III    │ M2z-e53   │ 181   │ F3   │ II     │ m3p-e53   │ 294   │ m6 - 36-53edo │ 815   │
     │ B2  │ III    │ M3z-e53   │ 385   │ G3   │ II     │ 4p-e53    │ 498   │ m6 - 36-53edo │ 815   │
@@ -69,11 +69,11 @@ let%expect_test "c_major_pythagorean" =
     │ C2  │ IV     │ 0         │ 0     │ A2   │ III    │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ D2  │ IV     │ M2p-e53   │ 204   │ B2   │ III    │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ E2  │ IV     │ M3p-e53   │ 408   │ C3   │ III    │ 4p-e53    │ 498   │ m6 - 35-53edo │ 792   │
-    │ F2  │ IV     │ 4p-e53    │ 498   │ D3   │ II     │ 0         │ 0     │ M6 - 40-53edo │ 906   │
+    │ F2  │ IV     │ 4p-e53    │ 498   │ D3   │ III    │ 5p-e53    │ 702   │ M6 - 40-53edo │ 906   │
     │ G2  │ III    │ 0         │ 0     │ E3   │ II     │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ A2  │ III    │ M2p-e53   │ 204   │ F3   │ II     │ m3p-e53   │ 294   │ m6 - 35-53edo │ 792   │
     │ B2  │ III    │ M3p-e53   │ 408   │ G3   │ II     │ 4p-e53    │ 498   │ m6 - 35-53edo │ 792   │
-    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ I      │ 0         │ 0     │ M6 - 40-53edo │ 906   │
+    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ II     │ 5p-e53    │ 702   │ M6 - 40-53edo │ 906   │
     │ D3  │ II     │ 0         │ 0     │ B3   │ I      │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C4   │ I      │ m3p-e53   │ 294   │ m6 - 35-53edo │ 792   │
     │ F3  │ II     │ m3p-e53   │ 294   │ D4   │ I      │ 4p-e53    │ 498   │ M6 - 40-53edo │ 906   │
@@ -107,11 +107,11 @@ let%expect_test "c_sharp_major_pythagorean" =
     │ C#2 │ IV     │ m2z-e53   │ 113   │ A#2  │ III    │ m3z-e53   │ 317   │ M6 - 40-53edo │ 906   │
     │ D#2 │ IV     │ m3z-e53   │ 317   │ B#2  │ III    │ 4z-e53    │ 521   │ M6 - 40-53edo │ 906   │
     │ E#2 │ IV     │ 4z-e53    │ 521   │ C#3  │ III    │ d5z-e53   │ 611   │ m6 - 35-53edo │ 792   │
-    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ II     │ m2z-e53   │ 113   │ M6 - 40-53edo │ 906   │
+    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ III    │ m6z-e53   │ 815   │ M6 - 40-53edo │ 906   │
     │ G#2 │ III    │ m2z-e53   │ 113   │ E#3  │ II     │ m3z-e53   │ 317   │ M6 - 40-53edo │ 906   │
     │ A#2 │ III    │ m3z-e53   │ 317   │ F#3  │ II     │ M3p-e53   │ 408   │ m6 - 35-53edo │ 792   │
     │ B#2 │ III    │ 4z-e53    │ 521   │ G#3  │ II     │ d5z-e53   │ 611   │ m6 - 35-53edo │ 792   │
-    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ I      │ m2z-e53   │ 113   │ M6 - 40-53edo │ 906   │
+    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ II     │ m6z-e53   │ 815   │ M6 - 40-53edo │ 906   │
     │ D#3 │ II     │ m2z-e53   │ 113   │ B#3  │ I      │ m3z-e53   │ 317   │ M6 - 40-53edo │ 906   │
     │ E#3 │ II     │ m3z-e53   │ 317   │ C#4  │ I      │ M3p-e53   │ 408   │ m6 - 35-53edo │ 792   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D#4  │ I      │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
@@ -145,11 +145,11 @@ let%expect_test "d_flat_major_pythagorean" =
     │ Db2 │ IV     │ A1z-e53   │ 91    │ Bb2  │ III    │ m3p-e53   │ 294   │ M6 - 40-53edo │ 906   │
     │ Eb2 │ IV     │ m3p-e53   │ 294   │ C3   │ III    │ 4p-e53    │ 498   │ M6 - 40-53edo │ 906   │
     │ F2  │ IV     │ 4p-e53    │ 498   │ Db3  │ III    │ A4z-e53   │ 589   │ m6 - 35-53edo │ 792   │
-    │ Gb2 │ IV     │ A4z-e53   │ 589   │ Eb3  │ II     │ A1z-e53   │ 91    │ M6 - 40-53edo │ 906   │
+    │ Gb2 │ IV     │ A4z-e53   │ 589   │ Eb3  │ III    │ m6p-e53   │ 792   │ M6 - 40-53edo │ 906   │
     │ Ab2 │ III    │ A1z-e53   │ 91    │ F3   │ II     │ m3p-e53   │ 294   │ M6 - 40-53edo │ 906   │
     │ Bb2 │ III    │ m3p-e53   │ 294   │ Gb3  │ II     │ M3z-e53   │ 385   │ m6 - 35-53edo │ 792   │
     │ C3  │ III    │ 4p-e53    │ 498   │ Ab3  │ II     │ A4z-e53   │ 589   │ m6 - 35-53edo │ 792   │
-    │ Db3 │ III    │ A4z-e53   │ 589   │ Bb3  │ I      │ A1z-e53   │ 91    │ M6 - 40-53edo │ 906   │
+    │ Db3 │ III    │ A4z-e53   │ 589   │ Bb3  │ II     │ m6p-e53   │ 792   │ M6 - 40-53edo │ 906   │
     │ Eb3 │ II     │ A1z-e53   │ 91    │ C4   │ I      │ m3p-e53   │ 294   │ M6 - 40-53edo │ 906   │
     │ F3  │ II     │ m3p-e53   │ 294   │ Db4  │ I      │ M3z-e53   │ 385   │ m6 - 35-53edo │ 792   │
     │ Gb3 │ II     │ M3z-e53   │ 385   │ Eb4  │ I      │ A4z-e53   │ 589   │ M6 - 40-53edo │ 906   │
@@ -183,11 +183,11 @@ let%expect_test "d_flat_major_just" =
     │ Db2 │ IV     │ m2z-e53   │ 113   │ Bb2  │ III    │ m3p-e53   │ 294   │ M6 - 39-53edo │ 883   │
     │ Eb2 │ IV     │ m3z-e53   │ 317   │ C3   │ III    │ 4p-e53    │ 498   │ M6 - 39-53edo │ 883   │
     │ F2  │ IV     │ 4p-e53    │ 498   │ Db3  │ III    │ d5z-e53   │ 611   │ m6 - 36-53edo │ 815   │
-    │ Gb2 │ IV     │ d5z-e53   │ 611   │ Eb3  │ II     │ m2z-e53   │ 113   │ M6 - 40-53edo │ 906   │
+    │ Gb2 │ IV     │ d5z-e53   │ 611   │ Eb3  │ III    │ m6z-e53   │ 815   │ M6 - 40-53edo │ 906   │
     │ Ab2 │ III    │ m2z-e53   │ 113   │ F3   │ II     │ m3p-e53   │ 294   │ M6 - 39-53edo │ 883   │
     │ Bb2 │ III    │ m3p-e53   │ 294   │ Gb3  │ II     │ M3p-e53   │ 408   │ m6 - 36-53edo │ 815   │
     │ C3  │ III    │ 4p-e53    │ 498   │ Ab3  │ II     │ d5z-e53   │ 611   │ m6 - 36-53edo │ 815   │
-    │ Db3 │ III    │ d5z-e53   │ 611   │ Bb3  │ I      │ A1z-e53   │ 91    │ M6 - 39-53edo │ 883   │
+    │ Db3 │ III    │ d5z-e53   │ 611   │ Bb3  │ II     │ m6p-e53   │ 792   │ M6 - 39-53edo │ 883   │
     │ Eb3 │ II     │ m2z-e53   │ 113   │ C4   │ I      │ m3p-e53   │ 294   │ M6 - 39-53edo │ 883   │
     │ F3  │ II     │ m3p-e53   │ 294   │ Db4  │ I      │ M3p-e53   │ 408   │ m6 - 36-53edo │ 815   │
     │ Gb3 │ II     │ M3p-e53   │ 408   │ Eb4  │ I      │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
@@ -220,11 +220,11 @@ let%expect_test "d_major_pythagorean" =
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ D2  │ IV     │ M2p-e53   │ 204   │ B2   │ III    │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ E2  │ IV     │ M3p-e53   │ 408   │ C#3  │ III    │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
-    │ F#2 │ IV     │ d5z-e53   │ 611   │ D3   │ II     │ 0         │ 0     │ m6 - 35-53edo │ 792   │
+    │ F#2 │ IV     │ d5z-e53   │ 611   │ D3   │ III    │ 5p-e53    │ 702   │ m6 - 35-53edo │ 792   │
     │ G2  │ III    │ 0         │ 0     │ E3   │ II     │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ A2  │ III    │ M2p-e53   │ 204   │ F#3  │ II     │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ B2  │ III    │ M3p-e53   │ 408   │ G3   │ II     │ 4p-e53    │ 498   │ m6 - 35-53edo │ 792   │
-    │ C#3 │ III    │ d5z-e53   │ 611   │ A3   │ I      │ 0         │ 0     │ m6 - 35-53edo │ 792   │
+    │ C#3 │ III    │ d5z-e53   │ 611   │ A3   │ II     │ 5p-e53    │ 702   │ m6 - 35-53edo │ 792   │
     │ D3  │ II     │ 0         │ 0     │ B3   │ I      │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C#4  │ I      │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D4   │ I      │ 4p-e53    │ 498   │ m6 - 35-53edo │ 792   │
@@ -257,11 +257,11 @@ let%expect_test "d_major_just" =
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ D2  │ IV     │ M2p-e53   │ 204   │ B2   │ III    │ M3z-e53   │ 385   │ M6 - 39-53edo │ 883   │
     │ E2  │ IV     │ M3p-e53   │ 408   │ C#3  │ III    │ A4z-e53   │ 589   │ M6 - 39-53edo │ 883   │
-    │ F#2 │ IV     │ A4z-e53   │ 589   │ D3   │ II     │ 0         │ 0     │ m6 - 36-53edo │ 815   │
+    │ F#2 │ IV     │ A4z-e53   │ 589   │ D3   │ III    │ 5p-e53    │ 702   │ m6 - 36-53edo │ 815   │
     │ G2  │ III    │ 0         │ 0     │ E3   │ II     │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ A2  │ III    │ M2p-e53   │ 204   │ F#3  │ II     │ M3z-e53   │ 385   │ M6 - 39-53edo │ 883   │
     │ B2  │ III    │ M3z-e53   │ 385   │ G3   │ II     │ 4p-e53    │ 498   │ m6 - 36-53edo │ 815   │
-    │ C#3 │ III    │ A4z-e53   │ 589   │ A3   │ I      │ 0         │ 0     │ m6 - 36-53edo │ 815   │
+    │ C#3 │ III    │ A4z-e53   │ 589   │ A3   │ II     │ 5p-e53    │ 702   │ m6 - 36-53edo │ 815   │
     │ D3  │ II     │ 0         │ 0     │ B3   │ I      │ M2z-e53   │ 181   │ M6 - 39-53edo │ 883   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C#4  │ I      │ M3z-e53   │ 385   │ M6 - 39-53edo │ 883   │
     │ F#3 │ II     │ M3z-e53   │ 385   │ D4   │ I      │ 4p-e53    │ 498   │ m6 - 36-53edo │ 815   │
@@ -293,7 +293,7 @@ let%expect_test "e_flat_major_just" =
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ Eb2 │ IV     │ m3z-e53   │ 317   │ C3   │ III    │ 4p-e53    │ 498   │ M6 - 39-53edo │ 883   │
-    │ F2  │ IV     │ 4z-e53    │ 521   │ D3   │ II     │ 0         │ 0     │ M6 - 39-53edo │ 883   │
+    │ F2  │ IV     │ 4z-e53    │ 521   │ D3   │ III    │ 5p-e53    │ 702   │ M6 - 39-53edo │ 883   │
     │ G2  │ III    │ 0         │ 0     │ Eb3  │ II     │ m2z-e53   │ 113   │ m6 - 36-53edo │ 815   │
     │ Ab2 │ III    │ m2z-e53   │ 113   │ F3   │ II     │ m3z-e53   │ 317   │ M6 - 40-53edo │ 906   │
     │ Bb2 │ III    │ m3z-e53   │ 317   │ G3   │ II     │ 4p-e53    │ 498   │ M6 - 39-53edo │ 883   │
@@ -330,7 +330,7 @@ let%expect_test "e_flat_major_pythagorean" =
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ Eb2 │ IV     │ m3p-e53   │ 294   │ C3   │ III    │ 4p-e53    │ 498   │ M6 - 40-53edo │ 906   │
-    │ F2  │ IV     │ 4p-e53    │ 498   │ D3   │ II     │ 0         │ 0     │ M6 - 40-53edo │ 906   │
+    │ F2  │ IV     │ 4p-e53    │ 498   │ D3   │ III    │ 5p-e53    │ 702   │ M6 - 40-53edo │ 906   │
     │ G2  │ III    │ 0         │ 0     │ Eb3  │ II     │ A1z-e53   │ 91    │ m6 - 35-53edo │ 792   │
     │ Ab2 │ III    │ A1z-e53   │ 91    │ F3   │ II     │ m3p-e53   │ 294   │ M6 - 40-53edo │ 906   │
     │ Bb2 │ III    │ m3p-e53   │ 294   │ G3   │ II     │ 4p-e53    │ 498   │ M6 - 40-53edo │ 906   │
@@ -367,11 +367,11 @@ let%expect_test "e_major_pythagorean" =
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ E2  │ IV     │ M3p-e53   │ 408   │ C#3  │ III    │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
-    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ II     │ m2z-e53   │ 113   │ M6 - 40-53edo │ 906   │
+    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ III    │ m6z-e53   │ 815   │ M6 - 40-53edo │ 906   │
     │ G#2 │ III    │ m2z-e53   │ 113   │ E3   │ II     │ M2p-e53   │ 204   │ m6 - 35-53edo │ 792   │
     │ A2  │ III    │ M2p-e53   │ 204   │ F#3  │ II     │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ B2  │ III    │ M3p-e53   │ 408   │ G#3  │ II     │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
-    │ C#3 │ III    │ d5z-e53   │ 611   │ A3   │ I      │ 0         │ 0     │ m6 - 35-53edo │ 792   │
+    │ C#3 │ III    │ d5z-e53   │ 611   │ A3   │ II     │ 5p-e53    │ 702   │ m6 - 35-53edo │ 792   │
     │ D#3 │ II     │ m2z-e53   │ 113   │ B3   │ I      │ M2p-e53   │ 204   │ m6 - 35-53edo │ 792   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C#4  │ I      │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D#4  │ I      │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
@@ -403,11 +403,11 @@ let%expect_test "e_major_just" =
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ E2  │ IV     │ M3p-e53   │ 408   │ C#3  │ III    │ A4z-e53   │ 589   │ M6 - 39-53edo │ 883   │
-    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ II     │ A1z-e53   │ 91    │ M6 - 39-53edo │ 883   │
+    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ III    │ m6p-e53   │ 792   │ M6 - 39-53edo │ 883   │
     │ G#2 │ III    │ A1z-e53   │ 91    │ E3   │ II     │ M2p-e53   │ 204   │ m6 - 36-53edo │ 815   │
     │ A2  │ III    │ M2p-e53   │ 204   │ F#3  │ II     │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ B2  │ III    │ M3p-e53   │ 408   │ G#3  │ II     │ A4z-e53   │ 589   │ M6 - 39-53edo │ 883   │
-    │ C#3 │ III    │ A4z-e53   │ 589   │ A3   │ I      │ 0         │ 0     │ m6 - 36-53edo │ 815   │
+    │ C#3 │ III    │ A4z-e53   │ 589   │ A3   │ II     │ 5p-e53    │ 702   │ m6 - 36-53edo │ 815   │
     │ D#3 │ II     │ A1z-e53   │ 91    │ B3   │ I      │ M2p-e53   │ 204   │ m6 - 36-53edo │ 815   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C#4  │ I      │ M3z-e53   │ 385   │ M6 - 39-53edo │ 883   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D#4  │ I      │ A4z-e53   │ 589   │ M6 - 39-53edo │ 883   │
@@ -438,11 +438,11 @@ let%expect_test "fp_major_pythagorean" =
     ┌─────┬────────┬───────────┬───────┬──────┬────────┬───────────┬───────┬───────────────┬───────┐
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
-    │ F2  │ IV     │ 4p-e53    │ 498   │ D3   │ II     │ 0         │ 0     │ M6 - 40-53edo │ 906   │
+    │ F2  │ IV     │ 4p-e53    │ 498   │ D3   │ III    │ 5p-e53    │ 702   │ M6 - 40-53edo │ 906   │
     │ G2  │ III    │ 0         │ 0     │ E3   │ II     │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ A2  │ III    │ M2p-e53   │ 204   │ F3   │ II     │ m3p-e53   │ 294   │ m6 - 35-53edo │ 792   │
     │ Bb2 │ III    │ m3p-e53   │ 294   │ G3   │ II     │ 4p-e53    │ 498   │ M6 - 40-53edo │ 906   │
-    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ I      │ 0         │ 0     │ M6 - 40-53edo │ 906   │
+    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ II     │ 5p-e53    │ 702   │ M6 - 40-53edo │ 906   │
     │ D3  │ II     │ 0         │ 0     │ Bb3  │ I      │ A1z-e53   │ 91    │ m6 - 35-53edo │ 792   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C4   │ I      │ m3p-e53   │ 294   │ m6 - 35-53edo │ 792   │
     │ F3  │ II     │ m3p-e53   │ 294   │ D4   │ I      │ 4p-e53    │ 498   │ M6 - 40-53edo │ 906   │
@@ -478,7 +478,7 @@ let%expect_test "fp_major_just" =
     │ A2  │ III    │ M2z-e53 │ 181   │ F3   │ II     │ m3p-e53 │ 294   │ m6 - 36-53edo │ 815   │
     │ Bb2 │ III    │ m3p-e53 │ 294   │ G3   │ II     │ 4p-e53  │ 498   │ M6 - 40-53edo │ 906   │
     │ C3  │ III    │ 4p-e53  │ 498   │ A3   │ II     │ 5z-e53  │ 679   │ M6 - 39-53edo │ 883   │
-    │ D3  │ III    │ 5z-e53  │ 679   │ Bb3  │ I      │ A1z-e53 │ 91    │ m6 - 36-53edo │ 815   │
+    │ D3  │ III    │ 5z-e53  │ 679   │ Bb3  │ II     │ m6p-e53 │ 792   │ m6 - 36-53edo │ 815   │
     │ E3  │ II     │ M2z-e53 │ 181   │ C4   │ I      │ m3p-e53 │ 294   │ m6 - 36-53edo │ 815   │
     └─────┴────────┴─────────┴───────┴──────┴────────┴─────────┴───────┴───────────────┴───────┘ |}]
 ;;
@@ -504,11 +504,11 @@ let%expect_test "f_sharp_major_pythagorean" =
     ┌─────┬────────┬───────────┬───────┬──────┬────────┬───────────┬───────┬───────────────┬───────┐
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
-    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ II     │ m2z-e53   │ 113   │ M6 - 40-53edo │ 906   │
+    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ III    │ m6z-e53   │ 815   │ M6 - 40-53edo │ 906   │
     │ G#2 │ III    │ m2z-e53   │ 113   │ E#3  │ II     │ m3z-e53   │ 317   │ M6 - 40-53edo │ 906   │
     │ A#2 │ III    │ m3z-e53   │ 317   │ F#3  │ II     │ M3p-e53   │ 408   │ m6 - 35-53edo │ 792   │
     │ B2  │ III    │ M3p-e53   │ 408   │ G#3  │ II     │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
-    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ I      │ m2z-e53   │ 113   │ M6 - 40-53edo │ 906   │
+    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ II     │ m6z-e53   │ 815   │ M6 - 40-53edo │ 906   │
     │ D#3 │ II     │ m2z-e53   │ 113   │ B3   │ I      │ M2p-e53   │ 204   │ m6 - 35-53edo │ 792   │
     │ E#3 │ II     │ m3z-e53   │ 317   │ C#4  │ I      │ M3p-e53   │ 408   │ m6 - 35-53edo │ 792   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D#4  │ I      │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
@@ -539,11 +539,11 @@ let%expect_test "f_sharp_major_just" =
     ┌─────┬────────┬───────────┬───────┬──────┬────────┬───────────┬───────┬───────────────┬───────┐
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
-    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ II     │ A1z-e53   │ 91    │ M6 - 39-53edo │ 883   │
+    │ F#2 │ IV     │ d5z-e53   │ 611   │ D#3  │ III    │ m6p-e53   │ 792   │ M6 - 39-53edo │ 883   │
     │ G#2 │ III    │ m2z-e53   │ 113   │ E#3  │ II     │ m3p-e53   │ 294   │ M6 - 39-53edo │ 883   │
     │ A#2 │ III    │ m3p-e53   │ 294   │ F#3  │ II     │ M3p-e53   │ 408   │ m6 - 36-53edo │ 815   │
     │ B2  │ III    │ M3p-e53   │ 408   │ G#3  │ II     │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
-    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ I      │ A1z-e53   │ 91    │ M6 - 39-53edo │ 883   │
+    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ II     │ m6p-e53   │ 792   │ M6 - 39-53edo │ 883   │
     │ D#3 │ II     │ A1z-e53   │ 91    │ B3   │ I      │ M2p-e53   │ 204   │ m6 - 36-53edo │ 815   │
     │ E#3 │ II     │ m3p-e53   │ 294   │ C#4  │ I      │ M3p-e53   │ 408   │ m6 - 36-53edo │ 815   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D#4  │ I      │ A4z-e53   │ 589   │ M6 - 39-53edo │ 883   │
@@ -574,11 +574,11 @@ let%expect_test "g_flat_major_pythagorean" =
     ┌─────┬────────┬───────────┬───────┬──────┬────────┬───────────┬───────┬───────────────┬───────┐
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
-    │ Gb2 │ IV     │ A4z-e53   │ 589   │ Eb3  │ II     │ A1z-e53   │ 91    │ M6 - 40-53edo │ 906   │
+    │ Gb2 │ IV     │ A4z-e53   │ 589   │ Eb3  │ III    │ m6p-e53   │ 792   │ M6 - 40-53edo │ 906   │
     │ Ab2 │ III    │ A1z-e53   │ 91    │ F3   │ II     │ m3p-e53   │ 294   │ M6 - 40-53edo │ 906   │
     │ Bb2 │ III    │ m3p-e53   │ 294   │ Gb3  │ II     │ M3z-e53   │ 385   │ m6 - 35-53edo │ 792   │
     │ Cb3 │ III    │ M3z-e53   │ 385   │ Ab3  │ II     │ A4z-e53   │ 589   │ M6 - 40-53edo │ 906   │
-    │ Db3 │ III    │ A4z-e53   │ 589   │ Bb3  │ I      │ A1z-e53   │ 91    │ M6 - 40-53edo │ 906   │
+    │ Db3 │ III    │ A4z-e53   │ 589   │ Bb3  │ II     │ m6p-e53   │ 792   │ M6 - 40-53edo │ 906   │
     │ Eb3 │ II     │ A1z-e53   │ 91    │ Cb4  │ I      │ M2z-e53   │ 181   │ m6 - 35-53edo │ 792   │
     │ F3  │ II     │ m3p-e53   │ 294   │ Db4  │ I      │ M3z-e53   │ 385   │ m6 - 35-53edo │ 792   │
     │ Gb3 │ II     │ M3z-e53   │ 385   │ Eb4  │ I      │ A4z-e53   │ 589   │ M6 - 40-53edo │ 906   │
@@ -609,11 +609,11 @@ let%expect_test "g_flat_major_just" =
     ┌─────┬────────┬───────────┬───────┬──────┬────────┬───────────┬───────┬───────────────┬───────┐
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
-    │ Gb2 │ IV     │ d5z-e53   │ 611   │ Eb3  │ II     │ A1z-e53   │ 91    │ M6 - 39-53edo │ 883   │
+    │ Gb2 │ IV     │ d5z-e53   │ 611   │ Eb3  │ III    │ m6p-e53   │ 792   │ M6 - 39-53edo │ 883   │
     │ Ab2 │ III    │ m2z-e53   │ 113   │ F3   │ II     │ m3p-e53   │ 294   │ M6 - 39-53edo │ 883   │
     │ Bb2 │ III    │ m3p-e53   │ 294   │ Gb3  │ II     │ M3p-e53   │ 408   │ m6 - 36-53edo │ 815   │
     │ Cb3 │ III    │ M3p-e53   │ 408   │ Ab3  │ II     │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
-    │ Db3 │ III    │ d5z-e53   │ 611   │ Bb3  │ I      │ A1z-e53   │ 91    │ M6 - 39-53edo │ 883   │
+    │ Db3 │ III    │ d5z-e53   │ 611   │ Bb3  │ II     │ m6p-e53   │ 792   │ M6 - 39-53edo │ 883   │
     │ Eb3 │ II     │ A1z-e53   │ 91    │ Cb4  │ I      │ M2p-e53   │ 204   │ m6 - 36-53edo │ 815   │
     │ F3  │ II     │ m3p-e53   │ 294   │ Db4  │ I      │ M3p-e53   │ 408   │ m6 - 36-53edo │ 815   │
     │ Gb3 │ II     │ M3p-e53   │ 408   │ Eb4  │ I      │ A4z-e53   │ 589   │ M6 - 39-53edo │ 883   │
@@ -647,7 +647,7 @@ let%expect_test "g_major_pythagorean" =
     │ G2  │ III    │ 0         │ 0     │ E3   │ II     │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ A2  │ III    │ M2p-e53   │ 204   │ F#3  │ II     │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ B2  │ III    │ M3p-e53   │ 408   │ G3   │ II     │ 4p-e53    │ 498   │ m6 - 35-53edo │ 792   │
-    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ I      │ 0         │ 0     │ M6 - 40-53edo │ 906   │
+    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ II     │ 5p-e53    │ 702   │ M6 - 40-53edo │ 906   │
     │ D3  │ II     │ 0         │ 0     │ B3   │ I      │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C4   │ I      │ m3p-e53   │ 294   │ m6 - 35-53edo │ 792   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D4   │ I      │ 4p-e53    │ 498   │ m6 - 35-53edo │ 792   │
@@ -681,7 +681,7 @@ let%expect_test "g_major_just" =
     │ G2  │ III    │ 0         │ 0     │ E3   │ II     │ M2z-e53   │ 181   │ M6 - 39-53edo │ 883   │
     │ A2  │ III    │ M2p-e53   │ 204   │ F#3  │ II     │ M3z-e53   │ 385   │ M6 - 39-53edo │ 883   │
     │ B2  │ III    │ M3z-e53   │ 385   │ G3   │ II     │ 4p-e53    │ 498   │ m6 - 36-53edo │ 815   │
-    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ I      │ 0         │ 0     │ M6 - 40-53edo │ 906   │
+    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ II     │ 5p-e53    │ 702   │ M6 - 40-53edo │ 906   │
     │ D3  │ II     │ 0         │ 0     │ B3   │ I      │ M2z-e53   │ 181   │ M6 - 39-53edo │ 883   │
     │ E3  │ II     │ M2z-e53   │ 181   │ C4   │ I      │ m3p-e53   │ 294   │ m6 - 36-53edo │ 815   │
     │ F#3 │ II     │ M3z-e53   │ 385   │ D4   │ I      │ 4p-e53    │ 498   │ m6 - 36-53edo │ 815   │
@@ -715,7 +715,7 @@ let%expect_test "a_flat_major_pythagorean" =
     │ Ab2 │ III    │ A1z-e53   │ 91    │ F3   │ II     │ m3p-e53   │ 294   │ M6 - 40-53edo │ 906   │
     │ Bb2 │ III    │ m3p-e53   │ 294   │ G3   │ II     │ 4p-e53    │ 498   │ M6 - 40-53edo │ 906   │
     │ C3  │ III    │ 4p-e53    │ 498   │ Ab3  │ II     │ A4z-e53   │ 589   │ m6 - 35-53edo │ 792   │
-    │ Db3 │ III    │ A4z-e53   │ 589   │ Bb3  │ I      │ A1z-e53   │ 91    │ M6 - 40-53edo │ 906   │
+    │ Db3 │ III    │ A4z-e53   │ 589   │ Bb3  │ II     │ m6p-e53   │ 792   │ M6 - 40-53edo │ 906   │
     │ Eb3 │ II     │ A1z-e53   │ 91    │ C4   │ I      │ m3p-e53   │ 294   │ M6 - 40-53edo │ 906   │
     │ F3  │ II     │ m3p-e53   │ 294   │ Db4  │ I      │ M3z-e53   │ 385   │ m6 - 35-53edo │ 792   │
     │ G3  │ II     │ 4p-e53    │ 498   │ Eb4  │ I      │ A4z-e53   │ 589   │ m6 - 35-53edo │ 792   │
@@ -749,7 +749,7 @@ let%expect_test "a_flat_major_just" =
     │ Ab2 │ III    │ m2z-e53   │ 113   │ F3   │ II     │ m3p-e53   │ 294   │ M6 - 39-53edo │ 883   │
     │ Bb2 │ III    │ m3z-e53   │ 317   │ G3   │ II     │ 4p-e53    │ 498   │ M6 - 39-53edo │ 883   │
     │ C3  │ III    │ 4p-e53    │ 498   │ Ab3  │ II     │ d5z-e53   │ 611   │ m6 - 36-53edo │ 815   │
-    │ Db3 │ III    │ d5z-e53   │ 611   │ Bb3  │ I      │ m2z-e53   │ 113   │ M6 - 40-53edo │ 906   │
+    │ Db3 │ III    │ d5z-e53   │ 611   │ Bb3  │ II     │ m6z-e53   │ 815   │ M6 - 40-53edo │ 906   │
     │ Eb3 │ II     │ m2z-e53   │ 113   │ C4   │ I      │ m3p-e53   │ 294   │ M6 - 39-53edo │ 883   │
     │ F3  │ II     │ m3p-e53   │ 294   │ Db4  │ I      │ M3p-e53   │ 408   │ m6 - 36-53edo │ 815   │
     │ G3  │ II     │ 4p-e53    │ 498   │ Eb4  │ I      │ d5z-e53   │ 611   │ m6 - 36-53edo │ 815   │
@@ -782,7 +782,7 @@ let%expect_test "a_major_pythagorean" =
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ A2  │ III    │ M2p-e53   │ 204   │ F#3  │ II     │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ B2  │ III    │ M3p-e53   │ 408   │ G#3  │ II     │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
-    │ C#3 │ III    │ d5z-e53   │ 611   │ A3   │ I      │ 0         │ 0     │ m6 - 35-53edo │ 792   │
+    │ C#3 │ III    │ d5z-e53   │ 611   │ A3   │ II     │ 5p-e53    │ 702   │ m6 - 35-53edo │ 792   │
     │ D3  │ II     │ 0         │ 0     │ B3   │ I      │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C#4  │ I      │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D4   │ I      │ 4p-e53    │ 498   │ m6 - 35-53edo │ 792   │
@@ -815,7 +815,7 @@ let%expect_test "a_major_just" =
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ A2  │ III    │ M2p-e53   │ 204   │ F#3  │ II     │ M3z-e53   │ 385   │ M6 - 39-53edo │ 883   │
     │ B2  │ III    │ M3p-e53   │ 408   │ G#3  │ II     │ A4z-e53   │ 589   │ M6 - 39-53edo │ 883   │
-    │ C#3 │ III    │ A4z-e53   │ 589   │ A3   │ I      │ 0         │ 0     │ m6 - 36-53edo │ 815   │
+    │ C#3 │ III    │ A4z-e53   │ 589   │ A3   │ II     │ 5p-e53    │ 702   │ m6 - 36-53edo │ 815   │
     │ D3  │ II     │ 0         │ 0     │ B3   │ I      │ M2p-e53   │ 204   │ M6 - 40-53edo │ 906   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C#4  │ I      │ M3z-e53   │ 385   │ M6 - 39-53edo │ 883   │
     │ F#3 │ II     │ M3z-e53   │ 385   │ D4   │ I      │ 4p-e53    │ 498   │ m6 - 36-53edo │ 815   │
@@ -847,7 +847,7 @@ let%expect_test "b_flat_major_pythagorean" =
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ Bb2 │ III    │ m3p-e53   │ 294   │ G3   │ II     │ 4p-e53    │ 498   │ M6 - 40-53edo │ 906   │
-    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ I      │ 0         │ 0     │ M6 - 40-53edo │ 906   │
+    │ C3  │ III    │ 4p-e53    │ 498   │ A3   │ II     │ 5p-e53    │ 702   │ M6 - 40-53edo │ 906   │
     │ D3  │ II     │ 0         │ 0     │ Bb3  │ I      │ A1z-e53   │ 91    │ m6 - 35-53edo │ 792   │
     │ Eb3 │ II     │ A1z-e53   │ 91    │ C4   │ I      │ m3p-e53   │ 294   │ M6 - 40-53edo │ 906   │
     │ F3  │ II     │ m3p-e53   │ 294   │ D4   │ I      │ 4p-e53    │ 498   │ M6 - 40-53edo │ 906   │
@@ -880,7 +880,7 @@ let%expect_test "b_flat_major_just" =
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ Bb2 │ III    │ m3z-e53   │ 317   │ G3   │ II     │ 4p-e53    │ 498   │ M6 - 39-53edo │ 883   │
-    │ C3  │ III    │ 4z-e53    │ 521   │ A3   │ I      │ 0         │ 0     │ M6 - 39-53edo │ 883   │
+    │ C3  │ III    │ 4z-e53    │ 521   │ A3   │ II     │ 5p-e53    │ 702   │ M6 - 39-53edo │ 883   │
     │ D3  │ II     │ 0         │ 0     │ Bb3  │ I      │ m2z-e53   │ 113   │ m6 - 36-53edo │ 815   │
     │ Eb3 │ II     │ m2z-e53   │ 113   │ C4   │ I      │ m3z-e53   │ 317   │ M6 - 40-53edo │ 906   │
     │ F3  │ II     │ m3z-e53   │ 317   │ D4   │ I      │ 4p-e53    │ 498   │ M6 - 39-53edo │ 883   │
@@ -913,7 +913,7 @@ let%expect_test "b_major_pythagorean" =
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ B2  │ III    │ M3p-e53   │ 408   │ G#3  │ II     │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
-    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ I      │ m2z-e53   │ 113   │ M6 - 40-53edo │ 906   │
+    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ II     │ m6z-e53   │ 815   │ M6 - 40-53edo │ 906   │
     │ D#3 │ II     │ m2z-e53   │ 113   │ B3   │ I      │ M2p-e53   │ 204   │ m6 - 35-53edo │ 792   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C#4  │ I      │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D#4  │ I      │ d5z-e53   │ 611   │ M6 - 40-53edo │ 906   │
@@ -945,7 +945,7 @@ let%expect_test "b_major_just" =
     │ Low │ String │ Pos       │ Cents │ High │ String │ Pos       │ Cents │ Interval      │ Cents │
     ├─────┼────────┼───────────┼───────┼──────┼────────┼───────────┼───────┼───────────────┼───────┤
     │ B2  │ III    │ M3p-e53   │ 408   │ G#3  │ II     │ A4z-e53   │ 589   │ M6 - 39-53edo │ 883   │
-    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ I      │ A1z-e53   │ 91    │ M6 - 39-53edo │ 883   │
+    │ C#3 │ III    │ d5z-e53   │ 611   │ A#3  │ II     │ m6p-e53   │ 792   │ M6 - 39-53edo │ 883   │
     │ D#3 │ II     │ A1z-e53   │ 91    │ B3   │ I      │ M2p-e53   │ 204   │ m6 - 36-53edo │ 815   │
     │ E3  │ II     │ M2p-e53   │ 204   │ C#4  │ I      │ M3p-e53   │ 408   │ M6 - 40-53edo │ 906   │
     │ F#3 │ II     │ M3p-e53   │ 408   │ D#4  │ I      │ A4z-e53   │ 589   │ M6 - 39-53edo │ 883   │
