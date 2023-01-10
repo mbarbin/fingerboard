@@ -1,7 +1,7 @@
 open! Core
 open! Fingerboard
 
-let make_major_scale_in_third ~from =
+let make_major_scale ~from =
   let t = force E12.t in
   System.Double_stops.make_scale
     t
@@ -13,7 +13,7 @@ let make_major_scale_in_third ~from =
 
 let%expect_test "c_major" =
   let t = force E12.t in
-  let scale = make_major_scale_in_third ~from:Scales.lower_c in
+  let scale = make_major_scale ~from:Scales.lower_c in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
     {|
@@ -52,7 +52,7 @@ let%expect_test "c_major" =
 
 let%expect_test "e_flat_major" =
   let t = force E12.t in
-  let scale = make_major_scale_in_third ~from:Scales.lower_e_flat in
+  let scale = make_major_scale ~from:Scales.lower_e_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
     {|

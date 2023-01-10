@@ -1,7 +1,7 @@
 open! Core
 open! Fingerboard
 
-let make_scale_in_third ~characterized_scale ~from =
+let make_scale ~characterized_scale ~from =
   let t = force E53.t in
   System.Double_stops.make_scale
     t
@@ -11,17 +11,17 @@ let make_scale_in_third ~characterized_scale ~from =
     ~to_:Cello.fingerboard_highest_note
 ;;
 
-let make_major_just_scale_in_third ~from =
-  make_scale_in_third ~characterized_scale:Characterized_scale.major_just_e53 ~from
+let make_major_just_scale ~from =
+  make_scale ~characterized_scale:Characterized_scale.major_just_e53 ~from
 ;;
 
-let make_major_pythagorean_scale_in_third ~from =
-  make_scale_in_third ~characterized_scale:Characterized_scale.major_pythagorean_e53 ~from
+let make_major_pythagorean_scale ~from =
+  make_scale ~characterized_scale:Characterized_scale.major_pythagorean_e53 ~from
 ;;
 
 let%expect_test "c_major_just" =
   let t = force E53.t in
-  let scale = make_major_just_scale_in_third ~from:Scales.lower_c in
+  let scale = make_major_just_scale ~from:Scales.lower_c in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
     {|
@@ -60,7 +60,7 @@ let%expect_test "c_major_just" =
 
 let%expect_test "c_major_pythagorean" =
   let t = force E53.t in
-  let scale = make_major_pythagorean_scale_in_third ~from:Scales.lower_c in
+  let scale = make_major_pythagorean_scale ~from:Scales.lower_c in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
     {|
