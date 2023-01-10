@@ -1228,3 +1228,43 @@ let%expect_test "Pythagorean.sexp_of_t" =
           (((prime 2) (exponent -7)) ((prime 3) (exponent 5))))))))) |}];
   ()
 ;;
+
+module type POSITIONS = sig
+  type t [@@deriving enumerate, sexp_of]
+
+  val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+end
+
+let check_order_exn (module P : POSITIONS) =
+  let acoustic_interval =
+    List.fold_left P.all ~init:Acoustic_interval.unison ~f:(fun acc p ->
+      let acoustic_interval = P.acoustic_interval_to_the_open_string p in
+      match Acoustic_interval.compare acc acoustic_interval |> Ordering.of_int with
+      | Less -> acoustic_interval
+      | Equal | Greater ->
+        raise_s
+          [%sexp
+            "Unexpected position order"
+            , { previous_acoustic_interval = (acc : Acoustic_interval.t)
+              ; p : P.t
+              ; acoustic_interval : Acoustic_interval.t
+              }])
+  in
+  ignore (acoustic_interval : Acoustic_interval.t)
+;;
+
+let%expect_test "Edo12.order" =
+  check_order_exn (module Cello.Fingerboard_position_name.Edo12)
+;;
+
+let%expect_test "Edo53.order" =
+  check_order_exn (module Cello.Fingerboard_position_name.Edo53)
+;;
+
+let%expect_test "Pythagorean.order" =
+  check_order_exn (module Cello.Fingerboard_position_name.Pythagorean)
+;;
+
+let%expect_test "Just.order" =
+  check_order_exn (module Cello.Fingerboard_position_name.Just)
+;;
