@@ -396,13 +396,13 @@ module Double_stops = struct
     module Choice_criteria = struct
       (* The type is minted in such a way that the compare function
          must prioritize the lower values. *)
-      type t = { exists_open_string_with_that_note : bool } [@@deriving compare]
+      type t =
+        { exists_open_string_with_that_note : bool
+        ; degree_priority : int
+        }
+      [@@deriving compare]
 
-      let of_located_note
-        (system : system)
-        ~characterized_scale:_
-        (located_note : Located_note.t)
-        =
+      let of_located_note (system : system) ~tonic (located_note : Located_note.t) =
         { exists_open_string_with_that_note =
             Array.exists system.vibrating_strings ~f:(fun v ->
               Note.equal
@@ -410,17 +410,21 @@ module Double_stops = struct
                 { located_note.note with
                   octave_designation = v.open_string.octave_designation
                 })
+        ; degree_priority =
+            (match Interval.compute ~from:tonic ~to_:located_note.note () with
+             | None -> 10
+             | Some interval ->
+               (match interval.number with
+                | Second | Third | Sixth -> 1
+                | Seventh -> 2
+                | Fourth | Fifth -> 3
+                | Unison | Octave -> 4))
         }
       ;;
     end
   end
 
-  let ajust
-    (system : system)
-    ~characterized_scale
-    ~adjustment:{ Adjustment.from; to_ }
-    (t : t)
-    =
+  let ajust (system : system) ~tonic ~adjustment:{ Adjustment.from; to_ } (t : t) =
     List.map t ~f:(fun ({ Double_stop.low_note; high_note } as double_stop) ->
       let actual_interval =
         acoustic_interval
@@ -479,14 +483,8 @@ module Double_stops = struct
         | Some adjusted_low_note, Some adjusted_high_note ->
           (match
              Adjustment.Choice_criteria.compare
-               (Adjustment.Choice_criteria.of_located_note
-                  system
-                  ~characterized_scale
-                  low_note)
-               (Adjustment.Choice_criteria.of_located_note
-                  system
-                  ~characterized_scale
-                  high_note)
+               (Adjustment.Choice_criteria.of_located_note system ~tonic low_note)
+               (Adjustment.Choice_criteria.of_located_note system ~tonic high_note)
              |> Ordering.of_int
            with
            | Less | Equal -> { Double_stop.low_note = adjusted_low_note; high_note }
@@ -533,6 +531,6 @@ module Double_stops = struct
     in
     match adjustment with
     | None -> double_stops
-    | Some adjustment -> ajust t ~characterized_scale ~adjustment double_stops
+    | Some adjustment -> ajust t ~tonic:from.note ~adjustment double_stops
   ;;
 end

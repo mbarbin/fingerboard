@@ -109,12 +109,7 @@ module Double_stops : sig
       }
   end
 
-  val ajust
-    :  system
-    -> characterized_scale:Characterized_scale.t
-    -> adjustment:Adjustment.t
-    -> t
-    -> t
+  val ajust : system -> tonic:Note.t -> adjustment:Adjustment.t -> t -> t
 
   val make_scale
     :  ?adjustment:Adjustment.t
