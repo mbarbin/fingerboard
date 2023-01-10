@@ -112,3 +112,9 @@ double stops with the various systems.
 There are also some other systems that I'd like to incorporate, while
 making the contents more easily understandable by a larger audience.
 Please let me know if you have an interest for this repo.
+
+# Code documentation
+
+The tip of the main branch is compiled with odoc and published to
+github pages
+[here](https://mbarbin.github.io/fingerboard/fingerboard/Fingerboard/index.html).
