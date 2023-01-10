@@ -470,7 +470,7 @@ let%expect_test "fz_major_just" =
   ()
 ;;
 
-let lower_f_sharp =
+let lower_fp_sharp =
   let t = force Just.t in
   { Located_note.note = { letter_name = F; symbol = Sharp; octave_designation = 2 }
   ; fingerboard_location =
@@ -481,7 +481,7 @@ let lower_f_sharp =
 ;;
 
 let%expect_test "f_sharp_major_just" =
-  let scale = make_major_just_scale ~from:lower_f_sharp in
+  let scale = make_major_just_scale ~from:lower_fp_sharp in
   print_s [%sexp (List.length scale : int)];
   [%expect {| 2 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
