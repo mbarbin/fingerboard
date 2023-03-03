@@ -6,30 +6,13 @@
 This project is meant to help me reason about and build a "microtonal
 geography of the cello fingerboard".
 
-# A bit of history about the contents
-
-In 2005, I spent a great number of hours practicing double stops on
-the cello. As a result, I started researching contents on acoustic
-intervals and temperaments, as they relate to intonation. I summarized
-some findings and information gathered around that time in some
-personal notes, as I was trying to understand, hear and practice the
-use of different intonation systems (equal, pythagorean and just).
-
-In the years that followed, I spent less time thinking about this
-topic. A few years ago (perhaps 2018) I discovered a book called
-CelloMind, by Hans Jorgen Jensen and Minna Rose Chung. The first part
-of the book motivated me to revive my notes, and turn them into a
-format that I could more easily verify and share. In 2022 I had the
-idea of turning them into a piece of software that I could easily
-improve over time, and this repo was born.
-
 # What's in the repo?
 
 The repo implements the tools necessary to model microtonal geography
 systems based on various scales. As we go over some specific
 pythagorean, just and tempered scales and double stops, some specific
 notations are introduced for each of the fingerboard locations
-required to play each note. We then can reason about and exhibit
+required to play each note. Then, we can reason about and exhibit
 various facts involving these positions, while being able to verify
 these facts programmatically, and display them with various format.
 
@@ -52,7 +35,6 @@ difference between the scales of D Flat Major Pythagorean and its Just
 counterpart, approximated in a [53
 edo](https://en.wikipedia.org/wiki/53_equal_temperament) system maped
 onto the cello fingerboard.
-
 
 D Flat Major Pythagorean in a 53 edo system:
 ```scheme
@@ -80,38 +62,41 @@ D Flat Major Just in the same 53 edo system:
    (F6 m6p-e53-2))))
 ```
 
-# Motivations
-
-## Programmatic representation
-
-While going over my notes again in 2022 I realized that there were
-quite a bit of typos and mistakes in them. One advantage of using a
-programmatic representation is that the contents is checked in a
-systematic fashion, and while it is possible that there are bugs in
-the code, these defects can be flushed out and fixed overtime.
-
-## Comparison with the contents of CelloMind
-
-I was quite impressed by the book and wanted to understand which parts
-were new to me, and which were overlapping with information that I had
-already been able to gather from other sources.
-
-## Publishing the contents
-
-I figured that I would want sometimes to be able to refer to the
-contents of this repo, either for my personal use or in conversations
-with cellists or other musicians, as a quick online reference.
-
-# Roadmap
-
-I don't have a precise plan in mind at the moment, although there are
-some aspects that I haven't had a chance to integrate and would like
-to, such as showing precisely the accoustic intervals involved in
-double stops with the various systems.
-
-There are also some other systems that I'd like to incorporate, while
-making the contents more easily understandable by a larger audience.
-Please let me know if you have an interest for this repo.
+Example of positions and intervals in the E flat Major double stops
+scale in thirds from
+[systems/cello/just/thirds.ml](systems/cello/just/thirds.ml):
+```
+┌─────┬────────┬───────┬───────┬──────┬────────┬───────┬───────┬──────────────────┬───────┐
+│ Low │ String │ Pos   │ Cents │ High │ String │ Pos   │ Cents │ Interval         │ Cents │
+├─────┼────────┼───────┼───────┼──────┼────────┼───────┼───────┼──────────────────┼───────┤
+│ Eb2 │ IV     │ m3z   │ 316   │ G2   │ III    │ 0     │ 0     │ M3 - 5 / 2^2     │ 386   │
+│ F2  │ IV     │ 4p    │ 498   │ Ab2  │ III    │ m2z   │ 112   │ m3 - (2 * 3) / 5 │ 316   │
+│ G2  │ IV     │ 5p    │ 702   │ Bb2  │ III    │ m3z   │ 316   │ m3 - (2 * 3) / 5 │ 316   │
+│ Ab2 │ IV     │ m6z   │ 814   │ C3   │ III    │ 4p    │ 498   │ M3 - 5 / 2^2     │ 386   │
+│ Bb2 │ III    │ m3z   │ 316   │ D3   │ II     │ 0     │ 0     │ M3 - 5 / 2^2     │ 386   │
+│ C3  │ III    │ 4p    │ 498   │ Eb3  │ II     │ m2z   │ 112   │ m3 - (2 * 3) / 5 │ 316   │
+│ D3  │ III    │ 5p    │ 702   │ F3   │ II     │ m3z   │ 316   │ m3 - (2 * 3) / 5 │ 316   │
+│ Eb3 │ III    │ m6z   │ 814   │ G3   │ II     │ 4p    │ 498   │ M3 - 5 / 2^2     │ 386   │
+│ G3  │ II     │ 4p    │ 498   │ Bb3  │ I      │ m2z   │ 112   │ m3 - (2 * 3) / 5 │ 316   │
+│ Ab3 │ II     │ d5z   │ 610   │ C4   │ I      │ m3p   │ 294   │ M3 - 5 / 2^2     │ 386   │
+│ Bb3 │ II     │ m6z   │ 814   │ D4   │ I      │ 4p    │ 498   │ M3 - 5 / 2^2     │ 386   │
+│ C4  │ II     │ m7p   │ 996   │ Eb4  │ I      │ d5z   │ 610   │ m3 - (2 * 3) / 5 │ 316   │
+│ D4  │ II     │ 0-1   │ 1200  │ F4   │ I      │ m6z   │ 814   │ m3 - (2 * 3) / 5 │ 316   │
+│ Eb4 │ II     │ m2z-1 │ 1312  │ G4   │ I      │ m7p   │ 996   │ M3 - 5 / 2^2     │ 386   │
+│ F4  │ II     │ m3p-1 │ 1494  │ Ab4  │ I      │ d8z   │ 1108  │ m3 - (2 * 3) / 5 │ 316   │
+│ G4  │ II     │ 4p-1  │ 1698  │ Bb4  │ I      │ m2z-1 │ 1312  │ m3 - (2 * 3) / 5 │ 316   │
+│ Ab4 │ II     │ d5z-1 │ 1810  │ C5   │ I      │ m3p-1 │ 1494  │ M3 - 5 / 2^2     │ 386   │
+│ Bb4 │ II     │ m6z-1 │ 2014  │ D5   │ I      │ 4p-1  │ 1698  │ M3 - 5 / 2^2     │ 386   │
+│ C5  │ II     │ m7p-1 │ 2196  │ Eb5  │ I      │ d5z-1 │ 1810  │ m3 - (2 * 3) / 5 │ 316   │
+│ D5  │ II     │ 0-2   │ 2400  │ F5   │ I      │ m6z-1 │ 2014  │ m3 - (2 * 3) / 5 │ 316   │
+│ Eb5 │ II     │ m2z-2 │ 2512  │ G5   │ I      │ m7p-1 │ 2196  │ M3 - 5 / 2^2     │ 386   │
+│ F5  │ II     │ m3p-2 │ 2694  │ Ab5  │ I      │ d8z-1 │ 2308  │ m3 - (2 * 3) / 5 │ 316   │
+│ G5  │ II     │ 4p-2  │ 2898  │ Bb5  │ I      │ m2z-2 │ 2512  │ m3 - (2 * 3) / 5 │ 316   │
+│ Ab5 │ II     │ d5z-2 │ 3010  │ C6   │ I      │ m3p-2 │ 2694  │ M3 - 5 / 2^2     │ 386   │
+│ Bb5 │ II     │ m6z-2 │ 3214  │ D6   │ I      │ 4p-2  │ 2898  │ M3 - 5 / 2^2     │ 386   │
+│ C6  │ II     │ m7p-2 │ 3396  │ Eb6  │ I      │ d5z-2 │ 3010  │ m3 - (2 * 3) / 5 │ 316   │
+└─────┴────────┴───────┴───────┴──────┴────────┴───────┴───────┴──────────────────┴───────┘
+```
 
 # Code documentation
 
