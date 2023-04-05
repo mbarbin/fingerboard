@@ -5,8 +5,8 @@ let qualities number ~doubly_augmented =
   let open Interval.Quality in
   List.concat
     [ (if Interval.Number.accepts_minor_major_quality number
-      then [ Minor; Major ]
-      else [ Perfect ])
+       then [ Minor; Major ]
+       else [ Perfect ])
     ; [ Augmented; Diminished ]
     ; (if doubly_augmented then [ Doubly_augmented; Doubly_diminished ] else [])
     ]
@@ -99,7 +99,7 @@ let%expect_test "compute" =
       let shift_down = to_ |> Interval.shift_down interval in
       if not
            ([%equal: Note.t option] shift_up (Some to_)
-           && [%equal: Note.t option] shift_down (Some from))
+            && [%equal: Note.t option] shift_down (Some from))
       then
         raise_s
           [%sexp

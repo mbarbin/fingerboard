@@ -109,10 +109,10 @@ let to_string { number; quality; additional_octaves } =
     Number.equal number Unison && skip_quality && additional_octaves >= 1
   in
   (if additional_octaves = 1
-  then sprintf "P8%s" (if skip_unison then "" else " + ")
-  else if additional_octaves >= 2
-  then sprintf "%d P8%s" additional_octaves (if skip_unison then "" else " + ")
-  else "")
+   then sprintf "P8%s" (if skip_unison then "" else " + ")
+   else if additional_octaves >= 2
+   then sprintf "%d P8%s" additional_octaves (if skip_unison then "" else " + ")
+   else "")
   ^
   if skip_unison
   then ""
@@ -130,10 +130,10 @@ let name { number; quality; additional_octaves } =
     Number.equal number Unison && skip_quality && additional_octaves >= 1
   in
   (if additional_octaves = 1
-  then sprintf "octave%s" (if skip_unison then "" else " + ")
-  else if additional_octaves >= 2
-  then sprintf "%d octaves%s" additional_octaves (if skip_unison then "" else " + ")
-  else "")
+   then sprintf "octave%s" (if skip_unison then "" else " + ")
+   else if additional_octaves >= 2
+   then sprintf "%d octaves%s" additional_octaves (if skip_unison then "" else " + ")
+   else "")
   ^ (if skip_quality then "" else Quality.name quality ^ " ")
   ^ if skip_unison then "" else Number.name number
 ;;

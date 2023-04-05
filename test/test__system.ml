@@ -338,7 +338,7 @@ let%expect_test "reset-pitch" =
       (Roman_numeral.of_int_exn 1)
       ~pitch:
         (Frequency.of_float_exn 442.
-        |> Acoustic_interval.shift_down Acoustic_interval.octave));
+         |> Acoustic_interval.shift_down Acoustic_interval.octave));
   [%expect
     {|
      ((vibrating_strings                                                           ((vibrating_strings
