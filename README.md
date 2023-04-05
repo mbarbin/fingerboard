@@ -1,7 +1,7 @@
 # Fingerboard
 
-[![Actions Status](https://github.com/mbarbin/fingerboard/workflows/CI/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/ci.yml)
-[![Deploy odoc Actions Status](https://github.com/mbarbin/fingerboard/workflows/Deploy-odoc/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/deploy-odoc.yml)
+[![CI Status](https://github.com/mbarbin/fingerboard/workflows/ci/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/ci.yml)
+[![Deploy odoc Status](https://github.com/mbarbin/fingerboard/workflows/deploy-odoc/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/deploy-odoc.yml)
 
 This project is meant to help me reason about and build a "microtonal
 geography of the cello fingerboard".

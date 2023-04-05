@@ -1,2 +1,2 @@
-(lang dune 2.9)
+(lang dune 3.5)
 (name fingerboard)
