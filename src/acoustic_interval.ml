@@ -23,8 +23,6 @@ let to_string = function
   | Cents c -> sprintf "%0.2f cents" c
 ;;
 
-let log2 = Caml.Float.log2
-
 let to_cents = function
   | Zero -> 0.
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
@@ -33,7 +31,7 @@ let to_cents = function
     let { Natural_ratio.numerator; denominator } =
       Natural_ratio.Reduced.to_natural_ratio r
     in
-    1200. *. log2 (float_of_int numerator /. float_of_int denominator)
+    1200. *. Stdlib.Float.log2 (float_of_int numerator /. float_of_int denominator)
   | Octaves { number_of_octaves } -> 1200 * number_of_octaves |> float_of_int
   | Cents x -> x
 ;;
@@ -236,7 +234,7 @@ let just_major_sixth = 5 // 3
 
 let shift_up t frequency =
   let of_cents cents =
-    Frequency.to_float frequency *. Caml.Float.exp2 (cents /. 1200.)
+    Frequency.to_float frequency *. Stdlib.Float.exp2 (cents /. 1200.)
     |> Frequency.of_float_exn
   in
   let of_natural_ratio { Natural_ratio.numerator; denominator } =
@@ -255,7 +253,7 @@ let shift_up t frequency =
 
 let shift_down t frequency =
   let of_cents cents =
-    Frequency.to_float frequency /. Caml.Float.exp2 (cents /. 1200.)
+    Frequency.to_float frequency /. Stdlib.Float.exp2 (cents /. 1200.)
     |> Frequency.of_float_exn
   in
   let of_natural_ratio { Natural_ratio.numerator; denominator } =
