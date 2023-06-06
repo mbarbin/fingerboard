@@ -11,7 +11,6 @@ depends: [
   "ocaml" {>= "4.14"}
   "dune" {>= "3.5"}
   "core" {>= "v0.15"}
-  "core_unix" {>= "v0.15"}
   "ppx_jane" {>= "v0.15"}
   "sexp_diff" {>= "v0.15"}
   "textutils" {>= "v0.15"}
