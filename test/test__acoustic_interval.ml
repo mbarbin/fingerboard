@@ -7,6 +7,8 @@ let%expect_test "first comparison" =
       | Equal_temperament
       | Just
       | Pythagorean
+      | E53
+      | E55
     [@@deriving enumerate, sexp_of]
   end
   in
@@ -31,6 +33,7 @@ let%expect_test "first comparison" =
        | Second ->
          (match t.interval.quality with
           | Minor -> Acoustic_interval.just_diatonic_semiton
+          | Major -> Acoustic_interval.just_major_ton
           | _ -> unimplemented [%here])
        | Third ->
          (match t.interval.quality with
@@ -43,6 +46,66 @@ let%expect_test "first comparison" =
           | Major -> Acoustic_interval.just_major_sixth
           | _ -> unimplemented [%here])
        | _ -> unimplemented [%here])
+    | E53 ->
+      let number_of_divisions =
+        match t.interval.number with
+        | Octave ->
+          assert (Interval.Quality.equal t.interval.quality Perfect);
+          53
+        | Fifth ->
+          assert (Interval.Quality.equal t.interval.quality Perfect);
+          31
+        | Fourth ->
+          assert (Interval.Quality.equal t.interval.quality Perfect);
+          22
+        | Second ->
+          (match t.interval.quality with
+           | Minor -> 5
+           | Major -> 9
+           | _ -> unimplemented [%here])
+        | Third ->
+          (match t.interval.quality with
+           | Minor -> 14
+           | Major -> 17
+           | _ -> unimplemented [%here])
+        | Sixth ->
+          (match t.interval.quality with
+           | Minor -> 36
+           | Major -> 39
+           | _ -> unimplemented [%here])
+        | _ -> unimplemented [%here]
+      in
+      Acoustic_interval.equal_division_of_the_octave ~divisor:53 ~number_of_divisions
+    | E55 ->
+      let number_of_divisions =
+        match t.interval.number with
+        | Octave ->
+          assert (Interval.Quality.equal t.interval.quality Perfect);
+          55
+        | Fifth ->
+          assert (Interval.Quality.equal t.interval.quality Perfect);
+          32
+        | Fourth ->
+          assert (Interval.Quality.equal t.interval.quality Perfect);
+          23
+        | Second ->
+          (match t.interval.quality with
+           | Minor -> 5
+           | Major -> 9
+           | _ -> unimplemented [%here])
+        | Third ->
+          (match t.interval.quality with
+           | Minor -> 14
+           | Major -> 18
+           | _ -> unimplemented [%here])
+        | Sixth ->
+          (match t.interval.quality with
+           | Minor -> 37
+           | Major -> 41
+           | _ -> unimplemented [%here])
+        | _ -> unimplemented [%here]
+      in
+      Acoustic_interval.equal_division_of_the_octave ~divisor:55 ~number_of_divisions
   in
   let columns =
     let cents_column kind =
@@ -83,6 +146,8 @@ let%expect_test "first comparison" =
         }
       ; { interval = { Interval.number = Third; quality = Minor; additional_octaves = 0 }
         }
+      ; { interval = { Interval.number = Second; quality = Major; additional_octaves = 0 }
+        }
       ; { interval = { Interval.number = Second; quality = Minor; additional_octaves = 0 }
         }
       ]
@@ -90,18 +155,19 @@ let%expect_test "first comparison" =
   Ascii_table.to_string columns rows |> print_endline;
   [%expect
     {|
-    ┌──────────────┬───────────────────┬──────┬─────────────┐
-    │ Interval     │ Equal_temperament │ Just │ Pythagorean │
-    ├──────────────┼───────────────────┼──────┼─────────────┤
-    │ Octave       │              1200 │ 1200 │        1200 │
-    │ Major sixth  │               900 │  884 │         906 │
-    │ Minor sixth  │               800 │  814 │         792 │
-    │ Fifth        │               700 │  702 │         702 │
-    │ Fourth       │               500 │  498 │         498 │
-    │ Major third  │               400 │  386 │         408 │
-    │ Minor third  │               300 │  316 │         294 │
-    │ Minor second │               100 │  112 │          90 │
-    └──────────────┴───────────────────┴──────┴─────────────┘ |}]
+    ┌──────────────┬───────────────────┬──────┬─────────────┬──────┬──────┐
+    │ Interval     │ Equal_temperament │ Just │ Pythagorean │  E53 │  E55 │
+    ├──────────────┼───────────────────┼──────┼─────────────┼──────┼──────┤
+    │ Octave       │              1200 │ 1200 │        1200 │ 1200 │ 1200 │
+    │ Major sixth  │               900 │  884 │         906 │  883 │  895 │
+    │ Minor sixth  │               800 │  814 │         792 │  815 │  807 │
+    │ Fifth        │               700 │  702 │         702 │  702 │  698 │
+    │ Fourth       │               500 │  498 │         498 │  498 │  502 │
+    │ Major third  │               400 │  386 │         408 │  385 │  393 │
+    │ Minor third  │               300 │  316 │         294 │  317 │  305 │
+    │ Major second │               200 │  204 │         204 │  204 │  196 │
+    │ Minor second │               100 │  112 │          90 │  113 │  109 │
+    └──────────────┴───────────────────┴──────┴─────────────┴──────┴──────┘ |}]
 ;;
 
 let%expect_test "harmonic series and cents" =
