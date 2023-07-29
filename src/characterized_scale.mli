@@ -12,3 +12,4 @@ val major_pythagorean : t
 val major_just_e53 : t
 val major_pythagorean_e53 : t
 val major_e12 : t
+val major_e55 : t

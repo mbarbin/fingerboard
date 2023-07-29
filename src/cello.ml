@@ -1,6 +1,12 @@
 open! Core
 
 module Fingerboard_position_name = struct
+  module type S = sig
+    type t [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+    val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+  end
+
   module Edo12 = struct
     type t =
       [ `m2e
@@ -96,6 +102,59 @@ module Fingerboard_position_name = struct
         | `P8z_e53 -> 52
       in
       Acoustic_interval.equal_division_of_the_octave ~divisor:53 ~number_of_divisions
+    ;;
+  end
+
+  module Edo55 = struct
+    type t =
+      [ `A1_e55
+      | `m2_e55
+      | `M2_e55
+      | `d3_e55
+      | `A2_e55
+      | `m3_e55
+      | `M3_e55
+      | `d4_e55
+      | `P4_e55
+      | `A4_e55
+      | `d5_e55
+      | `P5_e55
+      | `A5_e55
+      | `m6_e55
+      | `M6_e55
+      | `d7_e55
+      | `m7_e55
+      | `M7_e55
+      | `d8_e55
+      ]
+    [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+    let sexp_of_t t = Sexp_to_string.position sexp_of_t t
+
+    let acoustic_interval_to_the_open_string (t : t) =
+      let number_of_divisions =
+        match (t : t) with
+        | `A1_e55 -> 4
+        | `m2_e55 -> 5
+        | `M2_e55 -> 9
+        | `d3_e55 -> 10
+        | `A2_e55 -> 13
+        | `m3_e55 -> 14
+        | `M3_e55 -> 18
+        | `d4_e55 -> 19
+        | `P4_e55 -> 23
+        | `A4_e55 -> 27
+        | `d5_e55 -> 28
+        | `P5_e55 -> 32
+        | `A5_e55 -> 36
+        | `m6_e55 -> 37
+        | `M6_e55 -> 41
+        | `d7_e55 -> 42
+        | `m7_e55 -> 46
+        | `M7_e55 -> 50
+        | `d8_e55 -> 51
+      in
+      Acoustic_interval.equal_division_of_the_octave ~divisor:55 ~number_of_divisions
     ;;
   end
 
@@ -262,6 +321,7 @@ module Fingerboard_position_name = struct
     [ `open_string
     | Edo12.t
     | Edo53.t
+    | Edo55.t
     | Pythagorean.t
     | Just.t
     ]
@@ -271,6 +331,7 @@ module Fingerboard_position_name = struct
     | `open_string -> Atom "0"
     | #Edo12.t as t -> [%sexp (t : Edo12.t)]
     | #Edo53.t as t -> [%sexp (t : Edo53.t)]
+    | #Edo55.t as t -> [%sexp (t : Edo55.t)]
     | #Pythagorean.t as t -> [%sexp (t : Pythagorean.t)]
     | #Just.t as t -> [%sexp (t : Just.t)]
   ;;
@@ -279,6 +340,7 @@ module Fingerboard_position_name = struct
     | `open_string -> Acoustic_interval.unison
     | #Edo12.t as t -> t |> Edo12.acoustic_interval_to_the_open_string
     | #Edo53.t as t -> t |> Edo53.acoustic_interval_to_the_open_string
+    | #Edo55.t as t -> t |> Edo55.acoustic_interval_to_the_open_string
     | #Pythagorean.t as t -> t |> Pythagorean.acoustic_interval_to_the_open_string
     | #Just.t as t -> t |> Just.acoustic_interval_to_the_open_string
   ;;

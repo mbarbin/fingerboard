@@ -3,6 +3,12 @@ open! Core
 (** A number of utils applicable to the applications of the library to the cello. *)
 
 module Fingerboard_position_name : sig
+  module type S = sig
+    type t [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+    val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+  end
+
   module Edo12 : sig
     type t =
       [ `m2e
@@ -51,6 +57,32 @@ module Fingerboard_position_name : sig
     [@@deriving compare, equal, enumerate, hash, sexp_of]
 
     val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+  end
+
+  module Edo55 : sig
+    type t =
+      [ `A1_e55
+      | `m2_e55
+      | `M2_e55
+      | `d3_e55
+      | `A2_e55
+      | `m3_e55
+      | `M3_e55
+      | `d4_e55
+      | `P4_e55
+      | `A4_e55
+      | `d5_e55
+      | `P5_e55
+      | `A5_e55
+      | `m6_e55
+      | `M6_e55
+      | `d7_e55
+      | `m7_e55
+      | `M7_e55
+      | `d8_e55
+      ]
+
+    include S with type t := t
   end
 
   module Pythagorean : sig
@@ -113,6 +145,7 @@ module Fingerboard_position_name : sig
     [ `open_string
     | Edo12.t
     | Edo53.t
+    | Edo55.t
     | Pythagorean.t
     | Just.t
     ]
