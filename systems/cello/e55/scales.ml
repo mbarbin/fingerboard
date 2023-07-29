@@ -33,6 +33,34 @@ let%expect_test "c_major" =
   ()
 ;;
 
+let lower_c_sharp =
+  let t = force E55.t in
+  { Located_note.note = { letter_name = C; symbol = Sharp; octave_designation = 2 }
+  ; fingerboard_location =
+      { fingerboard_position = Cello.find_fingerboard_position_exn t `A1_e55
+      ; string_number = IV
+      }
+  }
+;;
+
+let%expect_test "c_sharp_major" =
+  let scale = make_major_scale ~from:lower_c_sharp in
+  print_s [%sexp (List.length scale : int)];
+  [%expect {| 31 |}];
+  print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
+  [%expect
+    {|
+    ((IV ((C#2 A1-e55) (D#2 A2-e55) (E#2 A3-e55) (F#2 A4-e55)))
+     (III ((G#2 A1-e55) (A#2 A2-e55) (B#2 A3-e55) (C#3 A4-e55)))
+     (II ((D#3 A1-e55) (E#3 A2-e55) (F#3 M3-e55) (G#3 A4-e55)))
+     (I
+      ((A#3 A1-e55) (B#3 A2-e55) (C#4 M3-e55) (D#4 A4-e55) (E#4 A5-e55)
+       (F#4 M6-e55) (G#4 M7-e55) (A#4 A1-e55-1) (B#4 A2-e55-1) (C#5 M3-e55-1)
+       (D#5 A4-e55-1) (E#5 A5-e55-1) (F#5 M6-e55-1) (G#5 M7-e55-1) (A#5 A1-e55-2)
+       (B#5 A2-e55-2) (C#6 M3-e55-2) (D#6 A4-e55-2) (E#6 A5-e55-2)))) |}];
+  ()
+;;
+
 let lower_d_flat =
   let t = force E55.t in
   { Located_note.note = { letter_name = D; symbol = Flat; octave_designation = 2 }

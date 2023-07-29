@@ -69,6 +69,7 @@ module Fingerboard_position_name : sig
       | `m3_e55
       | `M3_e55
       | `d4_e55
+      | `A3_e55
       | `P4_e55
       | `A4_e55
       | `d5_e55
