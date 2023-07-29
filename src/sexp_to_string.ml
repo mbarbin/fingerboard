@@ -9,8 +9,8 @@ let atom_to_name t sexp_of_t =
   atom
   |> String.uncapitalize
   |> String.map ~f:(function
-       | '_' -> ' '
-       | c -> c)
+    | '_' -> ' '
+    | c -> c)
 ;;
 
 let position sexp_of_t t =

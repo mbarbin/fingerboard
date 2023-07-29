@@ -32,7 +32,7 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
             ~align:Right
             "String"
             (fun (_, { Vibrating_string.open_string = _; pitch = _; roman_numeral }) ->
-            [], Roman_numeral.to_string roman_numeral)
+              [], Roman_numeral.to_string roman_numeral)
         ; create_attr "Note" (fun (_, (t : Vibrating_string.t)) ->
             [], Note.to_string t.open_string)
         ; create_attr ~align:Right "Pitch" (fun (_, (t : Vibrating_string.t)) ->
@@ -80,16 +80,17 @@ let create ~high_vibrating_string ~pitch ~intervals_going_down =
       intervals_going_down
       ~init:high_vibrating_string
       ~f:(fun previous_string { Characterized_interval.interval; acoustic_interval } ->
-      let v =
-        { Vibrating_string.open_string =
-            previous_string.open_string
-            |> Interval.shift_down interval
-            |> Option.value_exn ~here:[%here]
-        ; pitch = previous_string.pitch |> Acoustic_interval.shift_down acoustic_interval
-        ; roman_numeral = Roman_numeral.succ_exn previous_string.roman_numeral
-        }
-      in
-      v, v)
+        let v =
+          { Vibrating_string.open_string =
+              previous_string.open_string
+              |> Interval.shift_down interval
+              |> Option.value_exn ~here:[%here]
+          ; pitch =
+              previous_string.pitch |> Acoustic_interval.shift_down acoustic_interval
+          ; roman_numeral = Roman_numeral.succ_exn previous_string.roman_numeral
+          }
+        in
+        v, v)
     |> snd
   in
   { vibrating_strings = Array.concat [ [| high_vibrating_string |]; other_strings ]

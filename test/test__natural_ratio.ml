@@ -55,14 +55,14 @@ let%expect_test "reduce" =
   ; 4900 // 5634
   ]
   |> List.iter ~f:(fun (a, b) ->
-       let natural_ratio = Natural_ratio.create_exn ~numerator:a ~denominator:b in
-       let reduced =
-         Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:a ~denominator:b
-       in
-       print_s
-         [%sexp
-           (Natural_ratio.to_string natural_ratio : string)
-           , (Natural_ratio.Reduced.to_string reduced : string)]);
+    let natural_ratio = Natural_ratio.create_exn ~numerator:a ~denominator:b in
+    let reduced =
+      Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:a ~denominator:b
+    in
+    print_s
+      [%sexp
+        (Natural_ratio.to_string natural_ratio : string)
+        , (Natural_ratio.Reduced.to_string reduced : string)]);
   [%expect
     {|
     ("9 / 8" "3^2 / 2^3")

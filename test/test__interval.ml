@@ -36,23 +36,23 @@ let%expect_test "sort" =
     Hashtbl.to_alist table
     |> List.sort ~compare:(fun (i, _) (j, _) -> Int.compare i j)
     |> List.map ~f:(fun (i, queue) ->
-         let intervals = Queue.to_list queue |> List.sort ~compare:Interval.compare in
-         let canonical_interval =
-           List.map intervals ~f:(fun t ->
-             let priority =
-               match t.quality with
-               | Perfect | Minor | Major -> 0
-               | Augmented -> 1
-               | Diminished -> 2
-               | Doubly_augmented -> 3
-               | Doubly_diminished -> 4
-             in
-             priority, t)
-           |> List.sort ~compare:(fun (i, _) (j, _) -> Int.compare i j)
-           |> List.map ~f:snd
-           |> List.hd_exn
-         in
-         i, canonical_interval, intervals)
+      let intervals = Queue.to_list queue |> List.sort ~compare:Interval.compare in
+      let canonical_interval =
+        List.map intervals ~f:(fun t ->
+          let priority =
+            match t.quality with
+            | Perfect | Minor | Major -> 0
+            | Augmented -> 1
+            | Diminished -> 2
+            | Doubly_augmented -> 3
+            | Doubly_diminished -> 4
+          in
+          priority, t)
+        |> List.sort ~compare:(fun (i, _) (j, _) -> Int.compare i j)
+        |> List.map ~f:snd
+        |> List.hd_exn
+      in
+      i, canonical_interval, intervals)
   in
   List.iter ts ~f:(fun (i, canonical_interval, intervals) ->
     let intervals = List.map intervals ~f:Interval.to_string in
@@ -118,11 +118,11 @@ let%expect_test "compute" =
   let results =
     Hashtbl.to_alist table
     |> List.map ~f:(fun (interval, queue) ->
-         let number_of_semitons = Interval.number_of_semitons interval in
-         number_of_semitons, interval, Queue.to_list queue)
+      let number_of_semitons = Interval.number_of_semitons interval in
+      number_of_semitons, interval, Queue.to_list queue)
     |> List.sort ~compare:(fun (i, a, _) (j, b, _) ->
-         let c = Int.compare i j in
-         if c <> 0 then c else Interval.compare a b)
+      let c = Int.compare i j in
+      if c <> 0 then c else Interval.compare a b)
   in
   List.iter results ~f:(fun (number_of_semitons, interval, intervals) ->
     let intervals =

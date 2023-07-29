@@ -25,10 +25,9 @@ let to_scale_abbrev ts =
          t1.fingerboard_location.string_number
          t2.fingerboard_location.string_number))
   |> List.map ~f:(fun ts ->
-       let string_number = (List.hd_exn ts).fingerboard_location.string_number in
-       ( string_number
-       , List.map ts ~f:(fun t ->
-           ( Note.to_string t.note
-           , Fingerboard_position.to_string t.fingerboard_location.fingerboard_position ))
-       ))
+    let string_number = (List.hd_exn ts).fingerboard_location.string_number in
+    ( string_number
+    , List.map ts ~f:(fun t ->
+        ( Note.to_string t.note
+        , Fingerboard_position.to_string t.fingerboard_location.fingerboard_position )) ))
 ;;
