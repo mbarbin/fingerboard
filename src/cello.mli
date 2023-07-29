@@ -23,9 +23,8 @@ module Fingerboard_position_name : sig
       | `m7e
       | `M7e
       ]
-    [@@deriving compare, equal, enumerate, hash, sexp_of]
 
-    val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+    include S with type t := t
   end
 
   module Edo53 : sig
@@ -54,9 +53,8 @@ module Fingerboard_position_name : sig
       | `M7p_e53
       | `P8z_e53
       ]
-    [@@deriving compare, equal, enumerate, hash, sexp_of]
 
-    val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+    include S with type t := t
   end
 
   module Edo55 : sig
@@ -111,9 +109,8 @@ module Fingerboard_position_name : sig
       | `d8p
       | `M7p
       ]
-    [@@deriving compare, equal, enumerate, hash, sexp_of]
 
-    val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+    include S with type t := t
   end
 
   module Just : sig
@@ -137,9 +134,8 @@ module Fingerboard_position_name : sig
       | `d8z
       | `P8z
       ]
-    [@@deriving compare, equal, enumerate, hash, sexp_of]
 
-    val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
+    include S with type t := t
   end
 
   type t =
@@ -150,10 +146,10 @@ module Fingerboard_position_name : sig
     | Pythagorean.t
     | Just.t
     ]
-  [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+  include S with type t := t
 
   val to_string : t -> string
-  val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
 end
 
 (** Create a system with 4 strings tuned in fifth and initialize the open_string
