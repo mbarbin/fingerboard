@@ -2,9 +2,9 @@ open! Core
 open! Fingerboard
 
 let test_pitch_exn ~system ~(intervals_going_down : Characterized_interval.t array) =
-  (* We test that the pitch is the same for the open string and the
-     position on the next vibrating string at the position of the
-     interval between the two vibrating strings. *)
+  (* We test that the pitch is the same for the open string and the position on
+     the next vibrating string at the position of the interval between the two
+     vibrating strings. *)
   for i = 1 to Array.length intervals_going_down do
     let high = Roman_numeral.of_int_exn i in
     let low = Roman_numeral.succ_exn high in
@@ -154,7 +154,7 @@ let%expect_test "4-strings cello" =
   ()
 ;;
 
-let%expect_test "picollo cello" =
+let%expect_test "piccolo cello" =
   let e = { Note.letter_name = E; symbol = Natural; octave_designation = 4 } in
   let pitch =
     Frequency.a4_440

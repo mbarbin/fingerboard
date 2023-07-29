@@ -33,7 +33,7 @@ Just Scale on a cello tuned in perfect fifth:
 Another example from file [systems/cello/e53/scales.ml](systems/cello/e53/scales.ml) explores the
 difference between the scales of D Flat Major Pythagorean and its Just
 counterpart, approximated in a [53
-edo](https://en.wikipedia.org/wiki/53_equal_temperament) system maped
+edo](https://en.wikipedia.org/wiki/53_equal_temperament) system mapped
 onto the cello fingerboard.
 
 D Flat Major Pythagorean in a 53 edo system:

@@ -36,7 +36,7 @@ val acoustic_interval
 
    - the locations on the same string at higher octaves. By default, 3
    locations on the strings are added, on 3 octaves. This may be
-   controled by the [on_n_octaves] parameter.
+   controlled by the [on_n_octaves] parameter.
 
    The position's name must be unique within a system, that is a
    fingerboard position with the same name must not have been
@@ -50,7 +50,7 @@ val add_fingerboard_position_exn
   -> Fingerboard_position.t
   -> unit
 
-(** Returns the list of fingerboard_positions known by this system, retuned in the
+(** Returns the list of fingerboard_positions known by this system, returned in the
    order they are found going up the fingerboard starting from the
    open string. *)
 val fingerboard_positions : t -> Fingerboard_position.t list
@@ -109,7 +109,7 @@ module Double_stops : sig
       }
   end
 
-  val ajust : system -> tonic:Note.t -> adjustment:Adjustment.t -> t -> t
+  val adjust : system -> tonic:Note.t -> adjustment:Adjustment.t -> t -> t
 
   val make_scale
     :  ?adjustment:Adjustment.t

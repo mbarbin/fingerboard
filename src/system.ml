@@ -424,7 +424,7 @@ module Double_stops = struct
     end
   end
 
-  let ajust (system : system) ~tonic ~adjustment:{ Adjustment.from; to_ } (t : t) =
+  let adjust (system : system) ~tonic ~adjustment:{ Adjustment.from; to_ } (t : t) =
     List.map t ~f:(fun ({ Double_stop.low_note; high_note } as double_stop) ->
       let actual_interval =
         acoustic_interval
@@ -531,6 +531,6 @@ module Double_stops = struct
     in
     match adjustment with
     | None -> double_stops
-    | Some adjustment -> ajust t ~tonic:from.note ~adjustment double_stops
+    | Some adjustment -> adjust t ~tonic:from.note ~adjustment double_stops
   ;;
 end

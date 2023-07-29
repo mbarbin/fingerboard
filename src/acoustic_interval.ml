@@ -16,7 +16,7 @@ type t =
 let to_string = function
   | Zero -> "unison"
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
-    sprintf "%d-%dedo" number_of_divisions divisor
+    sprintf "%d-%d%s" number_of_divisions divisor "edo"
   | Reduced_natural_ratio nr -> Natural_ratio.Reduced.to_string nr
   | Octaves { number_of_octaves } ->
     sprintf "%d octave%s" number_of_octaves (if number_of_octaves = 1 then "" else "s")
