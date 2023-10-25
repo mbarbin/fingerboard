@@ -9,7 +9,7 @@ doc: "https://github.com/mbarbin/fingerboard"
 bug-reports: "https://github.com/mbarbin/fingerboard/issues"
 depends: [
   "ocaml" {>= "5.0"}
-  "dune" {>= "3.5"}
+  "dune" {>= "3.11"}
   "core" {>= "v0.16" & < "v0.17"}
   "ppx_jane" {>= "v0.16" & < "v0.17"}
   "sexp_diff" {>= "v0.16" & < "v0.17"}
