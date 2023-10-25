@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t =
   { low_note : Located_note.t

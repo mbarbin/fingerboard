@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 (** Manipulating small integers displayed as roman numerals. By convention,
     roman numerals are used to designate the vibrating strings of the

@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t =
   { fingerboard_position : Fingerboard_position.t

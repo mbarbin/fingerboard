@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 let atom_to_name t sexp_of_t =
   let atom =

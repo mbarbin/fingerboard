@@ -1,4 +1,5 @@
-open! Core
+open! Base
+open! Stdio
 open! Fingerboard
 
 let test_pitch_exn ~system ~(intervals_going_down : Characterized_interval.t array) =

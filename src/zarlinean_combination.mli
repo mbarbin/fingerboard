@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 (** When playing a just major scale in double stops of thirds or sixths, each
     pair of notes is expected to form a just interval. Assuming one note is

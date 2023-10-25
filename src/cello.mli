@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 (** A number of utils applicable to the applications of the library to the cello. *)
 

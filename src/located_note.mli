@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 (** A note played at a given location within a system. *)
 

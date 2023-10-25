@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t =
   { numerator : int
@@ -17,7 +17,7 @@ let equal { numerator = n1; denominator = d1 } { numerator = n2; denominator = d
 ;;
 
 let to_string { numerator = a; denominator = b } =
-  if b = 1 then sprintf "%d" a else sprintf "%d / %d" a b
+  if b = 1 then Printf.sprintf "%d" a else Printf.sprintf "%d / %d" a b
 ;;
 
 let inverse { numerator = a; denominator = b } = { numerator = b; denominator = a }
@@ -67,7 +67,9 @@ module Reduced = struct
     [@@deriving equal, sexp_of]
 
     let to_string { prime; exponent } =
-      if exponent = 1 then sprintf "%d" prime else sprintf "%d^%d" prime exponent
+      if exponent = 1
+      then Printf.sprintf "%d" prime
+      else Printf.sprintf "%d^%d" prime exponent
     ;;
 
     let inverse { prime; exponent = e } = { prime; exponent = -1 * e }
@@ -93,7 +95,7 @@ module Reduced = struct
       in
       if List.is_empty denominator
       then ones numerator
-      else sprintf "%s / %s" (ones numerator) (ones denominator))
+      else Printf.sprintf "%s / %s" (ones numerator) (ones denominator))
   ;;
 
   let create_exn ~prime ~exponent =
@@ -108,7 +110,7 @@ module Reduced = struct
 
   let power n i =
     assert (i > 0);
-    let rec aux acc i = if i = 0 then acc else aux (acc * n) (pred i) in
+    let rec aux acc i = if i = 0 then acc else aux (acc * n) (Int.pred i) in
     aux 1 i
   ;;
 
@@ -160,7 +162,7 @@ module Reduced = struct
         then return acc
         else (
           let%bind prime =
-            match Set.find primes_to_100 ~f:(fun prime -> i mod prime = 0) with
+            match Set.find primes_to_100 ~f:(fun prime -> i % prime = 0) with
             | Some _ as some -> some
             | None -> if i < 10_000 then Some i else None
           in

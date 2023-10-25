@@ -1,4 +1,5 @@
-open! Core
+open! Base
+open! Stdio
 open! Fingerboard
 
 let%expect_test "natural_ratio" =

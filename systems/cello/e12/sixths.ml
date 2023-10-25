@@ -1,6 +1,5 @@
-open! Core
-open! Fingerboard
-open! Core
+open! Base
+open! Stdio
 open! Fingerboard
 
 let make_major_scale ~from =

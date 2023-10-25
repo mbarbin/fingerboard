@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t = { consecutive_intervals : Interval.t array }
 
@@ -12,7 +12,7 @@ let fold_map_opt t ~init ~f =
     then (
       match f t.(i) acc with
       | None -> ()
-      | Some acc -> aux acc (succ i))
+      | Some acc -> aux acc (Int.succ i))
   in
   aux init 0;
   Queue.to_array queue

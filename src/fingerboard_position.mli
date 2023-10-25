@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 (** A position is a fingerboard location that is not characterized by any
     string, but rather designated that position that is available on all

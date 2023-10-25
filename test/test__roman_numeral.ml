@@ -1,4 +1,4 @@
-open! Core
+open! Base
 open! Fingerboard
 
 let%expect_test "round-trip" =

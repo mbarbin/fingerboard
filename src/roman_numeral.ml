@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t =
   | I
@@ -34,4 +34,4 @@ let of_int_exn = function
 ;;
 
 let one = I
-let succ_exn t = of_int_exn (succ (to_int t))
+let succ_exn t = of_int_exn (Int.succ (to_int t))

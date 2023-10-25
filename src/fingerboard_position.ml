@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t =
   { name : string
@@ -8,11 +8,14 @@ type t =
 [@@deriving compare, equal, hash, sexp_of]
 
 let name t = t.name
-let to_string t = if t.at_octave = 0 then t.name else sprintf "%s-%d" t.name t.at_octave
+
+let to_string t =
+  if t.at_octave = 0 then t.name else Printf.sprintf "%s-%d" t.name t.at_octave
+;;
 
 let acoustic_interval_to_the_open_string t =
   t.basis_acoustic_interval_to_the_open_string
-  :: List.init t.at_octave ~f:(const Acoustic_interval.octave)
+  :: List.init t.at_octave ~f:(Fn.const Acoustic_interval.octave)
   |> List.reduce ~f:Acoustic_interval.add
   |> Option.value ~default:Acoustic_interval.unison
 ;;

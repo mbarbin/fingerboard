@@ -1,4 +1,5 @@
-open! Core
+open! Base
+open! Stdio
 open! Fingerboard
 
 let%expect_test "first comparison" =
@@ -437,7 +438,9 @@ let%expect_test "ratios" =
           let ref_cents = t.acoustic_interval |> Acoustic_interval.to_cents in
           let diff = cents -. ref_cents in
           let sign = if Float.compare diff 0. >= 0 then "+" else "" in
-          [], sprintf "%d (%s%0.3f)" (Float.iround_exn ~dir:`Nearest cents) sign diff)
+          ( []
+          , Printf.sprintf "%d (%s%0.3f)" (Float.iround_exn ~dir:`Nearest cents) sign diff
+          ))
       ]
   in
   let rows =

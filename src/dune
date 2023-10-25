@@ -2,6 +2,6 @@
  (name fingerboard)
  (public_name fingerboard)
  (flags -w +a-4-40-41-42-44-66 -warn-error +a)
- (libraries core textutils.ascii_table)
+ (libraries base textutils.ascii_table)
  (preprocess
   (pps ppx_jane)))

@@ -2,13 +2,14 @@
  (name fingerboard_test)
  (flags -w +a-4-40-41-42-44-66 -warn-error +a)
  (libraries
-  core
+  base
   fingerboard
   fingerboard_cello_system_e12
   fingerboard_cello_system_e53
   fingerboard_cello_system_just
   fingerboard_cello_system_pythagorean
   sexp_diff
+  stdio
   textutils.ascii_table)
  (inline_tests)
  (preprocess

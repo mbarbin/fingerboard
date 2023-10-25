@@ -1,4 +1,5 @@
-open! Core
+open! Base
+open! Stdio
 open! Fingerboard
 
 let fingerboard_positions =
@@ -23,7 +24,7 @@ let%expect_test "positions and cents" =
           ( []
           , t.acoustic_interval_to_the_open_string
             |> Acoustic_interval.to_cents
-            |> sprintf "%0.2f" ))
+            |> Printf.sprintf "%0.2f" ))
       ]
   in
   let rows =

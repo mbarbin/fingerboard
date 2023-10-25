@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 module Fingerboard_position_name = struct
   module type S = sig

@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 module Letter_name = struct
   type t =

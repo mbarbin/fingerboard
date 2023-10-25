@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 (** *)
 
@@ -16,23 +16,26 @@ type t =
 let to_string = function
   | Zero -> "unison"
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
-    sprintf "%d-%d%s" number_of_divisions divisor "edo"
+    Printf.sprintf "%d-%d%s" number_of_divisions divisor "edo"
   | Reduced_natural_ratio nr -> Natural_ratio.Reduced.to_string nr
   | Octaves { number_of_octaves } ->
-    sprintf "%d octave%s" number_of_octaves (if number_of_octaves = 1 then "" else "s")
-  | Cents c -> sprintf "%0.2f cents" c
+    Printf.sprintf
+      "%d octave%s"
+      number_of_octaves
+      (if number_of_octaves = 1 then "" else "s")
+  | Cents c -> Printf.sprintf "%0.2f cents" c
 ;;
 
 let to_cents = function
   | Zero -> 0.
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
-    1200. /. float_of_int divisor *. float_of_int number_of_divisions
+    1200. /. Float.of_int divisor *. Float.of_int number_of_divisions
   | Reduced_natural_ratio r ->
     let { Natural_ratio.numerator; denominator } =
       Natural_ratio.Reduced.to_natural_ratio r
     in
-    1200. *. Stdlib.Float.log2 (float_of_int numerator /. float_of_int denominator)
-  | Octaves { number_of_octaves } -> 1200 * number_of_octaves |> float_of_int
+    1200. *. Stdlib.Float.log2 (Float.of_int numerator /. Float.of_int denominator)
+  | Octaves { number_of_octaves } -> 1200 * number_of_octaves |> Float.of_int
   | Cents x -> x
 ;;
 
@@ -202,10 +205,12 @@ let pythagorean (interval : Interval.t) =
     let chromatic = chromatic + chromatic_shift in
     chromatic, diatonic
   in
-  [ List.init interval.additional_octaves ~f:(const octave)
-  ; List.init (min chromatic diatonic) ~f:(const (Reduced_natural_ratio pythagorean_ton))
-  ; List.init (max 0 (chromatic - diatonic)) ~f:(const pythagorean_chromatic_semiton)
-  ; List.init (max 0 (diatonic - chromatic)) ~f:(const pythagorean_diatonic_semiton)
+  [ List.init interval.additional_octaves ~f:(Fn.const octave)
+  ; List.init
+      (min chromatic diatonic)
+      ~f:(Fn.const (Reduced_natural_ratio pythagorean_ton))
+  ; List.init (max 0 (chromatic - diatonic)) ~f:(Fn.const pythagorean_chromatic_semiton)
+  ; List.init (max 0 (diatonic - chromatic)) ~f:(Fn.const pythagorean_diatonic_semiton)
   ]
   |> List.concat
   |> compound

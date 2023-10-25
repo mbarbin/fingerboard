@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 module Degree_kind = struct
   type t =
@@ -40,27 +40,28 @@ end
 let compare t1 t2 = For_comparison.(compare (of_t t1) (of_t t2))
 
 let check t =
-  with_return (fun { return } ->
+  With_return.with_return (fun { return } ->
     let len = Array.length t in
-    if len <> 7 then return (error_s [%sexp "unexpected length", [%here], (t : t)]);
+    if len <> 7
+    then return (Or_error.error_s [%sexp "unexpected length", [%here], (t : t)]);
     for i = 0 to 6 do
       if Degree_kind.count t.(i) < 1
       then
         return
-          (error_s
+          (Or_error.error_s
              [%sexp "unexpected degree", [%here], { i : int }, (t.(i) : Degree_kind.t)])
     done;
     if Array.count t ~f:(fun d -> Degree_kind.count d > 1) > 1
-    then return (error_s [%sexp "too many changing degrees", [%here], (t : t)]);
+    then return (Or_error.error_s [%sexp "too many changing degrees", [%here], (t : t)]);
     for i = 0 to 6 do
       let low_note = t.(i)
-      and high_note = t.((i + 2) mod len) in
+      and high_note = t.((i + 2) % len) in
       let low_p = low_note.pythagorean && high_note.zarlinean
       and high_p = low_note.zarlinean && high_note.pythagorean in
       if not (low_p || high_p)
       then
         return
-          (error_s
+          (Or_error.error_s
              [%sexp
                "unsolvable degree"
                , [%here]
@@ -69,7 +70,7 @@ let check t =
       if low_p && high_p
       then
         return
-          (error_s
+          (Or_error.error_s
              [%sexp
                "multiple choices"
                , [%here]
@@ -96,7 +97,7 @@ let all () =
       aux (copy t i ~f:(fun d -> { d with zarlinean = true })) i
     | _ ->
       let rec scale (t : t) i =
-        let high_index = (i + 2) mod len in
+        let high_index = (i + 2) % len in
         let low_note = t.(i)
         and high_note = t.(high_index) in
         let low_p = low_note.pythagorean && high_note.zarlinean

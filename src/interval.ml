@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 module Quality = struct
   type t =
@@ -12,7 +12,7 @@ module Quality = struct
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
   let name t = Sexp_to_string.atom_to_name t [%sexp_of: t]
-  let repeat str ~times = String.concat (List.init times ~f:(const str)) ~sep:""
+  let repeat str ~times = String.concat (List.init times ~f:(Fn.const str)) ~sep:""
 
   let rec prefix_notation = function
     | Doubly_diminished -> repeat (prefix_notation Diminished) ~times:2
@@ -109,9 +109,9 @@ let to_string { number; quality; additional_octaves } =
     Number.equal number Unison && skip_quality && additional_octaves >= 1
   in
   (if additional_octaves = 1
-   then sprintf "P8%s" (if skip_unison then "" else " + ")
+   then Printf.sprintf "P8%s" (if skip_unison then "" else " + ")
    else if additional_octaves >= 2
-   then sprintf "%d P8%s" additional_octaves (if skip_unison then "" else " + ")
+   then Printf.sprintf "%d P8%s" additional_octaves (if skip_unison then "" else " + ")
    else "")
   ^
   if skip_unison
@@ -130,9 +130,10 @@ let name { number; quality; additional_octaves } =
     Number.equal number Unison && skip_quality && additional_octaves >= 1
   in
   (if additional_octaves = 1
-   then sprintf "octave%s" (if skip_unison then "" else " + ")
+   then Printf.sprintf "octave%s" (if skip_unison then "" else " + ")
    else if additional_octaves >= 2
-   then sprintf "%d octaves%s" additional_octaves (if skip_unison then "" else " + ")
+   then
+     Printf.sprintf "%d octaves%s" additional_octaves (if skip_unison then "" else " + ")
    else "")
   ^ (if skip_quality then "" else Quality.name quality ^ " ")
   ^ if skip_unison then "" else Number.name number
@@ -170,7 +171,7 @@ let compute ~(from : Note.t) ~(to_ : Note.t) () =
             + Note.Symbol.semitons_shift to_.symbol )
       else
         aux
-          (succ number_of_letter_names)
+          (Int.succ number_of_letter_names)
           (number_of_semitons + Note.Letter_name.semitons_step ~from:letter_name)
           (Note.Letter_name.succ letter_name)
           (Note.Letter_name.succ_octave_designation letter_name ~octave_designation)
@@ -202,10 +203,10 @@ let compute ~(from : Note.t) ~(to_ : Note.t) () =
       else if missing > 0
       then (
         let%bind quality = Quality.succ quality ~accepts_minor_major_quality in
-        aux (pred missing) quality)
+        aux (Int.pred missing) quality)
       else (
         let%bind quality = Quality.pred quality ~accepts_minor_major_quality in
-        aux (succ missing) quality)
+        aux (Int.succ missing) quality)
     in
     aux (number_of_semitons - basis) basis_quality
   in
@@ -224,7 +225,7 @@ let shift_up
       then { Note.letter_name; symbol = from.symbol; octave_designation }
       else
         aux
-          (pred step)
+          (Int.pred step)
           (Note.Letter_name.succ letter_name)
           (Note.Letter_name.succ_octave_designation letter_name ~octave_designation)
     in
@@ -239,10 +240,10 @@ let shift_up
       else if shift > 0
       then (
         let%bind symbol = Note.Symbol.succ symbol in
-        aux (pred shift) symbol)
+        aux (Int.pred shift) symbol)
       else (
         let%bind symbol = Note.Symbol.pred symbol in
-        aux (succ shift) symbol)
+        aux (Int.succ shift) symbol)
     in
     aux semiton_shift target.symbol
   in
@@ -260,7 +261,7 @@ let shift_down
       then { Note.letter_name; symbol = to_.symbol; octave_designation }
       else
         aux
-          (pred step)
+          (Int.pred step)
           (Note.Letter_name.pred letter_name)
           (Note.Letter_name.pred_octave_designation letter_name ~octave_designation)
     in
@@ -276,10 +277,10 @@ let shift_down
       else if shift > 0
       then (
         let%bind symbol = Note.Symbol.pred symbol in
-        aux (pred shift) symbol)
+        aux (Int.pred shift) symbol)
       else (
         let%bind symbol = Note.Symbol.succ symbol in
-        aux (succ shift) symbol)
+        aux (Int.succ shift) symbol)
     in
     aux semiton_shift target.symbol
   in

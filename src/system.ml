@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 module Vibrating_string : sig
   type t =
@@ -36,7 +36,7 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
         ; create_attr "Note" (fun (_, (t : Vibrating_string.t)) ->
             [], Note.to_string t.open_string)
         ; create_attr ~align:Right "Pitch" (fun (_, (t : Vibrating_string.t)) ->
-            [], sprintf "%0.2f" (Frequency.to_float t.pitch))
+            [], Printf.sprintf "%0.2f" (Frequency.to_float t.pitch))
         ; create_attr "Interval" (fun (i, _) ->
             if i >= Array.length intervals_going_down
             then [], ""
@@ -45,7 +45,7 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
                 intervals_going_down.(i)
               in
               ( []
-              , sprintf
+              , Printf.sprintf
                   "%s - %s"
                   (Interval.to_string interval)
                   (Acoustic_interval.to_string acoustic_interval) )))
@@ -100,7 +100,7 @@ let create ~high_vibrating_string ~pitch ~intervals_going_down =
 ;;
 
 let reset_pitch t roman_numeral ~pitch =
-  let index = Roman_numeral.to_int roman_numeral |> pred in
+  let index = Roman_numeral.to_int roman_numeral |> Int.pred in
   t.vibrating_strings.(index).pitch <- pitch;
   (* Tune going up. *)
   for i = index - 1 downto 0 do
@@ -302,7 +302,7 @@ let make_scale t ~characterized_scale ~from ~to_ =
 ;;
 
 let find_same_note_one_string_down t { Located_note.note; fingerboard_location } =
-  with_return (fun { return } ->
+  With_return.with_return (fun { return } ->
     let string_number =
       let index = Roman_numeral.to_int fingerboard_location.string_number in
       if index >= Array.length t.vibrating_strings
@@ -368,7 +368,7 @@ module Double_stops = struct
               |> Option.value_exn ~here:[%here]
             in
             ( []
-            , sprintf
+            , Printf.sprintf
                 "%s - %s"
                 (Interval.to_string interval)
                 (Acoustic_interval.to_string acoustic_interval) ))

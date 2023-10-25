@@ -1,4 +1,4 @@
-open! Core
+open! Base
 open! Fingerboard
 
 val lower_c : Located_note.t

@@ -1,4 +1,4 @@
-open! Core
+open! Base
 
 type t = float [@@deriving compare, equal, hash, sexp_of]
 
