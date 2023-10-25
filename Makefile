@@ -16,7 +16,7 @@ fmt:
 .PHONY: lint
 lint:
 	opam lint
-#	opam exec -- opam-dune-lint
+	opam exec -- opam-dune-lint
 
 .PHONY: deps
 deps:
