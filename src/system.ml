@@ -32,7 +32,7 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
             ~align:Right
             "String"
             (fun (_, { Vibrating_string.open_string = _; pitch = _; roman_numeral }) ->
-              [], Roman_numeral.to_string roman_numeral)
+               [], Roman_numeral.to_string roman_numeral)
         ; create_attr "Note" (fun (_, (t : Vibrating_string.t)) ->
             [], Note.to_string t.open_string)
         ; create_attr ~align:Right "Pitch" (fun (_, (t : Vibrating_string.t)) ->
@@ -105,14 +105,14 @@ let reset_pitch t roman_numeral ~pitch =
   (* Tune going up. *)
   for i = index - 1 downto 0 do
     t.vibrating_strings.(i).pitch
-      <- t.vibrating_strings.(i + 1).pitch
-         |> Acoustic_interval.shift_up t.intervals_going_down.(i).acoustic_interval
+    <- t.vibrating_strings.(i + 1).pitch
+       |> Acoustic_interval.shift_up t.intervals_going_down.(i).acoustic_interval
   done;
   (* Tune going down. *)
   for i = index + 1 to Array.length t.vibrating_strings - 1 do
     t.vibrating_strings.(i).pitch
-      <- t.vibrating_strings.(i - 1).pitch
-         |> Acoustic_interval.shift_down t.intervals_going_down.(i - 1).acoustic_interval
+    <- t.vibrating_strings.(i - 1).pitch
+       |> Acoustic_interval.shift_down t.intervals_going_down.(i - 1).acoustic_interval
   done;
   ()
 ;;
@@ -150,9 +150,9 @@ let acoustic_interval
   let interval_between_strings = ref Acoustic_interval.unison in
   for i = min i1 i2 to max i1 i2 - 1 do
     interval_between_strings
-      := Acoustic_interval.add
-           !interval_between_strings
-           t.intervals_going_down.(i - 1).acoustic_interval
+    := Acoustic_interval.add
+         !interval_between_strings
+         t.intervals_going_down.(i - 1).acoustic_interval
   done;
   Acoustic_interval.remove
     (Acoustic_interval.add
