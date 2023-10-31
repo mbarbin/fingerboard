@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let adjustment =
   { System.Double_stops.Adjustment.from =
       Acoustic_interval.pythagorean

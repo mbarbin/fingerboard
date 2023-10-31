@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let fingerboard_positions =
   List.map Cello.Fingerboard_position_name.all ~f:(fun t ->
     t, Cello.Fingerboard_position_name.acoustic_interval_to_the_open_string t)

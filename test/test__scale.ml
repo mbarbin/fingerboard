@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let%expect_test "major and minor" =
   let major = force Scale.major in
   let minor = force Scale.minor in

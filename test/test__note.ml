@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let%expect_test "semitons_step" =
   let rec aux start acc index =
     if Note.Letter_name.equal start index && acc > 0

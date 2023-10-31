@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let make_scale ~characterized_scale ~from =
   let t = force E55.t in
   System.Double_stops.make_scale

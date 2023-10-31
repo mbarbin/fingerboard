@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let make_major_scale ~from =
   let t = force E12.t in
   System.Double_stops.make_scale

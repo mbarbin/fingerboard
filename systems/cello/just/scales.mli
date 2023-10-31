@@ -1,5 +1,3 @@
-open! Fingerboard
-
 val lower_c : Located_note.t
 val lower_dz_flat : Located_note.t
 val lower_d : Located_note.t

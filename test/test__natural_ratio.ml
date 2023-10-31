@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let%expect_test "natural_ratio" =
   let ( /^ ) a b = Natural_ratio.create_exn ~numerator:a ~denominator:b in
   let ( // ) = Natural_ratio.divide in

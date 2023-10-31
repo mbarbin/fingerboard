@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let create () =
   Cello.fifth_system
     ~acoustic_interval:

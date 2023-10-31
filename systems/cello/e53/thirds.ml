@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let adjustment =
   { System.Double_stops.Adjustment.from =
       Acoustic_interval.equal_division_of_the_octave ~divisor:53 ~number_of_divisions:13

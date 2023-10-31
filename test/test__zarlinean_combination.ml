@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let%expect_test "combinations" =
   let all = force Zarlinean_combination.all in
   List.iter all ~f:(fun t -> print_endline (Zarlinean_combination.to_ascii_tables t));

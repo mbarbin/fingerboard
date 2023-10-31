@@ -1,6 +1,16 @@
 (library
  (name fingerboard_cello_system_e55)
- (flags -w +a-4-40-41-42-44-66 -warn-error +a -open Base -open Stdio)
+ (flags
+  -w
+  +a-4-40-41-42-44-66
+  -warn-error
+  +a
+  -open
+  Base
+  -open
+  Stdio
+  -open
+  Fingerboard)
  (libraries base fingerboard stdio textutils.ascii_table)
  (inline_tests)
  (preprocess

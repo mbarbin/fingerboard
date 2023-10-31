@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let%expect_test "edo53 and octaves" =
   let t = force E53.t in
   let az = Cello.find_fingerboard_position_exn t `P8z_e53 in

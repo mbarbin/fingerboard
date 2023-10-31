@@ -1,5 +1,3 @@
-open! Fingerboard
-
 let%expect_test "first comparison" =
   let module Kind = struct
     type t =
