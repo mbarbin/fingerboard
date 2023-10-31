@@ -1,5 +1,3 @@
-open! Base
-
 module Vibrating_string : sig
   type t =
     { open_string : Note.t

@@ -1,5 +1,3 @@
-open! Base
-
 type t = Characterized_interval.t list
 
 let major_just =

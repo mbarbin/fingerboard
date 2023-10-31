@@ -1,5 +1,3 @@
-open! Base
-
 module Fingerboard_position_name = struct
   module type S = sig
     type t [@@deriving compare, equal, enumerate, hash, sexp_of]

@@ -1,5 +1,3 @@
-open! Base
-
 type t =
   { interval : Interval.t
   ; acoustic_interval : Acoustic_interval.t

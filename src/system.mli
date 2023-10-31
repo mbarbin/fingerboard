@@ -1,5 +1,3 @@
-open! Base
-
 type t [@@deriving sexp_of]
 
 (** Display t in the form of multiple tables in a human readable way. *)

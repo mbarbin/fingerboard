@@ -1,5 +1,3 @@
-open! Base
-open! Stdio
 open! Fingerboard
 
 let create () = Cello.fifth_system ()

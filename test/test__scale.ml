@@ -1,5 +1,3 @@
-open! Base
-open! Stdio
 open! Fingerboard
 
 let%expect_test "major and minor" =

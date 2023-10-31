@@ -1,5 +1,3 @@
-open! Base
-
 type t = float [@@deriving compare, equal, hash, sexp_of]
 
 let of_float_exn f =

@@ -1,5 +1,3 @@
-open! Base
-open! Stdio
 open! Fingerboard
 
 let qualities number ~doubly_augmented =

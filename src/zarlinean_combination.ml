@@ -1,5 +1,3 @@
-open! Base
-
 module Degree_kind = struct
   type t =
     { pythagorean : bool

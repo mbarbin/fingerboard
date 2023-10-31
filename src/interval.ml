@@ -1,5 +1,3 @@
-open! Base
-
 module Quality = struct
   type t =
     | Doubly_diminished

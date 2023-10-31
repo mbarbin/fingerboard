@@ -1,5 +1,3 @@
-open! Base
-
 (** A number of utils applicable to the applications of the library to the cello. *)
 
 module Fingerboard_position_name : sig

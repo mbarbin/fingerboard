@@ -1,5 +1,3 @@
-open! Base
-
 (** A fingerboard position characterized by a particular string. *)
 
 type t =

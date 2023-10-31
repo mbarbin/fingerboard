@@ -1,5 +1,3 @@
-open! Base
-
 type t = float
 
 let to_string_nearest t =

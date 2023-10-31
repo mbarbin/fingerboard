@@ -1,4 +1,3 @@
-open! Base
 module Acoustic_interval = Acoustic_interval
 module Cello = Cello
 module Cents = Cents

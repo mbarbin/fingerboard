@@ -1,5 +1,3 @@
-open! Base
-
 (** A position is a fingerboard location that is not characterized by any
     string, but rather designated that position that is available on all
     strings at the same relative distance to the open strings. A position is

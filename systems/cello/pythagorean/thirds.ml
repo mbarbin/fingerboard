@@ -1,5 +1,3 @@
-open! Base
-open! Stdio
 open! Fingerboard
 
 let make_scale ~characterized_scale ~from =

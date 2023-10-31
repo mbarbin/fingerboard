@@ -1,5 +1,3 @@
-open! Base
-
 (** The pitch in Hz of a note. *)
 type t [@@deriving compare, equal, hash, sexp_of]
 

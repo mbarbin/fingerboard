@@ -1,5 +1,3 @@
-open! Base
-
 type t =
   { numerator : int
   ; denominator : int

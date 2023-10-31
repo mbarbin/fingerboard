@@ -1,5 +1,3 @@
-open! Base
-
 (** A characterized scale is a scale in which the intervals between degrees have
     all been characterized, that is to say their acoustic natures have been
     specified in details. This allows to distinguish between, for example, just

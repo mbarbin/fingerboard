@@ -1,5 +1,3 @@
-open! Base
-
 type t =
   { name : string
   ; at_octave : int

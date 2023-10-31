@@ -1,5 +1,3 @@
-open! Base
-
 let atom_to_name t sexp_of_t =
   let atom =
     match [%sexp_of: t] t with

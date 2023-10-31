@@ -1,5 +1,3 @@
-open! Base
-
 type t = { consecutive_intervals : Interval.t array }
 
 let create consecutive_intervals = { consecutive_intervals }

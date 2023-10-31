@@ -1,5 +1,3 @@
-open! Base
-
 type t =
   { note : Note.t
   ; fingerboard_location : Fingerboard_location.t

@@ -1,7 +1,3 @@
-open! Base
-
-(** *)
-
 type t =
   | Zero
   | Equal_division_of_the_octave of

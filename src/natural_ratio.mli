@@ -1,5 +1,3 @@
-open! Base
-
 (** A strictly positive ratio of two natural numbers. *)
 
 type t = private

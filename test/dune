@@ -1,6 +1,6 @@
 (library
  (name fingerboard_test)
- (flags -w +a-4-40-41-42-44-66 -warn-error +a)
+ (flags -w +a-4-40-41-42-44-66 -warn-error +a -open Base -open Stdio)
  (libraries
   base
   fingerboard
