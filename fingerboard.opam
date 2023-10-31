@@ -8,7 +8,7 @@ homepage: "https://github.com/mbarbin/fingerboard"
 doc: "https://github.com/mbarbin/fingerboard"
 bug-reports: "https://github.com/mbarbin/fingerboard/issues"
 depends: [
-  "ocaml" {>= "5.0"}
+  "ocaml" {>= "5.1"}
   "dune" {>= "3.11"}
   "base" {>= "v0.16" & < "v0.17"}
   "ppx_jane" {>= "v0.16" & < "v0.17"}

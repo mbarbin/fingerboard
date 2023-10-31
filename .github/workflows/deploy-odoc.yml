@@ -12,12 +12,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use OCaml 5.0.x
+      - name: Use OCaml 5.1.x
         uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 5.0.x
+          ocaml-compiler: 5.1.x
+          dune-cache: false
           opam-repositories: |
             default: https://github.com/ocaml/opam-repository.git
+#            mbarbin: https://github.com/mbarbin/opam-repository.git
 #            janestreet-bleeding: https://ocaml.janestreet.com/opam-repository
 #            janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
 
