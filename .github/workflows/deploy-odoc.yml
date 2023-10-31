@@ -23,21 +23,5 @@ jobs:
 #            janestreet-bleeding: https://ocaml.janestreet.com/opam-repository
 #            janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
 
-      - run: opam install . --deps-only --with-doc
-        shell: bash
-
-      - run: opam depext --install odoc
-        shell: bash
-
-      - name: Build doc
-        run: |
-          opam exec -- dune build @install @doc
-          mkdir -p  _build/default/_doc/_html
-          touch _build/default/_doc/_html/.nojekyll
-          ls _build/default/_doc/_html/fingerboard/Fingerboard/
-
-      - name: Deploy doc to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ github.token }}
-          publish_dir: _build/default/_doc/_html
+      - name: Deploy odoc to GitHub Pages
+        uses: ocaml/setup-ocaml/deploy-doc@v2
