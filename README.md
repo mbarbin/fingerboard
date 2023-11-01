@@ -100,6 +100,5 @@ scale in thirds from
 
 # Code documentation
 
-The tip of the main branch is compiled with odoc and published to
-github pages
-[here](https://mbarbin.github.io/fingerboard/fingerboard/Fingerboard/index.html).
+The tip of the main branch is compiled with odoc and published to GitHub pages
+[here](https://mbarbin.github.io/fingerboard/).
