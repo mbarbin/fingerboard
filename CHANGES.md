@@ -4,6 +4,8 @@
 
 ### Changed
 
+- Generate opam file from `dune-project`.
+
 ### Fixed
 
 ### Removed

@@ -1,3 +1,48 @@
 (lang dune 3.11)
 
 (name fingerboard)
+
+(generate_opam_files)
+
+(license MIT)
+
+(authors "Mathieu Barbin")
+
+(maintainers "Mathieu Barbin")
+
+(source
+ (github mbarbin/fingerboard))
+
+(documentation "https://mbarbin.github.io/fingerboard/")
+
+(package
+ (name fingerboard)
+ (synopsis
+  "Studying various temperaments and intervals on the cello fingerboard")
+ (description
+  "Studying various temperaments and intervals on the cello fingerboard")
+ (depends
+  (ocaml
+   (>= 5.1))
+  (dune
+   (>= 3.11))
+  (base
+   (and
+    (>= v0.16)
+    (< v0.17)))
+  (ppx_jane
+   (and
+    (>= v0.16)
+    (< v0.17)))
+  (sexp_diff
+   (and
+    (>= v0.16)
+    (< v0.17)))
+  (stdio
+   (and
+    (>= v0.16)
+    (< v0.17)))
+  (textutils
+   (and
+    (>= v0.16)
+    (< v0.17)))))
