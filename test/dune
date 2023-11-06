@@ -2,7 +2,7 @@
  (name fingerboard_test)
  (flags
   -w
-  +a-4-40-41-42-44-66
+  +a-4-40-41-42-44-45-66
   -warn-error
   +a
   -open
@@ -23,4 +23,4 @@
   textutils.ascii_table)
  (inline_tests)
  (preprocess
-  (pps ppx_jane)))
+  (pps ppx_jane ppx_js_style -check-doc-comments)))
