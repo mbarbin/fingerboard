@@ -19,7 +19,7 @@
   fingerboard_cello_system_e53
   fingerboard_cello_system_just
   fingerboard_cello_system_pythagorean
-  sexp_diff
+  patdiff.expect_test_patdiff
   stdio
   textutils.ascii_table)
  (inline_tests)

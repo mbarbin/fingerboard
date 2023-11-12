@@ -30,15 +30,15 @@
    (and
     (>= v0.16)
     (< v0.17)))
+  (patdiff
+   (and
+    (>= v0.16)
+    (< v0.17)))
   (ppx_jane
    (and
     (>= v0.16)
     (< v0.17)))
   (ppx_js_style
-   (and
-    (>= v0.16)
-    (< v0.17)))
-  (sexp_diff
    (and
     (>= v0.16)
     (< v0.17)))

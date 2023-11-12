@@ -321,14 +321,10 @@ let%expect_test "reset-pitch" =
   let change ~f =
     f ();
     let sexp2 = [%sexp (system : System.t)] in
-    let diff = Sexp_diff.Algo.diff ~original:sexp1 ~updated:sexp2 () in
-    print_string
-      (Sexp_diff.Display.display_as_plain_string
-         (Sexp_diff.Display.Display_options.create ~num_shown:2 Two_column)
-         diff)
+    Expect_test_patdiff.print_patdiff_s sexp1 sexp2 ~context:3
   in
   change ~f:(fun () -> System.reset_pitch system (Roman_numeral.of_int_exn 1) ~pitch);
-  [%expect {| (no changes) |}];
+  [%expect {| |}];
   change ~f:(fun () ->
     System.reset_pitch
       system
@@ -338,30 +334,36 @@ let%expect_test "reset-pitch" =
          |> Acoustic_interval.shift_down Acoustic_interval.octave));
   [%expect
     {|
-     ((vibrating_strings                                                           ((vibrating_strings
-       (((open_string ((letter_name A) (symbol Natural) (octave_designation 3)))     (((open_string ((letter_name A) (symbol Natural) (octave_designation 3)))
-         (pitch                                                                        (pitch
-    -     220                                                                     +     221
-         )                                                                             )
-         (roman_numeral I))                                                            (roman_numeral I))
-        ((open_string ((letter_name D) (symbol Natural) (octave_designation 3)))      ((open_string ((letter_name D) (symbol Natural) (octave_designation 3)))
-         (pitch                                                                        (pitch
-    -     146.66666666666666                                                      +     147.33333333333334
-         )                                                                             )
-         (roman_numeral II))                                                           (roman_numeral II))
-        ((open_string ((letter_name G) (symbol Natural) (octave_designation 2)))      ((open_string ((letter_name G) (symbol Natural) (octave_designation 2)))
-         (pitch                                                                        (pitch
-    -     97.777777777777771                                                      +     98.222222222222229
-         )                                                                             )
-         (roman_numeral III))                                                          (roman_numeral III))
-        ((open_string ((letter_name C) (symbol Natural) (octave_designation 2)))      ((open_string ((letter_name C) (symbol Natural) (octave_designation 2)))
-         (pitch                                                                        (pitch
-    -     65.185185185185176                                                      +     65.481481481481481
-         )                                                                             )
-         (roman_numeral IV))))                                                         (roman_numeral IV))))
-                                                                    ...11 unchanged lines...
-          (Reduced_natural_ratio                                                        (Reduced_natural_ratio
-           (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))))                    (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))) |}];
+    -3,25 +3,25
+            (letter_name        A)
+            (symbol             Natural)
+            (octave_designation 3)))
+    -|    (pitch         220)
+    +|    (pitch         221)
+          (roman_numeral I))
+         ((open_string (
+            (letter_name        D)
+            (symbol             Natural)
+            (octave_designation 3)))
+    -|    (pitch         146.66666666666666)
+    +|    (pitch         147.33333333333334)
+          (roman_numeral II))
+         ((open_string (
+            (letter_name        G)
+            (symbol             Natural)
+            (octave_designation 2)))
+    -|    (pitch         97.777777777777771)
+    +|    (pitch         98.222222222222229)
+          (roman_numeral III))
+         ((open_string (
+            (letter_name        C)
+            (symbol             Natural)
+            (octave_designation 2)))
+    -|    (pitch         65.185185185185176)
+    +|    (pitch         65.481481481481481)
+          (roman_numeral IV))))
+       (intervals_going_down (
+         ((interval ( |}];
   change ~f:(fun () ->
     System.reset_pitch
       system
@@ -369,29 +371,35 @@ let%expect_test "reset-pitch" =
       ~pitch:(Frequency.of_float_exn 147.));
   [%expect
     {|
-     ((vibrating_strings                                                           ((vibrating_strings
-       (((open_string ((letter_name A) (symbol Natural) (octave_designation 3)))     (((open_string ((letter_name A) (symbol Natural) (octave_designation 3)))
-         (pitch                                                                        (pitch
-    -     220                                                                     +     220.5
-         )                                                                             )
-         (roman_numeral I))                                                            (roman_numeral I))
-        ((open_string ((letter_name D) (symbol Natural) (octave_designation 3)))      ((open_string ((letter_name D) (symbol Natural) (octave_designation 3)))
-         (pitch                                                                        (pitch
-    -     146.66666666666666                                                      +     147
-         )                                                                             )
-         (roman_numeral II))                                                           (roman_numeral II))
-        ((open_string ((letter_name G) (symbol Natural) (octave_designation 2)))      ((open_string ((letter_name G) (symbol Natural) (octave_designation 2)))
-         (pitch                                                                        (pitch
-    -     97.777777777777771                                                      +     98
-         )                                                                             )
-         (roman_numeral III))                                                          (roman_numeral III))
-        ((open_string ((letter_name C) (symbol Natural) (octave_designation 2)))      ((open_string ((letter_name C) (symbol Natural) (octave_designation 2)))
-         (pitch                                                                        (pitch
-    -     65.185185185185176                                                      +     65.333333333333329
-         )                                                                             )
-         (roman_numeral IV))))                                                         (roman_numeral IV))))
-                                                                    ...11 unchanged lines...
-          (Reduced_natural_ratio                                                        (Reduced_natural_ratio
-           (((prime 2) (exponent -1)) ((prime 3) (exponent 1)))))))))                    (((prime 2) (exponent -1)) ((prime 3) (exponent 1))))))))) |}];
+    -3,25 +3,25
+            (letter_name        A)
+            (symbol             Natural)
+            (octave_designation 3)))
+    -|    (pitch         220)
+    +|    (pitch         220.5)
+          (roman_numeral I))
+         ((open_string (
+            (letter_name        D)
+            (symbol             Natural)
+            (octave_designation 3)))
+    -|    (pitch         146.66666666666666)
+    +|    (pitch         147)
+          (roman_numeral II))
+         ((open_string (
+            (letter_name        G)
+            (symbol             Natural)
+            (octave_designation 2)))
+    -|    (pitch         97.777777777777771)
+    +|    (pitch         98)
+          (roman_numeral III))
+         ((open_string (
+            (letter_name        C)
+            (symbol             Natural)
+            (octave_designation 2)))
+    -|    (pitch         65.185185185185176)
+    +|    (pitch         65.333333333333329)
+          (roman_numeral IV))))
+       (intervals_going_down (
+         ((interval ( |}];
   ()
 ;;
