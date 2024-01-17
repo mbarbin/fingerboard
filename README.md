@@ -2,18 +2,18 @@
 
 [![CI Status](https://github.com/mbarbin/fingerboard/workflows/ci/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/ci.yml)
 
-This project is meant to help me reason about and build a "microtonal
-geography of the cello fingerboard".
+This project is meant to help me reason about and build a "microtonal geography
+of the cello fingerboard".
 
-# What's in the repo?
+## What's in the repo?
 
-The repo implements the tools necessary to model microtonal geography
-systems based on various scales. As we go over some specific
-pythagorean, just and tempered scales and double stops, some specific
-notations are introduced for each of the fingerboard locations
-required to play each note. Then, we can reason about and exhibit
-various facts involving these positions, while being able to verify
-these facts programmatically, and display them with various format.
+The repo implements the tools necessary to model microtonal geography systems
+based on various scales. As we go over some specific pythagorean, just and
+tempered scales and double stops, some specific notations are introduced for
+each of the fingerboard locations required to play each note. Then, we can
+reason about and exhibit various facts involving these positions, while being
+able to verify these facts programmatically, and display them with various
+format.
 
 An example extracted from file [systems/cello/just/scales.ml](systems/cello/just/scales.ml)
 displaying the names of the positions involved in playing the E Major
