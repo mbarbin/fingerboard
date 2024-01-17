@@ -1,7 +1,6 @@
 # Fingerboard
 
 [![CI Status](https://github.com/mbarbin/fingerboard/workflows/ci/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/ci.yml)
-[![Deploy odoc Status](https://github.com/mbarbin/fingerboard/workflows/deploy-odoc/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/deploy-odoc.yml)
 
 This project is meant to help me reason about and build a "microtonal
 geography of the cello fingerboard".
@@ -98,7 +97,7 @@ scale in thirds from
 └─────┴────────┴───────┴───────┴──────┴────────┴───────┴───────┴──────────────────┴───────┘
 ```
 
-# Code documentation
+## Code documentation
 
-The tip of the main branch is compiled with odoc and published to GitHub pages
-[here](https://mbarbin.github.io/fingerboard/).
+The code documentation of the latest release is built with `odoc` and published
+to `GitHub` pages [here](https://mbarbin.github.io/fingerboard).
