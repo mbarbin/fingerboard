@@ -19,8 +19,6 @@
  (name fingerboard)
  (synopsis
   "Studying various temperaments and intervals on the cello fingerboard")
- (description
-  "Studying various temperaments and intervals on the cello fingerboard")
  (depends
   (ocaml
    (>= 5.1))
