@@ -1,6 +1,7 @@
 # fingerboard
 
 [![CI Status](https://github.com/mbarbin/fingerboard/workflows/ci/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/mbarbin/fingerboard/badge.svg?branch=main&service=github)](https://coveralls.io/github/mbarbin/fingerboard?branch=main)
 
 This project is meant to help me reason about and build a "microtonal geography
 of the cello fingerboard".
