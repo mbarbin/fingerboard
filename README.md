@@ -1,4 +1,4 @@
-# Fingerboard
+# fingerboard
 
 [![CI Status](https://github.com/mbarbin/fingerboard/workflows/ci/badge.svg)](https://github.com/mbarbin/fingerboard/actions/workflows/ci.yml)
 
