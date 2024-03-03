@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Uses `expect-test-helpers` (reduce core dependencies). This results in using `sexp_pretty` in tests, which improves sexp layout.
 - Run `ppx_js_style` as a linter & make it a `dev` dependency.
 - Upgrade GitHub workflows `actions/checkout` to v4.
 - In CI, specify build target `@all`, and add `@lint`.
@@ -14,6 +15,8 @@
 ### Fixed
 
 ### Removed
+
+- Removed `stdio`. Now uses `expect-test-helpers` in test.
 
 ## 0.0.4 (2024-02-14)
 
