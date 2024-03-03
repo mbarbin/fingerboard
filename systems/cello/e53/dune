@@ -9,10 +9,10 @@
   -open
   Base
   -open
-  Stdio
+  Expect_test_helpers
   -open
   Fingerboard)
- (libraries base fingerboard stdio textutils.ascii_table)
+ (libraries base expect-test-helpers fingerboard textutils.ascii_table)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))

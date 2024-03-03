@@ -9,18 +9,18 @@
   -open
   Base
   -open
-  Stdio
+  Expect_test_helpers
   -open
   Fingerboard)
  (libraries
   base
+  expect-test-helpers
   fingerboard
   fingerboard_cello_system_e12
   fingerboard_cello_system_e53
   fingerboard_cello_system_just
   fingerboard_cello_system_pythagorean
   patdiff.expect_test_patdiff
-  stdio
   textutils.ascii_table)
  (inline_tests)
  (instrumentation

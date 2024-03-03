@@ -30,6 +30,10 @@
    (and
     :dev
     (>= 2.8.3)))
+  (expect-test-helpers
+   (and
+    (>= v0.16)
+    (< v0.17)))
   (patdiff
    (and
     (>= v0.16)
@@ -69,10 +73,6 @@
     (>= v0.16)
     (< v0.17)))
   (ppx_sexp_value
-   (and
-    (>= v0.16)
-    (< v0.17)))
-  (stdio
    (and
     (>= v0.16)
     (< v0.17)))

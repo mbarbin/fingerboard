@@ -13,6 +13,7 @@ depends: [
   "ocaml" {>= "5.1"}
   "base" {>= "v0.16" & < "v0.17"}
   "bisect_ppx" {dev & >= "2.8.3"}
+  "expect-test-helpers" {>= "v0.16" & < "v0.17"}
   "patdiff" {>= "v0.16" & < "v0.17"}
   "ppx_compare" {>= "v0.16" & < "v0.17"}
   "ppx_enumerate" {>= "v0.16" & < "v0.17"}
@@ -23,7 +24,6 @@ depends: [
   "ppx_let" {>= "v0.16" & < "v0.17"}
   "ppx_sexp_conv" {>= "v0.16" & < "v0.17"}
   "ppx_sexp_value" {>= "v0.16" & < "v0.17"}
-  "stdio" {>= "v0.16" & < "v0.17"}
   "textutils" {>= "v0.16" & < "v0.17"}
   "odoc" {with-doc}
 ]

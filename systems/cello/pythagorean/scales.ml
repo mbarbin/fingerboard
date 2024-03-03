@@ -19,13 +19,41 @@ let%expect_test "c_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((C2 0) (D2 M2p) (E2 M3p) (F2 4p)))
-     (III ((G2 0) (A2 M2p) (B2 M3p) (C3 4p)))
-     (II ((D3 0) (E3 M2p) (F3 m3p) (G3 4p)))
-     (I
-      ((A3 0) (B3 M2p) (C4 m3p) (D4 4p) (E4 5p) (F4 m6p) (G4 m7p) (A4 0-1)
-       (B4 M2p-1) (C5 m3p-1) (D5 4p-1) (E5 5p-1) (F5 m6p-1) (G5 m7p-1) (A5 0-2)
-       (B5 M2p-2) (C6 m3p-2) (D6 4p-2) (E6 5p-2)))) |}];
+    ((IV (
+       (C2 0)
+       (D2 M2p)
+       (E2 M3p)
+       (F2 4p)))
+     (III (
+       (G2 0)
+       (A2 M2p)
+       (B2 M3p)
+       (C3 4p)))
+     (II (
+       (D3 0)
+       (E3 M2p)
+       (F3 m3p)
+       (G3 4p)))
+     (I (
+       (A3 0)
+       (B3 M2p)
+       (C4 m3p)
+       (D4 4p)
+       (E4 5p)
+       (F4 m6p)
+       (G4 m7p)
+       (A4 0-1)
+       (B4 M2p-1)
+       (C5 m3p-1)
+       (D5 4p-1)
+       (E5 5p-1)
+       (F5 m6p-1)
+       (G5 m7p-1)
+       (A5 0-2)
+       (B5 M2p-2)
+       (C6 m3p-2)
+       (D6 4p-2)
+       (E6 5p-2)))) |}];
   ()
 ;;
 
@@ -46,13 +74,41 @@ let%expect_test "c_sharp_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((C#2 A1p) (D#2 A2p) (E#2 A3p) (F#2 A4p)))
-     (III ((G#2 A1p) (A#2 A2p) (B#2 A3p) (C#3 A4p)))
-     (II ((D#3 A1p) (E#3 A2p) (F#3 M3p) (G#3 A4p)))
-     (I
-      ((A#3 A1p) (B#3 A2p) (C#4 M3p) (D#4 A4p) (E#4 A5p) (F#4 M6p) (G#4 M7p)
-       (A#4 A1p-1) (B#4 A2p-1) (C#5 M3p-1) (D#5 A4p-1) (E#5 A5p-1) (F#5 M6p-1)
-       (G#5 M7p-1) (A#5 A1p-2) (B#5 A2p-2) (C#6 M3p-2) (D#6 A4p-2) (E#6 A5p-2)))) |}];
+    ((IV (
+       (C#2 A1p)
+       (D#2 A2p)
+       (E#2 A3p)
+       (F#2 A4p)))
+     (III (
+       (G#2 A1p)
+       (A#2 A2p)
+       (B#2 A3p)
+       (C#3 A4p)))
+     (II (
+       (D#3 A1p)
+       (E#3 A2p)
+       (F#3 M3p)
+       (G#3 A4p)))
+     (I (
+       (A#3 A1p)
+       (B#3 A2p)
+       (C#4 M3p)
+       (D#4 A4p)
+       (E#4 A5p)
+       (F#4 M6p)
+       (G#4 M7p)
+       (A#4 A1p-1)
+       (B#4 A2p-1)
+       (C#5 M3p-1)
+       (D#5 A4p-1)
+       (E#5 A5p-1)
+       (F#5 M6p-1)
+       (G#5 M7p-1)
+       (A#5 A1p-2)
+       (B#5 A2p-2)
+       (C#6 M3p-2)
+       (D#6 A4p-2)
+       (E#6 A5p-2)))) |}];
   ()
 ;;
 
@@ -73,13 +129,41 @@ let%expect_test "d_flat_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((Db2 m2p) (Eb2 m3p) (F2 4p) (Gb2 d5p)))
-     (III ((Ab2 m2p) (Bb2 m3p) (C3 4p) (Db3 d5p)))
-     (II ((Eb3 m2p) (F3 m3p) (Gb3 d4p) (Ab3 d5p)))
-     (I
-      ((Bb3 m2p) (C4 m3p) (Db4 d4p) (Eb4 d5p) (F4 m6p) (Gb4 d7p) (Ab4 d8p)
-       (Bb4 m2p-1) (C5 m3p-1) (Db5 d4p-1) (Eb5 d5p-1) (F5 m6p-1) (Gb5 d7p-1)
-       (Ab5 d8p-1) (Bb5 m2p-2) (C6 m3p-2) (Db6 d4p-2) (Eb6 d5p-2) (F6 m6p-2)))) |}];
+    ((IV (
+       (Db2 m2p)
+       (Eb2 m3p)
+       (F2  4p)
+       (Gb2 d5p)))
+     (III (
+       (Ab2 m2p)
+       (Bb2 m3p)
+       (C3  4p)
+       (Db3 d5p)))
+     (II (
+       (Eb3 m2p)
+       (F3  m3p)
+       (Gb3 d4p)
+       (Ab3 d5p)))
+     (I (
+       (Bb3 m2p)
+       (C4  m3p)
+       (Db4 d4p)
+       (Eb4 d5p)
+       (F4  m6p)
+       (Gb4 d7p)
+       (Ab4 d8p)
+       (Bb4 m2p-1)
+       (C5  m3p-1)
+       (Db5 d4p-1)
+       (Eb5 d5p-1)
+       (F5  m6p-1)
+       (Gb5 d7p-1)
+       (Ab5 d8p-1)
+       (Bb5 m2p-2)
+       (C6  m3p-2)
+       (Db6 d4p-2)
+       (Eb6 d5p-2)
+       (F6  m6p-2)))) |}];
   ()
 ;;
 
@@ -100,13 +184,40 @@ let%expect_test "d_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((D2 M2p) (E2 M3p) (F#2 A4p)))
-     (III ((G2 0) (A2 M2p) (B2 M3p) (C#3 A4p)))
-     (II ((D3 0) (E3 M2p) (F#3 M3p) (G3 4p)))
-     (I
-      ((A3 0) (B3 M2p) (C#4 M3p) (D4 4p) (E4 5p) (F#4 M6p) (G4 m7p) (A4 0-1)
-       (B4 M2p-1) (C#5 M3p-1) (D5 4p-1) (E5 5p-1) (F#5 M6p-1) (G5 m7p-1)
-       (A5 0-2) (B5 M2p-2) (C#6 M3p-2) (D6 4p-2) (E6 5p-2)))) |}];
+    ((IV (
+       (D2  M2p)
+       (E2  M3p)
+       (F#2 A4p)))
+     (III (
+       (G2  0)
+       (A2  M2p)
+       (B2  M3p)
+       (C#3 A4p)))
+     (II (
+       (D3  0)
+       (E3  M2p)
+       (F#3 M3p)
+       (G3  4p)))
+     (I (
+       (A3  0)
+       (B3  M2p)
+       (C#4 M3p)
+       (D4  4p)
+       (E4  5p)
+       (F#4 M6p)
+       (G4  m7p)
+       (A4  0-1)
+       (B4  M2p-1)
+       (C#5 M3p-1)
+       (D5  4p-1)
+       (E5  5p-1)
+       (F#5 M6p-1)
+       (G5  m7p-1)
+       (A5  0-2)
+       (B5  M2p-2)
+       (C#6 M3p-2)
+       (D6  4p-2)
+       (E6  5p-2)))) |}];
   ()
 ;;
 
@@ -127,12 +238,40 @@ let%expect_test "e_flat_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((Eb2 m3p) (F2 4p))) (III ((G2 0) (Ab2 m2p) (Bb2 m3p) (C3 4p)))
-     (II ((D3 0) (Eb3 m2p) (F3 m3p) (G3 4p) (Ab3 d5p)))
-     (I
-      ((Bb3 m2p) (C4 m3p) (D4 4p) (Eb4 d5p) (F4 m6p) (G4 m7p) (Ab4 d8p)
-       (Bb4 m2p-1) (C5 m3p-1) (D5 4p-1) (Eb5 d5p-1) (F5 m6p-1) (G5 m7p-1)
-       (Ab5 d8p-1) (Bb5 m2p-2) (C6 m3p-2) (D6 4p-2) (Eb6 d5p-2) (F6 m6p-2)))) |}];
+    ((IV (
+       (Eb2 m3p)
+       (F2  4p)))
+     (III (
+       (G2  0)
+       (Ab2 m2p)
+       (Bb2 m3p)
+       (C3  4p)))
+     (II (
+       (D3  0)
+       (Eb3 m2p)
+       (F3  m3p)
+       (G3  4p)
+       (Ab3 d5p)))
+     (I (
+       (Bb3 m2p)
+       (C4  m3p)
+       (D4  4p)
+       (Eb4 d5p)
+       (F4  m6p)
+       (G4  m7p)
+       (Ab4 d8p)
+       (Bb4 m2p-1)
+       (C5  m3p-1)
+       (D5  4p-1)
+       (Eb5 d5p-1)
+       (F5  m6p-1)
+       (G5  m7p-1)
+       (Ab5 d8p-1)
+       (Bb5 m2p-2)
+       (C6  m3p-2)
+       (D6  4p-2)
+       (Eb6 d5p-2)
+       (F6  m6p-2)))) |}];
   ()
 ;;
 
@@ -153,12 +292,39 @@ let%expect_test "e_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((E2 M3p) (F#2 A4p))) (III ((G#2 A1p) (A2 M2p) (B2 M3p) (C#3 A4p)))
-     (II ((D#3 A1p) (E3 M2p) (F#3 M3p) (G#3 A4p)))
-     (I
-      ((A3 0) (B3 M2p) (C#4 M3p) (D#4 A4p) (E4 5p) (F#4 M6p) (G#4 M7p) (A4 0-1)
-       (B4 M2p-1) (C#5 M3p-1) (D#5 A4p-1) (E5 5p-1) (F#5 M6p-1) (G#5 M7p-1)
-       (A5 0-2) (B5 M2p-2) (C#6 M3p-2) (D#6 A4p-2) (E6 5p-2)))) |}];
+    ((IV (
+       (E2  M3p)
+       (F#2 A4p)))
+     (III (
+       (G#2 A1p)
+       (A2  M2p)
+       (B2  M3p)
+       (C#3 A4p)))
+     (II (
+       (D#3 A1p)
+       (E3  M2p)
+       (F#3 M3p)
+       (G#3 A4p)))
+     (I (
+       (A3  0)
+       (B3  M2p)
+       (C#4 M3p)
+       (D#4 A4p)
+       (E4  5p)
+       (F#4 M6p)
+       (G#4 M7p)
+       (A4  0-1)
+       (B4  M2p-1)
+       (C#5 M3p-1)
+       (D#5 A4p-1)
+       (E5  5p-1)
+       (F#5 M6p-1)
+       (G#5 M7p-1)
+       (A5  0-2)
+       (B5  M2p-2)
+       (C#6 M3p-2)
+       (D#6 A4p-2)
+       (E6  5p-2)))) |}];
   ()
 ;;
 
@@ -179,12 +345,37 @@ let%expect_test "f_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((F2 4p))) (III ((G2 0) (A2 M2p) (Bb2 m3p) (C3 4p)))
-     (II ((D3 0) (E3 M2p) (F3 m3p) (G3 4p)))
-     (I
-      ((A3 0) (Bb3 m2p) (C4 m3p) (D4 4p) (E4 5p) (F4 m6p) (G4 m7p) (A4 0-1)
-       (Bb4 m2p-1) (C5 m3p-1) (D5 4p-1) (E5 5p-1) (F5 m6p-1) (G5 m7p-1) (A5 0-2)
-       (Bb5 m2p-2) (C6 m3p-2) (D6 4p-2) (E6 5p-2)))) |}];
+    ((IV ((F2 4p)))
+     (III (
+       (G2  0)
+       (A2  M2p)
+       (Bb2 m3p)
+       (C3  4p)))
+     (II (
+       (D3 0)
+       (E3 M2p)
+       (F3 m3p)
+       (G3 4p)))
+     (I (
+       (A3  0)
+       (Bb3 m2p)
+       (C4  m3p)
+       (D4  4p)
+       (E4  5p)
+       (F4  m6p)
+       (G4  m7p)
+       (A4  0-1)
+       (Bb4 m2p-1)
+       (C5  m3p-1)
+       (D5  4p-1)
+       (E5  5p-1)
+       (F5  m6p-1)
+       (G5  m7p-1)
+       (A5  0-2)
+       (Bb5 m2p-2)
+       (C6  m3p-2)
+       (D6  4p-2)
+       (E6  5p-2)))) |}];
   ()
 ;;
 
@@ -205,12 +396,37 @@ let%expect_test "f_sharp_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((F#2 A4p))) (III ((G#2 A1p) (A#2 A2p) (B2 M3p) (C#3 A4p)))
-     (II ((D#3 A1p) (E#3 A2p) (F#3 M3p) (G#3 A4p)))
-     (I
-      ((A#3 A1p) (B3 M2p) (C#4 M3p) (D#4 A4p) (E#4 A5p) (F#4 M6p) (G#4 M7p)
-       (A#4 A1p-1) (B4 M2p-1) (C#5 M3p-1) (D#5 A4p-1) (E#5 A5p-1) (F#5 M6p-1)
-       (G#5 M7p-1) (A#5 A1p-2) (B5 M2p-2) (C#6 M3p-2) (D#6 A4p-2) (E#6 A5p-2)))) |}];
+    ((IV ((F#2 A4p)))
+     (III (
+       (G#2 A1p)
+       (A#2 A2p)
+       (B2  M3p)
+       (C#3 A4p)))
+     (II (
+       (D#3 A1p)
+       (E#3 A2p)
+       (F#3 M3p)
+       (G#3 A4p)))
+     (I (
+       (A#3 A1p)
+       (B3  M2p)
+       (C#4 M3p)
+       (D#4 A4p)
+       (E#4 A5p)
+       (F#4 M6p)
+       (G#4 M7p)
+       (A#4 A1p-1)
+       (B4  M2p-1)
+       (C#5 M3p-1)
+       (D#5 A4p-1)
+       (E#5 A5p-1)
+       (F#5 M6p-1)
+       (G#5 M7p-1)
+       (A#5 A1p-2)
+       (B5  M2p-2)
+       (C#6 M3p-2)
+       (D#6 A4p-2)
+       (E#6 A5p-2)))) |}];
   ()
 ;;
 
@@ -231,12 +447,37 @@ let%expect_test "g_flat_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((IV ((Gb2 d5p))) (III ((Ab2 m2p) (Bb2 m3p) (Cb3 d4p) (Db3 d5p)))
-     (II ((Eb3 m2p) (F3 m3p) (Gb3 d4p) (Ab3 d5p)))
-     (I
-      ((Bb3 m2p) (Cb4 d3p) (Db4 d4p) (Eb4 d5p) (F4 m6p) (Gb4 d7p) (Ab4 d8p)
-       (Bb4 m2p-1) (Cb5 d3p-1) (Db5 d4p-1) (Eb5 d5p-1) (F5 m6p-1) (Gb5 d7p-1)
-       (Ab5 d8p-1) (Bb5 m2p-2) (Cb6 d3p-2) (Db6 d4p-2) (Eb6 d5p-2) (F6 m6p-2)))) |}];
+    ((IV ((Gb2 d5p)))
+     (III (
+       (Ab2 m2p)
+       (Bb2 m3p)
+       (Cb3 d4p)
+       (Db3 d5p)))
+     (II (
+       (Eb3 m2p)
+       (F3  m3p)
+       (Gb3 d4p)
+       (Ab3 d5p)))
+     (I (
+       (Bb3 m2p)
+       (Cb4 d3p)
+       (Db4 d4p)
+       (Eb4 d5p)
+       (F4  m6p)
+       (Gb4 d7p)
+       (Ab4 d8p)
+       (Bb4 m2p-1)
+       (Cb5 d3p-1)
+       (Db5 d4p-1)
+       (Eb5 d5p-1)
+       (F5  m6p-1)
+       (Gb5 d7p-1)
+       (Ab5 d8p-1)
+       (Bb5 m2p-2)
+       (Cb6 d3p-2)
+       (Db6 d4p-2)
+       (Eb6 d5p-2)
+       (F6  m6p-2)))) |}];
   ()
 ;;
 
@@ -252,12 +493,36 @@ let%expect_test "g_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((III ((G2 0) (A2 M2p) (B2 M3p) (C3 4p)))
-     (II ((D3 0) (E3 M2p) (F#3 M3p) (G3 4p)))
-     (I
-      ((A3 0) (B3 M2p) (C4 m3p) (D4 4p) (E4 5p) (F#4 M6p) (G4 m7p) (A4 0-1)
-       (B4 M2p-1) (C5 m3p-1) (D5 4p-1) (E5 5p-1) (F#5 M6p-1) (G5 m7p-1) (A5 0-2)
-       (B5 M2p-2) (C6 m3p-2) (D6 4p-2) (E6 5p-2)))) |}];
+    ((III (
+       (G2 0)
+       (A2 M2p)
+       (B2 M3p)
+       (C3 4p)))
+     (II (
+       (D3  0)
+       (E3  M2p)
+       (F#3 M3p)
+       (G3  4p)))
+     (I (
+       (A3  0)
+       (B3  M2p)
+       (C4  m3p)
+       (D4  4p)
+       (E4  5p)
+       (F#4 M6p)
+       (G4  m7p)
+       (A4  0-1)
+       (B4  M2p-1)
+       (C5  m3p-1)
+       (D5  4p-1)
+       (E5  5p-1)
+       (F#5 M6p-1)
+       (G5  m7p-1)
+       (A5  0-2)
+       (B5  M2p-2)
+       (C6  m3p-2)
+       (D6  4p-2)
+       (E6  5p-2)))) |}];
   ()
 ;;
 
@@ -278,12 +543,36 @@ let%expect_test "a_flat_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((III ((Ab2 m2p) (Bb2 m3p) (C3 4p) (Db3 d5p)))
-     (II ((Eb3 m2p) (F3 m3p) (G3 4p) (Ab3 d5p)))
-     (I
-      ((Bb3 m2p) (C4 m3p) (Db4 d4p) (Eb4 d5p) (F4 m6p) (G4 m7p) (Ab4 d8p)
-       (Bb4 m2p-1) (C5 m3p-1) (Db5 d4p-1) (Eb5 d5p-1) (F5 m6p-1) (G5 m7p-1)
-       (Ab5 d8p-1) (Bb5 m2p-2) (C6 m3p-2) (Db6 d4p-2) (Eb6 d5p-2) (F6 m6p-2)))) |}];
+    ((III (
+       (Ab2 m2p)
+       (Bb2 m3p)
+       (C3  4p)
+       (Db3 d5p)))
+     (II (
+       (Eb3 m2p)
+       (F3  m3p)
+       (G3  4p)
+       (Ab3 d5p)))
+     (I (
+       (Bb3 m2p)
+       (C4  m3p)
+       (Db4 d4p)
+       (Eb4 d5p)
+       (F4  m6p)
+       (G4  m7p)
+       (Ab4 d8p)
+       (Bb4 m2p-1)
+       (C5  m3p-1)
+       (Db5 d4p-1)
+       (Eb5 d5p-1)
+       (F5  m6p-1)
+       (G5  m7p-1)
+       (Ab5 d8p-1)
+       (Bb5 m2p-2)
+       (C6  m3p-2)
+       (Db6 d4p-2)
+       (Eb6 d5p-2)
+       (F6  m6p-2)))) |}];
   ()
 ;;
 
@@ -304,12 +593,35 @@ let%expect_test "a_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((III ((A2 M2p) (B2 M3p) (C#3 A4p)))
-     (II ((D3 0) (E3 M2p) (F#3 M3p) (G#3 A4p)))
-     (I
-      ((A3 0) (B3 M2p) (C#4 M3p) (D4 4p) (E4 5p) (F#4 M6p) (G#4 M7p) (A4 0-1)
-       (B4 M2p-1) (C#5 M3p-1) (D5 4p-1) (E5 5p-1) (F#5 M6p-1) (G#5 M7p-1)
-       (A5 0-2) (B5 M2p-2) (C#6 M3p-2) (D6 4p-2) (E6 5p-2)))) |}];
+    ((III (
+       (A2  M2p)
+       (B2  M3p)
+       (C#3 A4p)))
+     (II (
+       (D3  0)
+       (E3  M2p)
+       (F#3 M3p)
+       (G#3 A4p)))
+     (I (
+       (A3  0)
+       (B3  M2p)
+       (C#4 M3p)
+       (D4  4p)
+       (E4  5p)
+       (F#4 M6p)
+       (G#4 M7p)
+       (A4  0-1)
+       (B4  M2p-1)
+       (C#5 M3p-1)
+       (D5  4p-1)
+       (E5  5p-1)
+       (F#5 M6p-1)
+       (G#5 M7p-1)
+       (A5  0-2)
+       (B5  M2p-2)
+       (C#6 M3p-2)
+       (D6  4p-2)
+       (E6  5p-2)))) |}];
   ()
 ;;
 
@@ -330,11 +642,35 @@ let%expect_test "b_flat_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((III ((Bb2 m3p) (C3 4p))) (II ((D3 0) (Eb3 m2p) (F3 m3p) (G3 4p)))
-     (I
-      ((A3 0) (Bb3 m2p) (C4 m3p) (D4 4p) (Eb4 d5p) (F4 m6p) (G4 m7p) (A4 0-1)
-       (Bb4 m2p-1) (C5 m3p-1) (D5 4p-1) (Eb5 d5p-1) (F5 m6p-1) (G5 m7p-1)
-       (A5 0-2) (Bb5 m2p-2) (C6 m3p-2) (D6 4p-2) (Eb6 d5p-2) (F6 m6p-2)))) |}];
+    ((III (
+       (Bb2 m3p)
+       (C3  4p)))
+     (II (
+       (D3  0)
+       (Eb3 m2p)
+       (F3  m3p)
+       (G3  4p)))
+     (I (
+       (A3  0)
+       (Bb3 m2p)
+       (C4  m3p)
+       (D4  4p)
+       (Eb4 d5p)
+       (F4  m6p)
+       (G4  m7p)
+       (A4  0-1)
+       (Bb4 m2p-1)
+       (C5  m3p-1)
+       (D5  4p-1)
+       (Eb5 d5p-1)
+       (F5  m6p-1)
+       (G5  m7p-1)
+       (A5  0-2)
+       (Bb5 m2p-2)
+       (C6  m3p-2)
+       (D6  4p-2)
+       (Eb6 d5p-2)
+       (F6  m6p-2)))) |}];
   ()
 ;;
 
@@ -355,10 +691,33 @@ let%expect_test "b_major" =
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
   [%expect
     {|
-    ((III ((B2 M3p) (C#3 A4p))) (II ((D#3 A1p) (E3 M2p) (F#3 M3p) (G#3 A4p)))
-     (I
-      ((A#3 A1p) (B3 M2p) (C#4 M3p) (D#4 A4p) (E4 5p) (F#4 M6p) (G#4 M7p)
-       (A#4 A1p-1) (B4 M2p-1) (C#5 M3p-1) (D#5 A4p-1) (E5 5p-1) (F#5 M6p-1)
-       (G#5 M7p-1) (A#5 A1p-2) (B5 M2p-2) (C#6 M3p-2) (D#6 A4p-2) (E6 5p-2)))) |}];
+    ((III (
+       (B2  M3p)
+       (C#3 A4p)))
+     (II (
+       (D#3 A1p)
+       (E3  M2p)
+       (F#3 M3p)
+       (G#3 A4p)))
+     (I (
+       (A#3 A1p)
+       (B3  M2p)
+       (C#4 M3p)
+       (D#4 A4p)
+       (E4  5p)
+       (F#4 M6p)
+       (G#4 M7p)
+       (A#4 A1p-1)
+       (B4  M2p-1)
+       (C#5 M3p-1)
+       (D#5 A4p-1)
+       (E5  5p-1)
+       (F#5 M6p-1)
+       (G#5 M7p-1)
+       (A#5 A1p-2)
+       (B5  M2p-2)
+       (C#6 M3p-2)
+       (D#6 A4p-2)
+       (E6  5p-2)))) |}];
   ()
 ;;
