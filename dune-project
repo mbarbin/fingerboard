@@ -4,7 +4,7 @@
 
 (generate_opam_files)
 
-(license MIT)
+(license "AGPL-3.0-or-later")
 
 (authors "Mathieu Barbin")
 
@@ -18,7 +18,7 @@
 (package
  (name fingerboard)
  (synopsis
-  "Studying various temperaments and intervals on the cello fingerboard")
+  "A microtonal geography of the cello fingerboard")
  (depends
   (ocaml
    (>= 5.1))
