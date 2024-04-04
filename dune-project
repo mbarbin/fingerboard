@@ -17,8 +17,7 @@
 
 (package
  (name fingerboard)
- (synopsis
-  "A microtonal geography of the cello fingerboard")
+ (synopsis "A microtonal geography of the cello fingerboard")
  (depends
   (ocaml
    (>= 5.1))
