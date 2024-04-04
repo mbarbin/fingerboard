@@ -1,16 +1,8 @@
-## 0.0.6 (unreleased)
-
-### Added
+## 0.0.6 (2024-04-04)
 
 ### Changed
 
 - Change license to `AGPL-3.0-or-later`.
-
-### Deprecated
-
-### Fixed
-
-### Removed
 
 ## 0.0.5 (2024-03-13)
 
