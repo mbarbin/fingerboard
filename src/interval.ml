@@ -303,3 +303,5 @@ let shift_down
   in
   { target with symbol }
 ;;
+
+let unison = { number = Unison; quality = Perfect; additional_octaves = 0 }

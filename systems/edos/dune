@@ -1,0 +1,35 @@
+(library
+ (name fingerboard_edo_systems)
+ (flags
+  :standard
+  -w
+  +a-4-40-41-42-44-45-48-66
+  -warn-error
+  +a
+  -open
+  Base
+  -open
+  Expect_test_helpers
+  -open
+  Fingerboard)
+ (libraries
+  base
+  expect-test-helpers
+  fingerboard
+  patdiff.expect_test_patdiff
+  textutils.ascii_table)
+ (inline_tests)
+ (instrumentation
+  (backend bisect_ppx))
+ (lint
+  (pps ppx_js_style -check-doc-comments))
+ (preprocess
+  (pps
+   ppx_compare
+   ppx_enumerate
+   ppx_expect
+   ppx_hash
+   ppx_here
+   ppx_let
+   ppx_sexp_conv
+   ppx_sexp_value)))

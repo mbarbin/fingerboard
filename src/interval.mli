@@ -56,6 +56,7 @@ type t =
   }
 [@@deriving compare, equal, hash, sexp_of]
 
+val unison : t
 val name : t -> string
 val to_string : t -> string
 val number_of_semitons : t -> int
