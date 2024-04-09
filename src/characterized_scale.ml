@@ -81,6 +81,19 @@ let major_e12 =
   [ ton; ton; semiton; ton; ton; ton; semiton ]
 ;;
 
+let major_e19 =
+  let second quality number_of_divisions =
+    let interval = { Interval.number = Second; quality; additional_octaves = 0 } in
+    Characterized_interval.create_exn
+      ~interval
+      ~acoustic_interval:
+        (Acoustic_interval.equal_division_of_the_octave ~divisor:19 ~number_of_divisions)
+  in
+  let ton = second Major 3 in
+  let semiton = second Minor 2 in
+  [ ton; ton; semiton; ton; ton; ton; semiton ]
+;;
+
 let major_e31 =
   let second quality number_of_divisions =
     let interval = { Interval.number = Second; quality; additional_octaves = 0 } in

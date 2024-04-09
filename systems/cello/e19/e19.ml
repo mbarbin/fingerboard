@@ -1,0 +1,253 @@
+(**********************************************************************************)
+(*  Fingerboard - a microtonal geography of the cello fingerboard                 *)
+(*  Copyright (C) 2022-2024 Mathieu Barbin <mathieu.barbin@gmail.com>             *)
+(*                                                                                *)
+(*  This file is part of Fingerboard.                                             *)
+(*                                                                                *)
+(*  Fingerboard is free software: you can redistribute it and/or modify it under  *)
+(*  the terms of the GNU Affero General Public License as published by the Free   *)
+(*  Software Foundation, either version 3 of the License, or any later version.   *)
+(*                                                                                *)
+(*  Fingerboard is distributed in the hope that it will be useful, but WITHOUT    *)
+(*  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or         *)
+(*  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License   *)
+(*  for more details.                                                             *)
+(*                                                                                *)
+(*  You should have received a copy of the GNU Affero General Public License      *)
+(*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
+(**********************************************************************************)
+
+let create () =
+  Cello.fifth_system
+    ~acoustic_interval:
+      (Acoustic_interval.equal_division_of_the_octave ~divisor:19 ~number_of_divisions:11)
+    ()
+;;
+
+let add_positions t =
+  List.iter
+    ~f:(fun name -> Cello.add_fingerboard_position_exn t name)
+    (Cello.Fingerboard_position_name.Edo19.all :> Cello.Fingerboard_position_name.t list)
+;;
+
+let t =
+  lazy
+    (let t = create () in
+     add_positions t;
+     t)
+;;
+
+let%expect_test "tables" =
+  let t = force t in
+  print_endline (System.to_ascii_tables t);
+  [%expect
+    {|
+    ┌────────┬──────┬────────┬───────────────┬───────┐
+    │ String │ Note │  Pitch │ Interval      │ Cents │
+    ├────────┼──────┼────────┼───────────────┼───────┤
+    │      I │ A3   │ 220.00 │ P5 - 11-19edo │ 695   │
+    │     II │ D3   │ 147.28 │ P5 - 11-19edo │ 695   │
+    │    III │ G2   │  98.60 │ P5 - 11-19edo │ 695   │
+    │     IV │ C2   │  66.01 │               │       │
+    └────────┴──────┴────────┴───────────────┴───────┘
+
+    ┌──────────┬───────┬───────────┐
+    │      Pos │ Cents │  Interval │
+    ├──────────┼───────┼───────────┤
+    │        0 │     0 │    unison │
+    │   A1-e19 │    63 │   1-19edo │
+    │   m2-e19 │   126 │   2-19edo │
+    │   M2-e19 │   189 │   3-19edo │
+    │   A2-e19 │   253 │   4-19edo │
+    │   m3-e19 │   316 │   5-19edo │
+    │   M3-e19 │   379 │   6-19edo │
+    │   A3-e19 │   442 │   7-19edo │
+    │    4-e19 │   505 │   8-19edo │
+    │   A4-e19 │   568 │   9-19edo │
+    │   d5-e19 │   632 │  10-19edo │
+    │    5-e19 │   695 │  11-19edo │
+    │   A5-e19 │   758 │  12-19edo │
+    │   m6-e19 │   821 │  13-19edo │
+    │   M6-e19 │   884 │  14-19edo │
+    │   d7-e19 │   947 │  15-19edo │
+    │   m7-e19 │  1011 │  16-19edo │
+    │   M7-e19 │  1074 │  17-19edo │
+    │   d8-e19 │  1137 │  18-19edo │
+    │      0-1 │  1200 │  1 octave │
+    │ A1-e19-1 │  1263 │  20-19edo │
+    │ m2-e19-1 │  1326 │  21-19edo │
+    │ M2-e19-1 │  1389 │  22-19edo │
+    │ A2-e19-1 │  1453 │  23-19edo │
+    │ m3-e19-1 │  1516 │  24-19edo │
+    │ M3-e19-1 │  1579 │  25-19edo │
+    │ A3-e19-1 │  1642 │  26-19edo │
+    │  4-e19-1 │  1705 │  27-19edo │
+    │ A4-e19-1 │  1768 │  28-19edo │
+    │ d5-e19-1 │  1832 │  29-19edo │
+    │  5-e19-1 │  1895 │  30-19edo │
+    │ A5-e19-1 │  1958 │  31-19edo │
+    │ m6-e19-1 │  2021 │  32-19edo │
+    │ M6-e19-1 │  2084 │  33-19edo │
+    │ d7-e19-1 │  2147 │  34-19edo │
+    │ m7-e19-1 │  2211 │  35-19edo │
+    │ M7-e19-1 │  2274 │  36-19edo │
+    │ d8-e19-1 │  2337 │  37-19edo │
+    │      0-2 │  2400 │ 2 octaves │
+    │ A1-e19-2 │  2463 │  39-19edo │
+    │ m2-e19-2 │  2526 │  40-19edo │
+    │ M2-e19-2 │  2589 │  41-19edo │
+    │ A2-e19-2 │  2653 │  42-19edo │
+    │ m3-e19-2 │  2716 │  43-19edo │
+    │ M3-e19-2 │  2779 │  44-19edo │
+    │ A3-e19-2 │  2842 │  45-19edo │
+    │  4-e19-2 │  2905 │  46-19edo │
+    │ A4-e19-2 │  2968 │  47-19edo │
+    │ d5-e19-2 │  3032 │  48-19edo │
+    │  5-e19-2 │  3095 │  49-19edo │
+    │ A5-e19-2 │  3158 │  50-19edo │
+    │ m6-e19-2 │  3221 │  51-19edo │
+    │ M6-e19-2 │  3284 │  52-19edo │
+    │ d7-e19-2 │  3347 │  53-19edo │
+    │ m7-e19-2 │  3411 │  54-19edo │
+    │ M7-e19-2 │  3474 │  55-19edo │
+    │ d8-e19-2 │  3537 │  56-19edo │
+    └──────────┴───────┴───────────┘ |}]
+;;
+
+let%expect_test "approximating just intervals" =
+  let module Kind = struct
+    type t =
+      | Exact
+      | E19
+      | E53
+      | Equal_temperament
+    [@@deriving enumerate, sexp_of]
+  end
+  in
+  let module Row = struct
+    type t =
+      | Octave
+      | Just_major_sixth
+      | Just_minor_sixth
+      | Fifth
+      | Fourth
+      | Just_major_third
+      | Just_minor_third
+      | Pythagorean_major_second
+      | Pythagorean_diatonic_semiton
+      | Pythagorean_chromatic_semiton
+      | Just_diatonic_semiton
+    [@@deriving enumerate, sexp_of]
+  end
+  in
+  let acoustic_interval (interval : Row.t) (kind : Kind.t) =
+    match (kind : Kind.t) with
+    | Exact ->
+      (match interval with
+       | Octave -> Acoustic_interval.octave
+       | Just_major_sixth -> Acoustic_interval.just_major_sixth
+       | Just_minor_sixth -> Acoustic_interval.just_minor_sixth
+       | Fifth ->
+         Acoustic_interval.pythagorean
+           { number = Fifth; quality = Perfect; additional_octaves = 0 }
+       | Fourth ->
+         Acoustic_interval.pythagorean
+           { number = Fourth; quality = Perfect; additional_octaves = 0 }
+       | Just_major_third -> Acoustic_interval.just_major_third
+       | Just_minor_third -> Acoustic_interval.just_minor_third
+       | Pythagorean_major_second ->
+         Acoustic_interval.pythagorean
+           { number = Second; quality = Major; additional_octaves = 0 }
+       | Pythagorean_diatonic_semiton -> Acoustic_interval.pythagorean_diatonic_semiton
+       | Pythagorean_chromatic_semiton -> Acoustic_interval.pythagorean_chromatic_semiton
+       | Just_diatonic_semiton -> Acoustic_interval.just_diatonic_semiton)
+    | Equal_temperament ->
+      let number_of_divisions =
+        match interval with
+        | Octave -> 12
+        | Just_major_sixth -> 9
+        | Just_minor_sixth -> 8
+        | Fifth -> 7
+        | Fourth -> 5
+        | Just_major_third -> 4
+        | Just_minor_third -> 3
+        | Pythagorean_major_second -> 2
+        | Pythagorean_diatonic_semiton
+        | Pythagorean_chromatic_semiton
+        | Just_diatonic_semiton -> 1
+      in
+      Acoustic_interval.equal_division_of_the_octave ~divisor:12 ~number_of_divisions
+    | E19 ->
+      let number_of_divisions =
+        match interval with
+        | Octave -> 19
+        | Just_major_sixth -> 41
+        | Just_minor_sixth -> 37
+        | Fifth -> 32
+        | Fourth -> 23
+        | Just_major_third -> 18
+        | Just_minor_third -> 14
+        | Pythagorean_major_second -> 9
+        | Pythagorean_diatonic_semiton -> 4
+        | Pythagorean_chromatic_semiton -> 5
+        | Just_diatonic_semiton -> 5
+      in
+      Acoustic_interval.equal_division_of_the_octave ~divisor:19 ~number_of_divisions
+    | E53 ->
+      let number_of_divisions =
+        match interval with
+        | Octave -> 53
+        | Just_major_sixth -> 39
+        | Just_minor_sixth -> 36
+        | Fifth -> 19
+        | Fourth -> 22
+        | Just_major_third -> 17
+        | Just_minor_third -> 14
+        | Pythagorean_major_second -> 9
+        | Pythagorean_diatonic_semiton -> 4
+        | Pythagorean_chromatic_semiton -> 5
+        | Just_diatonic_semiton -> 5
+      in
+      Acoustic_interval.equal_division_of_the_octave ~divisor:53 ~number_of_divisions
+  in
+  let columns =
+    let cents_column kind =
+      Ascii_table.Column.create_attr
+        ~align:Right
+        (Sexp.to_string [%sexp (kind : Kind.t)])
+        (fun (t : Row.t) ->
+          acoustic_interval t kind
+          |> Acoustic_interval.to_cents
+          |> Float.iround_exn ~dir:`Nearest
+          |> Int.to_string
+          |> fun i -> [], i)
+    in
+    Ascii_table.Column.(
+      [ [ create_attr "Interval" (fun (t : Row.t) ->
+            ( []
+            , Sexp.to_string_hum [%sexp (t : Row.t)]
+              |> String.substr_replace_all ~pattern:"_" ~with_:" " ))
+        ]
+      ; List.map Kind.all ~f:cents_column
+      ]
+      |> List.concat)
+  in
+  Ascii_table.to_string columns Row.all |> print_endline;
+  [%expect
+    {|
+    ┌───────────────────────────────┬───────┬──────┬──────┬───────────────────┐
+    │ Interval                      │ Exact │  E19 │  E53 │ Equal_temperament │
+    ├───────────────────────────────┼───────┼──────┼──────┼───────────────────┤
+    │ Octave                        │  1200 │ 1200 │ 1200 │              1200 │
+    │ Just major sixth              │   884 │ 2589 │  883 │               900 │
+    │ Just minor sixth              │   814 │ 2337 │  815 │               800 │
+    │ Fifth                         │   702 │ 2021 │  430 │               700 │
+    │ Fourth                        │   498 │ 1453 │  498 │               500 │
+    │ Just major third              │   386 │ 1137 │  385 │               400 │
+    │ Just minor third              │   316 │  884 │  317 │               300 │
+    │ Pythagorean major second      │   204 │  568 │  204 │               200 │
+    │ Pythagorean diatonic semiton  │    90 │  253 │   91 │               100 │
+    │ Pythagorean chromatic semiton │   114 │  316 │  113 │               100 │
+    │ Just diatonic semiton         │   112 │  316 │  113 │               100 │
+    └───────────────────────────────┴───────┴──────┴──────┴───────────────────┘ |}]
+;;

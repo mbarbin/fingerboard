@@ -18,6 +18,7 @@
 (**********************************************************************************)
 
 open! Fingerboard_cello_system_e12
+open! Fingerboard_cello_system_e19
 open! Fingerboard_cello_system_e31
 open! Fingerboard_cello_system_e53
 open! Fingerboard_cello_system_e55
@@ -768,6 +769,398 @@ let%expect_test "E53.sexp_of_t" =
          (Equal_division_of_the_octave
            (divisor             53)
            (number_of_divisions 52))))))) |}];
+  ()
+;;
+
+let%expect_test "E19.sexp_of_t" =
+  let t = force E19.t in
+  print_s [%sexp (t : System.t)];
+  [%expect
+    {|
+    ((vibrating_strings (
+       ((open_string (
+          (letter_name        A)
+          (symbol             Natural)
+          (octave_designation 3)))
+        (pitch         220)
+        (roman_numeral I))
+       ((open_string (
+          (letter_name        D)
+          (symbol             Natural)
+          (octave_designation 3)))
+        (pitch         147.27945113469193)
+        (roman_numeral II))
+       ((open_string (
+          (letter_name        G)
+          (symbol             Natural)
+          (octave_designation 2)))
+        (pitch         98.596530575164124)
+        (roman_numeral III))
+       ((open_string (
+          (letter_name        C)
+          (symbol             Natural)
+          (octave_designation 2)))
+        (pitch         66.005649576795662)
+        (roman_numeral IV))))
+     (intervals_going_down (
+       ((interval (
+          (number             Fifth)
+          (quality            Perfect)
+          (additional_octaves 0)))
+        (acoustic_interval (
+          Equal_division_of_the_octave
+          (divisor             19)
+          (number_of_divisions 11))))
+       ((interval (
+          (number             Fifth)
+          (quality            Perfect)
+          (additional_octaves 0)))
+        (acoustic_interval (
+          Equal_division_of_the_octave
+          (divisor             19)
+          (number_of_divisions 11))))
+       ((interval (
+          (number             Fifth)
+          (quality            Perfect)
+          (additional_octaves 0)))
+        (acoustic_interval (
+          Equal_division_of_the_octave
+          (divisor             19)
+          (number_of_divisions 11))))))
+     (fingerboard_positions (
+       ((name                                       0)
+        (at_octave                                  0)
+        (basis_acoustic_interval_to_the_open_string Zero))
+       ((name      A1-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 1))))
+       ((name      m2-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 2))))
+       ((name      M2-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 3))))
+       ((name      A2-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 4))))
+       ((name      m3-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 5))))
+       ((name      M3-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 6))))
+       ((name      A3-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 7))))
+       ((name      4-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 8))))
+       ((name      A4-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 9))))
+       ((name      d5-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 10))))
+       ((name      5-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 11))))
+       ((name      A5-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 12))))
+       ((name      m6-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 13))))
+       ((name      M6-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 14))))
+       ((name      d7-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 15))))
+       ((name      m7-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 16))))
+       ((name      M7-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 17))))
+       ((name      d8-e19)
+        (at_octave 0)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 18))))
+       ((name                                       0)
+        (at_octave                                  1)
+        (basis_acoustic_interval_to_the_open_string Zero))
+       ((name      A1-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 1))))
+       ((name      m2-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 2))))
+       ((name      M2-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 3))))
+       ((name      A2-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 4))))
+       ((name      m3-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 5))))
+       ((name      M3-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 6))))
+       ((name      A3-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 7))))
+       ((name      4-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 8))))
+       ((name      A4-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 9))))
+       ((name      d5-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 10))))
+       ((name      5-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 11))))
+       ((name      A5-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 12))))
+       ((name      m6-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 13))))
+       ((name      M6-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 14))))
+       ((name      d7-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 15))))
+       ((name      m7-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 16))))
+       ((name      M7-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 17))))
+       ((name      d8-e19)
+        (at_octave 1)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 18))))
+       ((name                                       0)
+        (at_octave                                  2)
+        (basis_acoustic_interval_to_the_open_string Zero))
+       ((name      A1-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 1))))
+       ((name      m2-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 2))))
+       ((name      M2-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 3))))
+       ((name      A2-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 4))))
+       ((name      m3-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 5))))
+       ((name      M3-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 6))))
+       ((name      A3-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 7))))
+       ((name      4-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 8))))
+       ((name      A4-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 9))))
+       ((name      d5-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 10))))
+       ((name      5-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 11))))
+       ((name      A5-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 12))))
+       ((name      m6-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 13))))
+       ((name      M6-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 14))))
+       ((name      d7-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 15))))
+       ((name      m7-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 16))))
+       ((name      M7-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 17))))
+       ((name      d8-e19)
+        (at_octave 2)
+        (basis_acoustic_interval_to_the_open_string
+         (Equal_division_of_the_octave
+           (divisor             19)
+           (number_of_divisions 18))))))) |}];
   ()
 ;;
 

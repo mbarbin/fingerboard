@@ -61,6 +61,57 @@ module Fingerboard_position_name = struct
     ;;
   end
 
+  module Edo19 = struct
+    type t =
+      [ `A1_e19
+      | `m2_e19
+      | `M2_e19
+      | `A2_e19
+      | `m3_e19
+      | `M3_e19
+      | `A3_e19
+      | `P4_e19
+      | `A4_e19
+      | `d5_e19
+      | `P5_e19
+      | `A5_e19
+      | `m6_e19
+      | `M6_e19
+      | `d7_e19
+      | `m7_e19
+      | `M7_e19
+      | `d8_e19
+      ]
+    [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+    let sexp_of_t t = Sexp_to_string.position sexp_of_t t
+
+    let acoustic_interval_to_the_open_string (t : t) =
+      let number_of_divisions =
+        match (t : t) with
+        | `A1_e19 -> 1
+        | `m2_e19 -> 2
+        | `M2_e19 -> 3
+        | `A2_e19 -> 4
+        | `m3_e19 -> 5
+        | `M3_e19 -> 6
+        | `A3_e19 -> 7
+        | `P4_e19 -> 8
+        | `A4_e19 -> 9
+        | `d5_e19 -> 10
+        | `P5_e19 -> 11
+        | `A5_e19 -> 12
+        | `m6_e19 -> 13
+        | `M6_e19 -> 14
+        | `d7_e19 -> 15
+        | `m7_e19 -> 16
+        | `M7_e19 -> 17
+        | `d8_e19 -> 18
+      in
+      Acoustic_interval.equal_division_of_the_octave ~divisor:19 ~number_of_divisions
+    ;;
+  end
+
   module Edo31 = struct
     type t =
       [ `A1_e31
@@ -394,6 +445,7 @@ module Fingerboard_position_name = struct
   type t =
     [ `open_string
     | Edo12.t
+    | Edo19.t
     | Edo31.t
     | Edo53.t
     | Edo55.t
@@ -405,6 +457,7 @@ module Fingerboard_position_name = struct
   let sexp_of_t : t -> Sexp.t = function
     | `open_string -> Atom "0"
     | #Edo12.t as t -> [%sexp (t : Edo12.t)]
+    | #Edo19.t as t -> [%sexp (t : Edo19.t)]
     | #Edo31.t as t -> [%sexp (t : Edo31.t)]
     | #Edo53.t as t -> [%sexp (t : Edo53.t)]
     | #Edo55.t as t -> [%sexp (t : Edo55.t)]
@@ -415,6 +468,7 @@ module Fingerboard_position_name = struct
   let acoustic_interval_to_the_open_string : t -> Acoustic_interval.t = function
     | `open_string -> Acoustic_interval.unison
     | #Edo12.t as t -> t |> Edo12.acoustic_interval_to_the_open_string
+    | #Edo19.t as t -> t |> Edo19.acoustic_interval_to_the_open_string
     | #Edo31.t as t -> t |> Edo31.acoustic_interval_to_the_open_string
     | #Edo53.t as t -> t |> Edo53.acoustic_interval_to_the_open_string
     | #Edo55.t as t -> t |> Edo55.acoustic_interval_to_the_open_string
