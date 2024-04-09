@@ -17,17 +17,17 @@
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
 
-(** A characterized scale is a scale in which the intervals between degrees have
-    all been characterized, that is to say their acoustic natures have been
-    specified in details. This allows to distinguish between, for example, just
-    and pythagorean major scales. *)
-
-type t = Characterized_interval.t list
-
-val major_just : t
-val major_pythagorean : t
-val major_just_e53 : t
-val major_pythagorean_e53 : t
-val major_e12 : t
-val major_e31 : t
-val major_e55 : t
+val lower_c : Located_note.t
+val lower_c_sharp : Located_note.t
+val lower_d_flat : Located_note.t
+val lower_d : Located_note.t
+val lower_e_flat : Located_note.t
+val lower_e : Located_note.t
+val lower_f : Located_note.t
+val lower_f_sharp : Located_note.t
+val lower_g_flat : Located_note.t
+val lower_g : Located_note.t
+val lower_a_flat : Located_note.t
+val lower_a : Located_note.t
+val lower_b_flat : Located_note.t
+val lower_b : Located_note.t

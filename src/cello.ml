@@ -61,6 +61,61 @@ module Fingerboard_position_name = struct
     ;;
   end
 
+  module Edo31 = struct
+    type t =
+      [ `A1_e31
+      | `m2_e31
+      | `M2_e31
+      | `d3_e31
+      | `A2_e31
+      | `m3_e31
+      | `M3_e31
+      | `d4_e31
+      | `A3_e31
+      | `P4_e31
+      | `A4_e31
+      | `d5_e31
+      | `P5_e31
+      | `A5_e31
+      | `m6_e31
+      | `M6_e31
+      | `d7_e31
+      | `m7_e31
+      | `M7_e31
+      | `d8_e31
+      ]
+    [@@deriving compare, equal, enumerate, hash, sexp_of]
+
+    let sexp_of_t t = Sexp_to_string.position sexp_of_t t
+
+    let acoustic_interval_to_the_open_string (t : t) =
+      let number_of_divisions =
+        match (t : t) with
+        | `A1_e31 -> 2
+        | `m2_e31 -> 3
+        | `M2_e31 -> 5
+        | `d3_e31 -> 6
+        | `A2_e31 -> 7
+        | `m3_e31 -> 8
+        | `M3_e31 -> 10
+        | `d4_e31 -> 11
+        | `A3_e31 -> 12
+        | `P4_e31 -> 13
+        | `A4_e31 -> 15
+        | `d5_e31 -> 16
+        | `P5_e31 -> 18
+        | `A5_e31 -> 20
+        | `m6_e31 -> 21
+        | `M6_e31 -> 23
+        | `d7_e31 -> 24
+        | `m7_e31 -> 26
+        | `M7_e31 -> 28
+        | `d8_e31 -> 29
+      in
+      Acoustic_interval.equal_division_of_the_octave ~divisor:31 ~number_of_divisions
+    ;;
+  end
+
   module Edo53 = struct
     type t =
       [ `A1z_e53
@@ -339,6 +394,7 @@ module Fingerboard_position_name = struct
   type t =
     [ `open_string
     | Edo12.t
+    | Edo31.t
     | Edo53.t
     | Edo55.t
     | Pythagorean.t
@@ -349,6 +405,7 @@ module Fingerboard_position_name = struct
   let sexp_of_t : t -> Sexp.t = function
     | `open_string -> Atom "0"
     | #Edo12.t as t -> [%sexp (t : Edo12.t)]
+    | #Edo31.t as t -> [%sexp (t : Edo31.t)]
     | #Edo53.t as t -> [%sexp (t : Edo53.t)]
     | #Edo55.t as t -> [%sexp (t : Edo55.t)]
     | #Pythagorean.t as t -> [%sexp (t : Pythagorean.t)]
@@ -358,6 +415,7 @@ module Fingerboard_position_name = struct
   let acoustic_interval_to_the_open_string : t -> Acoustic_interval.t = function
     | `open_string -> Acoustic_interval.unison
     | #Edo12.t as t -> t |> Edo12.acoustic_interval_to_the_open_string
+    | #Edo31.t as t -> t |> Edo31.acoustic_interval_to_the_open_string
     | #Edo53.t as t -> t |> Edo53.acoustic_interval_to_the_open_string
     | #Edo55.t as t -> t |> Edo55.acoustic_interval_to_the_open_string
     | #Pythagorean.t as t -> t |> Pythagorean.acoustic_interval_to_the_open_string

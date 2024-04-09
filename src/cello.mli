@@ -44,6 +44,33 @@ module Fingerboard_position_name : sig
     include S with type t := t
   end
 
+  module Edo31 : sig
+    type t =
+      [ `A1_e31
+      | `m2_e31
+      | `M2_e31
+      | `d3_e31
+      | `A2_e31
+      | `m3_e31
+      | `M3_e31
+      | `d4_e31
+      | `A3_e31
+      | `P4_e31
+      | `A4_e31
+      | `d5_e31
+      | `P5_e31
+      | `A5_e31
+      | `m6_e31
+      | `M6_e31
+      | `d7_e31
+      | `m7_e31
+      | `M7_e31
+      | `d8_e31
+      ]
+
+    include S with type t := t
+  end
+
   module Edo53 : sig
     type t =
       [ `A1z_e53
@@ -158,6 +185,7 @@ module Fingerboard_position_name : sig
   type t =
     [ `open_string
     | Edo12.t
+    | Edo31.t
     | Edo53.t
     | Edo55.t
     | Pythagorean.t
