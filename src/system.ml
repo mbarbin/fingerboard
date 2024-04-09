@@ -66,7 +66,7 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
                   "%s - %s"
                   (Interval.to_string interval)
                   (Acoustic_interval.to_string acoustic_interval) )))
-        ; create_attr "Cents" (fun (i, _) ->
+        ; create_attr ~align:Right "Cents" (fun (i, _) ->
             if i >= Array.length intervals_going_down
             then [], ""
             else (
@@ -361,7 +361,7 @@ module Double_stops = struct
             ( []
             , Fingerboard_position.to_string
                 (f t).fingerboard_location.fingerboard_position ))
-        ; create_attr "Cents" (fun t ->
+        ; create_attr ~align:Right "Cents" (fun t ->
             let acoustic_interval =
               Fingerboard_position.acoustic_interval_to_the_open_string
                 (f t).fingerboard_location.fingerboard_position
@@ -389,7 +389,7 @@ module Double_stops = struct
                 "%s - %s"
                 (Interval.to_string interval)
                 (Acoustic_interval.to_string acoustic_interval) ))
-        ; create_attr "Cents" (fun (t : Double_stop.t) ->
+        ; create_attr ~align:Right "Cents" (fun (t : Double_stop.t) ->
             let acoustic_interval =
               acoustic_interval
                 system
