@@ -4,10 +4,13 @@ dirs=(
     "src"
     "test"
     "systems/cello/e12"
+    "systems/cello/e19"
+    "systems/cello/e31"
     "systems/cello/e53"
     "systems/cello/e55"
     "systems/cello/just"
     "systems/cello/pythagorean"
+    "systems/edos"
     # add more directories here
 )
 
