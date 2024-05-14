@@ -20,7 +20,7 @@
  (synopsis "A microtonal geography of the cello fingerboard")
  (depends
   (ocaml
-   (>= 5.1))
+   (>= 5.2))
   (base
    (and
     (>= v0.17)
