@@ -49,7 +49,7 @@ let to_cents = function
     let { Natural_ratio.numerator; denominator } =
       Natural_ratio.Reduced.to_natural_ratio r
     in
-    1200. *. Stdlib.Float.log2 (Float.of_int numerator /. Float.of_int denominator)
+    1200. *. Float.log2 (Float.of_int numerator /. Float.of_int denominator)
   | Octaves { number_of_octaves } -> 1200 * number_of_octaves |> Float.of_int
   | Cents x -> x
 ;;
