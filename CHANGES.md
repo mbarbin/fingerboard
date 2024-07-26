@@ -1,17 +1,15 @@
-## 0.0.7 (unreleased)
+## 0.0.7 (2024-07-26)
 
 ### Added
 
+- Added dependabot config for automatically upgrading action files.
+
 ### Changed
 
+- Upgrade `ppxlib` to `0.33` - activate unused items warnings.
 - Upgrade `ocaml` to `5.2`.
 - Upgrade `dune` to `3.16`.
-
-### Deprecated
-
-### Fixed
-
-### Removed
+- Upgrade base & co to `0.17`.
 
 ## 0.0.6 (2024-04-04)
 
