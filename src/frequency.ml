@@ -17,10 +17,18 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
-type t = float [@@deriving compare, equal, hash, sexp_of]
+include struct
+  [@@@coverage off]
+
+  type t = float [@@deriving compare, equal, hash, sexp_of]
+end
+
+let check_exn f =
+  if Float.compare f 0. < 0 then raise_s [%sexp "Out of bounds", [%here], (f : float)]
+;;
 
 let of_float_exn f =
-  if Float.compare f 0. < 0 then raise_s [%sexp "Out of bounds", [%here], (f : float)];
+  check_exn f;
   f
 ;;
 

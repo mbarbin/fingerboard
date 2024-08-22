@@ -17,4 +17,8 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
-type t = int [@@deriving compare, equal, hash, sexp_of]
+include struct
+  [@@@coverage off]
+
+  type t = int [@@deriving compare, equal, hash, sexp_of]
+end

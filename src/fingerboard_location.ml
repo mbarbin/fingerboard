@@ -17,8 +17,12 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
-type t =
-  { fingerboard_position : Fingerboard_position.t
-  ; string_number : Roman_numeral.t
-  }
-[@@deriving compare, equal, hash, sexp_of]
+include struct
+  [@@@coverage off]
+
+  type t =
+    { fingerboard_position : Fingerboard_position.t
+    ; string_number : Roman_numeral.t
+    }
+  [@@deriving compare, equal, hash, sexp_of]
+end
