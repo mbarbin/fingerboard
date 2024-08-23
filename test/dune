@@ -1,5 +1,6 @@
 (library
  (name fingerboard_test)
+ (public_name fingerboard-tests.fingerboard_test)
  (flags
   :standard
   -w
@@ -9,12 +10,12 @@
   -open
   Base
   -open
-  Expect_test_helpers
+  Expect_test_helpers_base
   -open
   Fingerboard)
  (libraries
   base
-  expect-test-helpers
+  expect_test_helpers_core.expect_test_helpers_base
   fingerboard
   fingerboard_cello_system_e12
   fingerboard_cello_system_e19
