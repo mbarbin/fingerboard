@@ -1,3 +1,18 @@
+## 0.0.8 (unreleased)
+
+### Added
+
+### Changed
+
+- Split packages
+- Use `expect_test_helpers_core.expect_test_helpers_base`
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
 ## 0.0.7 (2024-07-26)
 
 ### Added

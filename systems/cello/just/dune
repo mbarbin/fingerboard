@@ -1,5 +1,6 @@
 (library
  (name fingerboard_cello_system_just)
+ (public_name fingerboard-system.cello.just)
  (flags
   :standard
   -w
@@ -9,10 +10,14 @@
   -open
   Base
   -open
-  Expect_test_helpers
+  Expect_test_helpers_base
   -open
   Fingerboard)
- (libraries base expect-test-helpers fingerboard textutils.ascii_table)
+ (libraries
+  base
+  expect_test_helpers_core.expect_test_helpers_base
+  fingerboard
+  textutils.ascii_table)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))

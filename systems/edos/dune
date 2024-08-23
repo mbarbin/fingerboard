@@ -1,5 +1,6 @@
 (library
  (name fingerboard_edo_systems)
+ (public_name fingerboard-system.edo)
  (flags
   :standard
   -w
@@ -9,12 +10,12 @@
   -open
   Base
   -open
-  Expect_test_helpers
+  Expect_test_helpers_base
   -open
   Fingerboard)
  (libraries
   base
-  expect-test-helpers
+  expect_test_helpers_core.expect_test_helpers_base
   fingerboard
   patdiff.expect_test_patdiff
   textutils.ascii_table)
