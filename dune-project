@@ -27,7 +27,7 @@
     (< v0.18)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (patdiff
    (and
@@ -51,7 +51,7 @@
     (< v0.18)))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))
   (ppx_let
@@ -85,7 +85,7 @@
     (< v0.18)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (expect_test_helpers_core
    (and
@@ -119,7 +119,7 @@
     (< v0.18)))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))
   (ppx_let
@@ -153,7 +153,7 @@
     (< v0.18)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (expect_test_helpers_core
    (and
@@ -185,7 +185,7 @@
     (< v0.18)))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))
   (ppx_let
