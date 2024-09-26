@@ -98,7 +98,7 @@ scale in thirds from
 └─────┴────────┴───────┴───────┴──────┴────────┴───────┴───────┴──────────────────┴───────┘
 ```
 
-## Code documentation
+## Code Documentation
 
 The code documentation of the latest release is built with `odoc` and published
 to `GitHub` pages [here](https://mbarbin.github.io/fingerboard).
