@@ -15,6 +15,8 @@
 
 (documentation "https://mbarbin.github.io/fingerboard/")
 
+(implicit_transitive_deps false)
+
 (package
  (name fingerboard)
  (synopsis "A microtonal geography of the cello fingerboard")
