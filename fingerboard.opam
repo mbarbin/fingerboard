@@ -8,7 +8,7 @@ homepage: "https://github.com/mbarbin/fingerboard"
 doc: "https://mbarbin.github.io/fingerboard/"
 bug-reports: "https://github.com/mbarbin/fingerboard/issues"
 depends: [
-  "dune" {>= "3.16"}
+  "dune" {>= "3.17"}
   "ocaml" {>= "5.2"}
   "base" {>= "v0.17" & < "v0.18"}
   "patdiff" {>= "v0.17" & < "v0.18"}
