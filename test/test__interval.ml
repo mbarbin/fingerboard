@@ -113,20 +113,21 @@ let%expect_test "compute" =
     | Some interval ->
       let shift_up = from |> Interval.shift_up interval in
       let shift_down = to_ |> Interval.shift_down interval in
-      if not
-           ([%equal: Note.t option] shift_up (Some to_)
-            && [%equal: Note.t option] shift_down (Some from))
+      if
+        not
+          ([%equal: Note.t option] shift_up (Some to_)
+           && [%equal: Note.t option] shift_down (Some from))
       then
         raise_s
           [%sexp
             "Inconsistency"
-            , [%here]
-            , { from : Note.t
-              ; to_ : Note.t
-              ; interval : Interval.t
-              ; shift_up : Note.t option
-              ; shift_down : Note.t option
-              }];
+          , [%here]
+          , { from : Note.t
+            ; to_ : Note.t
+            ; interval : Interval.t
+            ; shift_up : Note.t option
+            ; shift_down : Note.t option
+            }];
       let queue =
         Hashtbl.find_or_add table interval ~default:(fun () -> Queue.create ())
       in
@@ -148,10 +149,10 @@ let%expect_test "compute" =
     print_s
       [%sexp
         (number_of_semitons : int)
-        , (Interval.to_string interval : string)
-        , (Interval.name interval : string)
-        , (interval : Interval.t)
-        , (intervals : string list)]);
+      , (Interval.to_string interval : string)
+      , (Interval.name interval : string)
+      , (interval : Interval.t)
+      , (intervals : string list)]);
   [%expect
     {|
     (0 P1 unison

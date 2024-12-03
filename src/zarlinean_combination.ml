@@ -81,18 +81,18 @@ let check t =
           (Or_error.error_s
              [%sexp
                "unsolvable degree"
-               , [%here]
-               , { i : int }
-               , { low_note : Degree_kind.t; high_note : Degree_kind.t }]);
+             , [%here]
+             , { i : int }
+             , { low_note : Degree_kind.t; high_note : Degree_kind.t }]);
       if low_p && high_p
       then
         return
           (Or_error.error_s
              [%sexp
                "multiple choices"
-               , [%here]
-               , { i : int }
-               , { low_note : Degree_kind.t; high_note : Degree_kind.t }]);
+             , [%here]
+             , { i : int }
+             , { low_note : Degree_kind.t; high_note : Degree_kind.t }]);
       ()
     done;
     Ok ())

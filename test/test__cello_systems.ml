@@ -3333,10 +3333,10 @@ let check_order_exn (module P : POSITIONS) =
         raise_s
           [%sexp
             "Unexpected position order"
-            , { previous_acoustic_interval = (acc : Acoustic_interval.t)
-              ; p : P.t
-              ; acoustic_interval : Acoustic_interval.t
-              }])
+          , { previous_acoustic_interval = (acc : Acoustic_interval.t)
+            ; p : P.t
+            ; acoustic_interval : Acoustic_interval.t
+            }])
   in
   ignore (acoustic_interval : Acoustic_interval.t)
 ;;

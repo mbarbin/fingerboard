@@ -45,12 +45,12 @@ let test_pitch_exn ~system ~(intervals_going_down : Characterized_interval.t arr
       raise_s
         [%sexp
           "Unexpected pitch calculation"
-          , [%here]
-          , { high : Roman_numeral.t
-            ; low : Roman_numeral.t
-            ; open_string : Frequency.t
-            ; unison : Frequency.t
-            }]
+        , [%here]
+        , { high : Roman_numeral.t
+          ; low : Roman_numeral.t
+          ; open_string : Frequency.t
+          ; unison : Frequency.t
+          }]
   done
 ;;
 

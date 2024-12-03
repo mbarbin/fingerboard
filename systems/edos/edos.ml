@@ -107,9 +107,10 @@ end = struct
     let rec loop i =
       if i > min
       then t
-      else if t.diatonic_semi_ton % i = 0
-              && t.minor_whole_ton % i = 0
-              && t.major_whole_ton % i = 0
+      else if
+        t.diatonic_semi_ton % i = 0
+        && t.minor_whole_ton % i = 0
+        && t.major_whole_ton % i = 0
       then
         simplify
           { diatonic_semi_ton = t.diatonic_semi_ton / i
@@ -318,11 +319,12 @@ let is_raw_candidate n =
   in
   let is_canonical = Edo_system.equal (Edo_system.simplify candidate) candidate in
   let divisor = Edo_system.divisor candidate in
-  if divisor = n
-     && is_canonical
-     && 0 < candidate.diatonic_semi_ton
-     && candidate.diatonic_semi_ton < candidate.minor_whole_ton
-     && candidate.minor_whole_ton <= candidate.major_whole_ton
+  if
+    divisor = n
+    && is_canonical
+    && 0 < candidate.diatonic_semi_ton
+    && candidate.diatonic_semi_ton < candidate.minor_whole_ton
+    && candidate.minor_whole_ton <= candidate.major_whole_ton
   then Some candidate
   else None
 ;;

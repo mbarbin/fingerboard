@@ -37,7 +37,7 @@ type t =
   { vibrating_strings : Vibrating_string.t array
   ; intervals_going_down : Characterized_interval.t array
   ; mutable fingerboard_positions : Fingerboard_position.t list
-       [@sexp_drop_if List.is_empty]
+        [@sexp_drop_if List.is_empty]
   }
 [@@deriving sexp_of]
 
@@ -142,8 +142,8 @@ let vibrating_string_exn (t : t) string_number =
     raise_s
       [%sexp
         "String number out of bounds"
-        , [%here]
-        , { string_number : Roman_numeral.t; available : Roman_numeral.t array }])
+      , [%here]
+      , { string_number : Roman_numeral.t; available : Roman_numeral.t array }])
   else t.vibrating_strings.(index)
 ;;
 
@@ -156,9 +156,9 @@ let pitch (t : t) { Fingerboard_location.fingerboard_position; string_number } =
 ;;
 
 let acoustic_interval
-  (t : t)
-  ~from:{ Fingerboard_location.fingerboard_position = p1; string_number = s1 }
-  ~to_:{ Fingerboard_location.fingerboard_position = p2; string_number = s2 }
+      (t : t)
+      ~from:{ Fingerboard_location.fingerboard_position = p1; string_number = s1 }
+      ~to_:{ Fingerboard_location.fingerboard_position = p2; string_number = s2 }
   =
   let (_ : Vibrating_string.t) = vibrating_string_exn t s1 in
   let (_ : Vibrating_string.t) = vibrating_string_exn t s2 in
@@ -192,20 +192,21 @@ let find_fingerboard_position_exn t ~name =
 ;;
 
 let add_fingerboard_position_exn
-  ?(on_n_octaves = 3)
-  (t : t)
-  (fingerboard_position : Fingerboard_position.t)
+      ?(on_n_octaves = 3)
+      (t : t)
+      (fingerboard_position : Fingerboard_position.t)
   =
-  if Acoustic_interval.compare
-       (Fingerboard_position.acoustic_interval_to_the_open_string fingerboard_position)
-       Acoustic_interval.octave
-     > 0
+  if
+    Acoustic_interval.compare
+      (Fingerboard_position.acoustic_interval_to_the_open_string fingerboard_position)
+      Acoustic_interval.octave
+    > 0
   then
     raise_s
       [%sexp
         "Interval out of bounds"
-        , [%here]
-        , { fingerboard_position : Fingerboard_position.t }];
+      , [%here]
+      , { fingerboard_position : Fingerboard_position.t }];
   let name = Fingerboard_position.name fingerboard_position in
   (match find_fingerboard_position t ~name with
    | None -> ()
@@ -213,11 +214,11 @@ let add_fingerboard_position_exn
      raise_s
        [%sexp
          "Duplicated fingerboard position's name"
-         , [%here]
-         , { name : string
-           ; fingerboard_position : Fingerboard_position.t
-           ; existing_fingerboard_position : Fingerboard_position.t
-           }]);
+       , [%here]
+       , { name : string
+         ; fingerboard_position : Fingerboard_position.t
+         ; existing_fingerboard_position : Fingerboard_position.t
+         }]);
   let fingerboard_positions =
     List.init on_n_octaves ~f:(fun i ->
       Fingerboard_position.at_octave fingerboard_position ~octave:i)
@@ -237,8 +238,8 @@ let exists_fingerboard_position t fingerboard_position =
 ;;
 
 let exists_fingerboard_location
-  t
-  { Fingerboard_location.fingerboard_position; string_number }
+      t
+      { Fingerboard_location.fingerboard_position; string_number }
   =
   let index = Roman_numeral.to_int string_number - 1 in
   index >= 0
@@ -247,9 +248,9 @@ let exists_fingerboard_location
 ;;
 
 let find_next_located_note
-  (t : t)
-  { Located_note.note; fingerboard_location }
-  (characterized_interval : Characterized_interval.t)
+      (t : t)
+      { Located_note.note; fingerboard_location }
+      (characterized_interval : Characterized_interval.t)
   =
   let open Option.Let_syntax in
   let index = Roman_numeral.to_int fingerboard_location.string_number in
@@ -290,10 +291,10 @@ let open_string t string_number =
     match List.hd t.fingerboard_positions with
     | None -> None
     | Some fingerboard_position ->
-      if Acoustic_interval.equal
-           Acoustic_interval.unison
-           (Fingerboard_position.acoustic_interval_to_the_open_string
-              fingerboard_position)
+      if
+        Acoustic_interval.equal
+          Acoustic_interval.unison
+          (Fingerboard_position.acoustic_interval_to_the_open_string fingerboard_position)
       then return fingerboard_position
       else None
   in

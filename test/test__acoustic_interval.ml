@@ -129,11 +129,11 @@ let%expect_test "first comparison" =
         ~align:Right
         (Sexp.to_string [%sexp (kind : Kind.t)])
         (fun (t : Row.t) ->
-          acoustic_interval t kind
-          |> Acoustic_interval.to_cents
-          |> Float.iround_exn ~dir:`Nearest
-          |> Int.to_string
-          |> fun i -> [], i)
+           acoustic_interval t kind
+           |> Acoustic_interval.to_cents
+           |> Float.iround_exn ~dir:`Nearest
+           |> Int.to_string
+           |> fun i -> [], i)
     in
     Ascii_table.Column.(
       [ [ create_attr "Interval" (fun (t : Row.t) ->

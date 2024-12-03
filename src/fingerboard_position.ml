@@ -53,20 +53,21 @@ let ascii_table_columns =
 let at_octave t ~octave = { t with at_octave = octave }
 
 let create_exn ~name ~acoustic_interval_to_the_open_string =
-  if Acoustic_interval.compare
-       acoustic_interval_to_the_open_string
-       Acoustic_interval.octave
-     >= 0
+  if
+    Acoustic_interval.compare
+      acoustic_interval_to_the_open_string
+      Acoustic_interval.octave
+    >= 0
   then
     raise_s
       [%sexp
         "Interval out of bounds"
-        , [%here]
-        , { name : string
-          ; acoustic_interval_to_the_open_string : Acoustic_interval.t
-          ; in_cents =
-              (Acoustic_interval.to_cents acoustic_interval_to_the_open_string : Float.t)
-          }];
+      , [%here]
+      , { name : string
+        ; acoustic_interval_to_the_open_string : Acoustic_interval.t
+        ; in_cents =
+            (Acoustic_interval.to_cents acoustic_interval_to_the_open_string : Float.t)
+        }];
   { name
   ; at_octave = 0
   ; basis_acoustic_interval_to_the_open_string = acoustic_interval_to_the_open_string

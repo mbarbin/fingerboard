@@ -78,7 +78,7 @@ let%expect_test "reduce" =
     print_s
       [%sexp
         (Natural_ratio.to_string natural_ratio : string)
-        , (Natural_ratio.Reduced.to_string reduced : string)]);
+      , (Natural_ratio.Reduced.to_string reduced : string)]);
   [%expect
     {|
     ("9 / 8" "3^2 / 2^3")

@@ -178,8 +178,9 @@ let compute ~(from : Note.t) ~(to_ : Note.t) () =
     let rec aux number_of_letter_names number_of_semitons letter_name octave_designation =
       if octave_designation > to_.octave_designation
       then None
-      else if Note.Letter_name.equal letter_name to_.letter_name
-              && octave_designation = to_.octave_designation
+      else if
+        Note.Letter_name.equal letter_name to_.letter_name
+        && octave_designation = to_.octave_designation
       then
         return
           ( number_of_letter_names
@@ -231,8 +232,8 @@ let compute ~(from : Note.t) ~(to_ : Note.t) () =
 ;;
 
 let shift_up
-  ({ number; quality = _; additional_octaves } as interval)
-  ({ Note.letter_name; symbol = _; octave_designation } as from)
+      ({ number; quality = _; additional_octaves } as interval)
+      ({ Note.letter_name; symbol = _; octave_designation } as from)
   =
   let open Option.Let_syntax in
   let step = Number.to_int number - 1 + (7 * additional_octaves) in
@@ -268,8 +269,8 @@ let shift_up
 ;;
 
 let shift_down
-  ({ number; quality = _; additional_octaves } as interval)
-  ({ Note.letter_name; symbol = _; octave_designation } as to_)
+      ({ number; quality = _; additional_octaves } as interval)
+      ({ Note.letter_name; symbol = _; octave_designation } as to_)
   =
   let step = Number.to_int number - 1 + (7 * additional_octaves) in
   let target =

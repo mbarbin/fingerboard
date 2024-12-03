@@ -838,7 +838,8 @@ let%expect_test "fz_major_just" =
   print_s [%sexp (List.length scale : int)];
   [%expect {| 1 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
-  [%expect {|
+  [%expect
+    {|
     ((IV ((F2 4z)))) |}];
   ()
 ;;
@@ -858,7 +859,8 @@ let%expect_test "f_sharp_major_just" =
   print_s [%sexp (List.length scale : int)];
   [%expect {| 2 |}];
   print_s [%sexp (scale |> Located_note.to_scale_abbrev : Located_note.Scale_abbrev.t)];
-  [%expect {|
+  [%expect
+    {|
     ((IV  ((F#2 A4p)))
      (III ((G#2 A1p)))) |}];
   ()
