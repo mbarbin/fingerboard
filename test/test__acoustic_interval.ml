@@ -259,6 +259,57 @@ let%expect_test "harmonic series and cents" =
     └──────────┴────────────────────────────┴───────────────────────────────┘ |}]
 ;;
 
+let%expect_test "harmonic series and cents bis" =
+  let module Row = struct
+    type t =
+      { harmonic : int
+      ; cents : Cents.t
+      }
+  end
+  in
+  let columns =
+    Ascii_table.Column.
+      [ create_attr "Harmonic" (fun (t : Row.t) -> [], Int.to_string t.harmonic)
+      ; create_attr "Cents" (fun (t : Row.t) -> [], t.cents |> Cents.to_string_nearest)
+      ]
+  in
+  let rows =
+    List.init 16 ~f:(fun i ->
+      let i = i + 1 in
+      let cents =
+        let harmonic =
+          Acoustic_interval.small_natural_ratio_exn ~numerator:i ~denominator:1
+        in
+        Acoustic_interval.to_cents harmonic %. 1200.
+      in
+      { Row.harmonic = i; cents })
+  in
+  Ascii_table.to_string columns rows |> print_endline;
+  [%expect
+    {|
+    ┌──────────┬───────┐
+    │ Harmonic │ Cents │
+    ├──────────┼───────┤
+    │ 1        │ 0     │
+    │ 2        │ 0     │
+    │ 3        │ 702   │
+    │ 4        │ 0     │
+    │ 5        │ 386   │
+    │ 6        │ 702   │
+    │ 7        │ 969   │
+    │ 8        │ 0     │
+    │ 9        │ 204   │
+    │ 10       │ 386   │
+    │ 11       │ 551   │
+    │ 12       │ 702   │
+    │ 13       │ 841   │
+    │ 14       │ 969   │
+    │ 15       │ 1088  │
+    │ 16       │ 0     │
+    └──────────┴───────┘
+    |}]
+;;
+
 let%expect_test "equal corner cases" =
   let base =
     Acoustic_interval.equal_division_of_the_octave ~divisor:53 ~number_of_divisions:52
