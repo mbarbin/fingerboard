@@ -147,6 +147,10 @@
    (and
     (>= v0.17)
     (< v0.18)))
+  (fingerboard
+   (= :version))
+  (fingerboard-system
+   (= :version))
   (patdiff
    (and
     (>= v0.17)
