@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 dirs=(
+    # Add new directories below:
     "src"
     "test"
     "systems/cello/e12"
@@ -11,7 +12,6 @@ dirs=(
     "systems/cello/just"
     "systems/cello/pythagorean"
     "systems/edos"
-    # add more directories here
 )
 
 for dir in "${dirs[@]}"; do
