@@ -44,45 +44,50 @@ type t =
 let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_positions } =
   let vibrating_strings =
     let columns =
-      Ascii_table.Column.
-        [ create_attr
+      Text_table.O.
+        [ Column.make
             ~align:Right
-            "String"
+            ~header:"String"
             (fun (_, { Vibrating_string.open_string = _; pitch = _; roman_numeral }) ->
-               [], Roman_numeral.to_string roman_numeral)
-        ; create_attr "Note" (fun (_, (t : Vibrating_string.t)) ->
-            [], Note.to_string t.open_string)
-        ; create_attr ~align:Right "Pitch" (fun (_, (t : Vibrating_string.t)) ->
-            [], Printf.sprintf "%0.2f" (Frequency.to_float t.pitch))
-        ; create_attr "Interval" (fun (i, _) ->
+               Cell.text (Roman_numeral.to_string roman_numeral))
+        ; Column.make ~header:"Note" (fun (_, (t : Vibrating_string.t)) ->
+            Cell.text (Note.to_string t.open_string))
+        ; Column.make ~align:Right ~header:"Pitch" (fun (_, (t : Vibrating_string.t)) ->
+            Cell.text (Printf.sprintf "%0.2f" (Frequency.to_float t.pitch)))
+        ; Column.make ~header:"Interval" (fun (i, _) ->
             if i >= Array.length intervals_going_down
-            then [], ""
+            then Cell.empty
             else (
               let { Characterized_interval.interval; acoustic_interval } =
                 intervals_going_down.(i)
               in
-              ( []
-              , Printf.sprintf
-                  "%s - %s"
-                  (Interval.to_string interval)
-                  (Acoustic_interval.to_string acoustic_interval) )))
-        ; create_attr ~align:Right "Cents" (fun (i, _) ->
+              Cell.text
+                (Printf.sprintf
+                   "%s - %s"
+                   (Interval.to_string interval)
+                   (Acoustic_interval.to_string acoustic_interval))))
+        ; Column.make ~align:Right ~header:"Cents" (fun (i, _) ->
             if i >= Array.length intervals_going_down
-            then [], ""
+            then Cell.empty
             else (
               let { Characterized_interval.acoustic_interval; _ } =
                 intervals_going_down.(i)
               in
-              [], Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval)))
+              Cell.text
+                (Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval))))
         ]
     in
-    Ascii_table.to_string
-      columns
-      (Array.to_list vibrating_strings |> List.mapi ~f:(fun i v -> i, v))
+    Text_table.make
+      ~columns
+      ~rows:(Array.to_list vibrating_strings |> List.mapi ~f:(fun i v -> i, v))
   and fingerboard_positions =
-    Ascii_table.to_string Fingerboard_position.ascii_table_columns fingerboard_positions
+    Text_table.make
+      ~columns:Fingerboard_position.ascii_table_columns
+      ~rows:fingerboard_positions
   in
-  [ vibrating_strings; fingerboard_positions ] |> String.concat ~sep:"\n"
+  [ vibrating_strings; fingerboard_positions ]
+  |> List.map ~f:Text_table.to_string_ansi
+  |> String.concat ~sep:"\n"
 ;;
 
 let create ~high_vibrating_string ~pitch ~intervals_going_down =
@@ -353,27 +358,27 @@ module Double_stops = struct
 
   let to_ascii_table (system : system) double_stops =
     let columns =
-      let open Ascii_table.Column in
+      let open Text_table.O in
       let common_columns ~name ~(f : Double_stop.t -> Located_note.t) =
-        [ create_attr name (fun t -> [], Note.to_string (f t).note)
-        ; create_attr "String" (fun t ->
-            [], Roman_numeral.to_string (f t).fingerboard_location.string_number)
-        ; create_attr "Pos" (fun t ->
-            ( []
-            , Fingerboard_position.to_string
-                (f t).fingerboard_location.fingerboard_position ))
-        ; create_attr ~align:Right "Cents" (fun t ->
+        [ Column.make ~header:name (fun t -> Cell.text (Note.to_string (f t).note))
+        ; Column.make ~header:"String" (fun t ->
+            Cell.text (Roman_numeral.to_string (f t).fingerboard_location.string_number))
+        ; Column.make ~header:"Pos" (fun t ->
+            Cell.text
+              (Fingerboard_position.to_string
+                 (f t).fingerboard_location.fingerboard_position))
+        ; Column.make ~align:Right ~header:"Cents" (fun t ->
             let acoustic_interval =
               Fingerboard_position.acoustic_interval_to_the_open_string
                 (f t).fingerboard_location.fingerboard_position
             in
             let cents = Acoustic_interval.to_cents acoustic_interval in
-            [], Cents.to_string_nearest cents)
+            Cell.text (Cents.to_string_nearest cents))
         ]
       in
       [ common_columns ~name:"Low" ~f:(fun (t : Double_stop.t) -> t.low_note)
       ; common_columns ~name:"High" ~f:(fun (t : Double_stop.t) -> t.high_note)
-      ; [ create_attr "Interval" (fun (t : Double_stop.t) ->
+      ; [ Column.make ~header:"Interval" (fun (t : Double_stop.t) ->
             let interval =
               Interval.compute ~from:t.low_note.note ~to_:t.high_note.note ()
               |> Option.value_exn ~here:[%here]
@@ -385,12 +390,12 @@ module Double_stops = struct
                 ~to_:t.high_note.fingerboard_location
               |> Option.value_exn ~here:[%here]
             in
-            ( []
-            , Printf.sprintf
-                "%s - %s"
-                (Interval.to_string interval)
-                (Acoustic_interval.to_string acoustic_interval) ))
-        ; create_attr ~align:Right "Cents" (fun (t : Double_stop.t) ->
+            Cell.text
+              (Printf.sprintf
+                 "%s - %s"
+                 (Interval.to_string interval)
+                 (Acoustic_interval.to_string acoustic_interval)))
+        ; Column.make ~align:Right ~header:"Cents" (fun (t : Double_stop.t) ->
             let acoustic_interval =
               acoustic_interval
                 system
@@ -398,12 +403,13 @@ module Double_stops = struct
                 ~to_:t.high_note.fingerboard_location
               |> Option.value_exn ~here:[%here]
             in
-            [], Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval))
+            Cell.text
+              (Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval)))
         ]
       ]
       |> List.concat
     in
-    Ascii_table.to_string ~limit_width_to:500 columns double_stops
+    Text_table.to_string_ansi (Text_table.make ~columns ~rows:double_stops)
   ;;
 
   module Adjustment = struct

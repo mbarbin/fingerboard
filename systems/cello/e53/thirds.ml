@@ -543,12 +543,7 @@ let%expect_test "fz_major_just" =
   let t = force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_fz in
   print_endline (System.Double_stops.to_ascii_table t scale);
-  [%expect
-    {|
-    ┌─────┬────────┬─────┬───────┬──────┬────────┬─────┬───────┬──────────┬───────┐
-    │ Low │ String │ Pos │ Cents │ High │ String │ Pos │ Cents │ Interval │ Cents │
-    ├┬┬┬┬┬┼┬┬┬┬┬┬┬┬┼┬┬┬┬┬┼┬┬┬┬┬┬┬┼┬┬┬┬┬┬┼┬┬┬┬┬┬┬┬┼┬┬┬┬┬┼┬┬┬┬┬┬┬┼┬┬┬┬┬┬┬┬┬┬┼┬┬┬┬┬┬┬┤
-    └┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┘ |}]
+  [%expect {| |}]
 ;;
 
 let%expect_test "f_sharp_major_pythagorean" =

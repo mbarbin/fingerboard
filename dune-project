@@ -25,6 +25,8 @@
    (>= 5.2))
   (base
    (>= v0.17))
+  (crs
+   (>= 0.0.20250705))
   (patdiff
    (>= v0.17))
   (ppx_compare
@@ -42,9 +44,7 @@
   (ppx_sexp_value
    (>= v0.17))
   (ppxlib
-   (>= 0.33))
-  (textutils
-   (>= v0.17))))
+   (>= 0.33))))
 
 (package
  (name fingerboard-system)
@@ -54,6 +54,8 @@
    (>= 5.2))
   (base
    (>= v0.17))
+  (crs
+   (>= 0.0.20250705))
   (expect_test_helpers_core
    (>= v0.17))
   (fingerboard
@@ -77,9 +79,7 @@
   (ppx_sexp_value
    (>= v0.17))
   (ppxlib
-   (>= 0.33))
-  (textutils
-   (>= v0.17))))
+   (>= 0.33))))
 
 (package
  (name fingerboard-tests)
@@ -97,6 +97,8 @@
    (and
     :with-dev-setup
     (>= 2.8.3)))
+  (crs
+   (>= 0.0.20250705))
   (expect_test_helpers_core
    (>= v0.17))
   (fingerboard
@@ -127,8 +129,6 @@
    (>= v0.17))
   (ppxlib
    (>= 0.33))
-  (textutils
-   (>= v0.17))
   (sherlodoc
    (and
     :with-doc

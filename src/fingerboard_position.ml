@@ -38,15 +38,15 @@ let acoustic_interval_to_the_open_string t =
 ;;
 
 let ascii_table_columns =
-  Ascii_table.Column.
-    [ create_attr ~align:Right "Pos" (fun t -> [], to_string t)
-    ; create_attr ~align:Right "Cents" (fun t ->
+  Text_table.O.
+    [ Column.make ~align:Right ~header:"Pos" (fun t -> Cell.text (to_string t))
+    ; Column.make ~align:Right ~header:"Cents" (fun t ->
         let acoustic_interval = acoustic_interval_to_the_open_string t in
         let cents = Acoustic_interval.to_cents acoustic_interval in
-        [], Cents.to_string_nearest cents)
-    ; create_attr ~align:Right "Interval" (fun t ->
+        Cell.text (Cents.to_string_nearest cents))
+    ; Column.make ~align:Right ~header:"Interval" (fun t ->
         let acoustic_interval = acoustic_interval_to_the_open_string t in
-        [], Acoustic_interval.to_string acoustic_interval)
+        Cell.text (Acoustic_interval.to_string acoustic_interval))
     ]
 ;;
 
