@@ -125,23 +125,23 @@ let%expect_test "first comparison" =
   in
   let columns =
     let cents_column kind =
-      Ascii_table.Column.create_attr
+      Text_table.Column.make
         ~align:Right
-        (Sexp.to_string [%sexp (kind : Kind.t)])
+        ~header:(Sexp.to_string [%sexp (kind : Kind.t)])
         (fun (t : Row.t) ->
            acoustic_interval t kind
            |> Acoustic_interval.to_cents
            |> Float.iround_exn ~dir:`Nearest
            |> Int.to_string
-           |> fun i -> [], i)
+           |> fun i -> Text_table.Cell.text i)
     in
-    Ascii_table.Column.(
-      [ [ create_attr "Interval" (fun (t : Row.t) ->
-            [], Interval.name t.interval |> String.capitalize)
+    Text_table.O.
+      [ [ Column.make ~header:"Interval" (fun (t : Row.t) ->
+            Cell.text (Interval.name t.interval |> String.capitalize))
         ]
       ; List.map Kind.all ~f:cents_column
       ]
-      |> List.concat)
+    |> List.concat
   in
   let rows =
     Row.
@@ -168,7 +168,7 @@ let%expect_test "first comparison" =
         }
       ]
   in
-  Ascii_table.to_string columns rows |> print_endline;
+  Text_table.to_string_ansi (Text_table.make ~columns ~rows) |> print_endline;
   [%expect
     {|
     ┌──────────────┬───────────────────┬──────┬─────────────┬──────┬──────┐
@@ -195,23 +195,29 @@ let%expect_test "harmonic series and cents" =
   end
   in
   let columns =
-    Ascii_table.Column.
-      [ create_attr "Harmonic" (fun (t : Row.t) -> [], Int.to_string t.harmonic)
-      ; create_attr "Interval Above Fundamental" (fun (t : Row.t) ->
-          [], Interval.name t.interval)
-      ; create_attr ~align:Right "Deviation in Cents From Equal" (fun (t : Row.t) ->
-          let harmonic =
-            Acoustic_interval.small_natural_ratio_exn ~numerator:t.harmonic ~denominator:1
-          in
-          let equal = Acoustic_interval.equal_tempered_12 t.interval in
-          let deviation =
-            Acoustic_interval.to_cents harmonic -. Acoustic_interval.to_cents equal
-            |> Float.iround_exn ~dir:`Nearest
-          in
-          ( []
-          , if deviation > 0
-            then "+" ^ Int.to_string deviation
-            else Int.to_string deviation ))
+    Text_table.O.
+      [ Column.make ~header:"Harmonic" (fun (t : Row.t) ->
+          Cell.text (Int.to_string t.harmonic))
+      ; Column.make ~header:"Interval Above Fundamental" (fun (t : Row.t) ->
+          Cell.text (Interval.name t.interval))
+      ; Column.make
+          ~align:Right
+          ~header:"Deviation in Cents From Equal"
+          (fun (t : Row.t) ->
+             let harmonic =
+               Acoustic_interval.small_natural_ratio_exn
+                 ~numerator:t.harmonic
+                 ~denominator:1
+             in
+             let equal = Acoustic_interval.equal_tempered_12 t.interval in
+             let deviation =
+               Acoustic_interval.to_cents harmonic -. Acoustic_interval.to_cents equal
+               |> Float.iround_exn ~dir:`Nearest
+             in
+             Cell.text
+               (if deviation > 0
+                then "+" ^ Int.to_string deviation
+                else Int.to_string deviation))
       ]
   in
   let rows =
@@ -242,7 +248,7 @@ let%expect_test "harmonic series and cents" =
         }
       ]
   in
-  Ascii_table.to_string columns rows |> print_endline;
+  Text_table.to_string_ansi (Text_table.make ~columns ~rows) |> print_endline;
   [%expect
     {|
     ┌──────────┬────────────────────────────┬───────────────────────────────┐
@@ -268,9 +274,11 @@ let%expect_test "harmonic series and cents bis" =
   end
   in
   let columns =
-    Ascii_table.Column.
-      [ create_attr "Harmonic" (fun (t : Row.t) -> [], Int.to_string t.harmonic)
-      ; create_attr "Cents" (fun (t : Row.t) -> [], t.cents |> Cents.to_string_nearest)
+    Text_table.O.
+      [ Column.make ~header:"Harmonic" (fun (t : Row.t) ->
+          Cell.text (Int.to_string t.harmonic))
+      ; Column.make ~header:"Cents" (fun (t : Row.t) ->
+          Cell.text (t.cents |> Cents.to_string_nearest))
       ]
   in
   let rows =
@@ -284,7 +292,7 @@ let%expect_test "harmonic series and cents bis" =
       in
       { Row.harmonic = i; cents })
   in
-  Ascii_table.to_string columns rows |> print_endline;
+  Text_table.to_string_ansi (Text_table.make ~columns ~rows) |> print_endline;
   [%expect
     {|
     ┌──────────┬───────┐
@@ -477,24 +485,24 @@ let%expect_test "ratios" =
       raise_s [%sexp "Unexpected non ratio", [%here], (i : Acoustic_interval.t)]
   in
   let columns =
-    Ascii_table.Column.
-      [ create_attr "Interval" (fun (t : Row.t) ->
-          [], Sexp.to_string [%sexp (t.interval_kind : Interval_kind.t)])
-      ; create_attr ~align:Right "Ratio" (fun (t : Row.t) ->
-          ( []
-          , Natural_ratio.to_string
-              (Natural_ratio.Reduced.to_natural_ratio t.reduced_natural_ratio) ))
-      ; create_attr ~align:Right "Reduced ratio" (fun (t : Row.t) ->
-          [], Natural_ratio.Reduced.to_string t.reduced_natural_ratio)
-      ; create_attr ~align:Right "Cents" (fun (t : Row.t) ->
-          ( []
-          , t.acoustic_interval
-            |> Acoustic_interval.to_cents
-            |> Float.iround_exn ~dir:`Nearest
-            |> Int.to_string ))
-      ; create_attr ~align:Right "53 EDO #" (fun (t : Row.t) ->
-          [], Int.to_string t.to_53_edo)
-      ; create_attr ~align:Right "53 EDO cents" (fun (t : Row.t) ->
+    Text_table.O.
+      [ Column.make ~header:"Interval" (fun (t : Row.t) ->
+          Cell.text (Sexp.to_string [%sexp (t.interval_kind : Interval_kind.t)]))
+      ; Column.make ~align:Right ~header:"Ratio" (fun (t : Row.t) ->
+          Cell.text
+            (Natural_ratio.to_string
+               (Natural_ratio.Reduced.to_natural_ratio t.reduced_natural_ratio)))
+      ; Column.make ~align:Right ~header:"Reduced ratio" (fun (t : Row.t) ->
+          Cell.text (Natural_ratio.Reduced.to_string t.reduced_natural_ratio))
+      ; Column.make ~align:Right ~header:"Cents" (fun (t : Row.t) ->
+          Cell.text
+            (t.acoustic_interval
+             |> Acoustic_interval.to_cents
+             |> Float.iround_exn ~dir:`Nearest
+             |> Int.to_string))
+      ; Column.make ~align:Right ~header:"53 EDO #" (fun (t : Row.t) ->
+          Cell.text (Int.to_string t.to_53_edo))
+      ; Column.make ~align:Right ~header:"53 EDO cents" (fun (t : Row.t) ->
           let cents =
             Acoustic_interval.equal_division_of_the_octave
               ~divisor:53
@@ -504,9 +512,12 @@ let%expect_test "ratios" =
           let ref_cents = t.acoustic_interval |> Acoustic_interval.to_cents in
           let diff = cents -. ref_cents in
           let sign = if Float.compare diff 0. >= 0 then "+" else "" in
-          ( []
-          , Printf.sprintf "%d (%s%0.3f)" (Float.iround_exn ~dir:`Nearest cents) sign diff
-          ))
+          Cell.text
+            (Printf.sprintf
+               "%d (%s%0.3f)"
+               (Float.iround_exn ~dir:`Nearest cents)
+               sign
+               diff))
       ]
   in
   let rows =
@@ -518,7 +529,7 @@ let%expect_test "ratios" =
       ; to_53_edo = Interval_kind.to_53_edo interval_kind
       })
   in
-  Ascii_table.to_string ~limit_width_to:500 columns rows |> print_endline;
+  Text_table.to_string_ansi (Text_table.make ~columns ~rows) |> print_endline;
   [%expect
     {|
     ┌──────────────────────────────────────────────┬─────────────────┬─────────────────┬───────┬──────────┬───────────────┐
