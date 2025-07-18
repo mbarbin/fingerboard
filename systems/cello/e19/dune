@@ -16,8 +16,7 @@
  (libraries
   base
   expect_test_helpers_core.expect_test_helpers_base
-  fingerboard
-  textutils.ascii_table)
+  fingerboard)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))
