@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Switch to standalone library `print-table`.
 - Split packages
 - Use `expect_test_helpers_core.expect_test_helpers_base`
 

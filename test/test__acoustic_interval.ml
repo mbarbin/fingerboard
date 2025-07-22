@@ -125,7 +125,7 @@ let%expect_test "first comparison" =
   in
   let columns =
     let cents_column kind =
-      Text_table.Column.make
+      Print_table.Column.make
         ~align:Right
         ~header:(Sexp.to_string [%sexp (kind : Kind.t)])
         (fun (t : Row.t) ->
@@ -133,9 +133,9 @@ let%expect_test "first comparison" =
            |> Acoustic_interval.to_cents
            |> Float.iround_exn ~dir:`Nearest
            |> Int.to_string
-           |> fun i -> Text_table.Cell.text i)
+           |> fun i -> Print_table.Cell.text i)
     in
-    Text_table.O.
+    Print_table.O.
       [ [ Column.make ~header:"Interval" (fun (t : Row.t) ->
             Cell.text (Interval.name t.interval |> String.capitalize))
         ]
@@ -168,7 +168,7 @@ let%expect_test "first comparison" =
         }
       ]
   in
-  Text_table.to_string_ansi (Text_table.make ~columns ~rows) |> print_endline;
+  Print_table.to_string_text (Print_table.make ~columns ~rows) |> print_endline;
   [%expect
     {|
     ┌──────────────┬───────────────────┬──────┬─────────────┬──────┬──────┐
@@ -195,7 +195,7 @@ let%expect_test "harmonic series and cents" =
   end
   in
   let columns =
-    Text_table.O.
+    Print_table.O.
       [ Column.make ~header:"Harmonic" (fun (t : Row.t) ->
           Cell.text (Int.to_string t.harmonic))
       ; Column.make ~header:"Interval Above Fundamental" (fun (t : Row.t) ->
@@ -248,7 +248,7 @@ let%expect_test "harmonic series and cents" =
         }
       ]
   in
-  Text_table.to_string_ansi (Text_table.make ~columns ~rows) |> print_endline;
+  Print_table.to_string_text (Print_table.make ~columns ~rows) |> print_endline;
   [%expect
     {|
     ┌──────────┬────────────────────────────┬───────────────────────────────┐
@@ -274,7 +274,7 @@ let%expect_test "harmonic series and cents bis" =
   end
   in
   let columns =
-    Text_table.O.
+    Print_table.O.
       [ Column.make ~header:"Harmonic" (fun (t : Row.t) ->
           Cell.text (Int.to_string t.harmonic))
       ; Column.make ~header:"Cents" (fun (t : Row.t) ->
@@ -292,7 +292,7 @@ let%expect_test "harmonic series and cents bis" =
       in
       { Row.harmonic = i; cents })
   in
-  Text_table.to_string_ansi (Text_table.make ~columns ~rows) |> print_endline;
+  Print_table.to_string_text (Print_table.make ~columns ~rows) |> print_endline;
   [%expect
     {|
     ┌──────────┬───────┐
@@ -485,7 +485,7 @@ let%expect_test "ratios" =
       raise_s [%sexp "Unexpected non ratio", [%here], (i : Acoustic_interval.t)]
   in
   let columns =
-    Text_table.O.
+    Print_table.O.
       [ Column.make ~header:"Interval" (fun (t : Row.t) ->
           Cell.text (Sexp.to_string [%sexp (t.interval_kind : Interval_kind.t)]))
       ; Column.make ~align:Right ~header:"Ratio" (fun (t : Row.t) ->
@@ -529,7 +529,7 @@ let%expect_test "ratios" =
       ; to_53_edo = Interval_kind.to_53_edo interval_kind
       })
   in
-  Text_table.to_string_ansi (Text_table.make ~columns ~rows) |> print_endline;
+  Print_table.to_string_text (Print_table.make ~columns ~rows) |> print_endline;
   [%expect
     {|
     ┌──────────────────────────────────────────────┬─────────────────┬─────────────────┬───────┬──────────┬───────────────┐

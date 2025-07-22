@@ -44,7 +44,7 @@ type t =
 let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_positions } =
   let vibrating_strings =
     let columns =
-      Text_table.O.
+      Print_table.O.
         [ Column.make
             ~align:Right
             ~header:"String"
@@ -77,16 +77,16 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
                 (Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval))))
         ]
     in
-    Text_table.make
+    Print_table.make
       ~columns
       ~rows:(Array.to_list vibrating_strings |> List.mapi ~f:(fun i v -> i, v))
   and fingerboard_positions =
-    Text_table.make
+    Print_table.make
       ~columns:Fingerboard_position.ascii_table_columns
       ~rows:fingerboard_positions
   in
   [ vibrating_strings; fingerboard_positions ]
-  |> List.map ~f:Text_table.to_string_ansi
+  |> List.map ~f:Print_table.to_string_text
   |> String.concat ~sep:"\n"
 ;;
 
@@ -358,7 +358,7 @@ module Double_stops = struct
 
   let to_ascii_table (system : system) double_stops =
     let columns =
-      let open Text_table.O in
+      let open Print_table.O in
       let common_columns ~name ~(f : Double_stop.t -> Located_note.t) =
         [ Column.make ~header:name (fun t -> Cell.text (Note.to_string (f t).note))
         ; Column.make ~header:"String" (fun t ->
@@ -409,7 +409,7 @@ module Double_stops = struct
       ]
       |> List.concat
     in
-    Text_table.to_string_ansi (Text_table.make ~columns ~rows:double_stops)
+    Print_table.to_string_text (Print_table.make ~columns ~rows:double_stops)
   ;;
 
   module Adjustment = struct

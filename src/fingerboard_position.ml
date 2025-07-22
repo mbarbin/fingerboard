@@ -38,7 +38,7 @@ let acoustic_interval_to_the_open_string t =
 ;;
 
 let ascii_table_columns =
-  Text_table.O.
+  Print_table.O.
     [ Column.make ~align:Right ~header:"Pos" (fun t -> Cell.text (to_string t))
     ; Column.make ~align:Right ~header:"Cents" (fun t ->
         let acoustic_interval = acoustic_interval_to_the_open_string t in

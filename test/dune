@@ -15,7 +15,6 @@
   Fingerboard)
  (libraries
   base
-  crs.text-table
   expect_test_helpers_core.expect_test_helpers_base
   fingerboard
   fingerboard_cello_system_e12
@@ -25,7 +24,8 @@
   fingerboard_cello_system_e55
   fingerboard_cello_system_just
   fingerboard_cello_system_pythagorean
-  patdiff.expect_test_patdiff)
+  patdiff.expect_test_patdiff
+  print-table)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))
