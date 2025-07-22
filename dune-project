@@ -79,7 +79,9 @@
   (ppx_sexp_value
    (>= v0.17))
   (ppxlib
-   (>= 0.33))))
+   (>= 0.33))
+  (print-table
+   (>= 0.1.0))))
 
 (package
  (name fingerboard-tests)
@@ -129,6 +131,8 @@
    (>= v0.17))
   (ppxlib
    (>= 0.33))
+  (print-table
+   (>= 0.1.0))
   (sherlodoc
    (and
     :with-doc
