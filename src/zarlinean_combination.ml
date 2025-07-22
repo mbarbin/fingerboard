@@ -149,11 +149,11 @@ let to_ascii_tables t =
   let degrees =
     let columns =
       List.mapi (Array.to_list t) ~f:(fun i _t ->
-        Text_table.Column.make
+        Print_table.Column.make
           ~header:Roman_numeral.(to_string (of_int_exn (i + 1)))
-          (fun t -> Text_table.Cell.text (Degree_kind.to_string t.(i))))
+          (fun t -> Print_table.Cell.text (Degree_kind.to_string t.(i))))
     in
-    Text_table.to_string_ansi (Text_table.make ~columns ~rows:[ t ])
+    Print_table.to_string_text (Print_table.make ~columns ~rows:[ t ])
   in
   [ degrees ] |> String.concat ~sep:"\n"
 ;;

@@ -2,7 +2,7 @@
  (name fingerboard)
  (public_name fingerboard)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a -open Base)
- (libraries base crs.text-table)
+ (libraries base print-table)
  (instrumentation
   (backend bisect_ppx))
  (lint

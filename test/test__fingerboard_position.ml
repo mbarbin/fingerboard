@@ -32,7 +32,7 @@ let%expect_test "positions and cents" =
   end
   in
   let columns =
-    Text_table.O.
+    Print_table.O.
       [ Column.make ~header:"Position" (fun (t : Row.t) ->
           Cell.text (Cello.Fingerboard_position_name.to_string t.name))
       ; Column.make ~align:Right ~header:"Cents" (fun (t : Row.t) ->
@@ -46,7 +46,7 @@ let%expect_test "positions and cents" =
     List.map fingerboard_positions ~f:(fun (name, acoustic_interval_to_the_open_string) ->
       { Row.name; acoustic_interval_to_the_open_string })
   in
-  Text_table.to_string_ansi (Text_table.make ~columns ~rows) |> print_endline;
+  Print_table.to_string_text (Print_table.make ~columns ~rows) |> print_endline;
   [%expect
     {|
     ┌──────────┬─────────┐

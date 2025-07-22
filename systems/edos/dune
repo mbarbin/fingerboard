@@ -15,10 +15,10 @@
   Fingerboard)
  (libraries
   base
-  crs.text-table
   expect_test_helpers_core.expect_test_helpers_base
   fingerboard
-  patdiff.expect_test_patdiff)
+  patdiff.expect_test_patdiff
+  print-table)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))

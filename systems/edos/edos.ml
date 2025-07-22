@@ -227,7 +227,7 @@ end = struct
     let divisor = Edo_system.divisor edo_system in
     let name = Printf.sprintf "E%d" divisor in
     let divisor_length = String.length (Int.to_string divisor) in
-    Text_table.Column.make ~align:Right ~header:name (fun (t : Reference_interval.t) ->
+    Print_table.Column.make ~align:Right ~header:name (fun (t : Reference_interval.t) ->
       let number_of_divisions = Reference_interval.edo_approximation t ~edo_system in
       let acoustic_interval =
         Acoustic_interval.equal_division_of_the_octave ~divisor ~number_of_divisions
@@ -235,14 +235,14 @@ end = struct
       let cents =
         Acoustic_interval.to_cents acoustic_interval |> Float.iround_exn ~dir:`Nearest
       in
-      Text_table.Cell.text
+      Print_table.Cell.text
         (Printf.sprintf "%4d - %*d" cents divisor_length number_of_divisions))
   ;;
 
   let print_group edo_systems =
     let columns =
       let exact_column =
-        Text_table.Column.make
+        Print_table.Column.make
           ~align:Right
           ~header:"Exact"
           (fun (t : Reference_interval.t) ->
@@ -250,9 +250,9 @@ end = struct
              |> Acoustic_interval.to_cents
              |> Float.iround_exn ~dir:`Nearest
              |> Int.to_string
-             |> fun i -> Text_table.Cell.text i)
+             |> fun i -> Print_table.Cell.text i)
       in
-      Text_table.O.
+      Print_table.O.
         [ [ Column.make ~header:"Interval" (fun (t : Reference_interval.t) ->
               Cell.text
                 (Sexp.to_string_hum [%sexp (t : Reference_interval.t)]
@@ -262,7 +262,7 @@ end = struct
         ]
       |> List.concat
     in
-    Text_table.to_string_ansi (Text_table.make ~columns ~rows:Reference_interval.all)
+    Print_table.to_string_text (Print_table.make ~columns ~rows:Reference_interval.all)
     |> print_endline
   ;;
 
