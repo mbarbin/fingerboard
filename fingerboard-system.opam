@@ -8,7 +8,7 @@ homepage: "https://github.com/mbarbin/fingerboard"
 doc: "https://mbarbin.github.io/fingerboard/"
 bug-reports: "https://github.com/mbarbin/fingerboard/issues"
 depends: [
-  "dune" {>= "3.17"}
+  "dune" {>= "3.20"}
   "ocaml" {>= "5.2"}
   "base" {>= "v0.17"}
   "crs" {>= "0.0.20250705"}
@@ -42,3 +42,4 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/mbarbin/fingerboard.git"
+x-maintenance-intent: ["(latest)"]
