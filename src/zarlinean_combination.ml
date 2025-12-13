@@ -57,19 +57,26 @@ end
 let compare t1 t2 = For_comparison.(compare (of_t t1) (of_t t2))
 
 let check t =
-  With_return.with_return (fun { return } ->
+  let exception Invalid_entry of Error.t in
+  match
     let len = Array.length t in
     if len <> 7
-    then return (Or_error.error_s [%sexp "unexpected length", [%here], (t : t)]);
+    then
+      Stdlib.raise_notrace
+        (Invalid_entry (Error.create_s [%sexp "unexpected length", [%here], (t : t)]));
     for i = 0 to 6 do
       if Degree_kind.count t.(i) < 1
       then
-        return
-          (Or_error.error_s
-             [%sexp "unexpected degree", [%here], { i : int }, (t.(i) : Degree_kind.t)])
+        Stdlib.raise_notrace
+          (Invalid_entry
+             (Error.create_s
+                [%sexp "unexpected degree", [%here], { i : int }, (t.(i) : Degree_kind.t)]))
     done;
     if Array.count t ~f:(fun d -> Degree_kind.count d > 1) > 1
-    then return (Or_error.error_s [%sexp "too many changing degrees", [%here], (t : t)]);
+    then
+      Stdlib.raise_notrace
+        (Invalid_entry
+           (Error.create_s [%sexp "too many changing degrees", [%here], (t : t)]));
     for i = 0 to 6 do
       let low_note = t.(i)
       and high_note = t.((i + 2) % len) in
@@ -77,25 +84,29 @@ let check t =
       and high_p = low_note.zarlinean && high_note.pythagorean in
       if not (low_p || high_p)
       then
-        return
-          (Or_error.error_s
-             [%sexp
-               "unsolvable degree"
-             , [%here]
-             , { i : int }
-             , { low_note : Degree_kind.t; high_note : Degree_kind.t }]);
+        Stdlib.raise_notrace
+          (Invalid_entry
+             (Error.create_s
+                [%sexp
+                  "unsolvable degree"
+                , [%here]
+                , { i : int }
+                , { low_note : Degree_kind.t; high_note : Degree_kind.t }]));
       if low_p && high_p
       then
-        return
-          (Or_error.error_s
-             [%sexp
-               "multiple choices"
-             , [%here]
-             , { i : int }
-             , { low_note : Degree_kind.t; high_note : Degree_kind.t }]);
+        Stdlib.raise_notrace
+          (Invalid_entry
+             (Error.create_s
+                [%sexp
+                  "multiple choices"
+                , [%here]
+                , { i : int }
+                , { low_note : Degree_kind.t; high_note : Degree_kind.t }]));
       ()
-    done;
-    Ok ())
+    done
+  with
+  | () -> Ok ()
+  | exception Invalid_entry err -> Error err
 ;;
 
 let all () =

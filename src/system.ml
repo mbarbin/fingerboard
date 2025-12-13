@@ -325,11 +325,12 @@ let make_scale t ~characterized_scale ~from ~to_ =
 ;;
 
 let find_same_note_one_string_down t { Located_note.note; fingerboard_location } =
-  With_return.with_return (fun { return } ->
+  let exception No_string_down in
+  match
     let string_number =
       let index = Roman_numeral.to_int fingerboard_location.string_number in
       if index >= Array.length t.vibrating_strings
-      then return None
+      then Stdlib.raise_notrace No_string_down
       else Roman_numeral.of_int_exn (index + 1)
     in
     match
@@ -349,7 +350,10 @@ let find_same_note_one_string_down t { Located_note.note; fingerboard_location }
       Some
         { Located_note.note
         ; fingerboard_location = { fingerboard_position; string_number }
-        })
+        }
+  with
+  | res -> res
+  | exception No_string_down -> None
 ;;
 
 module Double_stops = struct
