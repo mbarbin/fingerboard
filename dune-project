@@ -81,8 +81,6 @@
    (= 0.28.1))
   (bisect_ppx
    (>= 2.8.3))
-  (crs
-   (>= 0.0.20250705))
   (fingerboard
    (= :version))
   (fingerboard-system
