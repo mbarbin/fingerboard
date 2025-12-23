@@ -102,4 +102,3 @@ module String : sig
   val chop_prefix : t -> prefix:t -> t option
   val compare : t -> t -> Ordering.t
 end
-

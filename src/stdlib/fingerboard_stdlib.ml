@@ -197,4 +197,3 @@ module String = struct
 
   let compare a b = String.compare a b |> Ordering.of_int
 end
-
