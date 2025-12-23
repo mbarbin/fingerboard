@@ -21,8 +21,11 @@
 
 module Fingerboard_position_name : sig
   module type S = sig
-    type t [@@deriving compare, equal, enumerate]
+    type t
 
+    val compare : t -> t -> Ordering.t
+    val equal : t -> t -> bool
+    val all : t list
     val to_dyn : t -> Dyn.t
     val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
   end
@@ -222,6 +225,12 @@ module Fingerboard_position_name : sig
   include S with type t := t
 
   val to_string : t -> string
+
+  module Compared_by_interval : sig
+    type nonrec t = t
+
+    val compare : t -> t -> Ordering.t
+  end
 end
 
 (** Create a system with 4 strings tuned in fifth and initialize the open_string

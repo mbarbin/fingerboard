@@ -18,8 +18,10 @@
 (*_*********************************************************************************)
 
 (** The pitch in Hz of a note. *)
-type t [@@deriving compare, equal]
+type t
 
+val compare : t -> t -> Ordering.t
+val equal : t -> t -> bool
 val to_dyn : t -> Dyn.t
 
 (** Raises if the float is negative. *)

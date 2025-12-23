@@ -20,6 +20,8 @@
 (** C2, G2, D3, A3 being the standard strings on the cello, and A4 the standard
     440 Hz pitch. *)
 
-type t = int [@@deriving compare, equal]
+type t = int
 
+val compare : t -> t -> Ordering.t
+val equal : t -> t -> bool
 val to_dyn : t -> Dyn.t

@@ -28,8 +28,10 @@
     tonality it belongs, so there is no one-to-one match between a note and a
     position. *)
 
-type t [@@deriving compare, equal]
+type t
 
+val compare : t -> t -> Ordering.t
+val equal : t -> t -> bool
 val to_dyn : t -> Dyn.t
 
 (** Retrieve the name supplied with [t] was created. *)

@@ -113,13 +113,13 @@ let rec remove t1 t2 =
     , Equal_division_of_the_octave { divisor = d2; number_of_divisions = p2 } )
     when d1 = d2 ->
     let p = p1 - p2 in
-    (match Int.compare p 0 |> Ordering.of_int with
+    (match Int.compare p 0 with
      | Lt -> None
      | Eq -> Some Zero
      | Gt -> Some (Equal_division_of_the_octave { divisor = d1; number_of_divisions = p }))
   | Octaves { number_of_octaves = n1 }, Octaves { number_of_octaves = n2 } ->
     let n = n1 - n2 in
-    (match Int.compare n 0 |> Ordering.of_int with
+    (match Int.compare n 0 with
      | Lt -> None
      | Eq -> Some Zero
      | Gt -> Some (Octaves { number_of_octaves = n }))
@@ -128,7 +128,7 @@ let rec remove t1 t2 =
     let { Natural_ratio.numerator; denominator } =
       Natural_ratio.Reduced.to_natural_ratio r
     in
-    (match Int.compare numerator denominator |> Ordering.of_int with
+    (match Int.compare numerator denominator with
      | Lt -> None
      | Eq -> Some Zero
      | Gt -> Some (Reduced_natural_ratio r))
@@ -144,7 +144,7 @@ let rec remove t1 t2 =
     remove t1 (equal_division_of_the_octave_of_octaves ~divisor ~number_of_octaves)
   | _ ->
     let cents = to_cents t1 -. to_cents t2 in
-    (match Float.compare cents 0. |> Ordering.of_int with
+    (match Float.compare cents 0. with
      | Lt -> None
      | Eq -> Some Zero
      | Gt -> Some (Cents cents))
@@ -231,12 +231,12 @@ let pythagorean (interval : Interval.t) =
     let chromatic = chromatic + chromatic_shift in
     chromatic, diatonic
   in
-  [ List.init interval.additional_octaves ~f:(Fn.const octave)
+  [ List.init interval.additional_octaves ~f:(Fun.const octave)
   ; List.init
       (min chromatic diatonic)
-      ~f:(Fn.const (Reduced_natural_ratio pythagorean_ton))
-  ; List.init (max 0 (chromatic - diatonic)) ~f:(Fn.const pythagorean_chromatic_semiton)
-  ; List.init (max 0 (diatonic - chromatic)) ~f:(Fn.const pythagorean_diatonic_semiton)
+      ~f:(Fun.const (Reduced_natural_ratio pythagorean_ton))
+  ; List.init (max 0 (chromatic - diatonic)) ~f:(Fun.const pythagorean_chromatic_semiton)
+  ; List.init (max 0 (diatonic - chromatic)) ~f:(Fun.const pythagorean_diatonic_semiton)
   ]
   |> List.concat
   |> compound

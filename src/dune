@@ -8,13 +8,10 @@
   -warn-error
   +a
   -open
-  Base
-  -open
   Fingerboard_stdlib)
- (libraries base fingerboard_stdlib print-table)
+ (libraries bitv fingerboard_stdlib print-table)
  (instrumentation
   (backend bisect_ppx))
  (lint
   (pps ppx_js_style -allow-let-operators -check-doc-comments))
- (preprocess
-  (pps -unused-type-warnings=force ppx_compare ppx_enumerate)))
+ (preprocess no_preprocessing))

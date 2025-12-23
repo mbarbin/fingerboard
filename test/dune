@@ -8,13 +8,10 @@
   -warn-error
   +a
   -open
-  Base
-  -open
   Fingerboard
   -open
   Fingerboard_stdlib)
  (libraries
-  base
   fingerboard
   fingerboard_cello_system_e12
   fingerboard_cello_system_e19
@@ -32,4 +29,4 @@
  (lint
   (pps ppx_js_style -allow-let-operators -check-doc-comments))
  (preprocess
-  (pps -unused-type-warnings=force ppx_enumerate ppx_expect)))
+  (pps ppx_expect)))

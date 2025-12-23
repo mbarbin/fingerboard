@@ -23,24 +23,16 @@
  (depends
   (ocaml
    (>= 5.2))
-  (base
-   (>= v0.17))
+  (bitv
+   (>= 2.1))
   (dyn
    (>= 3.20))
   (ordering
    (>= 3.20))
   (pp
    (>= 2.0.0))
-  (ppx_compare
-   (>= v0.17))
-  (ppx_enumerate
-   (>= v0.17))
-  (ppxlib
-   (>= 0.33))
   (print-table
-   (>= 0.1.0))
-  (sexplib0
-   (>= v0.17))))
+   (>= 0.1.0))))
 
 (package
  (name fingerboard-system)
@@ -48,15 +40,9 @@
  (depends
   (ocaml
    (>= 5.2))
-  (base
-   (>= v0.17))
   (fingerboard
    (= :version))
   (patdiff
-   (>= v0.17))
-  (ppx_compare
-   (>= v0.17))
-  (ppx_enumerate
    (>= v0.17))
   (ppx_expect
    (>= v0.17))
@@ -71,17 +57,11 @@
  (depends
   (ocaml
    (>= 5.2))
-  (base
-   (>= v0.17))
   (fingerboard
    (= :version))
   (fingerboard-system
    (= :version))
   (patdiff
-   (>= v0.17))
-  (ppx_compare
-   (>= v0.17))
-  (ppx_enumerate
    (>= v0.17))
   (ppx_expect
    (>= v0.17))

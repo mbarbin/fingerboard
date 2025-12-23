@@ -18,9 +18,8 @@
 (**********************************************************************************)
 
 let fingerboard_positions =
-  List.map Cello.Fingerboard_position_name.all ~f:(fun t ->
-    t, Cello.Fingerboard_position_name.acoustic_interval_to_the_open_string t)
-  |> List.sort ~compare:(fun (_, i1) (_, i2) -> Acoustic_interval.compare i1 i2)
+  Cello.Fingerboard_position_name.all
+  |> List.sort ~compare:Cello.Fingerboard_position_name.Compared_by_interval.compare
 ;;
 
 let%expect_test "positions and cents" =
@@ -43,8 +42,11 @@ let%expect_test "positions and cents" =
       ]
   in
   let rows =
-    List.map fingerboard_positions ~f:(fun (name, acoustic_interval_to_the_open_string) ->
-      { Row.name; acoustic_interval_to_the_open_string })
+    List.map fingerboard_positions ~f:(fun name ->
+      { Row.name
+      ; acoustic_interval_to_the_open_string =
+          Cello.Fingerboard_position_name.acoustic_interval_to_the_open_string name
+      })
   in
   Print_table.to_string_text (Print_table.make ~columns ~rows) |> print_endline;
   [%expect

@@ -2,7 +2,7 @@
  (name fingerboard_stdlib)
  (public_name fingerboard.stdlib)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries dyn ordering pp sexplib0)
+ (libraries dyn ordering pp)
  (instrumentation
   (backend bisect_ppx))
  (lint

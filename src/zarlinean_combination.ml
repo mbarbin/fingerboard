@@ -22,7 +22,6 @@ module Degree_kind = struct
     { pythagorean : bool
     ; zarlinean : bool
     }
-  [@@deriving equal]
 
   let to_dyn { pythagorean; zarlinean } =
     Dyn.record
@@ -48,20 +47,58 @@ module Degree_kind = struct
   ;;
 end
 
-type t = Degree_kind.t array [@@deriving compare, equal]
+type t = Degree_kind.t array
 
 let to_dyn t = Dyn.array Degree_kind.to_dyn t
 
-module For_comparison = struct
-  type nonrec t = int array * t [@@deriving compare]
+let array_compare cmp a b : Ordering.t =
+  let exception Result of Ordering.t in
+  if phys_equal a b
+  then Eq
+  else (
+    match Int.compare (Array.length a) (Array.length b) with
+    | (Lt | Gt) as r -> r
+    | Eq ->
+      (match
+         Array.iter2 a b ~f:(fun a b ->
+           match (cmp a b : Ordering.t) with
+           | Eq -> ()
+           | (Lt | Gt) as r -> raise_notrace (Result r))
+       with
+       | () -> Eq
+       | exception Result r -> r))
+;;
 
-  let of_t t =
+let compare a b = array_compare Degree_kind.compare a b
+let equal t1 t2 = Ordering.is_eq (compare t1 t2)
+
+module For_comparison = struct
+  type nonrec t = int array * t
+
+  let compare ((i1, t1) as a1) ((i2, t2) as a2) : Ordering.t =
+    if phys_equal a1 a2
+    then Eq
+    else (
+      match array_compare Int.compare i1 i2 with
+      | (Lt | Gt) as r -> r
+      | Eq -> compare t1 t2)
+  ;;
+
+  let of_t t : t =
     let changing = Array.map t ~f:(fun d -> 3 - Degree_kind.count d) in
     changing, t
   ;;
 end
 
-let compare t1 t2 = For_comparison.(compare (of_t t1) (of_t t2))
+module With_compare = struct
+  type nonrec t = t
+
+  let compare (t1 : t) t2 =
+    For_comparison.compare (For_comparison.of_t t1) (For_comparison.of_t t2)
+  ;;
+end
+
+let compare = With_compare.compare
 
 let check t =
   let exception Invalid_entry of (string * Dyn.t) in
@@ -75,11 +112,15 @@ let check t =
           (Invalid_entry
              ("Unexpected degree.", Dyn.Tuple [ Dyn.int i; Degree_kind.to_dyn t.(i) ]))
     done;
-    if Array.count t ~f:(fun d -> Degree_kind.count d > 1) > 1
-    then Stdlib.raise_notrace (Invalid_entry ("Too many changing degrees.", to_dyn t));
+    let () =
+      let changing_degrees = ref 0 in
+      Array.iter t ~f:(fun d -> if Degree_kind.count d > 1 then Int.incr changing_degrees);
+      if !changing_degrees > 1
+      then Stdlib.raise_notrace (Invalid_entry ("Too many changing degrees.", to_dyn t))
+    in
     for i = 0 to 6 do
       let low_note = t.(i)
-      and high_note = t.((i + 2) % len) in
+      and high_note = t.((i + 2) mod len) in
       let low_p = low_note.pythagorean && high_note.zarlinean
       and high_p = low_note.zarlinean && high_note.pythagorean in
       if not (low_p || high_p)
@@ -112,7 +153,7 @@ let is_valid t =
 ;;
 
 let all () =
-  let all = Queue.create () in
+  let all = ref [] in
   let copy t i ~f =
     let t' = Array.copy t in
     t'.(i) <- f t.(i);
@@ -127,13 +168,13 @@ let all () =
       aux (copy t i ~f:(fun d -> { d with zarlinean = true })) i
     | _ ->
       let rec scale (t : t) i =
-        let high_index = (i + 2) % len in
+        let high_index = (i + 2) mod len in
         let low_note = t.(i)
         and high_note = t.(high_index) in
         let low_p = low_note.pythagorean && high_note.zarlinean
         and high_p = low_note.zarlinean && high_note.pythagorean in
         if low_p || high_p
-        then if i = 6 then Queue.enqueue all t else scale t (i + 1)
+        then if i = 6 then all := t :: !all else scale t (i + 1)
         else (
           if not low_note.pythagorean
           then scale (copy t i ~f:(fun d -> { d with pythagorean = true })) i;
@@ -147,10 +188,9 @@ let all () =
       scale t i
   in
   aux t 0;
-  let all = Queue.to_list all in
-  List.filter all ~f:is_valid
+  List.filter !all ~f:is_valid
   |> List.sort ~compare
-  |> List.group ~break:(fun x y -> not (compare x y |> Ordering.of_int |> Ordering.is_eq))
+  |> List.group ~break:(fun x y -> not (compare x y |> Ordering.is_eq))
   |> List.map ~f:List.hd
 ;;
 

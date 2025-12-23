@@ -120,11 +120,12 @@ let create ~high_vibrating_string ~pitch ~intervals_going_down =
     }
   in
   let other_strings =
-    Array.fold_map
+    let previous_string = ref high_vibrating_string in
+    Array.map
       intervals_going_down
-      ~init:high_vibrating_string
-      ~f:(fun previous_string { Characterized_interval.interval; acoustic_interval } ->
+      ~f:(fun { Characterized_interval.interval; acoustic_interval } ->
         let v =
+          let previous_string = !previous_string in
           { Vibrating_string.open_string =
               previous_string.open_string |> Interval.shift_down interval |> Option.get
           ; pitch =
@@ -132,8 +133,8 @@ let create ~high_vibrating_string ~pitch ~intervals_going_down =
           ; roman_numeral = Roman_numeral.succ_exn previous_string.roman_numeral
           }
         in
-        v, v)
-    |> snd
+        previous_string := v;
+        v)
   in
   { vibrating_strings = Array.concat [ [| high_vibrating_string |]; other_strings ]
   ; intervals_going_down
@@ -217,20 +218,33 @@ let find_fingerboard_position_exn t ~name =
     Code_error.raise "Fingerboard_position not found." [ "name", name |> Dyn.string ]
 ;;
 
+module Fingerboard_position_compared_by_acoustic_interval = struct
+  type t = Fingerboard_position.t
+
+  let compare (a : t) (b : t) =
+    Acoustic_interval.compare
+      (Fingerboard_position.acoustic_interval_to_the_open_string a)
+      (Fingerboard_position.acoustic_interval_to_the_open_string b)
+  ;;
+end
+
 let add_fingerboard_position_exn
       ?(on_n_octaves = 3)
       (t : t)
       (fingerboard_position : Fingerboard_position.t)
   =
-  if
-    Acoustic_interval.compare
-      (Fingerboard_position.acoustic_interval_to_the_open_string fingerboard_position)
-      Acoustic_interval.octave
-    > 0
-  then
-    Code_error.raise
-      "Interval out of bounds."
-      [ "fingerboard_position", fingerboard_position |> Fingerboard_position.to_dyn ];
+  let () =
+    match
+      Acoustic_interval.compare
+        (Fingerboard_position.acoustic_interval_to_the_open_string fingerboard_position)
+        Acoustic_interval.octave
+    with
+    | Lt | Eq -> ()
+    | Gt ->
+      Code_error.raise
+        "Interval out of bounds."
+        [ "fingerboard_position", fingerboard_position |> Fingerboard_position.to_dyn ]
+  in
   let name = Fingerboard_position.name fingerboard_position in
   (match find_fingerboard_position t ~name with
    | None -> ()
@@ -246,11 +260,7 @@ let add_fingerboard_position_exn
     List.init on_n_octaves ~f:(fun i ->
       Fingerboard_position.at_octave fingerboard_position ~octave:i)
     @ t.fingerboard_positions
-    |> List.sort
-         ~compare:
-           (Comparable.lift
-              Acoustic_interval.compare
-              ~f:Fingerboard_position.acoustic_interval_to_the_open_string)
+    |> List.sort ~compare:Fingerboard_position_compared_by_acoustic_interval.compare
   in
   t.fingerboard_positions <- fingerboard_positions
 ;;
@@ -278,7 +288,7 @@ let find_next_located_note
   let ( let* ) x f = Option.bind x ~f in
   let index = Roman_numeral.to_int fingerboard_location.string_number in
   let* fingerboard_location =
-    List.find_map (List.init index ~f:Fn.id) ~f:(fun index ->
+    List.find_map (List.init index ~f:Fun.id) ~f:(fun index ->
       let string_number = Roman_numeral.of_int_exn (index + 1) in
       match
         List.find_opt t.fingerboard_positions ~f:(fun fingerboard_position ->
@@ -441,13 +451,22 @@ module Double_stops = struct
       }
 
     module Choice_criteria = struct
-      (* The type is minted in such a way that the compare function
-         must prioritize the lower values. *)
+      (* The type is minted in such a way that the compare function must
+         prioritize the lower values. *)
       type t =
         { exists_open_string_with_that_note : bool
         ; degree_priority : int
         }
-      [@@deriving compare]
+
+      let compare t { exists_open_string_with_that_note; degree_priority } =
+        match
+          Bool.compare
+            t.exists_open_string_with_that_note
+            exists_open_string_with_that_note
+        with
+        | (Lt | Gt) as r -> r
+        | Eq -> Int.compare t.degree_priority degree_priority
+      ;;
 
       let of_located_note (system : system) ~tonic (located_note : Located_note.t) =
         { exists_open_string_with_that_note =
@@ -532,7 +551,6 @@ module Double_stops = struct
              Adjustment.Choice_criteria.compare
                (Adjustment.Choice_criteria.of_located_note system ~tonic low_note)
                (Adjustment.Choice_criteria.of_located_note system ~tonic high_note)
-             |> Ordering.of_int
            with
            | Lt | Eq -> { Double_stop.low_note = adjusted_low_note; high_note }
            | Gt -> { Double_stop.low_note; high_note = adjusted_high_note })))

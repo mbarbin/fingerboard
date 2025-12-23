@@ -17,16 +17,16 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
-include struct
-  [@@@coverage off]
+type t = float
 
-  type t = float [@@deriving compare, equal]
-
-  let to_dyn = Dyn.float
-end
+let compare = Float.compare
+let equal = Float.equal
+let to_dyn = Dyn.float
 
 let check_exn f =
-  if Float.compare f 0. < 0 then Code_error.raise "Out of bounds." [ "f", f |> Dyn.float ]
+  match Float.compare f 0. with
+  | Eq | Gt -> ()
+  | Lt -> Code_error.raise "Out of bounds." [ "f", f |> Dyn.float ]
 ;;
 
 let of_float_exn f =

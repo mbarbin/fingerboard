@@ -26,7 +26,6 @@ module Letter_name = struct
     | E
     | F
     | G
-  [@@deriving compare, enumerate, equal]
 
   let constructor_name = function
     | A -> "A"
@@ -38,6 +37,19 @@ module Letter_name = struct
     | G -> "G"
   ;;
 
+  let constructor_rank = function
+    | A -> 0
+    | B -> 1
+    | C -> 2
+    | D -> 3
+    | E -> 4
+    | F -> 5
+    | G -> 6
+  ;;
+
+  let all = [ A; B; C; D; E; F; G ]
+  let compare t1 t2 = Int.compare (constructor_rank t1) (constructor_rank t2)
+  let equal t1 t2 = Int.equal (constructor_rank t1) (constructor_rank t2)
   let to_dyn t = Dyn.variant (constructor_name t) []
   let to_string = constructor_name
 
@@ -90,7 +102,16 @@ module Symbol = struct
     | Sharp
     | Double_sharp
     | Triple_sharp
-  [@@deriving compare, enumerate, equal]
+
+  let constructor_rank = function
+    | Triple_flat -> 0
+    | Double_flat -> 1
+    | Flat -> 2
+    | Natural -> 3
+    | Sharp -> 4
+    | Double_sharp -> 5
+    | Triple_sharp -> 6
+  ;;
 
   let constructor_name = function
     | Triple_flat -> "Triple_flat"
@@ -102,6 +123,9 @@ module Symbol = struct
     | Triple_sharp -> "Triple_sharp"
   ;;
 
+  let all = [ Triple_flat; Double_flat; Flat; Natural; Sharp; Double_sharp; Triple_sharp ]
+  let compare t1 t2 = Int.compare (constructor_rank t1) (constructor_rank t2)
+  let equal t1 t2 = Int.equal (constructor_rank t1) (constructor_rank t2)
   let to_dyn t = Dyn.variant (constructor_name t) []
 
   let to_string = function
@@ -160,7 +184,24 @@ type t =
   ; symbol : Symbol.t
   ; octave_designation : Octave_designation.t
   }
-[@@deriving compare, equal]
+
+let compare t ({ letter_name; symbol; octave_designation } as t2) : Ordering.t =
+  if phys_equal t t2
+  then Eq
+  else (
+    match Letter_name.compare t.letter_name letter_name with
+    | (Lt | Gt) as r -> r
+    | Eq ->
+      (match Symbol.compare t.symbol symbol with
+       | (Lt | Gt) as r -> r
+       | Eq -> Octave_designation.compare t.octave_designation octave_designation))
+;;
+
+let equal t1 t2 =
+  match compare t1 t2 with
+  | Eq -> true
+  | Lt | Gt -> false
+;;
 
 let to_dyn { letter_name; symbol; octave_designation } =
   Dyn.record

@@ -28,9 +28,11 @@ module Letter_name : sig
     | E
     | F
     | G
-  [@@deriving compare, enumerate, equal]
 
+  val compare : t -> t -> Ordering.t
+  val equal : t -> t -> bool
   val to_dyn : t -> Dyn.t
+  val all : t list
   val to_string : t -> string
   val pred : t -> t
   val succ : t -> t
@@ -58,9 +60,11 @@ module Symbol : sig
     | Sharp
     | Double_sharp
     | Triple_sharp
-  [@@deriving compare, enumerate, equal]
 
+  val compare : t -> t -> Ordering.t
+  val equal : t -> t -> bool
   val to_dyn : t -> Dyn.t
+  val all : t list
   val to_string : t -> string
   val prefix_notation : t -> string
   val semitons_shift : t -> int
@@ -73,7 +77,8 @@ type t =
   ; symbol : Symbol.t
   ; octave_designation : Octave_designation.t
   }
-[@@deriving compare, equal]
 
+val compare : t -> t -> Ordering.t
+val equal : t -> t -> bool
 val to_dyn : t -> Dyn.t
 val to_string : t -> string

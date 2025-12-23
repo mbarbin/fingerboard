@@ -8,13 +8,10 @@
   -warn-error
   +a
   -open
-  Base
-  -open
   Fingerboard
   -open
   Fingerboard_stdlib)
  (libraries
-  base
   fingerboard
   fingerboard_stdlib
   patdiff.expect_test_patdiff
@@ -25,4 +22,4 @@
  (lint
   (pps ppx_js_style -allow-let-operators -check-doc-comments))
  (preprocess
-  (pps -unused-type-warnings=force ppx_compare ppx_enumerate ppx_expect)))
+  (pps ppx_expect)))

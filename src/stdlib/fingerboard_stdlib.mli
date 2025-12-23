@@ -24,6 +24,46 @@ module Dyn = Dyn0
 module Ordering = Ordering
 
 val print_dyn : Dyn.t -> unit
+val phys_equal : 'a -> 'a -> bool
+
+module Array : sig
+  include module type of struct
+    include Stdlib.ArrayLabels
+  end
+
+  val create : len:int -> 'a -> 'a t
+  val exists : 'a t -> f:('a -> bool) -> bool
+  val iter : 'a t -> f:('a -> unit) -> unit
+  val fold : 'a t -> init:'acc -> f:('acc -> 'a -> 'acc) -> 'acc
+  val map : 'a t -> f:('a -> 'b) -> 'b t
+  val rev : 'a t -> 'a t
+end
+
+module Bool : sig
+  include module type of struct
+    include Stdlib.Bool
+  end
+
+  val compare : t -> t -> Ordering.t
+end
+
+module Float : sig
+  include module type of struct
+    include Stdlib.Float
+  end
+
+  val compare : t -> t -> Ordering.t
+  val iround_nearest_exn : t -> int
+end
+
+module Int : sig
+  include module type of struct
+    include Stdlib.Int
+  end
+
+  val compare : t -> t -> Ordering.t
+  val incr : t ref -> unit
+end
 
 module List : sig
   include module type of struct
@@ -41,8 +81,8 @@ module List : sig
   val partition : 'a t -> f:('a -> bool) -> 'a t * 'a t
   val range : int -> int -> int list
   val reduce : 'a t -> f:('a -> 'a -> 'a) -> 'a option
-  val sort : 'a t -> compare:('a -> 'a -> int) -> 'a t
-  val sort_then_dedup : 'a t -> compare:('a -> 'a -> int) -> 'a t
+  val sort : 'a t -> compare:('a -> 'a -> Ordering.t) -> 'a t
+  val sort_then_dedup : 'a t -> compare:('a -> 'a -> Ordering.t) -> 'a t
 end
 
 module Option : sig
@@ -52,6 +92,15 @@ module Option : sig
 
   val bind : 'a t -> f:('a -> 'b t) -> 'b t
   val map : 'a t -> f:('a -> 'b) -> 'b t
+end
+
+module String : sig
+  include module type of struct
+    include Stdlib.StringLabels
+  end
+
+  val chop_prefix : t -> prefix:t -> t option
+  val compare : t -> t -> Ordering.t
 end
 
 (** {1 Transition helpers}

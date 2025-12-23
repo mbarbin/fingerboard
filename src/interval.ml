@@ -19,7 +19,7 @@
 
 let make_name constructor_name =
   constructor_name
-  |> Stdlib.String.uncapitalize_ascii
+  |> String.uncapitalize_ascii
   |> String.map ~f:(function
     | '_' -> ' '
     | c -> c)
@@ -34,7 +34,20 @@ module Quality = struct
     | Major
     | Augmented
     | Doubly_augmented
-  [@@deriving compare, enumerate, equal]
+
+  let all =
+    [ Doubly_diminished; Diminished; Minor; Perfect; Major; Augmented; Doubly_augmented ]
+  ;;
+
+  let constructor_rank = function
+    | Doubly_diminished -> 0
+    | Diminished -> 1
+    | Minor -> 2
+    | Perfect -> 3
+    | Major -> 4
+    | Augmented -> 5
+    | Doubly_augmented -> 6
+  ;;
 
   let constructor_name = function
     | Doubly_diminished -> "Doubly_diminished"
@@ -46,9 +59,11 @@ module Quality = struct
     | Doubly_augmented -> "Doubly_augmented"
   ;;
 
-  let to_dyn t = Dyn.Variant (constructor_name t, [])
   let name t = make_name (constructor_name t)
-  let repeat str ~times = String.concat (List.init times ~f:(Fn.const str)) ~sep:""
+  let compare t1 t2 = Int.compare (constructor_rank t1) (constructor_rank t2)
+  let equal t1 t2 = Int.equal (constructor_rank t1) (constructor_rank t2)
+  let to_dyn t = Dyn.Variant (constructor_name t, [])
+  let repeat str ~times = String.concat (List.init times ~f:(Fun.const str)) ~sep:""
 
   let rec prefix_notation = function
     | Doubly_diminished -> repeat (prefix_notation Diminished) ~times:2
@@ -93,7 +108,8 @@ module Number = struct
     | Sixth
     | Seventh
     | Octave
-  [@@deriving compare, enumerate, equal]
+
+  let all = [ Unison; Second; Third; Fourth; Fifth; Sixth; Seventh; Octave ]
 
   let constructor_rank = function
     | Unison -> 0
@@ -117,8 +133,10 @@ module Number = struct
     | Octave -> "Octave"
   ;;
 
-  let to_dyn t = Dyn.Variant (constructor_name t, [])
   let name t = make_name (constructor_name t)
+  let compare t1 t2 = Int.compare (constructor_rank t1) (constructor_rank t2)
+  let equal t1 t2 = Int.equal (constructor_rank t1) (constructor_rank t2)
+  let to_dyn t = Dyn.Variant (constructor_name t, [])
   let to_int t = 1 + constructor_rank t
 
   let of_int i =
@@ -150,9 +168,27 @@ type t =
   ; quality : Quality.t
   ; additional_octaves : int
   }
-[@@deriving compare, equal]
 
 let hash (t : t) = Hashtbl.hash t
+
+let equal t ({ number; quality; additional_octaves } as t2) =
+  phys_equal t t2
+  || (Number.equal t.number number
+      && Quality.equal t.quality quality
+      && Int.equal t.additional_octaves additional_octaves)
+;;
+
+let compare t ({ number; quality; additional_octaves } as t2) : Ordering.t =
+  if phys_equal t t2
+  then Eq
+  else (
+    match Number.compare t.number number with
+    | (Lt | Gt) as r -> r
+    | Eq ->
+      (match Quality.compare t.quality quality with
+       | (Lt | Gt) as r -> r
+       | Eq -> Int.compare t.additional_octaves additional_octaves))
+;;
 
 let to_dyn { number; quality; additional_octaves } =
   Dyn.record

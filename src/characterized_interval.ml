@@ -40,8 +40,9 @@ let check_deviation_exn ~interval ~acoustic_interval =
   in
   let in_cents = Acoustic_interval.to_cents acoustic_interval in
   let deviation = Float.abs (tempered_12_equivalent_in_cents -. in_cents) in
-  if Float.compare deviation allowed_deviation_from_equal_tempered_12_in_cents > 0
-  then
+  match Float.compare deviation allowed_deviation_from_equal_tempered_12_in_cents with
+  | Eq | Lt -> ()
+  | Gt ->
     Code_error.raise
       "Deviation is out of allowed bounds."
       [ "interval", interval |> Interval.to_dyn

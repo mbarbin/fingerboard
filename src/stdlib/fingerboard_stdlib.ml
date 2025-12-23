@@ -56,6 +56,55 @@ module Ordering = Ordering
 
 let print pp = Format.printf "%a@." Pp.to_fmt pp
 let print_dyn dyn = print (Dyn.pp dyn)
+let phys_equal a b = a == b
+
+module Array = struct
+  include Stdlib.ArrayLabels
+
+  let create ~len a = make len a
+  let exists t ~f = exists ~f t
+  let iter t ~f = iter ~f t
+  let fold t ~init ~f = fold_left t ~init ~f
+  let map t ~f = map ~f t
+
+  let rev t =
+    let len = Array.length t in
+    let pred_len = pred len in
+    init len ~f:(fun i -> t.(pred_len - i))
+  ;;
+end
+
+module Bool = struct
+  include Stdlib.Bool
+
+  let compare a b = Ordering.of_int (Bool.compare a b)
+end
+
+module Float = struct
+  include Stdlib.Float
+
+  let compare a b = Ordering.of_int (Float.compare a b)
+
+  let iround_nearest_exn f =
+    let i = Int.of_float f in
+    if i >= 0
+    then (
+      match compare (f -. Int.to_float i) 0.5 with
+      | Gt -> i + 1
+      | Eq | Lt -> i)
+    else (
+      match compare (Int.to_float i -. f) 0.5 with
+      | Gt -> i - 1
+      | Eq | Lt -> i)
+  ;;
+end
+
+module Int = struct
+  include Stdlib.Int
+
+  let compare a b = Ordering.of_int (Int.compare a b)
+  let incr = Stdlib.incr
+end
 
 module List = struct
   include Stdlib.ListLabels
@@ -74,7 +123,7 @@ module List = struct
     | hd :: tl -> Some (Stdlib.ListLabels.fold_left tl ~init:hd ~f)
   ;;
 
-  let sort t ~compare = sort ~cmp:compare t
+  let sort t ~compare = sort ~cmp:(fun a b -> compare a b |> Ordering.to_int) t
 
   (* ---------------------------------------------------------------------------- *)
   (* [groupi] and [group] are copied from [Base] (MIT). See notice at the top of
@@ -120,7 +169,7 @@ module List = struct
       | [] -> []
       | [ x ] -> [ x ]
       | x :: (y :: _ as rest) ->
-        (match compare x y |> Ordering.of_int with
+        (match compare x y with
          | Eq -> dedup rest
          | Lt | Gt -> x :: dedup rest)
     in
@@ -133,6 +182,20 @@ module Option = struct
 
   let bind t ~f = bind t f
   let map t ~f = map f t
+end
+
+module String = struct
+  include Stdlib.StringLabels
+
+  let chop_prefix t ~prefix =
+    if String.starts_with t ~prefix
+    then (
+      let prefix_len = String.length prefix in
+      Some (StringLabels.sub t ~pos:prefix_len ~len:(String.length t - prefix_len)))
+    else None
+  ;;
+
+  let compare a b = String.compare a b |> Ordering.of_int
 end
 
 let print_endline = Stdlib.print_endline

@@ -75,7 +75,12 @@ let primes_to_100 =
   ; 89
   ; 97
   ]
-  |> Set.of_list (module Int)
+;;
+
+let primes_to_100_set =
+  let set = Bitv.create 100 false in
+  List.iter primes_to_100 ~f:(fun i -> Bitv.set set i true);
+  set
 ;;
 
 module Reduced = struct
@@ -84,7 +89,10 @@ module Reduced = struct
       { prime : int
       ; exponent : int
       }
-    [@@deriving equal]
+
+    let equal t ({ prime; exponent } as t2) =
+      phys_equal t t2 || (Int.equal t.prime prime && Int.equal t.exponent exponent)
+    ;;
 
     let to_dyn { prime; exponent } =
       Dyn.record [ "prime", prime |> Dyn.int; "exponent", exponent |> Dyn.int ]
@@ -99,9 +107,10 @@ module Reduced = struct
     let inverse { prime; exponent = e } = { prime; exponent = -1 * e }
   end
 
-  type t = One.t list [@@deriving equal]
+  type t = One.t list
 
   let to_dyn t = Dyn.list One.to_dyn t
+  let equal t = List.equal ~eq:One.equal t
   let one = []
 
   let to_string t =
@@ -124,7 +133,7 @@ module Reduced = struct
   ;;
 
   let create_exn ~prime ~exponent =
-    if prime < 100 && not (Set.mem primes_to_100 prime)
+    if prime < 100 && not (Bitv.get primes_to_100_set prime)
     then Code_error.raise "Not a prime number." [ "number", prime |> Dyn.int ];
     if exponent = 0
     then
@@ -188,7 +197,7 @@ module Reduced = struct
         then Option.some acc
         else
           let* prime =
-            match Set.find primes_to_100 ~f:(fun prime -> i % prime = 0) with
+            match List.find_opt primes_to_100 ~f:(fun prime -> i mod prime = 0) with
             | Some _ as some -> some
             | None -> if i < 10_000 then Some i else None
           in

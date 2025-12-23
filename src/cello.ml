@@ -28,20 +28,27 @@ let position_name constructor_name =
 
 module Fingerboard_position_name = struct
   module type S = sig
-    type t [@@deriving compare, equal, enumerate]
+    type t
 
+    val compare : t -> t -> Ordering.t
+    val equal : t -> t -> bool
+    val all : t list
     val to_dyn : t -> Dyn.t
     val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
   end
 
   module Make (M : sig
-      type t [@@deriving compare, equal, enumerate]
+      type t
 
       val constructor_name : t -> string
+      val constructor_rank : t -> int
+      val all : t list
       val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
     end) : S with type t = M.t = struct
     include M
 
+    let compare t1 t2 = Int.compare (constructor_rank t1) (constructor_rank t2)
+    let equal t1 t2 = Int.equal (constructor_rank t1) (constructor_rank t2)
     let to_dyn t = Dyn.Variant (constructor_name t, [])
   end
 
@@ -60,7 +67,8 @@ module Fingerboard_position_name = struct
         | `m7e
         | `M7e
         ]
-      [@@deriving compare, equal, enumerate]
+
+      let all = [ `m2e; `M2e; `m3e; `M3e; `P4e; `A4e; `P5e; `m6e; `M6e; `m7e; `M7e ]
 
       let constructor_name = function
         | `m2e -> "m2e"
@@ -74,6 +82,20 @@ module Fingerboard_position_name = struct
         | `M6e -> "M6e"
         | `m7e -> "m7e"
         | `M7e -> "M7e"
+      ;;
+
+      let constructor_rank = function
+        | `m2e -> 0
+        | `M2e -> 1
+        | `m3e -> 2
+        | `M3e -> 3
+        | `P4e -> 4
+        | `A4e -> 5
+        | `P5e -> 6
+        | `m6e -> 7
+        | `M6e -> 8
+        | `m7e -> 9
+        | `M7e -> 10
       ;;
 
       let acoustic_interval_to_the_open_string (t : t) =
@@ -120,7 +142,28 @@ module Fingerboard_position_name = struct
         | `M7_e19
         | `d8_e19
         ]
-      [@@deriving compare, equal, enumerate]
+
+      let all =
+        [ `A1_e19
+        ; `m2_e19
+        ; `M2_e19
+        ; `A2_e19
+        ; `m3_e19
+        ; `M3_e19
+        ; `A3_e19
+        ; `P4_e19
+        ; `A4_e19
+        ; `d5_e19
+        ; `P5_e19
+        ; `A5_e19
+        ; `m6_e19
+        ; `M6_e19
+        ; `d7_e19
+        ; `m7_e19
+        ; `M7_e19
+        ; `d8_e19
+        ]
+      ;;
 
       let constructor_name = function
         | `A1_e19 -> "A1_e19"
@@ -141,6 +184,27 @@ module Fingerboard_position_name = struct
         | `m7_e19 -> "m7_e19"
         | `M7_e19 -> "M7_e19"
         | `d8_e19 -> "d8_e19"
+      ;;
+
+      let constructor_rank = function
+        | `A1_e19 -> 0
+        | `m2_e19 -> 1
+        | `M2_e19 -> 2
+        | `A2_e19 -> 3
+        | `m3_e19 -> 4
+        | `M3_e19 -> 5
+        | `A3_e19 -> 6
+        | `P4_e19 -> 7
+        | `A4_e19 -> 8
+        | `d5_e19 -> 9
+        | `P5_e19 -> 10
+        | `A5_e19 -> 11
+        | `m6_e19 -> 12
+        | `M6_e19 -> 13
+        | `d7_e19 -> 14
+        | `m7_e19 -> 15
+        | `M7_e19 -> 16
+        | `d8_e19 -> 17
       ;;
 
       let acoustic_interval_to_the_open_string (t : t) =
@@ -196,7 +260,30 @@ module Fingerboard_position_name = struct
         | `M7_e31
         | `d8_e31
         ]
-      [@@deriving compare, equal, enumerate]
+
+      let all =
+        [ `A1_e31
+        ; `m2_e31
+        ; `M2_e31
+        ; `d3_e31
+        ; `A2_e31
+        ; `m3_e31
+        ; `M3_e31
+        ; `d4_e31
+        ; `A3_e31
+        ; `P4_e31
+        ; `A4_e31
+        ; `d5_e31
+        ; `P5_e31
+        ; `A5_e31
+        ; `m6_e31
+        ; `M6_e31
+        ; `d7_e31
+        ; `m7_e31
+        ; `M7_e31
+        ; `d8_e31
+        ]
+      ;;
 
       let constructor_name = function
         | `A1_e31 -> "A1_e31"
@@ -219,6 +306,29 @@ module Fingerboard_position_name = struct
         | `m7_e31 -> "m7_e31"
         | `M7_e31 -> "M7_e31"
         | `d8_e31 -> "d8_e31"
+      ;;
+
+      let constructor_rank = function
+        | `A1_e31 -> 0
+        | `m2_e31 -> 1
+        | `M2_e31 -> 2
+        | `d3_e31 -> 3
+        | `A2_e31 -> 4
+        | `m3_e31 -> 5
+        | `M3_e31 -> 6
+        | `d4_e31 -> 7
+        | `A3_e31 -> 8
+        | `P4_e31 -> 9
+        | `A4_e31 -> 10
+        | `d5_e31 -> 11
+        | `P5_e31 -> 12
+        | `A5_e31 -> 13
+        | `m6_e31 -> 14
+        | `M6_e31 -> 15
+        | `d7_e31 -> 16
+        | `m7_e31 -> 17
+        | `M7_e31 -> 18
+        | `d8_e31 -> 19
       ;;
 
       let acoustic_interval_to_the_open_string (t : t) =
@@ -279,7 +389,33 @@ module Fingerboard_position_name = struct
         | `M7p_e53
         | `P8z_e53
         ]
-      [@@deriving compare, equal, enumerate]
+
+      let all =
+        [ `A1z_e53
+        ; `m2z_e53
+        ; `M2z_e53
+        ; `M2p_e53
+        ; `m3p_e53
+        ; `m3z_e53
+        ; `M3z_e53
+        ; `M3p_e53
+        ; `P4p_e53
+        ; `P4z_e53
+        ; `A4z_e53
+        ; `d5z_e53
+        ; `P5z_e53
+        ; `P5p_e53
+        ; `m6p_e53
+        ; `m6z_e53
+        ; `M6z_e53
+        ; `M6p_e53
+        ; `m7p_e53
+        ; `m7z_e53
+        ; `M7z_e53
+        ; `M7p_e53
+        ; `P8z_e53
+        ]
+      ;;
 
       let constructor_name = function
         | `A1z_e53 -> "A1z_e53"
@@ -305,6 +441,32 @@ module Fingerboard_position_name = struct
         | `M7z_e53 -> "M7z_e53"
         | `M7p_e53 -> "M7p_e53"
         | `P8z_e53 -> "P8z_e53"
+      ;;
+
+      let constructor_rank = function
+        | `A1z_e53 -> 0
+        | `m2z_e53 -> 1
+        | `M2z_e53 -> 2
+        | `M2p_e53 -> 3
+        | `m3p_e53 -> 4
+        | `m3z_e53 -> 5
+        | `M3z_e53 -> 6
+        | `M3p_e53 -> 7
+        | `P4p_e53 -> 8
+        | `P4z_e53 -> 9
+        | `A4z_e53 -> 10
+        | `d5z_e53 -> 11
+        | `P5z_e53 -> 12
+        | `P5p_e53 -> 13
+        | `m6p_e53 -> 14
+        | `m6z_e53 -> 15
+        | `M6z_e53 -> 16
+        | `M6p_e53 -> 17
+        | `m7p_e53 -> 18
+        | `m7z_e53 -> 19
+        | `M7z_e53 -> 20
+        | `M7p_e53 -> 21
+        | `P8z_e53 -> 22
       ;;
 
       let acoustic_interval_to_the_open_string (t : t) =
@@ -365,7 +527,30 @@ module Fingerboard_position_name = struct
         | `M7_e55
         | `d8_e55
         ]
-      [@@deriving compare, equal, enumerate]
+
+      let all =
+        [ `A1_e55
+        ; `m2_e55
+        ; `M2_e55
+        ; `d3_e55
+        ; `A2_e55
+        ; `m3_e55
+        ; `M3_e55
+        ; `d4_e55
+        ; `A3_e55
+        ; `P4_e55
+        ; `A4_e55
+        ; `d5_e55
+        ; `P5_e55
+        ; `A5_e55
+        ; `m6_e55
+        ; `M6_e55
+        ; `d7_e55
+        ; `m7_e55
+        ; `M7_e55
+        ; `d8_e55
+        ]
+      ;;
 
       let constructor_name = function
         | `A1_e55 -> "A1_e55"
@@ -388,6 +573,29 @@ module Fingerboard_position_name = struct
         | `m7_e55 -> "m7_e55"
         | `M7_e55 -> "M7_e55"
         | `d8_e55 -> "d8_e55"
+      ;;
+
+      let constructor_rank = function
+        | `A1_e55 -> 0
+        | `m2_e55 -> 1
+        | `M2_e55 -> 2
+        | `d3_e55 -> 3
+        | `A2_e55 -> 4
+        | `m3_e55 -> 5
+        | `M3_e55 -> 6
+        | `d4_e55 -> 7
+        | `A3_e55 -> 8
+        | `P4_e55 -> 9
+        | `A4_e55 -> 10
+        | `d5_e55 -> 11
+        | `P5_e55 -> 12
+        | `A5_e55 -> 13
+        | `m6_e55 -> 14
+        | `M6_e55 -> 15
+        | `d7_e55 -> 16
+        | `m7_e55 -> 17
+        | `M7_e55 -> 18
+        | `d8_e55 -> 19
       ;;
 
       let acoustic_interval_to_the_open_string (t : t) =
@@ -447,7 +655,32 @@ module Fingerboard_position_name = struct
         | `d8p
         | `M7p
         ]
-      [@@deriving compare, equal, enumerate]
+
+      let all =
+        [ `m2p
+        ; `A1p
+        ; `d3p
+        ; `M2p
+        ; `m3p
+        ; `A2p
+        ; `d4p
+        ; `M3p
+        ; `P4p
+        ; `A3p
+        ; `d5p
+        ; `A4p
+        ; `d6p
+        ; `P5p
+        ; `m6p
+        ; `A5p
+        ; `d7p
+        ; `M6p
+        ; `m7p
+        ; `A6p
+        ; `d8p
+        ; `M7p
+        ]
+      ;;
 
       let constructor_name = function
         | `m2p -> "m2p"
@@ -472,6 +705,31 @@ module Fingerboard_position_name = struct
         | `A6p -> "A6p"
         | `d8p -> "d8p"
         | `M7p -> "M7p"
+      ;;
+
+      let constructor_rank = function
+        | `m2p -> 0
+        | `A1p -> 1
+        | `d3p -> 2
+        | `M2p -> 3
+        | `m3p -> 4
+        | `A2p -> 5
+        | `d4p -> 6
+        | `M3p -> 7
+        | `P4p -> 8
+        | `A3p -> 9
+        | `d5p -> 10
+        | `A4p -> 11
+        | `d6p -> 12
+        | `P5p -> 13
+        | `m6p -> 14
+        | `A5p -> 15
+        | `d7p -> 16
+        | `M6p -> 17
+        | `m7p -> 18
+        | `A6p -> 19
+        | `d8p -> 20
+        | `M7p -> 21
       ;;
 
       let acoustic_interval_to_the_open_string (t : t) =
@@ -532,7 +790,28 @@ module Fingerboard_position_name = struct
         | `d8z
         | `P8z
         ]
-      [@@deriving compare, equal, enumerate]
+
+      let all =
+        [ `A1z
+        ; `m2z
+        ; `M2z
+        ; `d3z
+        ; `m3z
+        ; `M3z
+        ; `d4z
+        ; `P4z
+        ; `A4z
+        ; `d5z
+        ; `P5z
+        ; `A5z
+        ; `m6z
+        ; `M6z
+        ; `d7z
+        ; `M7z
+        ; `d8z
+        ; `P8z
+        ]
+      ;;
 
       let constructor_name = function
         | `A1z -> "A1z"
@@ -553,6 +832,27 @@ module Fingerboard_position_name = struct
         | `M7z -> "M7z"
         | `d8z -> "d8z"
         | `P8z -> "P8z"
+      ;;
+
+      let constructor_rank = function
+        | `A1z -> 0
+        | `m2z -> 1
+        | `M2z -> 2
+        | `d3z -> 3
+        | `m3z -> 4
+        | `M3z -> 5
+        | `d4z -> 6
+        | `P4z -> 7
+        | `A4z -> 8
+        | `d5z -> 9
+        | `P5z -> 10
+        | `A5z -> 11
+        | `m6z -> 12
+        | `M6z -> 13
+        | `d7z -> 14
+        | `M7z -> 15
+        | `d8z -> 16
+        | `P8z -> 17
       ;;
 
       let acoustic_interval_to_the_open_string (t : t) =
@@ -640,7 +940,32 @@ module Fingerboard_position_name = struct
       | Pythagorean.t
       | Just.t
       ]
-    [@@deriving compare, equal, enumerate]
+
+    let all =
+      List.concat
+        [ [ `open_string ]
+        ; (Edo12.all :> t list)
+        ; (Edo19.all :> t list)
+        ; (Edo31.all :> t list)
+        ; (Edo53.all :> t list)
+        ; (Edo55.all :> t list)
+        ; (Pythagorean.all :> t list)
+        ; (Just.all :> t list)
+        ]
+    ;;
+
+    let constructor_rank t =
+      let code ty rk = (ty * 1000) + rk in
+      match t with
+      | `open_string -> code 0 0
+      | #Edo12.t as t -> code 1 (Edo12.T.constructor_rank t)
+      | #Edo19.t as t -> code 2 (Edo19.T.constructor_rank t)
+      | #Edo31.t as t -> code 3 (Edo31.T.constructor_rank t)
+      | #Edo53.t as t -> code 4 (Edo53.T.constructor_rank t)
+      | #Edo55.t as t -> code 5 (Edo55.T.constructor_rank t)
+      | #Pythagorean.t as t -> code 6 (Pythagorean.T.constructor_rank t)
+      | #Just.t as t -> code 7 (Just.T.constructor_rank t)
+    ;;
 
     let constructor_name = function
       | `open_string -> "open_string"
@@ -672,6 +997,16 @@ module Fingerboard_position_name = struct
     | `open_string -> "0"
     | _ -> position_name (T.constructor_name t)
   ;;
+
+  module Compared_by_interval = struct
+    type nonrec t = t
+
+    let compare (a : t) (b : t) =
+      Acoustic_interval.compare
+        (acoustic_interval_to_the_open_string a)
+        (acoustic_interval_to_the_open_string b)
+    ;;
+  end
 end
 
 let a_string = { Note.letter_name = A; symbol = Natural; octave_designation = 3 }

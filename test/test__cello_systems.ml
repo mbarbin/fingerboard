@@ -3394,8 +3394,9 @@ let%expect_test "Pythagorean.to_dyn" =
 ;;
 
 module type POSITIONS = sig
-  type t [@@deriving enumerate]
+  type t
 
+  val all : t list
   val to_dyn : t -> Dyn.t
   val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
 end
@@ -3404,7 +3405,7 @@ let check_order_exn (module P : POSITIONS) =
   let acoustic_interval =
     List.fold_left P.all ~init:Acoustic_interval.unison ~f:(fun acc p ->
       let acoustic_interval = P.acoustic_interval_to_the_open_string p in
-      match Acoustic_interval.compare acc acoustic_interval |> Ordering.of_int with
+      match Acoustic_interval.compare acc acoustic_interval with
       | Lt -> acoustic_interval
       | Eq | Gt ->
         Code_error.raise
