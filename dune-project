@@ -39,14 +39,6 @@
    (>= v0.17))
   (ppx_hash
    (>= v0.17))
-  (ppx_here
-   (>= v0.17))
-  (ppx_let
-   (>= v0.17))
-  (ppx_sexp_conv
-   (>= v0.17))
-  (ppx_sexp_value
-   (>= v0.17))
   (ppxlib
    (>= 0.33))
   (print-table
@@ -77,14 +69,6 @@
   (ppx_expect
    (>= v0.17))
   (ppx_hash
-   (>= v0.17))
-  (ppx_here
-   (>= v0.17))
-  (ppx_let
-   (>= v0.17))
-  (ppx_sexp_conv
-   (>= v0.17))
-  (ppx_sexp_value
    (>= v0.17))
   (ppxlib
    (>= 0.33))
@@ -125,18 +109,10 @@
    (>= v0.17))
   (ppx_hash
    (>= v0.17))
-  (ppx_here
-   (>= v0.17))
   (ppx_js_style
    (and
     :with-dev-setup
     (>= v0.17)))
-  (ppx_let
-   (>= v0.17))
-  (ppx_sexp_conv
-   (>= v0.17))
-  (ppx_sexp_value
-   (>= v0.17))
   (ppxlib
    (>= 0.33))
   (print-table
