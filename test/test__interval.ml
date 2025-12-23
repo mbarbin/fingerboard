@@ -37,7 +37,7 @@ let ts =
 ;;
 
 let%expect_test "sort" =
-  let ts = force ts in
+  let ts = Lazy.force ts in
   let ts =
     let table = Hashtbl.create (module Int) in
     List.iter ts ~f:(fun t ->

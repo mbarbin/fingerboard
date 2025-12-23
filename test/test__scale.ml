@@ -18,8 +18,8 @@
 (**********************************************************************************)
 
 let%expect_test "major and minor" =
-  let major = force Scale.major in
-  let minor = force Scale.minor in
+  let major = Lazy.force Scale.major in
+  let minor = Lazy.force Scale.minor in
   let tonics =
     let queue = Queue.create () in
     let octave_designation = 1 in

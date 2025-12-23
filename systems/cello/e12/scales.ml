@@ -22,12 +22,12 @@ let make_scale t ~characterized_scale ~from =
 ;;
 
 let make_major_scale ~from =
-  let t = force E12.t in
+  let t = Lazy.force E12.t in
   make_scale t ~characterized_scale:Characterized_scale.major_e12 ~from
 ;;
 
 let lower_c =
-  let t = force E12.t in
+  let t = Lazy.force E12.t in
   System.open_string t IV |> Option.value_exn ~here:[%here]
 ;;
 
@@ -77,7 +77,7 @@ let%expect_test "c_major" =
 ;;
 
 let lower_e_flat =
-  let t = force E12.t in
+  let t = Lazy.force E12.t in
   { Located_note.note = { letter_name = E; symbol = Flat; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `m3e

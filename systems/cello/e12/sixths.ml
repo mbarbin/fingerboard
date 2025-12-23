@@ -18,7 +18,7 @@
 (**********************************************************************************)
 
 let make_major_scale ~from =
-  let t = force E12.t in
+  let t = Lazy.force E12.t in
   System.Double_stops.make_scale
     t
     ~characterized_scale:Characterized_scale.major_e12
@@ -28,7 +28,7 @@ let make_major_scale ~from =
 ;;
 
 let%expect_test "c_major" =
-  let t = force E12.t in
+  let t = Lazy.force E12.t in
   let scale = make_major_scale ~from:Scales.lower_c in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -66,7 +66,7 @@ let%expect_test "c_major" =
 ;;
 
 let%expect_test "e_flat_major" =
-  let t = force E12.t in
+  let t = Lazy.force E12.t in
   let scale = make_major_scale ~from:Scales.lower_e_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect

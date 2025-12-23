@@ -26,7 +26,7 @@ open! Fingerboard_cello_system_just
 open! Fingerboard_cello_system_pythagorean
 
 let%expect_test "E12.sexp_of_t" =
-  let t = force E12.t in
+  let t = Lazy.force E12.t in
   print_s [%sexp (t : System.t)];
   [%expect
     {|
@@ -291,7 +291,7 @@ let%expect_test "E12.sexp_of_t" =
 ;;
 
 let%expect_test "E53.sexp_of_t" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   print_s [%sexp (t : System.t)];
   [%expect
     {|
@@ -773,7 +773,7 @@ let%expect_test "E53.sexp_of_t" =
 ;;
 
 let%expect_test "E19.sexp_of_t" =
-  let t = force E19.t in
+  let t = Lazy.force E19.t in
   print_s [%sexp (t : System.t)];
   [%expect
     {|
@@ -1165,7 +1165,7 @@ let%expect_test "E19.sexp_of_t" =
 ;;
 
 let%expect_test "E31.sexp_of_t" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   print_s [%sexp (t : System.t)];
   [%expect
     {|
@@ -1593,7 +1593,7 @@ let%expect_test "E31.sexp_of_t" =
 ;;
 
 let%expect_test "E55.sexp_of_t" =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   print_s [%sexp (t : System.t)];
   [%expect
     {|
@@ -2021,7 +2021,7 @@ let%expect_test "E55.sexp_of_t" =
 ;;
 
 let%expect_test "Just.sexp_of_t" =
-  let t = force Just.t in
+  let t = Lazy.force Just.t in
   print_s [%sexp (t : System.t)];
   [%expect
     {|
@@ -2854,7 +2854,7 @@ let%expect_test "Just.sexp_of_t" =
 ;;
 
 let%expect_test "Pythagorean.sexp_of_t" =
-  let t = force Pythagorean.t in
+  let t = Lazy.force Pythagorean.t in
   print_s [%sexp (t : System.t)];
   [%expect
     {|

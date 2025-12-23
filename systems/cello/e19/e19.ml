@@ -38,7 +38,7 @@ let t =
 ;;
 
 let%expect_test "tables" =
-  let t = force t in
+  let t = Lazy.force t in
   print_endline (System.to_ascii_tables t);
   [%expect
     {|

@@ -26,7 +26,7 @@ let adjustment =
 ;;
 
 let make_scale ~characterized_scale ~from ~adjustment =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   System.Double_stops.make_scale
     t
     ?adjustment
@@ -51,7 +51,7 @@ let make_major_just_scale ~from =
 ;;
 
 let%expect_test "c_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_c in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -90,7 +90,7 @@ let%expect_test "c_major_just" =
 ;;
 
 let%expect_test "c_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_c in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -129,7 +129,7 @@ let%expect_test "c_major_pythagorean" =
 ;;
 
 let%expect_test "c_sharp_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_cp_sharp in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -168,7 +168,7 @@ let%expect_test "c_sharp_major_pythagorean" =
 ;;
 
 let%expect_test "d_flat_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_dp_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -207,7 +207,7 @@ let%expect_test "d_flat_major_pythagorean" =
 ;;
 
 let%expect_test "d_flat_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_dz_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -246,7 +246,7 @@ let%expect_test "d_flat_major_just" =
 ;;
 
 let%expect_test "d_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_d in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -285,7 +285,7 @@ let%expect_test "d_major_pythagorean" =
 ;;
 
 let%expect_test "d_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_d in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -324,7 +324,7 @@ let%expect_test "d_major_just" =
 ;;
 
 let%expect_test "e_flat_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_ez_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -363,7 +363,7 @@ let%expect_test "e_flat_major_just" =
 ;;
 
 let%expect_test "e_flat_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_ep_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -402,7 +402,7 @@ let%expect_test "e_flat_major_pythagorean" =
 ;;
 
 let%expect_test "e_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_e in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -441,7 +441,7 @@ let%expect_test "e_major_pythagorean" =
 ;;
 
 let%expect_test "e_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_e in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -480,7 +480,7 @@ let%expect_test "e_major_just" =
 ;;
 
 let%expect_test "fp_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_fp in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -518,7 +518,7 @@ let%expect_test "fp_major_pythagorean" =
 ;;
 
 let%expect_test "fp_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_fp in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -540,14 +540,14 @@ let%expect_test "fp_major_just" =
 ;;
 
 let%expect_test "fz_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_fz in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect {| |}]
 ;;
 
 let%expect_test "f_sharp_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_fp_sharp in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -585,7 +585,7 @@ let%expect_test "f_sharp_major_pythagorean" =
 ;;
 
 let%expect_test "f_sharp_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_fp_sharp in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -623,7 +623,7 @@ let%expect_test "f_sharp_major_just" =
 ;;
 
 let%expect_test "g_flat_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_gp_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -661,7 +661,7 @@ let%expect_test "g_flat_major_pythagorean" =
 ;;
 
 let%expect_test "g_flat_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_gz_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -699,7 +699,7 @@ let%expect_test "g_flat_major_just" =
 ;;
 
 let%expect_test "g_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_g in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -736,7 +736,7 @@ let%expect_test "g_major_pythagorean" =
 ;;
 
 let%expect_test "g_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_g in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -773,7 +773,7 @@ let%expect_test "g_major_just" =
 ;;
 
 let%expect_test "a_flat_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_ap_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -810,7 +810,7 @@ let%expect_test "a_flat_major_pythagorean" =
 ;;
 
 let%expect_test "a_flat_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_az_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -847,7 +847,7 @@ let%expect_test "a_flat_major_just" =
 ;;
 
 let%expect_test "a_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_a in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -883,7 +883,7 @@ let%expect_test "a_major_pythagorean" =
 ;;
 
 let%expect_test "a_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_a in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -919,7 +919,7 @@ let%expect_test "a_major_just" =
 ;;
 
 let%expect_test "b_flat_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_bp_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -954,7 +954,7 @@ let%expect_test "b_flat_major_pythagorean" =
 ;;
 
 let%expect_test "b_flat_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_bz_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -989,7 +989,7 @@ let%expect_test "b_flat_major_just" =
 ;;
 
 let%expect_test "b_major_pythagorean" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_pythagorean_scale ~from:Scales.lower_bp in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -1024,7 +1024,7 @@ let%expect_test "b_major_pythagorean" =
 ;;
 
 let%expect_test "b_major_just" =
-  let t = force E53.t in
+  let t = Lazy.force E53.t in
   let scale = make_major_just_scale ~from:Scales.lower_bp in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect

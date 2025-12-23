@@ -21,3 +21,4 @@ module Dyn = Dyn0
 
 let print pp = Format.printf "%a@." Pp.to_fmt pp
 let print_dyn dyn = print (Dyn.pp dyn)
+let force = `use_Lazy_dot_force

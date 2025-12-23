@@ -18,7 +18,7 @@
 (**********************************************************************************)
 
 let make_scale ~characterized_scale ~from =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   System.Double_stops.make_scale
     t
     ~characterized_scale
@@ -32,7 +32,7 @@ let make_major_scale ~from =
 ;;
 
 let%expect_test "c_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_c in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -71,7 +71,7 @@ let%expect_test "c_major" =
 ;;
 
 let%expect_test "c_sharp_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_c_sharp in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -105,7 +105,7 @@ let%expect_test "c_sharp_major" =
 ;;
 
 let%expect_test "d_flat_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_d_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -144,7 +144,7 @@ let%expect_test "d_flat_major" =
 ;;
 
 let%expect_test "d_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_d in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -183,7 +183,7 @@ let%expect_test "d_major" =
 ;;
 
 let%expect_test "e_flat_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_e_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -222,7 +222,7 @@ let%expect_test "e_flat_major" =
 ;;
 
 let%expect_test "e_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_e in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -261,7 +261,7 @@ let%expect_test "e_major" =
 ;;
 
 let%expect_test "f_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_f in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -299,7 +299,7 @@ let%expect_test "f_major" =
 ;;
 
 let%expect_test "f_sharp_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_f_sharp in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -335,7 +335,7 @@ let%expect_test "f_sharp_major" =
 ;;
 
 let%expect_test "g_flat_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_g_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -373,7 +373,7 @@ let%expect_test "g_flat_major" =
 ;;
 
 let%expect_test "g_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_f in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -411,7 +411,7 @@ let%expect_test "g_major" =
 ;;
 
 let%expect_test "a_flat_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_a_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -448,7 +448,7 @@ let%expect_test "a_flat_major" =
 ;;
 
 let%expect_test "a_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_a in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -484,7 +484,7 @@ let%expect_test "a_major" =
 ;;
 
 let%expect_test "b_flat_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_b_flat in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect
@@ -519,7 +519,7 @@ let%expect_test "b_flat_major" =
 ;;
 
 let%expect_test "b_major" =
-  let t = force E31.t in
+  let t = Lazy.force E31.t in
   let scale = make_major_scale ~from:Scales.lower_b in
   print_endline (System.Double_stops.to_ascii_table t scale);
   [%expect

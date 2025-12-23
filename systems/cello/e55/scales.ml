@@ -22,12 +22,12 @@ let make_scale t ~characterized_scale ~from =
 ;;
 
 let make_major_scale ~from =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   make_scale t ~characterized_scale:Characterized_scale.major_e55 ~from
 ;;
 
 let lower_c =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   System.open_string t IV |> Option.value_exn ~here:[%here]
 ;;
 
@@ -77,7 +77,7 @@ let%expect_test "c_major" =
 ;;
 
 let lower_c_sharp =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = C; symbol = Sharp; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `A1_e55
@@ -132,7 +132,7 @@ let%expect_test "c_sharp_major" =
 ;;
 
 let lower_d_flat =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = D; symbol = Flat; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `m2_e55
@@ -187,7 +187,7 @@ let%expect_test "d_flat_major" =
 ;;
 
 let lower_d =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = D; symbol = Natural; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `M2_e55
@@ -241,7 +241,7 @@ let%expect_test "d_major" =
 ;;
 
 let lower_e_flat =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = E; symbol = Flat; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `m3_e55
@@ -295,7 +295,7 @@ let%expect_test "e_flat_major" =
 ;;
 
 let lower_e =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = E; symbol = Natural; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `M3_e55
@@ -348,7 +348,7 @@ let%expect_test "e_major" =
 ;;
 
 let lower_f =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = F; symbol = Natural; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `P4_e55
@@ -399,7 +399,7 @@ let%expect_test "f_major" =
 ;;
 
 let lower_f_sharp =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = F; symbol = Sharp; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `A4_e55
@@ -450,7 +450,7 @@ let%expect_test "f_sharp_major" =
 ;;
 
 let lower_g_flat =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = G; symbol = Flat; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `d5_e55
@@ -501,7 +501,7 @@ let%expect_test "g_flat_major" =
 ;;
 
 let lower_g =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   System.open_string t III |> Option.value_exn ~here:[%here]
 ;;
 
@@ -546,7 +546,7 @@ let%expect_test "g_major" =
 ;;
 
 let lower_a_flat =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = A; symbol = Flat; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `m2_e55
@@ -596,7 +596,7 @@ let%expect_test "a_flat_major" =
 ;;
 
 let lower_a =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = A; symbol = Natural; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `M2_e55
@@ -645,7 +645,7 @@ let%expect_test "a_major" =
 ;;
 
 let lower_b_flat =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = B; symbol = Flat; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `m3_e55
@@ -694,7 +694,7 @@ let%expect_test "b_flat_major" =
 ;;
 
 let lower_b =
-  let t = force E55.t in
+  let t = Lazy.force E55.t in
   { Located_note.note = { letter_name = B; symbol = Natural; octave_designation = 2 }
   ; fingerboard_location =
       { fingerboard_position = Cello.find_fingerboard_position_exn t `M3_e55
