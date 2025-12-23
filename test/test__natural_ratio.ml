@@ -27,7 +27,7 @@ let%expect_test "natural_ratio" =
   [%expect {| 1 / 2 |}];
   print_string (Natural_ratio.to_string ((9 /^ 8) ** (1 /^ 3)));
   [%expect {| 9 / 24 |}];
-  print_s [%sexp (Natural_ratio.equal (9 /^ 24) (3 /^ 8) : bool)];
+  print_dyn (Natural_ratio.equal (9 /^ 24) (3 /^ 8) |> Dyn.bool);
   [%expect {| true |}];
   print_string Natural_ratio.(to_string (inverse (9 /^ 8)));
   [%expect {| 8 / 9 |}];
@@ -75,20 +75,22 @@ let%expect_test "reduce" =
     let reduced =
       Natural_ratio.Reduced.of_small_natural_ratio_exn ~numerator:a ~denominator:b
     in
-    print_s
-      [%sexp
-        (Natural_ratio.to_string natural_ratio : string)
-      , (Natural_ratio.Reduced.to_string reduced : string)]);
+    print_dyn
+      (Dyn.Tuple
+         [ Dyn.string (Natural_ratio.to_string natural_ratio)
+         ; Dyn.string (Natural_ratio.Reduced.to_string reduced)
+         ]));
   [%expect
     {|
-    ("9 / 8" "3^2 / 2^3")
-    ("1 / 3" "1 / 3")
-    (1 1)
-    (17 17)
-    ("34 / 15" "(2 * 17) / (3 * 5)")
-    ("64 / 129" "2^6 / (3 * 43)")
-    ("2146 / 3048" "(29 * 37) / (2^2 * 3 * 127)")
-    ("99 / 2480" "(3^2 * 11) / (2^4 * 5 * 31)")
-    ("4900 / 5634" "(2 * 5^2 * 7^2) / (3^2 * 313)") |}];
+    ("9 / 8", "3^2 / 2^3")
+    ("1 / 3", "1 / 3")
+    ("1", "1")
+    ("17", "17")
+    ("34 / 15", "(2 * 17) / (3 * 5)")
+    ("64 / 129", "2^6 / (3 * 43)")
+    ("2146 / 3048", "(29 * 37) / (2^2 * 3 * 127)")
+    ("99 / 2480", "(3^2 * 11) / (2^4 * 5 * 31)")
+    ("4900 / 5634", "(2 * 5^2 * 7^2) / (3^2 * 313)")
+    |}];
   ()
 ;;

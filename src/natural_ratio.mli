@@ -23,7 +23,6 @@ type t = private
   { numerator : int
   ; denominator : int
   }
-[@@deriving sexp_of]
 
 val to_dyn : t -> Dyn.t
 val equal : t -> t -> bool
@@ -37,7 +36,7 @@ module Reduced : sig
   type natural_ratio := t
 
   (** A [natural_ratio] kept in its primed decomposition form. *)
-  type t [@@deriving sexp_of]
+  type t
 
   val to_dyn : t -> Dyn.t
   val to_string : t -> string

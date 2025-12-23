@@ -23,13 +23,12 @@ type t =
   { note : Note.t
   ; fingerboard_location : Fingerboard_location.t
   }
-[@@deriving sexp_of]
 
 val to_dyn : t -> Dyn.t
 
 module Abbrev : sig
   (** An abbreviated representation for printing in expect tests. *)
-  type t [@@deriving sexp_of]
+  type t
 
   val to_dyn : t -> Dyn.t
 end
@@ -37,7 +36,7 @@ end
 val to_abbrev : t -> Abbrev.t
 
 module Scale_abbrev : sig
-  type t [@@deriving sexp_of]
+  type t
 
   val to_dyn : t -> Dyn.t
 end

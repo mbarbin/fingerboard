@@ -18,48 +18,17 @@
 (**********************************************************************************)
 
 type t =
-  | I
-  | II
-  | III
-  | IV
-  | V
-  | VI
-  | VII
-[@@deriving compare, equal, enumerate, hash]
+  { message : string
+  ; data : (string * Dyn.t) list
+  }
 
-let constructor_name = function
-  | I -> "I"
-  | II -> "II"
-  | III -> "III"
-  | IV -> "IV"
-  | V -> "V"
-  | VI -> "VI"
-  | VII -> "VII"
+exception E of t
+
+let raise message data = raise (E { message; data })
+let to_dyn { message; data } = Dyn.Tuple [ Dyn.String message; Record data ]
+
+let () =
+  Printexc.register_printer (function
+    | E t -> Some (Dyn.to_string (to_dyn t))
+    | _ -> None [@coverage off])
 ;;
-
-let to_string = constructor_name
-let to_dyn t = Dyn.variant (constructor_name t) []
-
-let to_int = function
-  | I -> 1
-  | II -> 2
-  | III -> 3
-  | IV -> 4
-  | V -> 5
-  | VI -> 6
-  | VII -> 7
-;;
-
-let of_int_exn = function
-  | 1 -> I
-  | 2 -> II
-  | 3 -> III
-  | 4 -> IV
-  | 5 -> V
-  | 6 -> VI
-  | 7 -> VII
-  | i -> raise_s [%sexp "Out of bounds", [%here], (i : int)]
-;;
-
-let one = I
-let succ_exn t = of_int_exn (Int.succ (to_int t))

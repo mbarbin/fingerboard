@@ -23,7 +23,6 @@ include struct
   type t = float [@@deriving compare, equal, hash]
 
   let to_dyn = Dyn.float
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 end
 
 let check_exn f =

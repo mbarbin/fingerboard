@@ -47,7 +47,6 @@ module Quality = struct
   ;;
 
   let to_dyn t = Dyn.Variant (constructor_name t, [])
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
   let name t = make_name (constructor_name t)
   let repeat str ~times = String.concat (List.init times ~f:(Fn.const str)) ~sep:""
 
@@ -155,8 +154,6 @@ let to_dyn { number; quality; additional_octaves } =
     ; "additional_octaves", additional_octaves |> Dyn.int
     ]
 ;;
-
-let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 let to_string { number; quality; additional_octaves } =
   let skip_quality =

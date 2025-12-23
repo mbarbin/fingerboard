@@ -17,7 +17,7 @@
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
 
-type t [@@deriving sexp_of]
+type t
 
 val to_dyn : t -> Dyn.t
 

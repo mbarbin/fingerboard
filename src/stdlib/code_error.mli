@@ -17,52 +17,15 @@
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
 
-(** *)
+(*_ Inspired by a similar module in stdune. *)
 
-module Quality : sig
-  type t =
-    | Doubly_diminished
-    | Diminished
-    | Minor
-    | Perfect
-    | Major
-    | Augmented
-    | Doubly_augmented
-  [@@deriving compare, equal, hash]
-
-  val to_dyn : t -> Dyn.t
-  val prefix_notation : t -> string
-end
-
-module Number : sig
-  type t =
-    | Unison
-    | Second
-    | Third
-    | Fourth
-    | Fifth
-    | Sixth
-    | Seventh
-    | Octave
-  [@@deriving compare, enumerate, equal, hash]
-
-  val to_dyn : t -> Dyn.t
-  val to_int : t -> int
-  val accepts_minor_major_quality : t -> bool
-end
+(** A programming error that should be reported upstream *)
 
 type t =
-  { number : Number.t
-  ; quality : Quality.t
-  ; additional_octaves : int
+  { message : string
+  ; data : (string * Dyn.t) list
   }
-[@@deriving compare, equal, hash]
 
-val to_dyn : t -> Dyn.t
-val unison : t
-val name : t -> string
-val to_string : t -> string
-val number_of_semitons : t -> int
-val compute : from:Note.t -> to_:Note.t -> unit -> t option
-val shift_up : t -> Note.t -> Note.t option
-val shift_down : t -> Note.t -> Note.t option
+exception E of t
+
+val raise : string -> (string * Dyn.t) list -> _

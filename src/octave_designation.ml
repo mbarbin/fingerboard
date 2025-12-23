@@ -24,4 +24,3 @@ include struct
 end
 
 let to_dyn = Dyn.int
-let sexp_of_t t = Dyn.to_sexp (to_dyn t)

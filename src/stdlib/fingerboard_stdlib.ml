@@ -17,6 +17,7 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
+module Code_error = Code_error
 module Dyn = Dyn0
 
 let print pp = Format.printf "%a@." Pp.to_fmt pp

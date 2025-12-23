@@ -32,6 +32,4 @@ include struct
       ; "string_number", string_number |> Roman_numeral.to_dyn
       ]
   ;;
-
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 end

@@ -26,6 +26,7 @@ let%expect_test "semitons_step" =
       aux start acc (Note.Letter_name.succ index))
   in
   let number_of_semitons_per_octave = aux A 0 A in
-  print_s [%sexp { number_of_semitons_per_octave : int }];
-  [%expect {| ((number_of_semitons_per_octave 12)) |}]
+  print_dyn
+    (Dyn.Record [ "number_of_semitons_per_octave", Dyn.int number_of_semitons_per_octave ]);
+  [%expect {| { number_of_semitons_per_octave = 12 } |}]
 ;;

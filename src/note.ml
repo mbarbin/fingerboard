@@ -39,7 +39,6 @@ module Letter_name = struct
   ;;
 
   let to_dyn t = Dyn.variant (constructor_name t) []
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
   let to_string = constructor_name
 
   let succ = function
@@ -104,7 +103,6 @@ module Symbol = struct
   ;;
 
   let to_dyn t = Dyn.variant (constructor_name t) []
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
   let to_string = function
     | Triple_flat -> "bbb"
@@ -171,8 +169,6 @@ let to_dyn { letter_name; symbol; octave_designation } =
     ; "octave_designation", octave_designation |> Octave_designation.to_dyn
     ]
 ;;
-
-let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 let to_string { letter_name; symbol; octave_designation } =
   Letter_name.to_string letter_name

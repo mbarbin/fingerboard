@@ -28,7 +28,7 @@ module Letter_name : sig
     | E
     | F
     | G
-  [@@deriving compare, enumerate, equal, hash, sexp_of]
+  [@@deriving compare, enumerate, equal, hash]
 
   val to_dyn : t -> Dyn.t
   val to_string : t -> string
@@ -58,7 +58,7 @@ module Symbol : sig
     | Sharp
     | Double_sharp
     | Triple_sharp
-  [@@deriving compare, enumerate, equal, hash, sexp_of]
+  [@@deriving compare, enumerate, equal, hash]
 
   val to_dyn : t -> Dyn.t
   val to_string : t -> string
@@ -73,7 +73,7 @@ type t =
   ; symbol : Symbol.t
   ; octave_designation : Octave_designation.t
   }
-[@@deriving compare, equal, hash, sexp_of]
+[@@deriving compare, equal, hash]
 
 val to_dyn : t -> Dyn.t
 val to_string : t -> string

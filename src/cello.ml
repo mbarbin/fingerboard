@@ -28,7 +28,7 @@ let position_name constructor_name =
 
 module Fingerboard_position_name = struct
   module type S = sig
-    type t [@@deriving compare, equal, enumerate, hash, sexp_of]
+    type t [@@deriving compare, equal, enumerate, hash]
 
     val to_dyn : t -> Dyn.t
     val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
@@ -43,7 +43,6 @@ module Fingerboard_position_name = struct
     include M
 
     let to_dyn t = Dyn.Variant (constructor_name t, [])
-    let sexp_of_t t = Dyn.to_sexp (to_dyn t)
   end
 
   module Edo12 = struct
@@ -448,7 +447,7 @@ module Fingerboard_position_name = struct
         | `d8p
         | `M7p
         ]
-      [@@deriving compare, equal, enumerate, hash, sexp_of]
+      [@@deriving compare, equal, enumerate, hash]
 
       let constructor_name = function
         | `m2p -> "m2p"

@@ -36,7 +36,9 @@ let%expect_test "first comparison" =
     let unimplemented here =
       raise_s
         [%sexp
-          "Unimplemented", (here : Source_code_position.t), (t.interval : Interval.t)]
+          "Unimplemented"
+        , (here : Source_code_position.t)
+        , (t.interval |> Interval.to_dyn |> Dyn.to_sexp : Sexp.t)]
     in
     match (kind : Kind.t) with
     | Equal_temperament -> Acoustic_interval.equal_tempered_12 t.interval
@@ -482,7 +484,11 @@ let%expect_test "ratios" =
       Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:number_of_octaves
     | Reduced_natural_ratio nr -> nr
     | (Equal_division_of_the_octave _ | Cents _) as i ->
-      raise_s [%sexp "Unexpected non ratio", [%here], (i : Acoustic_interval.t)]
+      raise_s
+        [%sexp
+          "Unexpected non ratio"
+        , [%here]
+        , (i |> Acoustic_interval.to_dyn |> Dyn.to_sexp : Sexp.t)]
   in
   let columns =
     Print_table.O.

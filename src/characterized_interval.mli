@@ -21,7 +21,6 @@ type t = private
   { interval : Interval.t
   ; acoustic_interval : Acoustic_interval.t
   }
-[@@deriving sexp_of]
 
 val to_dyn : t -> Dyn.t
 

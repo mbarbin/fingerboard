@@ -33,7 +33,6 @@ let to_dyn { name; at_octave; basis_acoustic_interval_to_the_open_string } =
     ]
 ;;
 
-let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 let name t = t.name
 
 let to_string t =
@@ -74,7 +73,11 @@ let create_exn ~name ~acoustic_interval_to_the_open_string =
         "Interval out of bounds"
       , [%here]
       , { name : string
-        ; acoustic_interval_to_the_open_string : Acoustic_interval.t
+        ; acoustic_interval_to_the_open_string =
+            (acoustic_interval_to_the_open_string
+             |> Acoustic_interval.to_dyn
+             |> Dyn.to_sexp
+             : Sexp.t)
         ; in_cents =
             (Acoustic_interval.to_cents acoustic_interval_to_the_open_string : Float.t)
         }];

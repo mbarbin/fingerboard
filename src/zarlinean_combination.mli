@@ -45,7 +45,7 @@
     This module goes over all such possible theoretical combinations. There are
     displayed in the test for this module. *)
 
-type t [@@deriving compare, equal, sexp_of]
+type t [@@deriving compare, equal]
 
 val to_dyn : t -> Dyn.t
 

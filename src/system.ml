@@ -23,7 +23,6 @@ module Vibrating_string : sig
     ; mutable pitch : Frequency.t
     ; roman_numeral : Roman_numeral.t
     }
-  [@@deriving sexp_of]
 
   val to_dyn : t -> Dyn.t
 end = struct
@@ -40,8 +39,6 @@ end = struct
       ; "roman_numeral", roman_numeral |> Roman_numeral.to_dyn
       ]
   ;;
-
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 end
 
 type t =
@@ -65,8 +62,6 @@ let to_dyn { vibrating_strings; intervals_going_down; fingerboard_positions } =
             ])
        ])
 ;;
-
-let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_positions } =
   let vibrating_strings =
@@ -175,7 +170,10 @@ let vibrating_string_exn (t : t) string_number =
       [%sexp
         "String number out of bounds"
       , [%here]
-      , { string_number : Roman_numeral.t; available : Roman_numeral.t array }])
+      , { string_number = (string_number |> Roman_numeral.to_dyn |> Dyn.to_sexp : Sexp.t)
+        ; available =
+            (available |> Dyn.array Roman_numeral.to_dyn |> Dyn.to_sexp : Sexp.t)
+        }])
   else t.vibrating_strings.(index)
 ;;
 
@@ -238,7 +236,9 @@ let add_fingerboard_position_exn
       [%sexp
         "Interval out of bounds"
       , [%here]
-      , { fingerboard_position : Fingerboard_position.t }];
+      , { fingerboard_position =
+            (fingerboard_position |> Fingerboard_position.to_dyn |> Dyn.to_sexp : Sexp.t)
+        }];
   let name = Fingerboard_position.name fingerboard_position in
   (match find_fingerboard_position t ~name with
    | None -> ()
@@ -248,8 +248,11 @@ let add_fingerboard_position_exn
          "Duplicated fingerboard position's name"
        , [%here]
        , { name : string
-         ; fingerboard_position : Fingerboard_position.t
-         ; existing_fingerboard_position : Fingerboard_position.t
+         ; fingerboard_position =
+             (fingerboard_position |> Fingerboard_position.to_dyn |> Dyn.to_sexp : Sexp.t)
+         ; existing_fingerboard_position =
+             (existing_fingerboard_position |> Fingerboard_position.to_dyn |> Dyn.to_sexp
+              : Sexp.t)
          }]);
   let fingerboard_positions =
     List.init on_n_octaves ~f:(fun i ->

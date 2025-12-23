@@ -26,8 +26,6 @@ let to_dyn { numerator; denominator } =
   Dyn.record [ "numerator", numerator |> Dyn.int; "denominator", denominator |> Dyn.int ]
 ;;
 
-let sexp_of_t t = t |> to_dyn |> Dyn.to_sexp
-
 let create_exn ~numerator ~denominator =
   assert (numerator > 0);
   assert (denominator > 0);
@@ -104,7 +102,6 @@ module Reduced = struct
   type t = One.t list [@@deriving equal]
 
   let to_dyn t = Dyn.list One.to_dyn t
-  let sexp_of_t t = t |> to_dyn |> Dyn.to_sexp
   let one = []
 
   let to_string t =

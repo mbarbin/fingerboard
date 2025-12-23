@@ -29,16 +29,12 @@ let to_dyn { note; fingerboard_location } =
     ]
 ;;
 
-let sexp_of_t t = Dyn.to_sexp (to_dyn t)
-
 module Abbrev = struct
   type t = string * string * Roman_numeral.t
 
   let to_dyn (a, b, r) =
     Dyn.Tuple [ a |> Dyn.string; b |> Dyn.string; r |> Roman_numeral.to_dyn ]
   ;;
-
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 end
 
 let to_abbrev { note; fingerboard_location = { fingerboard_position; string_number } } =
@@ -57,8 +53,6 @@ module Scale_abbrev = struct
            ])
       t
   ;;
-
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 end
 
 let to_scale_abbrev ts =

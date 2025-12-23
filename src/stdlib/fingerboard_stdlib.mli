@@ -19,6 +19,7 @@
 
 (** Extending [Stdlib] for use in the project. *)
 
+module Code_error = Code_error
 module Dyn = Dyn0
 
 val print_dyn : Dyn.t -> unit

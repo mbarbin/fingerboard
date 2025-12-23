@@ -42,8 +42,6 @@ let to_dyn = function
   | Cents f -> Dyn.variant "Cents" [ Dyn.float f ]
 ;;
 
-let sexp_of_t t = Dyn.to_sexp (to_dyn t)
-
 let to_string = function
   | Zero -> "unison"
   | Equal_division_of_the_octave { divisor; number_of_divisions } ->
