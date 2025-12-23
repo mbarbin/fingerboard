@@ -104,11 +104,11 @@ let check t =
   let exception Invalid_entry of (string * Dyn.t) in
   match
     let len = Array.length t in
-    if len <> 7 then Stdlib.raise_notrace (Invalid_entry ("Unexpected length.", to_dyn t));
+    if len <> 7 then raise_notrace (Invalid_entry ("Unexpected length.", to_dyn t));
     for i = 0 to 6 do
       if Degree_kind.count t.(i) < 1
       then
-        Stdlib.raise_notrace
+        raise_notrace
           (Invalid_entry
              ("Unexpected degree.", Dyn.Tuple [ Dyn.int i; Degree_kind.to_dyn t.(i) ]))
     done;
@@ -116,7 +116,7 @@ let check t =
       let changing_degrees = ref 0 in
       Array.iter t ~f:(fun d -> if Degree_kind.count d > 1 then Int.incr changing_degrees);
       if !changing_degrees > 1
-      then Stdlib.raise_notrace (Invalid_entry ("Too many changing degrees.", to_dyn t))
+      then raise_notrace (Invalid_entry ("Too many changing degrees.", to_dyn t))
     in
     for i = 0 to 6 do
       let low_note = t.(i)
@@ -125,7 +125,7 @@ let check t =
       and high_p = low_note.zarlinean && high_note.pythagorean in
       if not (low_p || high_p)
       then
-        Stdlib.raise_notrace
+        raise_notrace
           (Invalid_entry
              ( "Unsolvable degree."
              , Dyn.Tuple
@@ -133,7 +133,7 @@ let check t =
              ));
       if low_p && high_p
       then
-        Stdlib.raise_notrace
+        raise_notrace
           (Invalid_entry
              ( "Multiple choices."
              , Dyn.Tuple

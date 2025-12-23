@@ -103,17 +103,3 @@ module String : sig
   val compare : t -> t -> Ordering.t
 end
 
-(** {1 Transition helpers}
-
-    These helpers simplify the transition from base to stdlib happening as
-    future work. *)
-
-val print_endline : string -> unit
-val print_string : string -> unit
-
-(** This value shadows [Base.force] and forces the code to use [Lazy.force]. *)
-val force : [ `use_Lazy_dot_force ]
-
-(** This value shadows [Base.raise_s] and forces the code to use
-    [Code_error.raise]. *)
-val raise_s : [ `use_Code_error_dot_raise ]

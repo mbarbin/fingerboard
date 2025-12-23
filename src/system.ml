@@ -358,7 +358,7 @@ let find_same_note_one_string_down t { Located_note.note; fingerboard_location }
     let string_number =
       let index = Roman_numeral.to_int fingerboard_location.string_number in
       if index >= Array.length t.vibrating_strings
-      then Stdlib.raise_notrace No_string_down
+      then raise_notrace No_string_down
       else Roman_numeral.of_int_exn (index + 1)
     in
     match

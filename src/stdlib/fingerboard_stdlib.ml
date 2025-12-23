@@ -198,7 +198,3 @@ module String = struct
   let compare a b = String.compare a b |> Ordering.of_int
 end
 
-let print_endline = Stdlib.print_endline
-let print_string = Stdlib.print_string
-let force = `use_Lazy_dot_force
-let raise_s = `use_Code_error_dot_raise

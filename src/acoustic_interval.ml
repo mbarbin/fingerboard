@@ -265,8 +265,7 @@ let just_major_sixth = 5 // 3
 
 let shift_up t frequency =
   let of_cents cents =
-    Frequency.to_float frequency *. Stdlib.Float.exp2 (cents /. 1200.)
-    |> Frequency.of_float_exn
+    Frequency.to_float frequency *. Float.exp2 (cents /. 1200.) |> Frequency.of_float_exn
   in
   let of_natural_ratio { Natural_ratio.numerator; denominator } =
     Frequency.to_float frequency *. Float.of_int numerator /. Float.of_int denominator
@@ -284,8 +283,7 @@ let shift_up t frequency =
 
 let shift_down t frequency =
   let of_cents cents =
-    Frequency.to_float frequency /. Stdlib.Float.exp2 (cents /. 1200.)
-    |> Frequency.of_float_exn
+    Frequency.to_float frequency /. Float.exp2 (cents /. 1200.) |> Frequency.of_float_exn
   in
   let of_natural_ratio { Natural_ratio.numerator; denominator } =
     Frequency.to_float frequency *. Float.of_int denominator /. Float.of_int numerator
