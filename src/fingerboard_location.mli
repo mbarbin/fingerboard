@@ -23,6 +23,6 @@ type t =
   { fingerboard_position : Fingerboard_position.t
   ; string_number : Roman_numeral.t
   }
-[@@deriving compare, equal, hash]
+[@@deriving compare, equal]
 
 val to_dyn : t -> Dyn.t

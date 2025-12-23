@@ -28,7 +28,7 @@
     tonality it belongs, so there is no one-to-one match between a note and a
     position. *)
 
-type t [@@deriving compare, equal, hash]
+type t [@@deriving compare, equal]
 
 val to_dyn : t -> Dyn.t
 

@@ -18,7 +18,7 @@
 (*_*********************************************************************************)
 
 (** The pitch in Hz of a note. *)
-type t [@@deriving compare, equal, hash]
+type t [@@deriving compare, equal]
 
 val to_dyn : t -> Dyn.t
 

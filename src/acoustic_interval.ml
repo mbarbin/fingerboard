@@ -68,8 +68,6 @@ let to_cents = function
   | Cents x -> x
 ;;
 
-let hash t = Float.hash (to_cents t)
-let hash_fold_t state t = Float.hash_fold_t state (to_cents t)
 let of_cents x = Cents x
 
 let aux_reduced_natural_ratio_of_octaves ~number_of_octaves =

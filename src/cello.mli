@@ -21,7 +21,7 @@
 
 module Fingerboard_position_name : sig
   module type S = sig
-    type t [@@deriving compare, equal, enumerate, hash]
+    type t [@@deriving compare, equal, enumerate]
 
     val to_dyn : t -> Dyn.t
     val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t

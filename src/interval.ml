@@ -34,7 +34,7 @@ module Quality = struct
     | Major
     | Augmented
     | Doubly_augmented
-  [@@deriving compare, enumerate, equal, hash]
+  [@@deriving compare, enumerate, equal]
 
   let constructor_name = function
     | Doubly_diminished -> "Doubly_diminished"
@@ -93,7 +93,7 @@ module Number = struct
     | Sixth
     | Seventh
     | Octave
-  [@@deriving compare, enumerate, equal, hash]
+  [@@deriving compare, enumerate, equal]
 
   let constructor_rank = function
     | Unison -> 0
@@ -150,7 +150,9 @@ type t =
   ; quality : Quality.t
   ; additional_octaves : int
   }
-[@@deriving compare, equal, hash]
+[@@deriving compare, equal]
+
+let hash (t : t) = Hashtbl.hash t
 
 let to_dyn { number; quality; additional_octaves } =
   Dyn.record

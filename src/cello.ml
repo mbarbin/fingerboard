@@ -28,14 +28,14 @@ let position_name constructor_name =
 
 module Fingerboard_position_name = struct
   module type S = sig
-    type t [@@deriving compare, equal, enumerate, hash]
+    type t [@@deriving compare, equal, enumerate]
 
     val to_dyn : t -> Dyn.t
     val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
   end
 
   module Make (M : sig
-      type t [@@deriving compare, equal, enumerate, hash]
+      type t [@@deriving compare, equal, enumerate]
 
       val constructor_name : t -> string
       val acoustic_interval_to_the_open_string : t -> Acoustic_interval.t
@@ -60,7 +60,7 @@ module Fingerboard_position_name = struct
         | `m7e
         | `M7e
         ]
-      [@@deriving compare, equal, enumerate, hash]
+      [@@deriving compare, equal, enumerate]
 
       let constructor_name = function
         | `m2e -> "m2e"
@@ -120,7 +120,7 @@ module Fingerboard_position_name = struct
         | `M7_e19
         | `d8_e19
         ]
-      [@@deriving compare, equal, enumerate, hash]
+      [@@deriving compare, equal, enumerate]
 
       let constructor_name = function
         | `A1_e19 -> "A1_e19"
@@ -196,7 +196,7 @@ module Fingerboard_position_name = struct
         | `M7_e31
         | `d8_e31
         ]
-      [@@deriving compare, equal, enumerate, hash]
+      [@@deriving compare, equal, enumerate]
 
       let constructor_name = function
         | `A1_e31 -> "A1_e31"
@@ -279,7 +279,7 @@ module Fingerboard_position_name = struct
         | `M7p_e53
         | `P8z_e53
         ]
-      [@@deriving compare, equal, enumerate, hash]
+      [@@deriving compare, equal, enumerate]
 
       let constructor_name = function
         | `A1z_e53 -> "A1z_e53"
@@ -365,7 +365,7 @@ module Fingerboard_position_name = struct
         | `M7_e55
         | `d8_e55
         ]
-      [@@deriving compare, equal, enumerate, hash]
+      [@@deriving compare, equal, enumerate]
 
       let constructor_name = function
         | `A1_e55 -> "A1_e55"
@@ -447,7 +447,7 @@ module Fingerboard_position_name = struct
         | `d8p
         | `M7p
         ]
-      [@@deriving compare, equal, enumerate, hash]
+      [@@deriving compare, equal, enumerate]
 
       let constructor_name = function
         | `m2p -> "m2p"
@@ -532,7 +532,7 @@ module Fingerboard_position_name = struct
         | `d8z
         | `P8z
         ]
-      [@@deriving compare, equal, enumerate, hash]
+      [@@deriving compare, equal, enumerate]
 
       let constructor_name = function
         | `A1z -> "A1z"
@@ -640,7 +640,7 @@ module Fingerboard_position_name = struct
       | Pythagorean.t
       | Just.t
       ]
-    [@@deriving compare, equal, enumerate, hash]
+    [@@deriving compare, equal, enumerate]
 
     let constructor_name = function
       | `open_string -> "open_string"

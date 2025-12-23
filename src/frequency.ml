@@ -20,7 +20,7 @@
 include struct
   [@@@coverage off]
 
-  type t = float [@@deriving compare, equal, hash]
+  type t = float [@@deriving compare, equal]
 
   let to_dyn = Dyn.float
 end

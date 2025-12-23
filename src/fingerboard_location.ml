@@ -24,7 +24,7 @@ include struct
     { fingerboard_position : Fingerboard_position.t
     ; string_number : Roman_numeral.t
     }
-  [@@deriving compare, equal, hash]
+  [@@deriving compare, equal]
 
   let to_dyn { fingerboard_position; string_number } =
     Dyn.record

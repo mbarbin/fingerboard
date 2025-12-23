@@ -25,7 +25,7 @@ type t =
   | V
   | VI
   | VII
-[@@deriving compare, equal, enumerate, hash]
+[@@deriving compare, equal, enumerate]
 
 let constructor_name = function
   | I -> "I"

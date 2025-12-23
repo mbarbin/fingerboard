@@ -20,7 +20,7 @@
 include struct
   [@@@coverage off]
 
-  type t = int [@@deriving compare, equal, hash]
+  type t = int [@@deriving compare, equal]
 end
 
 let to_dyn = Dyn.int

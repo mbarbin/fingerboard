@@ -22,7 +22,7 @@ type t =
   ; at_octave : int
   ; basis_acoustic_interval_to_the_open_string : Acoustic_interval.t
   }
-[@@deriving compare, equal, hash]
+[@@deriving compare, equal]
 
 let to_dyn { name; at_octave; basis_acoustic_interval_to_the_open_string } =
   Dyn.record

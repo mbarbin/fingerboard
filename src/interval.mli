@@ -28,7 +28,7 @@ module Quality : sig
     | Major
     | Augmented
     | Doubly_augmented
-  [@@deriving compare, equal, hash]
+  [@@deriving compare, equal]
 
   val to_dyn : t -> Dyn.t
   val prefix_notation : t -> string
@@ -44,7 +44,7 @@ module Number : sig
     | Sixth
     | Seventh
     | Octave
-  [@@deriving compare, enumerate, equal, hash]
+  [@@deriving compare, enumerate, equal]
 
   val to_dyn : t -> Dyn.t
   val to_int : t -> int
@@ -56,8 +56,9 @@ type t =
   ; quality : Quality.t
   ; additional_octaves : int
   }
-[@@deriving compare, equal, hash]
+[@@deriving compare, equal]
 
+val hash : t -> int
 val to_dyn : t -> Dyn.t
 val unison : t
 val name : t -> string

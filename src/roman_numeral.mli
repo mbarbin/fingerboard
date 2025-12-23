@@ -34,7 +34,7 @@ type t =
   | V
   | VI
   | VII
-[@@deriving compare, equal, enumerate, hash]
+[@@deriving compare, equal, enumerate]
 
 val to_dyn : t -> Dyn.t
 val to_string : t -> string

@@ -28,7 +28,6 @@ type t = private
   | Reduced_natural_ratio of Natural_ratio.Reduced.t
   | Octaves of { number_of_octaves : int }
   | Cents of float
-[@@deriving hash]
 
 val to_dyn : t -> Dyn.t
 val to_string : t -> string

@@ -26,7 +26,7 @@ module Letter_name = struct
     | E
     | F
     | G
-  [@@deriving compare, enumerate, equal, hash]
+  [@@deriving compare, enumerate, equal]
 
   let constructor_name = function
     | A -> "A"
@@ -90,7 +90,7 @@ module Symbol = struct
     | Sharp
     | Double_sharp
     | Triple_sharp
-  [@@deriving compare, enumerate, equal, hash]
+  [@@deriving compare, enumerate, equal]
 
   let constructor_name = function
     | Triple_flat -> "Triple_flat"
@@ -160,7 +160,7 @@ type t =
   ; symbol : Symbol.t
   ; octave_designation : Octave_designation.t
   }
-[@@deriving compare, equal, hash]
+[@@deriving compare, equal]
 
 let to_dyn { letter_name; symbol; octave_designation } =
   Dyn.record
