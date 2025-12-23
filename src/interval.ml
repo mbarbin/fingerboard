@@ -17,6 +17,14 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
+let make_name constructor_name =
+  constructor_name
+  |> Stdlib.String.uncapitalize_ascii
+  |> String.map ~f:(function
+    | '_' -> ' '
+    | c -> c)
+;;
+
 module Quality = struct
   type t =
     | Doubly_diminished
@@ -26,9 +34,21 @@ module Quality = struct
     | Major
     | Augmented
     | Doubly_augmented
-  [@@deriving compare, enumerate, equal, hash, sexp_of]
+  [@@deriving compare, enumerate, equal, hash]
 
-  let name t = Sexp_to_string.atom_to_name t [%sexp_of: t]
+  let constructor_name = function
+    | Doubly_diminished -> "Doubly_diminished"
+    | Diminished -> "Diminished"
+    | Minor -> "Minor"
+    | Perfect -> "Perfect"
+    | Major -> "Major"
+    | Augmented -> "Augmented"
+    | Doubly_augmented -> "Doubly_augmented"
+  ;;
+
+  let to_dyn t = Dyn.Variant (constructor_name t, [])
+  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
+  let name t = make_name (constructor_name t)
   let repeat str ~times = String.concat (List.init times ~f:(Fn.const str)) ~sep:""
 
   let rec prefix_notation = function
@@ -74,9 +94,22 @@ module Number = struct
     | Sixth
     | Seventh
     | Octave
-  [@@deriving compare, enumerate, equal, hash, sexp_of]
+  [@@deriving compare, enumerate, equal, hash]
 
-  let name t = Sexp_to_string.atom_to_name t [%sexp_of: t]
+  let constructor_name = function
+    | Unison -> "Unison"
+    | Second -> "Second"
+    | Third -> "Third"
+    | Fourth -> "Fourth"
+    | Fifth -> "Fifth"
+    | Sixth -> "Sixth"
+    | Seventh -> "Seventh"
+    | Octave -> "Octave"
+  ;;
+
+  let to_dyn t = Dyn.Variant (constructor_name t, [])
+  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
+  let name t = make_name (constructor_name t)
 
   let to_int t =
     match List.find_mapi all ~f:(fun i t' -> Option.some_if (equal t t') i) with
@@ -113,7 +146,17 @@ type t =
   ; quality : Quality.t
   ; additional_octaves : int
   }
-[@@deriving compare, equal, hash, sexp_of]
+[@@deriving compare, equal, hash]
+
+let to_dyn { number; quality; additional_octaves } =
+  Dyn.record
+    [ "number", number |> Number.to_dyn
+    ; "quality", quality |> Quality.to_dyn
+    ; "additional_octaves", additional_octaves |> Dyn.int
+    ]
+;;
+
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 let to_string { number; quality; additional_octaves } =
   let skip_quality =

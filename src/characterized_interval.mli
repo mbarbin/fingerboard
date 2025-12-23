@@ -23,6 +23,8 @@ type t = private
   }
 [@@deriving sexp_of]
 
+val to_dyn : t -> Dyn.t
+
 (** A number representing, in cents, the maximum deviation that is allowed as
     between an acoustic interval and its 12-equal tempered equivalent. Trying
     to create a [t] exceeding this bound will result in [create_exn] to raise. *)

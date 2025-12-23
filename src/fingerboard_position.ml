@@ -22,8 +22,18 @@ type t =
   ; at_octave : int
   ; basis_acoustic_interval_to_the_open_string : Acoustic_interval.t
   }
-[@@deriving compare, equal, hash, sexp_of]
+[@@deriving compare, equal, hash]
 
+let to_dyn { name; at_octave; basis_acoustic_interval_to_the_open_string } =
+  Dyn.record
+    [ "name", name |> Dyn.string
+    ; "at_octave", at_octave |> Dyn.int
+    ; ( "basis_acoustic_interval_to_the_open_string"
+      , basis_acoustic_interval_to_the_open_string |> Acoustic_interval.to_dyn )
+    ]
+;;
+
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 let name t = t.name
 
 let to_string t =

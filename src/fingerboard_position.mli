@@ -30,6 +30,8 @@
 
 type t [@@deriving compare, equal, hash, sexp_of]
 
+val to_dyn : t -> Dyn.t
+
 (** Retrieve the name supplied with [t] was created. *)
 val name : t -> string
 

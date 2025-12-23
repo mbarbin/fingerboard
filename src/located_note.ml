@@ -21,10 +21,24 @@ type t =
   { note : Note.t
   ; fingerboard_location : Fingerboard_location.t
   }
-[@@deriving sexp_of]
+
+let to_dyn { note; fingerboard_location } =
+  Dyn.record
+    [ "note", note |> Note.to_dyn
+    ; "fingerboard_location", fingerboard_location |> Fingerboard_location.to_dyn
+    ]
+;;
+
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 module Abbrev = struct
-  type t = string * string * Roman_numeral.t [@@deriving sexp_of]
+  type t = string * string * Roman_numeral.t
+
+  let to_dyn (a, b, r) =
+    Dyn.Tuple [ a |> Dyn.string; b |> Dyn.string; r |> Roman_numeral.to_dyn ]
+  ;;
+
+  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 end
 
 let to_abbrev { note; fingerboard_location = { fingerboard_position; string_number } } =
@@ -32,7 +46,19 @@ let to_abbrev { note; fingerboard_location = { fingerboard_position; string_numb
 ;;
 
 module Scale_abbrev = struct
-  type t = (Roman_numeral.t * (string * string) list) list [@@deriving sexp_of]
+  type t = (Roman_numeral.t * (string * string) list) list
+
+  let to_dyn t =
+    Dyn.list
+      (fun (a, ts) ->
+         Dyn.Tuple
+           [ a |> Roman_numeral.to_dyn
+           ; ts |> Dyn.list (fun (a, b) -> Dyn.Tuple [ a |> Dyn.string; b |> Dyn.string ])
+           ])
+      t
+  ;;
+
+  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 end
 
 let to_scale_abbrev ts =

@@ -26,14 +26,21 @@ module Letter_name = struct
     | E
     | F
     | G
-  [@@deriving compare, enumerate, equal, hash, sexp_of]
+  [@@deriving compare, enumerate, equal, hash]
 
-  let to_string t =
-    match [%sexp_of: t] t with
-    | Atom s -> s
-    | List _ as sexp ->
-      raise_s [%sexp "Unexpected sexp shape", { t : t; sexp : Sexp.t }, [%here]]
+  let constructor_name = function
+    | A -> "A"
+    | B -> "B"
+    | C -> "C"
+    | D -> "D"
+    | E -> "E"
+    | F -> "F"
+    | G -> "G"
   ;;
+
+  let to_dyn t = Dyn.variant (constructor_name t) []
+  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
+  let to_string = constructor_name
 
   let succ = function
     | A -> B
@@ -84,7 +91,20 @@ module Symbol = struct
     | Sharp
     | Double_sharp
     | Triple_sharp
-  [@@deriving compare, enumerate, equal, hash, sexp_of]
+  [@@deriving compare, enumerate, equal, hash]
+
+  let constructor_name = function
+    | Triple_flat -> "Triple_flat"
+    | Double_flat -> "Double_flat"
+    | Flat -> "Flat"
+    | Natural -> "Natural"
+    | Sharp -> "Sharp"
+    | Double_sharp -> "Double_sharp"
+    | Triple_sharp -> "Triple_sharp"
+  ;;
+
+  let to_dyn t = Dyn.variant (constructor_name t) []
+  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
   let to_string = function
     | Triple_flat -> "bbb"
@@ -142,7 +162,17 @@ type t =
   ; symbol : Symbol.t
   ; octave_designation : Octave_designation.t
   }
-[@@deriving compare, equal, hash, sexp_of]
+[@@deriving compare, equal, hash]
+
+let to_dyn { letter_name; symbol; octave_designation } =
+  Dyn.record
+    [ "letter_name", letter_name |> Letter_name.to_dyn
+    ; "symbol", symbol |> Symbol.to_dyn
+    ; "octave_designation", octave_designation |> Octave_designation.to_dyn
+    ]
+;;
+
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 let to_string { letter_name; symbol; octave_designation } =
   Letter_name.to_string letter_name

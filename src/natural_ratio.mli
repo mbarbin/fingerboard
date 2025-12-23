@@ -25,6 +25,7 @@ type t = private
   }
 [@@deriving sexp_of]
 
+val to_dyn : t -> Dyn.t
 val equal : t -> t -> bool
 val to_string : t -> string
 val create_exn : numerator:int -> denominator:int -> t
@@ -38,6 +39,7 @@ module Reduced : sig
   (** A [natural_ratio] kept in its primed decomposition form. *)
   type t [@@deriving sexp_of]
 
+  val to_dyn : t -> Dyn.t
   val to_string : t -> string
   val equal : t -> t -> bool
   val one : t

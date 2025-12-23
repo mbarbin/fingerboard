@@ -21,7 +21,15 @@ type t =
   { interval : Interval.t
   ; acoustic_interval : Acoustic_interval.t
   }
-[@@deriving sexp_of]
+
+let to_dyn { interval; acoustic_interval } =
+  Dyn.record
+    [ "interval", interval |> Interval.to_dyn
+    ; "acoustic_interval", acoustic_interval |> Acoustic_interval.to_dyn
+    ]
+;;
+
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 let allowed_deviation_from_equal_tempered_12_in_cents =
   (* This is just a place holder for now, to be refined as needed. *)

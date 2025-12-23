@@ -24,5 +24,14 @@ include struct
     { fingerboard_position : Fingerboard_position.t
     ; string_number : Roman_numeral.t
     }
-  [@@deriving compare, equal, hash, sexp_of]
+  [@@deriving compare, equal, hash]
+
+  let to_dyn { fingerboard_position; string_number } =
+    Dyn.record
+      [ "fingerboard_position", fingerboard_position |> Fingerboard_position.to_dyn
+      ; "string_number", string_number |> Roman_numeral.to_dyn
+      ]
+  ;;
+
+  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 end

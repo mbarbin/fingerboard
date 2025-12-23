@@ -25,9 +25,21 @@ type t =
   | V
   | VI
   | VII
-[@@deriving compare, equal, enumerate, hash, sexp_of]
+[@@deriving compare, equal, enumerate, hash]
 
-let to_string t = Sexp.to_string [%sexp (t : t)]
+let constructor_name = function
+  | I -> "I"
+  | II -> "II"
+  | III -> "III"
+  | IV -> "IV"
+  | V -> "V"
+  | VI -> "VI"
+  | VII -> "VII"
+;;
+
+let to_string = constructor_name
+let to_dyn t = Dyn.variant (constructor_name t) []
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 let to_int = function
   | I -> 1

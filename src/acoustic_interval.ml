@@ -26,7 +26,23 @@ type t =
   | Reduced_natural_ratio of Natural_ratio.Reduced.t
   | Octaves of { number_of_octaves : int }
   | Cents of float
-[@@deriving sexp_of]
+
+let to_dyn = function
+  | Zero -> Dyn.variant "Zero" []
+  | Equal_division_of_the_octave { divisor; number_of_divisions } ->
+    Dyn.inline_record
+      "Equal_division_of_the_octave"
+      [ "divisor", divisor |> Dyn.int
+      ; "number_of_divisions", number_of_divisions |> Dyn.int
+      ]
+  | Reduced_natural_ratio n ->
+    Dyn.variant "Reduced_natural_ratio" [ Natural_ratio.Reduced.to_dyn n ]
+  | Octaves { number_of_octaves } ->
+    Dyn.inline_record "Octaves" [ "number_of_octaves", number_of_octaves |> Dyn.int ]
+  | Cents f -> Dyn.variant "Cents" [ Dyn.float f ]
+;;
+
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 let to_string = function
   | Zero -> "unison"

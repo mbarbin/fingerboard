@@ -19,6 +19,8 @@
 
 include Dyn
 
+let inline_record cons fields = Dyn.variant cons [ Dyn.record fields ]
+
 let to_sexp =
   let module Sexp = Sexplib0.Sexp in
   let module S = Sexplib0.Sexp_conv in

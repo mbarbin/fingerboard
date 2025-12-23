@@ -19,6 +19,8 @@
 
 type t [@@deriving sexp_of]
 
+val to_dyn : t -> Dyn.t
+
 (** Display t in the form of multiple tables in a human readable way. *)
 val to_ascii_tables : t -> string
 

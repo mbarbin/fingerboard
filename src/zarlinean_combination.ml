@@ -22,8 +22,14 @@ module Degree_kind = struct
     { pythagorean : bool
     ; zarlinean : bool
     }
-  [@@deriving equal, sexp_of]
+  [@@deriving equal]
 
+  let to_dyn { pythagorean; zarlinean } =
+    Dyn.record
+      [ "pythagorean", pythagorean |> Dyn.bool; "zarlinean", zarlinean |> Dyn.bool ]
+  ;;
+
+  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
   let null = { pythagorean = false; zarlinean = false }
   let count_bool b = if b then 1 else 0
   let count { pythagorean; zarlinean } = count_bool pythagorean + count_bool zarlinean
@@ -43,7 +49,10 @@ module Degree_kind = struct
   ;;
 end
 
-type t = Degree_kind.t array [@@deriving compare, equal, sexp_of]
+type t = Degree_kind.t array [@@deriving compare, equal]
+
+let to_dyn t = Dyn.array Degree_kind.to_dyn t
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 module For_comparison = struct
   type nonrec t = int array * t [@@deriving compare]

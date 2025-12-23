@@ -21,3 +21,5 @@
     440 Hz pitch. *)
 
 type t = int [@@deriving compare, equal, hash, sexp_of]
+
+val to_dyn : t -> Dyn.t

@@ -30,6 +30,7 @@ type t = private
   | Cents of float
 [@@deriving hash, sexp_of]
 
+val to_dyn : t -> Dyn.t
 val to_string : t -> string
 val compound : t list -> t
 val add : t -> t -> t

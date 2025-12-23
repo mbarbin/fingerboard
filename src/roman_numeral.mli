@@ -36,6 +36,7 @@ type t =
   | VII
 [@@deriving compare, equal, enumerate, hash, sexp_of]
 
+val to_dyn : t -> Dyn.t
 val to_string : t -> string
 
 (** Because we don't need to handle instruments with a very large number of

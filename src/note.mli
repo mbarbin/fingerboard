@@ -30,6 +30,7 @@ module Letter_name : sig
     | G
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
+  val to_dyn : t -> Dyn.t
   val to_string : t -> string
   val pred : t -> t
   val succ : t -> t
@@ -59,6 +60,7 @@ module Symbol : sig
     | Triple_sharp
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
+  val to_dyn : t -> Dyn.t
   val to_string : t -> string
   val prefix_notation : t -> string
   val semitons_shift : t -> int
@@ -73,4 +75,5 @@ type t =
   }
 [@@deriving compare, equal, hash, sexp_of]
 
+val to_dyn : t -> Dyn.t
 val to_string : t -> string

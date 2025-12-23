@@ -24,22 +24,49 @@ module Vibrating_string : sig
     ; roman_numeral : Roman_numeral.t
     }
   [@@deriving sexp_of]
+
+  val to_dyn : t -> Dyn.t
 end = struct
   type t =
     { open_string : Note.t
     ; mutable pitch : Frequency.t
     ; roman_numeral : Roman_numeral.t
     }
-  [@@deriving sexp_of]
+
+  let to_dyn { open_string; pitch; roman_numeral } =
+    Dyn.record
+      [ "open_string", open_string |> Note.to_dyn
+      ; "pitch", pitch |> Frequency.to_dyn
+      ; "roman_numeral", roman_numeral |> Roman_numeral.to_dyn
+      ]
+  ;;
+
+  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 end
 
 type t =
   { vibrating_strings : Vibrating_string.t array
   ; intervals_going_down : Characterized_interval.t array
   ; mutable fingerboard_positions : Fingerboard_position.t list
-        [@sexp_drop_if List.is_empty]
   }
-[@@deriving sexp_of]
+
+let to_dyn { vibrating_strings; intervals_going_down; fingerboard_positions } =
+  Dyn.record
+    (List.concat
+       [ [ "vibrating_strings", vibrating_strings |> Dyn.array Vibrating_string.to_dyn
+         ; ( "intervals_going_down"
+           , intervals_going_down |> Dyn.array Characterized_interval.to_dyn )
+         ]
+       ; (if List.is_empty fingerboard_positions
+          then []
+          else
+            [ ( "fingerboard_positions"
+              , fingerboard_positions |> Dyn.list Fingerboard_position.to_dyn )
+            ])
+       ])
+;;
+
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_positions } =
   let vibrating_strings =

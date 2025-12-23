@@ -97,7 +97,7 @@ end = struct
 
   let%expect_test "divisor" =
     let t = { diatonic_semi_ton = 1; minor_whole_ton = 2; major_whole_ton = 2 } in
-    print_s [%sexp (divisor t : int)];
+    print_dyn (divisor t |> Dyn.int);
     [%expect {| 12 |}];
     ()
   ;;
@@ -153,8 +153,9 @@ module Reference_interval : sig
     | Pythagorean_chromatic_semiton
     | Just_diatonic_semiton
     | Pythagorean_diatonic_semiton
-  [@@deriving enumerate, equal, sexp_of]
+  [@@deriving enumerate, equal]
 
+  val constructor_name : t -> string
   val acoustic_interval : t -> Acoustic_interval.t
 
   (** Returns the number of divisions that approximate the given interval the
@@ -178,7 +179,26 @@ end = struct
     | Pythagorean_chromatic_semiton
     | Just_diatonic_semiton
     | Pythagorean_diatonic_semiton
-  [@@deriving enumerate, equal, sexp_of]
+  [@@deriving enumerate, equal]
+
+  let constructor_name = function
+    | Octave -> "Octave"
+    | Pythagorean_major_sixth -> "Pythagorean_major_sixth"
+    | Just_major_sixth -> "Just_major_sixth"
+    | Just_minor_sixth -> "Just_minor_sixth"
+    | Pythagorean_minor_sixth -> "Pythagorean_minor_sixth"
+    | Fifth -> "Fifth"
+    | Fourth -> "Fourth"
+    | Pythagorean_major_third -> "Pythagorean_major_third"
+    | Just_major_third -> "Just_major_third"
+    | Just_minor_third -> "Just_minor_third"
+    | Pythagorean_minor_third -> "Pythagorean_minor_third"
+    | Pythagorean_major_second -> "Pythagorean_major_second"
+    | Just_minor_ton -> "Just_minor_ton"
+    | Pythagorean_chromatic_semiton -> "Pythagorean_chromatic_semiton"
+    | Just_diatonic_semiton -> "Just_diatonic_semiton"
+    | Pythagorean_diatonic_semiton -> "Pythagorean_diatonic_semiton"
+  ;;
 
   let acoustic_interval = function
     | Octave -> Acoustic_interval.octave
@@ -255,8 +275,9 @@ end = struct
       Print_table.O.
         [ [ Column.make ~header:"Interval" (fun (t : Reference_interval.t) ->
               Cell.text
-                (Sexp.to_string_hum [%sexp (t : Reference_interval.t)]
-                 |> String.substr_replace_all ~pattern:"_" ~with_:" "))
+                (String.map (Reference_interval.constructor_name t) ~f:(function
+                   | '_' -> ' '
+                   | c -> c)))
           ]
         ; exact_column :: List.map edo_systems ~f:make_comparison_column
         ]

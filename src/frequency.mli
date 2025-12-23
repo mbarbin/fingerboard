@@ -20,6 +20,8 @@
 (** The pitch in Hz of a note. *)
 type t [@@deriving compare, equal, hash, sexp_of]
 
+val to_dyn : t -> Dyn.t
+
 (** Raises if the float is negative. *)
 val of_float_exn : float -> t
 

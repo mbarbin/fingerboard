@@ -20,5 +20,8 @@
 include struct
   [@@@coverage off]
 
-  type t = int [@@deriving compare, equal, hash, sexp_of]
+  type t = int [@@deriving compare, equal, hash]
 end
+
+let to_dyn = Dyn.int
+let sexp_of_t t = Dyn.to_sexp (to_dyn t)

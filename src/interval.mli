@@ -30,6 +30,7 @@ module Quality : sig
     | Doubly_augmented
   [@@deriving compare, equal, hash, sexp_of]
 
+  val to_dyn : t -> Dyn.t
   val prefix_notation : t -> string
 end
 
@@ -45,6 +46,7 @@ module Number : sig
     | Octave
   [@@deriving compare, enumerate, equal, hash, sexp_of]
 
+  val to_dyn : t -> Dyn.t
   val to_int : t -> int
   val accepts_minor_major_quality : t -> bool
 end
@@ -56,6 +58,7 @@ type t =
   }
 [@@deriving compare, equal, hash, sexp_of]
 
+val to_dyn : t -> Dyn.t
 val unison : t
 val name : t -> string
 val to_string : t -> string
