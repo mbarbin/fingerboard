@@ -18,7 +18,7 @@ We copied some implementation of functions from [Base](https://github.com/janest
 
 ### Notice
 
-The files where we imported the functions is `stdlib/fingerboard_stdlib.ml`. We've added a notice in the file and a comment next to the code that was copied and modified, which includes `Base`'s original LICENSE:
+The files where we imported the functions is `src/stdlib/fingerboard_stdlib.ml`. We've added a notice in the file and a comment next to the code that was copied and modified, which includes `Base`'s original LICENSE:
 
 ```text
 The MIT License
