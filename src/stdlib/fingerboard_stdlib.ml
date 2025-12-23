@@ -143,7 +143,12 @@ module List = struct
       | x :: (y :: _ as tl) ->
         pos := !pos + 1;
         l := tl;
-        if break !pos x y then [ x ] else x :: take_group ()
+        if break !pos x y
+        then [ x ]
+        else
+          (* Coverage is off in the second part of the expression because the
+             instrumentation breaks [@tail_mod_cons], triggering warning 71. *)
+          x :: (take_group () [@coverage off])
     in
     (* Our outer loop does not need arguments, either. *)
     let[@tail_mod_cons] rec groups () =
@@ -151,7 +156,9 @@ module List = struct
       then []
       else (
         let group = take_group () in
-        group :: groups ())
+        (* Coverage is off in the second part of the expression because the
+           instrumentation breaks [@tail_mod_cons], triggering warning 71. *)
+        group :: (groups () [@coverage off]))
     in
     (groups () [@nontail])
   ;;
@@ -160,7 +167,12 @@ module List = struct
   (* ---------------------------------------------------------------------------- *)
 
   let[@tail_mod_cons] rec range start stop =
-    if start >= stop then [] else start :: range (start + 1) stop
+    if start >= stop
+    then []
+    else
+      (* Coverage is off in the second part of the expression because the
+         instrumentation breaks [@tail_mod_cons], triggering warning 71. *)
+      start :: (range (start + 1) stop [@coverage off])
   ;;
 
   let sort_then_dedup t ~compare =
