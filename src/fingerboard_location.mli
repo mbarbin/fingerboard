@@ -23,6 +23,7 @@ type t =
   { fingerboard_position : Fingerboard_position.t
   ; string_number : Roman_numeral.t
   }
-[@@deriving compare, equal, hash]
 
+val compare : t -> t -> Ordering.t
+val equal : t -> t -> bool
 val to_dyn : t -> Dyn.t

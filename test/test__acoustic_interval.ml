@@ -25,7 +25,8 @@ let%expect_test "first comparison" =
       | Pythagorean
       | E53
       | E55
-    [@@deriving enumerate]
+
+    let all = [ Equal_temperament; Just; Pythagorean; E53; E55 ]
 
     let constructor_name = function
       | Equal_temperament -> "Equal_temperament"
@@ -137,13 +138,13 @@ let%expect_test "first comparison" =
         (fun (t : Row.t) ->
            acoustic_interval t kind
            |> Acoustic_interval.to_cents
-           |> Float.iround_exn ~dir:`Nearest
+           |> Float.iround_nearest_exn
            |> Int.to_string
            |> fun i -> Print_table.Cell.text i)
     in
     Print_table.O.
       [ [ Column.make ~header:"Interval" (fun (t : Row.t) ->
-            Cell.text (Interval.name t.interval |> String.capitalize))
+            Cell.text (Interval.name t.interval |> String.capitalize_ascii))
         ]
       ; List.map Kind.all ~f:cents_column
       ]
@@ -218,7 +219,7 @@ let%expect_test "harmonic series and cents" =
              let equal = Acoustic_interval.equal_tempered_12 t.interval in
              let deviation =
                Acoustic_interval.to_cents harmonic -. Acoustic_interval.to_cents equal
-               |> Float.iround_exn ~dir:`Nearest
+               |> Float.iround_nearest_exn
              in
              Cell.text
                (if deviation > 0
@@ -294,7 +295,7 @@ let%expect_test "harmonic series and cents bis" =
         let harmonic =
           Acoustic_interval.small_natural_ratio_exn ~numerator:i ~denominator:1
         in
-        Acoustic_interval.to_cents harmonic %. 1200.
+        mod_float (Acoustic_interval.to_cents harmonic) 1200.
       in
       { Row.harmonic = i; cents })
   in
@@ -336,14 +337,14 @@ let%expect_test "equal corner cases" =
     Acoustic_interval.(
       add octave (equal_division_of_the_octave ~divisor:53 ~number_of_divisions:8))
   in
-  print_s [%sexp (Acoustic_interval.equal i1 i2 : bool)];
+  print_dyn (Acoustic_interval.equal i1 i2 |> Dyn.bool);
   [%expect {| true |}];
   let i3 =
     Acoustic_interval.(
       remove i2 (equal_division_of_the_octave ~divisor:53 ~number_of_divisions:9))
-    |> Option.value_exn ~here:[%here]
+    |> Option.get
   in
-  print_s [%sexp (Acoustic_interval.equal i3 base : bool)];
+  print_dyn (Acoustic_interval.equal i3 base |> Dyn.bool);
   [%expect {| true |}];
   ()
 ;;
@@ -374,7 +375,33 @@ let%expect_test "ratios" =
       | Major_seventh_as_fifth_plus_just_major_third
       | Pythagorean_major_seventh
       | Octave
-    [@@deriving enumerate]
+
+    let all =
+      [ Unison
+      ; Syntonic_comma
+      ; Pythagorean_comma
+      ; Pythagorean_diatonic_semiton
+      ; Just_diatonic_semiton
+      ; Pythagorean_chromatic_semiton
+      ; Just_minor_ton
+      ; Just_major_ton
+      ; Pythagorean_minor_third
+      ; Just_minor_third
+      ; Just_major_third
+      ; Pythagorean_major_third
+      ; Fourth
+      ; Fifth
+      ; Pythagorean_minor_sixth
+      ; Just_minor_sixth
+      ; Just_major_sixth
+      ; Pythagorean_major_sixth
+      ; Pythagorean_minor_seventh
+      ; Minor_seventh_as_fifth_plus_just_minor_third
+      ; Major_seventh_as_fifth_plus_just_major_third
+      ; Pythagorean_major_seventh
+      ; Octave
+      ]
+    ;;
 
     let constructor_name = function
       | Unison -> "Unison"
@@ -534,7 +561,7 @@ let%expect_test "ratios" =
           Cell.text
             (t.acoustic_interval
              |> Acoustic_interval.to_cents
-             |> Float.iround_exn ~dir:`Nearest
+             |> Float.iround_nearest_exn
              |> Int.to_string))
       ; Column.make ~align:Right ~header:"53 EDO #" (fun (t : Row.t) ->
           Cell.text (Int.to_string t.to_53_edo))
@@ -547,13 +574,13 @@ let%expect_test "ratios" =
           in
           let ref_cents = t.acoustic_interval |> Acoustic_interval.to_cents in
           let diff = cents -. ref_cents in
-          let sign = if Float.compare diff 0. >= 0 then "+" else "" in
+          let sign =
+            match Float.compare diff 0. with
+            | Gt -> "+"
+            | Lt | Eq -> ""
+          in
           Cell.text
-            (Printf.sprintf
-               "%d (%s%0.3f)"
-               (Float.iround_exn ~dir:`Nearest cents)
-               sign
-               diff))
+            (Printf.sprintf "%d (%s%0.3f)" (Float.iround_nearest_exn cents) sign diff))
       ]
   in
   let rows =
@@ -571,7 +598,7 @@ let%expect_test "ratios" =
     ┌──────────────────────────────────────────────┬─────────────────┬─────────────────┬───────┬──────────┬───────────────┐
     │ Interval                                     │           Ratio │   Reduced ratio │ Cents │ 53 EDO # │  53 EDO cents │
     ├──────────────────────────────────────────────┼─────────────────┼─────────────────┼───────┼──────────┼───────────────┤
-    │ Unison                                       │               1 │               1 │     0 │        0 │    0 (+0.000) │
+    │ Unison                                       │               1 │               1 │     0 │        0 │     0 (0.000) │
     │ Syntonic_comma                               │         81 / 80 │ 3^4 / (2^4 * 5) │    22 │        1 │   23 (+1.135) │
     │ Pythagorean_comma                            │ 531441 / 524288 │     3^12 / 2^19 │    23 │        1 │   23 (-0.819) │
     │ Pythagorean_diatonic_semiton                 │       256 / 243 │       2^8 / 3^5 │    90 │        4 │   91 (+0.341) │
@@ -593,6 +620,7 @@ let%expect_test "ratios" =
     │ Minor_seventh_as_fifth_plus_just_minor_third │           9 / 5 │         3^2 / 5 │  1018 │       45 │ 1019 (+1.272) │
     │ Major_seventh_as_fifth_plus_just_major_third │          15 / 8 │   (3 * 5) / 2^3 │  1088 │       48 │ 1087 (-1.476) │
     │ Pythagorean_major_seventh                    │       243 / 128 │       3^5 / 2^7 │  1110 │       49 │ 1109 (-0.341) │
-    │ Octave                                       │               2 │               2 │  1200 │       53 │ 1200 (+0.000) │
-    └──────────────────────────────────────────────┴─────────────────┴─────────────────┴───────┴──────────┴───────────────┘ |}]
+    │ Octave                                       │               2 │               2 │  1200 │       53 │  1200 (0.000) │
+    └──────────────────────────────────────────────┴─────────────────┴─────────────────┴───────┴──────────┴───────────────┘
+    |}]
 ;;

@@ -17,10 +17,8 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
-include struct
-  [@@@coverage off]
+type t = int
 
-  type t = int [@@deriving compare, equal, hash]
-end
-
+let compare = Int.compare
+let equal = Int.equal
 let to_dyn = Dyn.int

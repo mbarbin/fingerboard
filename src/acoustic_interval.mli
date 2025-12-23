@@ -28,7 +28,6 @@ type t = private
   | Reduced_natural_ratio of Natural_ratio.Reduced.t
   | Octaves of { number_of_octaves : int }
   | Cents of float
-[@@deriving hash]
 
 val to_dyn : t -> Dyn.t
 val to_string : t -> string
@@ -44,7 +43,7 @@ val to_cents : t -> float
 val equal : t -> t -> bool
 
 (** Convert to cents, and compare the two. *)
-val compare : t -> t -> int
+val compare : t -> t -> Ordering.t
 
 val unison : t
 val octave : t

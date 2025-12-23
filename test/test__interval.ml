@@ -31,10 +31,32 @@ let qualities number ~doubly_augmented =
 
 let ts =
   lazy
-    (List.bind Interval.Number.all ~f:(fun number ->
+    (List.concat_map Interval.Number.all ~f:(fun number ->
        List.map (qualities number ~doubly_augmented:true) ~f:(fun quality ->
          Interval.{ number; quality; additional_octaves = 0 })))
 ;;
+
+module With_priority = struct
+  type t =
+    { priority : int
+    ; interval : Interval.t
+    }
+
+  let compare (t1 : t) (t2 : t) = Int.compare t1.priority t2.priority
+  let interval t = t.interval
+
+  let of_interval (i : Interval.t) =
+    let priority =
+      match i.quality with
+      | Perfect | Minor | Major -> 0
+      | Augmented -> 1
+      | Diminished -> 2
+      | Doubly_augmented -> 3
+      | Doubly_diminished -> 4
+    in
+    { priority; interval = i }
+  ;;
+end
 
 let%expect_test "sort" =
   let ts = Lazy.force ts in
@@ -50,19 +72,10 @@ let%expect_test "sort" =
     |> List.map ~f:(fun (i, queue) ->
       let intervals = queue |> List.sort ~compare:Interval.compare in
       let canonical_interval =
-        List.map intervals ~f:(fun t ->
-          let priority =
-            match t.quality with
-            | Perfect | Minor | Major -> 0
-            | Augmented -> 1
-            | Diminished -> 2
-            | Doubly_augmented -> 3
-            | Doubly_diminished -> 4
-          in
-          priority, t)
-        |> List.sort ~compare:(fun (i, _) (j, _) -> Int.compare i j)
-        |> List.map ~f:snd
-        |> List.hd_exn
+        List.map intervals ~f:With_priority.of_interval
+        |> List.sort ~compare:With_priority.compare
+        |> List.map ~f:With_priority.interval
+        |> List.hd
       in
       i, canonical_interval, intervals)
   in
@@ -92,26 +105,35 @@ let%expect_test "sort" =
     |}]
 ;;
 
+module Computed_interval = struct
+  type t =
+    { number_of_semitons : int
+    ; interval : Interval.t
+    ; results : (Note.t * Note.t) list
+    }
+
+  let compare t1 t2 =
+    match Int.compare t1.number_of_semitons t2.number_of_semitons with
+    | (Lt | Gt) as r -> r
+    | Eq -> Interval.compare t1.interval t2.interval
+  ;;
+end
+
 let%expect_test "compute" =
   let inputs =
-    let open List.Let_syntax in
-    let%bind l1 = Note.Letter_name.all in
-    let%bind l2 = Note.Letter_name.all in
-    let%bind s1 = Note.Symbol.all in
-    let%bind s2 = Note.Symbol.all in
-    let%bind od1 = [ 1; 2; 3; 4 ] in
-    let%bind od2 = [ 1; 2; 3; 4 ] in
-    return
-      ( { Note.letter_name = l1; symbol = s1; octave_designation = od1 }
+    let ( let* ) x f = List.concat_map x ~f in
+    let* l1 = Note.Letter_name.all in
+    let* l2 = Note.Letter_name.all in
+    let* s1 = Note.Symbol.all in
+    let* s2 = Note.Symbol.all in
+    let* od1 = [ 1; 2; 3; 4 ] in
+    let* od2 = [ 1; 2; 3; 4 ] in
+    [ ( { Note.letter_name = l1; symbol = s1; octave_designation = od1 }
       , { Note.letter_name = l2; symbol = s2; octave_designation = od2 } )
+    ]
   in
-  let module Interval = struct
-    include Interval
-
-    let sexp_of_t t = Dyn.to_sexp (to_dyn t)
-  end
-  in
-  let table = Hashtbl.create (module Interval) in
+  let module Hashtbl = Hashtbl.Make (Interval) in
+  let table = Hashtbl.create 128 in
   List.iter inputs ~f:(fun (from, to_) ->
     match Interval.compute ~from ~to_ () with
     | None -> ()
@@ -131,22 +153,26 @@ let%expect_test "compute" =
           ; "shift_up", shift_up |> Dyn.option Note.to_dyn
           ; "shift_down", shift_down |> Dyn.option Note.to_dyn
           ];
-      let queue =
-        Hashtbl.find_or_add table interval ~default:(fun () -> Queue.create ())
+      let results =
+        match Hashtbl.find_opt table interval with
+        | Some r -> r
+        | None ->
+          let r = ref [] in
+          Hashtbl.add table interval r;
+          r
       in
-      Queue.enqueue queue (from, to_));
+      results := (from, to_) :: !results);
   let results =
-    Hashtbl.to_alist table
-    |> List.map ~f:(fun (interval, queue) ->
+    Hashtbl.to_seq table
+    |> List.of_seq
+    |> List.map ~f:(fun (interval, results) ->
       let number_of_semitons = Interval.number_of_semitons interval in
-      number_of_semitons, interval, Queue.to_list queue)
-    |> List.sort ~compare:(fun (i, a, _) (j, b, _) ->
-      let c = Int.compare i j in
-      if c <> 0 then c else Interval.compare a b)
+      { Computed_interval.number_of_semitons; interval; results = List.rev !results })
+    |> List.sort ~compare:Computed_interval.compare
   in
-  List.iter results ~f:(fun (number_of_semitons, interval, intervals) ->
+  List.iter results ~f:(fun { number_of_semitons; interval; results } ->
     let intervals =
-      List.map intervals ~f:(fun (from, to_) ->
+      List.map results ~f:(fun (from, to_) ->
         Note.to_string from ^ "-" ^ Note.to_string to_)
     in
     print_dyn

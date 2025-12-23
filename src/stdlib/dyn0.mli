@@ -22,4 +22,3 @@ include module type of struct
 end
 
 val inline_record : string -> (string * Dyn.t) list -> Dyn.t
-val to_sexp : Dyn.t -> Sexplib0.Sexp.t

@@ -29,7 +29,7 @@ let%expect_test "edo53 and octaves" =
       t
       ~from:{ fingerboard_position = az; string_number = I }
       ~to_:{ fingerboard_position = bz; string_number = I }
-    |> Option.value_exn ~here:[%here]
+    |> Option.get
   in
   print_dyn (i |> Acoustic_interval.to_dyn);
   [%expect {| Equal_division_of_the_octave { divisor = 53; number_of_divisions = 9 } |}];
@@ -63,7 +63,7 @@ let make_major_just_scale ~from =
 
 let lower_c =
   let t = Lazy.force E53.t in
-  System.open_string t IV |> Option.value_exn ~here:[%here]
+  System.open_string t IV |> Option.get
 ;;
 
 let%expect_test "c_major_just" =
@@ -949,7 +949,7 @@ let%expect_test "g_flat_major_just" =
 
 let lower_g =
   let t = Lazy.force E53.t in
-  System.open_string t III |> Option.value_exn ~here:[%here]
+  System.open_string t III |> Option.get
 ;;
 
 let%expect_test "g_major_pythagorean" =

@@ -28,7 +28,7 @@ let make_major_scale ~from =
 
 let lower_c =
   let t = Lazy.force Pythagorean.t in
-  System.open_string t IV |> Option.value_exn ~here:[%here]
+  System.open_string t IV |> Option.get
 ;;
 
 let%expect_test "c_major" =
@@ -443,7 +443,7 @@ let%expect_test "g_flat_major" =
 
 let lower_g =
   let t = Lazy.force Pythagorean.t in
-  System.open_string t III |> Option.value_exn ~here:[%here]
+  System.open_string t III |> Option.get
 ;;
 
 let%expect_test "g_major" =

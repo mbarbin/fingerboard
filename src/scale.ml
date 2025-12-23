@@ -22,9 +22,9 @@ type t = { consecutive_intervals : Interval.t array }
 let create consecutive_intervals = { consecutive_intervals }
 
 let fold_map_opt t ~init ~f =
-  let queue = Queue.create () in
+  let res = ref [] in
   let rec aux acc i =
-    Queue.enqueue queue acc;
+    res := acc :: !res;
     if i < Array.length t
     then (
       match f t.(i) acc with
@@ -32,7 +32,7 @@ let fold_map_opt t ~init ~f =
       | Some acc -> aux acc (Int.succ i))
   in
   aux init 0;
-  Queue.to_array queue
+  Array.of_list (List.rev !res)
 ;;
 
 let ascending t ~from =

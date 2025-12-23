@@ -34,8 +34,10 @@ type t =
   | V
   | VI
   | VII
-[@@deriving compare, equal, enumerate, hash]
 
+val compare : t -> t -> Ordering.t
+val equal : t -> t -> bool
+val all : t list
 val to_dyn : t -> Dyn.t
 val to_string : t -> string
 

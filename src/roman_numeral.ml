@@ -25,7 +25,6 @@ type t =
   | V
   | VI
   | VII
-[@@deriving compare, equal, enumerate, hash]
 
 let constructor_name = function
   | I -> "I"
@@ -39,6 +38,7 @@ let constructor_name = function
 
 let to_string = constructor_name
 let to_dyn t = Dyn.variant (constructor_name t) []
+let all = [ I; II; III; IV; V; VI; VII ]
 
 let to_int = function
   | I -> 1
@@ -48,6 +48,14 @@ let to_int = function
   | V -> 5
   | VI -> 6
   | VII -> 7
+;;
+
+let compare t1 t2 = Int.compare (to_int t1) (to_int t2)
+
+let equal t1 t2 =
+  match compare t1 t2 with
+  | Eq -> true
+  | Lt | Gt -> false
 ;;
 
 let of_int_exn = function

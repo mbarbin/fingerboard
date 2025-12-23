@@ -20,6 +20,6 @@
 type t = float
 
 let to_string_nearest t =
-  let nearest = t |> Float.iround_exn ~dir:`Nearest in
+  let nearest = t |> Float.iround_nearest_exn in
   Int.to_string nearest
 ;;

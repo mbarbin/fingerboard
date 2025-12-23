@@ -72,8 +72,8 @@ module Edo_system : sig
     ; minor_whole_ton : int
     ; major_whole_ton : int
     }
-  [@@deriving equal, sexp_of]
 
+  val equal : t -> t -> bool
   val to_string_hum : t -> string
 
   (** Return the divisor of that system. This is the [N] value in ["EDO-N"]. *)
@@ -89,7 +89,12 @@ end = struct
     ; minor_whole_ton : int
     ; major_whole_ton : int
     }
-  [@@deriving equal, sexp_of]
+
+  let equal t1 t2 =
+    Int.equal t1.diatonic_semi_ton t2.diatonic_semi_ton
+    && Int.equal t1.minor_whole_ton t2.minor_whole_ton
+    && Int.equal t1.major_whole_ton t2.major_whole_ton
+  ;;
 
   let divisor { diatonic_semi_ton; minor_whole_ton; major_whole_ton } =
     (3 * major_whole_ton) + (2 * minor_whole_ton) + (2 * diatonic_semi_ton)
@@ -108,9 +113,9 @@ end = struct
       if i > min
       then t
       else if
-        t.diatonic_semi_ton % i = 0
-        && t.minor_whole_ton % i = 0
-        && t.major_whole_ton % i = 0
+        t.diatonic_semi_ton mod i = 0
+        && t.minor_whole_ton mod i = 0
+        && t.major_whole_ton mod i = 0
       then
         simplify
           { diatonic_semi_ton = t.diatonic_semi_ton / i
@@ -153,8 +158,8 @@ module Reference_interval : sig
     | Pythagorean_chromatic_semiton
     | Just_diatonic_semiton
     | Pythagorean_diatonic_semiton
-  [@@deriving enumerate, equal]
 
+  val all : t list
   val constructor_name : t -> string
   val acoustic_interval : t -> Acoustic_interval.t
 
@@ -179,7 +184,26 @@ end = struct
     | Pythagorean_chromatic_semiton
     | Just_diatonic_semiton
     | Pythagorean_diatonic_semiton
-  [@@deriving enumerate, equal]
+
+  let all =
+    [ Octave
+    ; Pythagorean_major_sixth
+    ; Just_major_sixth
+    ; Just_minor_sixth
+    ; Pythagorean_minor_sixth
+    ; Fifth
+    ; Fourth
+    ; Pythagorean_major_third
+    ; Just_major_third
+    ; Just_minor_third
+    ; Pythagorean_minor_third
+    ; Pythagorean_major_second
+    ; Just_minor_ton
+    ; Pythagorean_chromatic_semiton
+    ; Just_diatonic_semiton
+    ; Pythagorean_diatonic_semiton
+    ]
+  ;;
 
   let constructor_name = function
     | Octave -> "Octave"
@@ -236,7 +260,7 @@ end = struct
   let edo_approximation t ~edo_system =
     let divisor = Edo_system.divisor edo_system in
     let interval_in_cents = Acoustic_interval.to_cents (acoustic_interval t) in
-    Float.iround_exn ~dir:`Nearest (Float.of_int divisor *. interval_in_cents /. 1200.)
+    Float.iround_nearest_exn (Float.of_int divisor *. interval_in_cents /. 1200.)
   ;;
 end
 
@@ -253,7 +277,7 @@ end = struct
         Acoustic_interval.equal_division_of_the_octave ~divisor ~number_of_divisions
       in
       let cents =
-        Acoustic_interval.to_cents acoustic_interval |> Float.iround_exn ~dir:`Nearest
+        Acoustic_interval.to_cents acoustic_interval |> Float.iround_nearest_exn
       in
       Print_table.Cell.text
         (Printf.sprintf "%4d - %*d" cents divisor_length number_of_divisions))
@@ -268,7 +292,7 @@ end = struct
           (fun (t : Reference_interval.t) ->
              Reference_interval.acoustic_interval t
              |> Acoustic_interval.to_cents
-             |> Float.iround_exn ~dir:`Nearest
+             |> Float.iround_nearest_exn
              |> Int.to_string
              |> fun i -> Print_table.Cell.text i)
       in
@@ -288,14 +312,14 @@ end = struct
   ;;
 
   let print edo_systems =
-    let edo_systems = List.groupi edo_systems ~break:(fun i _ _ -> i % 3 = 0) in
+    let edo_systems = List.groupi edo_systems ~break:(fun i _ _ -> i mod 3 = 0) in
     List.iter edo_systems ~f:print_group
   ;;
 end
 
 let approximate_number_of_divisions ~divisor ~acoustic_interval =
   let interval_in_cents = Acoustic_interval.to_cents acoustic_interval in
-  Float.iround_exn ~dir:`Nearest (Float.of_int divisor *. interval_in_cents /. 1200.)
+  Float.iround_nearest_exn (Float.of_int divisor *. interval_in_cents /. 1200.)
 ;;
 
 let major_just_scale_intervals =
@@ -323,9 +347,10 @@ let is_raw_candidate n =
   let intervals =
     Array.mapi approximates ~f:(fun i n -> n - if i = 0 then 0 else approximates.(i - 1))
     |> Array.to_list
-    |> List.dedup_and_sort ~compare:Int.compare
+    |> List.sort_then_dedup ~compare:Int.compare
   in
-  let%bind.Option candidate =
+  let ( let* ) x f = Option.bind x ~f in
+  let* candidate =
     (* We remove candidates that make use of more than 2 different kinds of Ton
        for this study. *)
     match intervals with
@@ -356,7 +381,7 @@ let raw_candidates =
 ;;
 
 let meantones, non_meantones =
-  List.partition_tf raw_candidates ~f:(fun t -> t.minor_whole_ton = t.major_whole_ton)
+  List.partition raw_candidates ~f:(fun t -> t.minor_whole_ton = t.major_whole_ton)
 ;;
 
 let%expect_test "meantones" =
@@ -484,7 +509,10 @@ let allow_distinction_of_intervals_of_interest (edo_system : Edo_system.t) =
       Reference_interval.edo_approximation interval ~edo_system)
   in
   let number_of_approximations =
-    approximates |> Array.to_list |> List.dedup_and_sort ~compare |> List.length
+    approximates
+    |> Array.to_list
+    |> List.sort_then_dedup ~compare:Int.compare
+    |> List.length
   in
   number_of_approximations = Array.length to_distinguish
 ;;
@@ -514,7 +542,7 @@ let interval_error_in_cents n =
     Array.map major_just_scale_intervals ~f:(fun acoustic_interval ->
       approximate_number_of_divisions ~divisor:n ~acoustic_interval)
   in
-  Array.map2_exn
+  Array.map2
     major_just_scale_intervals
     approximates
     ~f:(fun interval number_of_divisions ->
@@ -527,20 +555,35 @@ let interval_error_in_cents n =
 
 let mean_squarred_error n =
   let errors = interval_error_in_cents n |> Array.map ~f:(fun e -> e *. e) in
-  Array.sum (module Float) errors ~f:Fn.id /. Float.of_int (Array.length errors)
+  Array.fold errors ~init:0. ~f:( +. ) /. Float.of_int (Array.length errors)
 ;;
+
+module With_error = struct
+  type t =
+    { error : Float.t
+    ; edo_system : Edo_system.t
+    }
+
+  let edo_system t = t.edo_system
+
+  let compare { error = e1; edo_system = s1 } { error = e2; edo_system = s2 } =
+    match Float.compare e1 e2 with
+    | (Lt | Gt) as r -> r
+    | Eq -> Int.compare (Edo_system.divisor s1) (Edo_system.divisor s2)
+  ;;
+end
 
 let non_meantones =
   non_meantones
   |> List.map ~f:(fun t ->
     let error = mean_squarred_error (Edo_system.divisor t) in
-    error, t)
-  |> List.sort ~compare:(Comparable.lift Float.compare ~f:fst)
+    { With_error.error; edo_system = t })
+  |> List.sort ~compare:With_error.compare
 ;;
 
 let%expect_test "non-meantones errors" =
-  List.iter non_meantones ~f:(fun (e, t) ->
-    print_endline (Printf.sprintf "%06.2f - %s" e (Edo_system.to_string_hum t)));
+  List.iter non_meantones ~f:(fun { error; edo_system = t } ->
+    print_endline (Printf.sprintf "%06.2f - %s" error (Edo_system.to_string_hum t)));
   [%expect
     {|
     001.00 - EDO-53 ( 5,  8,  9)
@@ -577,13 +620,14 @@ let%expect_test "non-meantones errors" =
    to judge of their musical properties. *)
 
 let non_meantones =
-  let best_approximator = List.hd_exn non_meantones |> snd |> Edo_system.divisor in
-  List.filter non_meantones ~f:(fun (_, t) -> Edo_system.divisor t <= best_approximator)
+  let best_approximator = (List.hd non_meantones).edo_system |> Edo_system.divisor in
+  List.filter non_meantones ~f:(fun { error = _; edo_system = t } ->
+    Edo_system.divisor t <= best_approximator)
 ;;
 
 let%expect_test "non-meantones" =
-  List.iter non_meantones ~f:(fun (e, t) ->
-    print_endline (Printf.sprintf "%06.2f - %s" e (Edo_system.to_string_hum t)));
+  List.iter non_meantones ~f:(fun { error; edo_system = t } ->
+    print_endline (Printf.sprintf "%06.2f - %s" error (Edo_system.to_string_hum t)));
   [%expect
     {|
     001.00 - EDO-53 ( 5,  8,  9)
@@ -591,7 +635,7 @@ let%expect_test "non-meantones" =
     020.09 - EDO-46 ( 4,  7,  8)
     022.41 - EDO-34 ( 3,  5,  6)
     099.58 - EDO-29 ( 3,  4,  5) |}];
-  Comparison_table.print (List.map non_meantones ~f:snd);
+  Comparison_table.print (List.map non_meantones ~f:With_error.edo_system);
   [%expect
     {|
     ┌───────────────────────────────┬───────┬───────────┬───────────┬───────────┐

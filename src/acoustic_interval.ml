@@ -68,8 +68,6 @@ let to_cents = function
   | Cents x -> x
 ;;
 
-let hash t = Float.hash (to_cents t)
-let hash_fold_t state t = Float.hash_fold_t state (to_cents t)
 let of_cents x = Cents x
 
 let aux_reduced_natural_ratio_of_octaves ~number_of_octaves =
@@ -115,26 +113,25 @@ let rec remove t1 t2 =
     , Equal_division_of_the_octave { divisor = d2; number_of_divisions = p2 } )
     when d1 = d2 ->
     let p = p1 - p2 in
-    (match Int.compare p 0 |> Ordering.of_int with
-     | Less -> None
-     | Equal -> Some Zero
-     | Greater ->
-       Some (Equal_division_of_the_octave { divisor = d1; number_of_divisions = p }))
+    (match Int.compare p 0 with
+     | Lt -> None
+     | Eq -> Some Zero
+     | Gt -> Some (Equal_division_of_the_octave { divisor = d1; number_of_divisions = p }))
   | Octaves { number_of_octaves = n1 }, Octaves { number_of_octaves = n2 } ->
     let n = n1 - n2 in
-    (match Int.compare n 0 |> Ordering.of_int with
-     | Less -> None
-     | Equal -> Some Zero
-     | Greater -> Some (Octaves { number_of_octaves = n }))
+    (match Int.compare n 0 with
+     | Lt -> None
+     | Eq -> Some Zero
+     | Gt -> Some (Octaves { number_of_octaves = n }))
   | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
     let r = Natural_ratio.Reduced.divide r1 r2 in
     let { Natural_ratio.numerator; denominator } =
       Natural_ratio.Reduced.to_natural_ratio r
     in
-    (match Int.compare numerator denominator |> Ordering.of_int with
-     | Less -> None
-     | Equal -> Some Zero
-     | Greater -> Some (Reduced_natural_ratio r))
+    (match Int.compare numerator denominator with
+     | Lt -> None
+     | Eq -> Some Zero
+     | Gt -> Some (Reduced_natural_ratio r))
   | Octaves { number_of_octaves }, (Reduced_natural_ratio _ as t2) ->
     remove (reduced_natural_ratio_of_octaves ~number_of_octaves) t2
   | (Reduced_natural_ratio _ as t1), Octaves { number_of_octaves } ->
@@ -147,10 +144,10 @@ let rec remove t1 t2 =
     remove t1 (equal_division_of_the_octave_of_octaves ~divisor ~number_of_octaves)
   | _ ->
     let cents = to_cents t1 -. to_cents t2 in
-    (match Float.compare cents 0. |> Ordering.of_int with
-     | Less -> None
-     | Equal -> Some Zero
-     | Greater -> Some (Cents cents))
+    (match Float.compare cents 0. with
+     | Lt -> None
+     | Eq -> Some Zero
+     | Gt -> Some (Cents cents))
 ;;
 
 let rec equal t1 t2 =
@@ -234,12 +231,12 @@ let pythagorean (interval : Interval.t) =
     let chromatic = chromatic + chromatic_shift in
     chromatic, diatonic
   in
-  [ List.init interval.additional_octaves ~f:(Fn.const octave)
+  [ List.init interval.additional_octaves ~f:(Fun.const octave)
   ; List.init
       (min chromatic diatonic)
-      ~f:(Fn.const (Reduced_natural_ratio pythagorean_ton))
-  ; List.init (max 0 (chromatic - diatonic)) ~f:(Fn.const pythagorean_chromatic_semiton)
-  ; List.init (max 0 (diatonic - chromatic)) ~f:(Fn.const pythagorean_diatonic_semiton)
+      ~f:(Fun.const (Reduced_natural_ratio pythagorean_ton))
+  ; List.init (max 0 (chromatic - diatonic)) ~f:(Fun.const pythagorean_chromatic_semiton)
+  ; List.init (max 0 (diatonic - chromatic)) ~f:(Fun.const pythagorean_diatonic_semiton)
   ]
   |> List.concat
   |> compound
@@ -268,8 +265,7 @@ let just_major_sixth = 5 // 3
 
 let shift_up t frequency =
   let of_cents cents =
-    Frequency.to_float frequency *. Stdlib.Float.exp2 (cents /. 1200.)
-    |> Frequency.of_float_exn
+    Frequency.to_float frequency *. Float.exp2 (cents /. 1200.) |> Frequency.of_float_exn
   in
   let of_natural_ratio { Natural_ratio.numerator; denominator } =
     Frequency.to_float frequency *. Float.of_int numerator /. Float.of_int denominator
@@ -287,8 +283,7 @@ let shift_up t frequency =
 
 let shift_down t frequency =
   let of_cents cents =
-    Frequency.to_float frequency /. Stdlib.Float.exp2 (cents /. 1200.)
-    |> Frequency.of_float_exn
+    Frequency.to_float frequency /. Float.exp2 (cents /. 1200.) |> Frequency.of_float_exn
   in
   let of_natural_ratio { Natural_ratio.numerator; denominator } =
     Frequency.to_float frequency *. Float.of_int denominator /. Float.of_int numerator

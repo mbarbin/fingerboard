@@ -28,8 +28,10 @@ module Quality : sig
     | Major
     | Augmented
     | Doubly_augmented
-  [@@deriving compare, equal, hash]
 
+  val all : t list
+  val compare : t -> t -> Ordering.t
+  val equal : t -> t -> bool
   val to_dyn : t -> Dyn.t
   val prefix_notation : t -> string
 end
@@ -44,9 +46,11 @@ module Number : sig
     | Sixth
     | Seventh
     | Octave
-  [@@deriving compare, enumerate, equal, hash]
 
+  val compare : t -> t -> Ordering.t
+  val equal : t -> t -> bool
   val to_dyn : t -> Dyn.t
+  val all : t list
   val to_int : t -> int
   val accepts_minor_major_quality : t -> bool
 end
@@ -56,8 +60,10 @@ type t =
   ; quality : Quality.t
   ; additional_octaves : int
   }
-[@@deriving compare, equal, hash]
 
+val hash : t -> int
+val compare : t -> t -> Ordering.t
+val equal : t -> t -> bool
 val to_dyn : t -> Dyn.t
 val unison : t
 val name : t -> string

@@ -137,7 +137,7 @@ let%expect_test "4-strings cello" =
       system
       ~from:{ fingerboard_position = fourth; string_number = III }
       ~to_:{ fingerboard_position = pythagorean_minor_third; string_number = I }
-    |> Option.value_exn ~here:[%here]
+    |> Option.get
   in
   assert (Acoustic_interval.equal i Acoustic_interval.octave);
   print_string (Acoustic_interval.to_string i);
@@ -147,7 +147,7 @@ let%expect_test "4-strings cello" =
       system
       ~from:{ fingerboard_position = fourth; string_number = III }
       ~to_:{ fingerboard_position = just_minor_ton; string_number = II }
-    |> Option.value_exn ~here:[%here]
+    |> Option.get
   in
   assert (Acoustic_interval.equal i Acoustic_interval.just_major_third);
   print_string (Acoustic_interval.to_string i);
@@ -157,7 +157,7 @@ let%expect_test "4-strings cello" =
       system
       ~from:{ fingerboard_position = fourth; string_number = III }
       ~to_:{ fingerboard_position = pythagorean_minor_third; string_number = II }
-    |> Option.value_exn ~here:[%here]
+    |> Option.get
   in
   assert (
     Acoustic_interval.equal
@@ -172,7 +172,7 @@ let%expect_test "4-strings cello" =
       ~from:
         { fingerboard_position = Fingerboard_position.open_string; string_number = II }
       ~to_:{ fingerboard_position = just_minor_ton; string_number = I }
-    |> Option.value_exn ~here:[%here]
+    |> Option.get
   in
   assert (Acoustic_interval.equal i Acoustic_interval.just_major_sixth);
   print_string (Acoustic_interval.to_string i);
@@ -182,7 +182,7 @@ let%expect_test "4-strings cello" =
       system
       ~from:{ fingerboard_position = just_minor_ton; string_number = I }
       ~to_:{ fingerboard_position = pythagorean_minor_third; string_number = I }
-    |> Option.value_exn ~here:[%here]
+    |> Option.get
   in
   assert (Acoustic_interval.equal i Acoustic_interval.just_diatonic_semiton);
   print_string (Acoustic_interval.to_string i);

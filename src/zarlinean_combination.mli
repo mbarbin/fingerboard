@@ -45,8 +45,10 @@
     This module goes over all such possible theoretical combinations. There are
     displayed in the test for this module. *)
 
-type t [@@deriving compare, equal]
+type t
 
+val compare : t -> t -> Ordering.t
+val equal : t -> t -> bool
 val to_dyn : t -> Dyn.t
 
 (** Display t in the form of multiple tables in a human readable way. *)
