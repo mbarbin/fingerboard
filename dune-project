@@ -25,8 +25,14 @@
    (>= 5.2))
   (base
    (>= v0.17))
+  (dyn
+   (>= 3.20))
+  (ordering
+   (>= 3.20))
   (patdiff
    (>= v0.17))
+  (pp
+   (>= 2.0.0))
   (ppx_compare
    (>= v0.17))
   (ppx_enumerate

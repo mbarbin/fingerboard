@@ -1,7 +1,9 @@
 # List of directories for headache.sh
 # Add new directories below. Lines starting with '#' are ignored.
 src
+src/stdlib
 test
+test/stdlib
 systems/cello/e12
 systems/cello/e19
 systems/cello/e31
