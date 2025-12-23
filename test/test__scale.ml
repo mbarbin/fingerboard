@@ -21,13 +21,13 @@ let%expect_test "major and minor" =
   let major = Lazy.force Scale.major in
   let minor = Lazy.force Scale.minor in
   let tonics =
-    let queue = Queue.create () in
+    let results = ref [] in
     let octave_designation = 1 in
     let rec aux letter_name =
-      if (not (Note.Letter_name.equal letter_name C)) || Queue.is_empty queue
+      if (not (Note.Letter_name.equal letter_name C)) || List.is_empty !results
       then (
         let add symbol =
-          Queue.enqueue queue { Note.letter_name; symbol; octave_designation }
+          results := { Note.letter_name; symbol; octave_designation } :: !results
         in
         add Flat;
         add Natural;
@@ -35,7 +35,7 @@ let%expect_test "major and minor" =
         aux (Note.Letter_name.succ letter_name))
     in
     aux Note.Letter_name.C;
-    Queue.to_list queue
+    List.rev !results
   in
   let str arr = Array.map arr ~f:Note.to_string in
   List.iter tonics ~f:(fun tonic ->
