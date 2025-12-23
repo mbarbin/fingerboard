@@ -12,11 +12,14 @@
   -open
   Expect_test_helpers_base
   -open
-  Fingerboard)
+  Fingerboard
+  -open
+  Fingerboard_stdlib)
  (libraries
   base
   expect_test_helpers_core.expect_test_helpers_base
-  fingerboard)
+  fingerboard
+  fingerboard_stdlib)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))

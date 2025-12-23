@@ -12,7 +12,9 @@
   -open
   Expect_test_helpers_base
   -open
-  Fingerboard)
+  Fingerboard
+  -open
+  Fingerboard_stdlib)
  (libraries
   base
   expect_test_helpers_core.expect_test_helpers_base
@@ -24,6 +26,7 @@
   fingerboard_cello_system_e55
   fingerboard_cello_system_just
   fingerboard_cello_system_pythagorean
+  fingerboard_stdlib
   patdiff.expect_test_patdiff
   print-table)
  (inline_tests)

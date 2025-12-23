@@ -1,8 +1,17 @@
 (library
  (name fingerboard)
  (public_name fingerboard)
- (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a -open Base)
- (libraries base print-table)
+ (flags
+  :standard
+  -w
+  +a-4-40-41-42-44-45-48-66
+  -warn-error
+  +a
+  -open
+  Base
+  -open
+  Fingerboard_stdlib)
+ (libraries base fingerboard_stdlib print-table)
  (instrumentation
   (backend bisect_ppx))
  (lint
