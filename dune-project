@@ -50,7 +50,9 @@
   (ppxlib
    (>= 0.33))
   (print-table
-   (>= 0.1.0))))
+   (>= 0.1.0))
+  (sexplib0
+   (>= v0.17))))
 
 (package
  (name fingerboard-system)

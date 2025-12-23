@@ -20,3 +20,5 @@
 include module type of struct
   include Dyn
 end
+
+val to_sexp : Dyn.t -> Sexplib0.Sexp.t
