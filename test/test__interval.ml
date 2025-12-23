@@ -31,7 +31,7 @@ let qualities number ~doubly_augmented =
 
 let ts =
   lazy
-    (List.bind Interval.Number.all ~f:(fun number ->
+    (List.concat_map Interval.Number.all ~f:(fun number ->
        List.map (qualities number ~doubly_augmented:true) ~f:(fun quality ->
          Interval.{ number; quality; additional_octaves = 0 })))
 ;;
@@ -62,7 +62,7 @@ let%expect_test "sort" =
           priority, t)
         |> List.sort ~compare:(fun (i, _) (j, _) -> Int.compare i j)
         |> List.map ~f:snd
-        |> List.hd_exn
+        |> List.hd
       in
       i, canonical_interval, intervals)
   in
@@ -94,16 +94,16 @@ let%expect_test "sort" =
 
 let%expect_test "compute" =
   let inputs =
-    let open List.Let_syntax in
-    let%bind l1 = Note.Letter_name.all in
-    let%bind l2 = Note.Letter_name.all in
-    let%bind s1 = Note.Symbol.all in
-    let%bind s2 = Note.Symbol.all in
-    let%bind od1 = [ 1; 2; 3; 4 ] in
-    let%bind od2 = [ 1; 2; 3; 4 ] in
-    return
-      ( { Note.letter_name = l1; symbol = s1; octave_designation = od1 }
+    let ( let* ) x f = List.concat_map x ~f in
+    let* l1 = Note.Letter_name.all in
+    let* l2 = Note.Letter_name.all in
+    let* s1 = Note.Symbol.all in
+    let* s2 = Note.Symbol.all in
+    let* od1 = [ 1; 2; 3; 4 ] in
+    let* od2 = [ 1; 2; 3; 4 ] in
+    [ ( { Note.letter_name = l1; symbol = s1; octave_designation = od1 }
       , { Note.letter_name = l2; symbol = s2; octave_designation = od2 } )
+    ]
   in
   let module Interval = struct
     include Interval

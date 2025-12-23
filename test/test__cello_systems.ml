@@ -3405,8 +3405,8 @@ let check_order_exn (module P : POSITIONS) =
     List.fold_left P.all ~init:Acoustic_interval.unison ~f:(fun acc p ->
       let acoustic_interval = P.acoustic_interval_to_the_open_string p in
       match Acoustic_interval.compare acc acoustic_interval |> Ordering.of_int with
-      | Less -> acoustic_interval
-      | Equal | Greater ->
+      | Lt -> acoustic_interval
+      | Eq | Gt ->
         Code_error.raise
           "Unexpected position order."
           [ "previous_acoustic_interval", acc |> Acoustic_interval.to_dyn

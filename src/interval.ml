@@ -122,7 +122,7 @@ module Number = struct
   let to_int t = 1 + constructor_rank t
 
   let of_int i =
-    List.nth all (i - 1)
+    List.nth_opt all (i - 1)
     |> function
     | Some t -> t
     | None -> Code_error.raise "Index out of bounds." [ "i", i |> Dyn.int ]

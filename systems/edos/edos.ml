@@ -72,7 +72,7 @@ module Edo_system : sig
     ; minor_whole_ton : int
     ; major_whole_ton : int
     }
-  [@@deriving equal, sexp_of]
+  [@@deriving equal]
 
   val to_string_hum : t -> string
 
@@ -89,7 +89,7 @@ end = struct
     ; minor_whole_ton : int
     ; major_whole_ton : int
     }
-  [@@deriving equal, sexp_of]
+  [@@deriving equal]
 
   let divisor { diatonic_semi_ton; minor_whole_ton; major_whole_ton } =
     (3 * major_whole_ton) + (2 * minor_whole_ton) + (2 * diatonic_semi_ton)
@@ -323,7 +323,7 @@ let is_raw_candidate n =
   let intervals =
     Array.mapi approximates ~f:(fun i n -> n - if i = 0 then 0 else approximates.(i - 1))
     |> Array.to_list
-    |> List.dedup_and_sort ~compare:Int.compare
+    |> List.sort_then_dedup ~compare:Int.compare
   in
   let ( let* ) x f = Option.bind x ~f in
   let* candidate =
@@ -357,7 +357,7 @@ let raw_candidates =
 ;;
 
 let meantones, non_meantones =
-  List.partition_tf raw_candidates ~f:(fun t -> t.minor_whole_ton = t.major_whole_ton)
+  List.partition raw_candidates ~f:(fun t -> t.minor_whole_ton = t.major_whole_ton)
 ;;
 
 let%expect_test "meantones" =
@@ -485,7 +485,7 @@ let allow_distinction_of_intervals_of_interest (edo_system : Edo_system.t) =
       Reference_interval.edo_approximation interval ~edo_system)
   in
   let number_of_approximations =
-    approximates |> Array.to_list |> List.dedup_and_sort ~compare |> List.length
+    approximates |> Array.to_list |> List.sort_then_dedup ~compare |> List.length
   in
   number_of_approximations = Array.length to_distinguish
 ;;
@@ -578,7 +578,7 @@ let%expect_test "non-meantones errors" =
    to judge of their musical properties. *)
 
 let non_meantones =
-  let best_approximator = List.hd_exn non_meantones |> snd |> Edo_system.divisor in
+  let best_approximator = List.hd non_meantones |> snd |> Edo_system.divisor in
   List.filter non_meantones ~f:(fun (_, t) -> Edo_system.divisor t <= best_approximator)
 ;;
 

@@ -109,7 +109,7 @@ module Reduced = struct
     then "1"
     else (
       let numerator, denominator =
-        List.partition_tf t ~f:(fun (o : One.t) -> o.exponent > 0)
+        List.partition t ~f:(fun (o : One.t) -> o.exponent > 0)
       in
       let denominator = List.map denominator ~f:One.inverse in
       let ones = function

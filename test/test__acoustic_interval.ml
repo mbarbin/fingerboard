@@ -336,14 +336,14 @@ let%expect_test "equal corner cases" =
     Acoustic_interval.(
       add octave (equal_division_of_the_octave ~divisor:53 ~number_of_divisions:8))
   in
-  print_s [%sexp (Acoustic_interval.equal i1 i2 : bool)];
+  print_dyn (Acoustic_interval.equal i1 i2 |> Dyn.bool);
   [%expect {| true |}];
   let i3 =
     Acoustic_interval.(
       remove i2 (equal_division_of_the_octave ~divisor:53 ~number_of_divisions:9))
     |> Option.get
   in
-  print_s [%sexp (Acoustic_interval.equal i3 base : bool)];
+  print_dyn (Acoustic_interval.equal i3 base |> Dyn.bool);
   [%expect {| true |}];
   ()
 ;;

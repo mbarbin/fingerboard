@@ -116,25 +116,24 @@ let rec remove t1 t2 =
     when d1 = d2 ->
     let p = p1 - p2 in
     (match Int.compare p 0 |> Ordering.of_int with
-     | Less -> None
-     | Equal -> Some Zero
-     | Greater ->
-       Some (Equal_division_of_the_octave { divisor = d1; number_of_divisions = p }))
+     | Lt -> None
+     | Eq -> Some Zero
+     | Gt -> Some (Equal_division_of_the_octave { divisor = d1; number_of_divisions = p }))
   | Octaves { number_of_octaves = n1 }, Octaves { number_of_octaves = n2 } ->
     let n = n1 - n2 in
     (match Int.compare n 0 |> Ordering.of_int with
-     | Less -> None
-     | Equal -> Some Zero
-     | Greater -> Some (Octaves { number_of_octaves = n }))
+     | Lt -> None
+     | Eq -> Some Zero
+     | Gt -> Some (Octaves { number_of_octaves = n }))
   | Reduced_natural_ratio r1, Reduced_natural_ratio r2 ->
     let r = Natural_ratio.Reduced.divide r1 r2 in
     let { Natural_ratio.numerator; denominator } =
       Natural_ratio.Reduced.to_natural_ratio r
     in
     (match Int.compare numerator denominator |> Ordering.of_int with
-     | Less -> None
-     | Equal -> Some Zero
-     | Greater -> Some (Reduced_natural_ratio r))
+     | Lt -> None
+     | Eq -> Some Zero
+     | Gt -> Some (Reduced_natural_ratio r))
   | Octaves { number_of_octaves }, (Reduced_natural_ratio _ as t2) ->
     remove (reduced_natural_ratio_of_octaves ~number_of_octaves) t2
   | (Reduced_natural_ratio _ as t1), Octaves { number_of_octaves } ->
@@ -148,9 +147,9 @@ let rec remove t1 t2 =
   | _ ->
     let cents = to_cents t1 -. to_cents t2 in
     (match Float.compare cents 0. |> Ordering.of_int with
-     | Less -> None
-     | Equal -> Some Zero
-     | Greater -> Some (Cents cents))
+     | Lt -> None
+     | Eq -> Some Zero
+     | Gt -> Some (Cents cents))
 ;;
 
 let rec equal t1 t2 =

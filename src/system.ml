@@ -206,7 +206,7 @@ let acoustic_interval
 let fingerboard_positions t = t.fingerboard_positions
 
 let find_fingerboard_position (t : t) ~name =
-  List.find t.fingerboard_positions ~f:(fun fingerboard_position ->
+  List.find_opt t.fingerboard_positions ~f:(fun fingerboard_position ->
     String.equal name (Fingerboard_position.name fingerboard_position))
 ;;
 
@@ -281,7 +281,7 @@ let find_next_located_note
     List.find_map (List.init index ~f:Fn.id) ~f:(fun index ->
       let string_number = Roman_numeral.of_int_exn (index + 1) in
       match
-        List.find t.fingerboard_positions ~f:(fun fingerboard_position ->
+        List.find_opt t.fingerboard_positions ~f:(fun fingerboard_position ->
           match
             acoustic_interval
               t
@@ -352,7 +352,7 @@ let find_same_note_one_string_down t { Located_note.note; fingerboard_location }
       else Roman_numeral.of_int_exn (index + 1)
     in
     match
-      List.find t.fingerboard_positions ~f:(fun fingerboard_position ->
+      List.find_opt t.fingerboard_positions ~f:(fun fingerboard_position ->
         match
           acoustic_interval
             t
@@ -486,7 +486,7 @@ module Double_stops = struct
         let adjusted_low_note =
           let string_number = low_note.fingerboard_location.string_number in
           match
-            List.find system.fingerboard_positions ~f:(fun fingerboard_position ->
+            List.find_opt system.fingerboard_positions ~f:(fun fingerboard_position ->
               match
                 acoustic_interval
                   system
@@ -506,7 +506,7 @@ module Double_stops = struct
         let adjusted_high_note =
           let string_number = high_note.fingerboard_location.string_number in
           match
-            List.find system.fingerboard_positions ~f:(fun fingerboard_position ->
+            List.find_opt system.fingerboard_positions ~f:(fun fingerboard_position ->
               match
                 acoustic_interval
                   system
@@ -534,8 +534,8 @@ module Double_stops = struct
                (Adjustment.Choice_criteria.of_located_note system ~tonic high_note)
              |> Ordering.of_int
            with
-           | Less | Equal -> { Double_stop.low_note = adjusted_low_note; high_note }
-           | Greater -> { Double_stop.low_note; high_note = adjusted_high_note })))
+           | Lt | Eq -> { Double_stop.low_note = adjusted_low_note; high_note }
+           | Gt -> { Double_stop.low_note; high_note = adjusted_high_note })))
   ;;
 
   let make_scale ?adjustment (t : system) ~characterized_scale ~interval_number ~from ~to_
@@ -546,7 +546,7 @@ module Double_stops = struct
       let rec aux acc = function
         | [] -> acc
         | low_note :: tl as scale ->
-          (match List.nth scale index with
+          (match List.nth_opt scale index with
            | None -> acc
            | Some high_note ->
              let acc =

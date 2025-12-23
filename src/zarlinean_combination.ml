@@ -148,7 +148,10 @@ let all () =
   in
   aux t 0;
   let all = Queue.to_list all in
-  List.filter all ~f:is_valid |> List.sort_and_group ~compare |> List.map ~f:List.hd_exn
+  List.filter all ~f:is_valid
+  |> List.sort ~compare
+  |> List.group ~break:(fun x y -> not (compare x y |> Ordering.of_int |> Ordering.is_eq))
+  |> List.map ~f:List.hd
 ;;
 
 let all = lazy (all ())
