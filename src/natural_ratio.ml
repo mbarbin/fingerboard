@@ -182,19 +182,19 @@ module Reduced = struct
 
   let of_small_natural_ratio_exn ~numerator ~denominator =
     match
-      let open Option.Let_syntax in
+      let ( let* ) x f = Option.bind x ~f in
       let rec aux acc i ~exponent =
         if i = 1
-        then return acc
-        else (
-          let%bind prime =
+        then Option.some acc
+        else
+          let* prime =
             match Set.find primes_to_100 ~f:(fun prime -> i % prime = 0) with
             | Some _ as some -> some
             | None -> if i < 10_000 then Some i else None
           in
-          aux (multiply acc (create_exn ~prime ~exponent)) (i / prime) ~exponent)
+          aux (multiply acc (create_exn ~prime ~exponent)) (i / prime) ~exponent
       in
-      let%bind acc = aux one numerator ~exponent:1 in
+      let* acc = aux one numerator ~exponent:1 in
       aux acc denominator ~exponent:(-1)
     with
     | Some t -> t

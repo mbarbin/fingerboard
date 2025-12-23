@@ -126,9 +126,7 @@ let create ~high_vibrating_string ~pitch ~intervals_going_down =
       ~f:(fun previous_string { Characterized_interval.interval; acoustic_interval } ->
         let v =
           { Vibrating_string.open_string =
-              previous_string.open_string
-              |> Interval.shift_down interval
-              |> Option.value_exn ~here:[%here]
+              previous_string.open_string |> Interval.shift_down interval |> Option.get
           ; pitch =
               previous_string.pitch |> Acoustic_interval.shift_down acoustic_interval
           ; roman_numeral = Roman_numeral.succ_exn previous_string.roman_numeral
@@ -277,9 +275,9 @@ let find_next_located_note
       { Located_note.note; fingerboard_location }
       (characterized_interval : Characterized_interval.t)
   =
-  let open Option.Let_syntax in
+  let ( let* ) x f = Option.bind x ~f in
   let index = Roman_numeral.to_int fingerboard_location.string_number in
-  let%bind fingerboard_location =
+  let* fingerboard_location =
     List.find_map (List.init index ~f:Fn.id) ~f:(fun index ->
       let string_number = Roman_numeral.of_int_exn (index + 1) in
       match
@@ -300,30 +298,30 @@ let find_next_located_note
       | Some fingerboard_position ->
         Some { Fingerboard_location.fingerboard_position; string_number })
   in
-  let%bind note = Interval.shift_up characterized_interval.interval note in
-  return { Located_note.note; fingerboard_location }
+  let* note = Interval.shift_up characterized_interval.interval note in
+  Option.some { Located_note.note; fingerboard_location }
 ;;
 
 let open_string t string_number =
-  let open Option.Let_syntax in
+  let ( let* ) x f = Option.bind x ~f in
   let index = Roman_numeral.to_int string_number - 1 in
-  let%bind vibrating_string =
+  let* vibrating_string =
     if index >= 0 && index < Array.length t.vibrating_strings
-    then return t.vibrating_strings.(index)
+    then Option.some t.vibrating_strings.(index)
     else None
   in
-  let%bind fingerboard_position =
-    match List.hd t.fingerboard_positions with
-    | None -> None
-    | Some fingerboard_position ->
+  let* fingerboard_position =
+    match t.fingerboard_positions with
+    | [] -> None
+    | fingerboard_position :: _ ->
       if
         Acoustic_interval.equal
           Acoustic_interval.unison
           (Fingerboard_position.acoustic_interval_to_the_open_string fingerboard_position)
-      then return fingerboard_position
+      then Option.some fingerboard_position
       else None
   in
-  return
+  Option.some
     { Located_note.note = vibrating_string.open_string
     ; fingerboard_location = { fingerboard_position; string_number }
     }
@@ -405,14 +403,14 @@ module Double_stops = struct
       ; [ Column.make ~header:"Interval" (fun (t : Double_stop.t) ->
             let interval =
               Interval.compute ~from:t.low_note.note ~to_:t.high_note.note ()
-              |> Option.value_exn ~here:[%here]
+              |> Option.get
             in
             let acoustic_interval =
               acoustic_interval
                 system
                 ~from:t.low_note.fingerboard_location
                 ~to_:t.high_note.fingerboard_location
-              |> Option.value_exn ~here:[%here]
+              |> Option.get
             in
             Cell.text
               (Printf.sprintf
@@ -425,7 +423,7 @@ module Double_stops = struct
                 system
                 ~from:t.low_note.fingerboard_location
                 ~to_:t.high_note.fingerboard_location
-              |> Option.value_exn ~here:[%here]
+              |> Option.get
             in
             Cell.text
               (Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval)))
@@ -480,7 +478,7 @@ module Double_stops = struct
           system
           ~from:low_note.fingerboard_location
           ~to_:high_note.fingerboard_location
-        |> Option.value_exn ~here:[%here]
+        |> Option.get
       in
       if not (Acoustic_interval.equal actual_interval from)
       then double_stop

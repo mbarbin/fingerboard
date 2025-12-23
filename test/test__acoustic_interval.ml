@@ -341,7 +341,7 @@ let%expect_test "equal corner cases" =
   let i3 =
     Acoustic_interval.(
       remove i2 (equal_division_of_the_octave ~divisor:53 ~number_of_divisions:9))
-    |> Option.value_exn ~here:[%here]
+    |> Option.get
   in
   print_s [%sexp (Acoustic_interval.equal i3 base : bool)];
   [%expect {| true |}];

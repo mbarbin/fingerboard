@@ -24,6 +24,15 @@ module Dyn = Dyn0
 
 val print_dyn : Dyn.t -> unit
 
+module Option : sig
+  include module type of struct
+    include Stdlib.Option
+  end
+
+  val bind : 'a t -> f:('a -> 'b t) -> 'b t
+  val map : 'a t -> f:('a -> 'b) -> 'b t
+end
+
 (** {1 Transition helpers}
 
     These helpers simplify the transition from base to stdlib happening as

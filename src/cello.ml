@@ -558,8 +558,7 @@ module Fingerboard_position_name = struct
       let acoustic_interval_to_the_open_string (t : t) =
         match (t : t) with
         | `A1z ->
-          Acoustic_interval.(remove just_major_ton just_diatonic_semiton)
-          |> Option.value_exn ~here:[%here]
+          Acoustic_interval.(remove just_major_ton just_diatonic_semiton) |> Option.get
         | `m2z -> Acoustic_interval.just_diatonic_semiton
         | `M2z -> Acoustic_interval.just_minor_ton
         | `d3z ->
@@ -579,13 +578,13 @@ module Fingerboard_position_name = struct
             remove
               (pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
               just_minor_ton)
-          |> Option.value_exn ~here:[%here]
+          |> Option.get
         | `A4z ->
           Acoustic_interval.(
             remove
               (pythagorean { number = Fifth; quality = Perfect; additional_octaves = 0 })
               just_diatonic_semiton)
-          |> Option.value_exn ~here:[%here]
+          |> Option.get
         | `d5z ->
           Acoustic_interval.(
             add
@@ -601,7 +600,7 @@ module Fingerboard_position_name = struct
             remove
               (pythagorean { number = Sixth; quality = Perfect; additional_octaves = 0 })
               just_diatonic_semiton)
-          |> Option.value_exn ~here:[%here]
+          |> Option.get
         | `m6z -> Acoustic_interval.just_minor_sixth
         | `M6z -> Acoustic_interval.just_major_sixth
         | `d7z ->

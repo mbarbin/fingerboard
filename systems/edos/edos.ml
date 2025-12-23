@@ -325,7 +325,8 @@ let is_raw_candidate n =
     |> Array.to_list
     |> List.dedup_and_sort ~compare:Int.compare
   in
-  let%bind.Option candidate =
+  let ( let* ) x f = Option.bind x ~f in
+  let* candidate =
     (* We remove candidates that make use of more than 2 different kinds of Ton
        for this study. *)
     match intervals with

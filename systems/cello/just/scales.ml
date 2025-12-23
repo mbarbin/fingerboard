@@ -33,7 +33,7 @@ let make_major_just_scale ~from =
 
 let lower_c =
   let t = Lazy.force Just.t in
-  System.open_string t IV |> Option.value_exn ~here:[%here]
+  System.open_string t IV |> Option.get
 ;;
 
 let%expect_test "c_major_just" =

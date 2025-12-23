@@ -218,8 +218,8 @@ let number_of_semitons t =
 ;;
 
 let compute ~(from : Note.t) ~(to_ : Note.t) () =
-  let open Option.Let_syntax in
-  let%bind number_of_letter_names, number_of_semitons =
+  let ( let* ) x f = Option.bind x ~f in
+  let* number_of_letter_names, number_of_semitons =
     let rec aux number_of_letter_names number_of_semitons letter_name octave_designation =
       if octave_designation > to_.octave_designation
       then None
@@ -227,7 +227,7 @@ let compute ~(from : Note.t) ~(to_ : Note.t) () =
         Note.Letter_name.equal letter_name to_.letter_name
         && octave_designation = to_.octave_designation
       then
-        return
+        Option.some
           ( number_of_letter_names
           , number_of_semitons
             - Note.Symbol.semitons_shift from.symbol
@@ -250,8 +250,8 @@ let compute ~(from : Note.t) ~(to_ : Note.t) () =
       , additional_octaves ))
     else number_of_letter_names, number_of_semitons, 0
   in
-  let%bind () =
-    if number_of_semitons < 0 || number_of_letter_names > 7 then None else return ()
+  let* () =
+    if number_of_semitons < 0 || number_of_letter_names > 7 then None else Option.some ()
   in
   let number = Number.of_int (number_of_letter_names + 1) in
   let basis = Number.basis_for_number_of_semitons number in
@@ -259,28 +259,28 @@ let compute ~(from : Note.t) ~(to_ : Note.t) () =
   let basis_quality =
     if accepts_minor_major_quality then Quality.Major else Quality.Perfect
   in
-  let%map quality =
+  let* quality =
     let rec aux missing quality =
       if Int.equal missing 0
-      then return quality
+      then Option.some quality
       else if missing > 0
-      then (
-        let%bind quality = Quality.succ quality ~accepts_minor_major_quality in
-        aux (Int.pred missing) quality)
-      else (
-        let%bind quality = Quality.pred quality ~accepts_minor_major_quality in
-        aux (Int.succ missing) quality)
+      then
+        let* quality = Quality.succ quality ~accepts_minor_major_quality in
+        aux (Int.pred missing) quality
+      else
+        let* quality = Quality.pred quality ~accepts_minor_major_quality in
+        aux (Int.succ missing) quality
     in
     aux (number_of_semitons - basis) basis_quality
   in
-  { number; quality; additional_octaves }
+  Option.some { number; quality; additional_octaves }
 ;;
 
 let shift_up
       ({ number; quality = _; additional_octaves } as interval)
       ({ Note.letter_name; symbol = _; octave_designation } as from)
   =
-  let open Option.Let_syntax in
+  let ( let* ) x f = Option.bind x ~f in
   let step = Number.to_int number - 1 + (7 * additional_octaves) in
   let target =
     let rec aux step letter_name octave_designation =
@@ -294,23 +294,23 @@ let shift_up
     in
     aux step letter_name octave_designation
   in
-  let%bind candidate = compute ~from ~to_:target () in
+  let* candidate = compute ~from ~to_:target () in
   let semiton_shift = number_of_semitons interval - number_of_semitons candidate in
-  let%map symbol =
+  let* symbol =
     let rec aux shift symbol =
       if shift = 0
       then Some symbol
       else if shift > 0
-      then (
-        let%bind symbol = Note.Symbol.succ symbol in
-        aux (Int.pred shift) symbol)
-      else (
-        let%bind symbol = Note.Symbol.pred symbol in
-        aux (Int.succ shift) symbol)
+      then
+        let* symbol = Note.Symbol.succ symbol in
+        aux (Int.pred shift) symbol
+      else
+        let* symbol = Note.Symbol.pred symbol in
+        aux (Int.succ shift) symbol
     in
     aux semiton_shift target.symbol
   in
-  { target with symbol }
+  Option.some { target with symbol }
 ;;
 
 let shift_down
@@ -330,24 +330,24 @@ let shift_down
     in
     aux step letter_name octave_designation
   in
-  let open Option.Let_syntax in
-  let%bind candidate = compute ~from:target ~to_ () in
+  let ( let* ) x f = Option.bind x ~f in
+  let* candidate = compute ~from:target ~to_ () in
   let semiton_shift = number_of_semitons interval - number_of_semitons candidate in
-  let%map symbol =
+  let* symbol =
     let rec aux shift symbol =
       if shift = 0
       then Some symbol
       else if shift > 0
-      then (
-        let%bind symbol = Note.Symbol.pred symbol in
-        aux (Int.pred shift) symbol)
-      else (
-        let%bind symbol = Note.Symbol.succ symbol in
-        aux (Int.succ shift) symbol)
+      then
+        let* symbol = Note.Symbol.pred symbol in
+        aux (Int.pred shift) symbol
+      else
+        let* symbol = Note.Symbol.succ symbol in
+        aux (Int.succ shift) symbol
     in
     aux semiton_shift target.symbol
   in
-  { target with symbol }
+  Option.some { target with symbol }
 ;;
 
 let unison = { number = Unison; quality = Perfect; additional_octaves = 0 }

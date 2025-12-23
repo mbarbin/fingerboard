@@ -28,7 +28,7 @@ let make_major_scale ~from =
 
 let lower_c =
   let t = Lazy.force E12.t in
-  System.open_string t IV |> Option.value_exn ~here:[%here]
+  System.open_string t IV |> Option.get
 ;;
 
 let%expect_test "c_major" =

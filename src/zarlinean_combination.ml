@@ -29,7 +29,6 @@ module Degree_kind = struct
       [ "pythagorean", pythagorean |> Dyn.bool; "zarlinean", zarlinean |> Dyn.bool ]
   ;;
 
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
   let null = { pythagorean = false; zarlinean = false }
   let count_bool b = if b then 1 else 0
   let count { pythagorean; zarlinean } = count_bool pythagorean + count_bool zarlinean
@@ -52,7 +51,6 @@ end
 type t = Degree_kind.t array [@@deriving compare, equal]
 
 let to_dyn t = Dyn.array Degree_kind.to_dyn t
-let sexp_of_t t = Dyn.to_sexp (to_dyn t)
 
 module For_comparison = struct
   type nonrec t = int array * t [@@deriving compare]
@@ -66,26 +64,19 @@ end
 let compare t1 t2 = For_comparison.(compare (of_t t1) (of_t t2))
 
 let check t =
-  let exception Invalid_entry of Error.t in
+  let exception Invalid_entry of (string * Dyn.t) in
   match
     let len = Array.length t in
-    if len <> 7
-    then
-      Stdlib.raise_notrace
-        (Invalid_entry (Error.create_s [%sexp "unexpected length", [%here], (t : t)]));
+    if len <> 7 then Stdlib.raise_notrace (Invalid_entry ("Unexpected length.", to_dyn t));
     for i = 0 to 6 do
       if Degree_kind.count t.(i) < 1
       then
         Stdlib.raise_notrace
           (Invalid_entry
-             (Error.create_s
-                [%sexp "unexpected degree", [%here], { i : int }, (t.(i) : Degree_kind.t)]))
+             ("Unexpected degree.", Dyn.Tuple [ Dyn.int i; Degree_kind.to_dyn t.(i) ]))
     done;
     if Array.count t ~f:(fun d -> Degree_kind.count d > 1) > 1
-    then
-      Stdlib.raise_notrace
-        (Invalid_entry
-           (Error.create_s [%sexp "too many changing degrees", [%here], (t : t)]));
+    then Stdlib.raise_notrace (Invalid_entry ("Too many changing degrees.", to_dyn t));
     for i = 0 to 6 do
       let low_note = t.(i)
       and high_note = t.((i + 2) % len) in
@@ -95,27 +86,29 @@ let check t =
       then
         Stdlib.raise_notrace
           (Invalid_entry
-             (Error.create_s
-                [%sexp
-                  "unsolvable degree"
-                , [%here]
-                , { i : int }
-                , { low_note : Degree_kind.t; high_note : Degree_kind.t }]));
+             ( "Unsolvable degree."
+             , Dyn.Tuple
+                 [ Dyn.int i; Degree_kind.to_dyn low_note; Degree_kind.to_dyn high_note ]
+             ));
       if low_p && high_p
       then
         Stdlib.raise_notrace
           (Invalid_entry
-             (Error.create_s
-                [%sexp
-                  "multiple choices"
-                , [%here]
-                , { i : int }
-                , { low_note : Degree_kind.t; high_note : Degree_kind.t }]));
+             ( "Multiple choices."
+             , Dyn.Tuple
+                 [ Dyn.int i; Degree_kind.to_dyn low_note; Degree_kind.to_dyn high_note ]
+             ));
       ()
     done
   with
   | () -> Ok ()
   | exception Invalid_entry err -> Error err
+;;
+
+let is_valid t =
+  match check t with
+  | Ok () -> true
+  | Error (_ : string * Dyn.t) -> false
 ;;
 
 let all () =
@@ -155,12 +148,7 @@ let all () =
   in
   aux t 0;
   let all = Queue.to_list all in
-  List.filter_map all ~f:(fun t ->
-    match check t with
-    | Ok () -> Some t
-    | Error _ -> None)
-  |> List.sort_and_group ~compare
-  |> List.map ~f:List.hd_exn
+  List.filter all ~f:is_valid |> List.sort_and_group ~compare |> List.map ~f:List.hd_exn
 ;;
 
 let all = lazy (all ())
