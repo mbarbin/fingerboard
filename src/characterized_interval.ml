@@ -42,18 +42,16 @@ let check_deviation_exn ~interval ~acoustic_interval =
   let deviation = Float.abs (tempered_12_equivalent_in_cents -. in_cents) in
   if Float.compare deviation allowed_deviation_from_equal_tempered_12_in_cents > 0
   then
-    raise_s
-      [%sexp
-        "Deviation is out of allowed bounds"
-      , [%here]
-      , { interval = (interval |> Interval.to_dyn |> Dyn.to_sexp : Sexp.t)
-        ; acoustic_interval =
-            (acoustic_interval |> Acoustic_interval.to_dyn |> Dyn.to_sexp : Sexp.t)
-        ; tempered_12_equivalent_in_cents : Float.t
-        ; in_cents : Float.t
-        ; deviation : Float.t
-        ; allowed_deviation_from_equal_tempered_12_in_cents : Float.t
-        }]
+    Code_error.raise
+      "Deviation is out of allowed bounds."
+      [ "interval", interval |> Interval.to_dyn
+      ; "acoustic_interval", acoustic_interval |> Acoustic_interval.to_dyn
+      ; "tempered_12_equivalent_in_cents", tempered_12_equivalent_in_cents |> Dyn.float
+      ; "in_cents", in_cents |> Dyn.float
+      ; "deviation", deviation |> Dyn.float
+      ; ( "allowed_deviation_from_equal_tempered_12_in_cents"
+        , allowed_deviation_from_equal_tempered_12_in_cents |> Dyn.float )
+      ]
 ;;
 
 let create_exn ~interval ~acoustic_interval =

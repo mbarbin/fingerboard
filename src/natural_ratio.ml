@@ -125,11 +125,12 @@ module Reduced = struct
 
   let create_exn ~prime ~exponent =
     if prime < 100 && not (Set.mem primes_to_100 prime)
-    then raise_s [%sexp "Not a prime number", [%here], { prime : int }];
+    then Code_error.raise "Not a prime number." [ "number", prime |> Dyn.int ];
     if exponent = 0
     then
-      raise_s
-        [%sexp "Non-null exponent expected", [%here], { prime : int; exponent : int }];
+      Code_error.raise
+        "Non-null exponent expected."
+        [ "prime", prime |> Dyn.int; "exponent", exponent |> Dyn.int ];
     [ { One.prime; exponent } ]
   ;;
 
@@ -198,6 +199,8 @@ module Reduced = struct
     with
     | Some t -> t
     | None ->
-      raise_s [%sexp "Unsupported ratio", [%here], { numerator : int; denominator : int }]
+      Code_error.raise
+        "Unsupported ratio."
+        [ "numerator", numerator |> Dyn.int; "denominator", denominator |> Dyn.int ]
   ;;
 end

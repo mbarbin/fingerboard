@@ -95,6 +95,17 @@ module Number = struct
     | Octave
   [@@deriving compare, enumerate, equal, hash]
 
+  let constructor_rank = function
+    | Unison -> 0
+    | Second -> 1
+    | Third -> 2
+    | Fourth -> 3
+    | Fifth -> 4
+    | Sixth -> 5
+    | Seventh -> 6
+    | Octave -> 7
+  ;;
+
   let constructor_name = function
     | Unison -> "Unison"
     | Second -> "Second"
@@ -107,20 +118,14 @@ module Number = struct
   ;;
 
   let to_dyn t = Dyn.Variant (constructor_name t, [])
-  let sexp_of_t t = Dyn.to_sexp (to_dyn t)
   let name t = make_name (constructor_name t)
-
-  let to_int t =
-    match List.find_mapi all ~f:(fun i t' -> Option.some_if (equal t t') i) with
-    | Some i -> i + 1
-    | None -> raise_s [%sexp "Index not found", (t : t), [%here]]
-  ;;
+  let to_int t = 1 + constructor_rank t
 
   let of_int i =
     List.nth all (i - 1)
     |> function
     | Some t -> t
-    | None -> raise_s [%sexp "Index out of bounds", (i : int), [%here]]
+    | None -> Code_error.raise "Index out of bounds." [ "i", i |> Dyn.int ]
   ;;
 
   let accepts_minor_major_quality = function

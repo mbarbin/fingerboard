@@ -26,7 +26,7 @@ include struct
 end
 
 let check_exn f =
-  if Float.compare f 0. < 0 then raise_s [%sexp "Out of bounds", [%here], (f : float)]
+  if Float.compare f 0. < 0 then Code_error.raise "Out of bounds." [ "f", f |> Dyn.float ]
 ;;
 
 let of_float_exn f =

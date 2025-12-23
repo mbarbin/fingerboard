@@ -25,7 +25,15 @@ let%expect_test "first comparison" =
       | Pythagorean
       | E53
       | E55
-    [@@deriving enumerate, sexp_of]
+    [@@deriving enumerate]
+
+    let constructor_name = function
+      | Equal_temperament -> "Equal_temperament"
+      | Just -> "Just"
+      | Pythagorean -> "Pythagorean"
+      | E53 -> "E53"
+      | E55 -> "E55"
+    ;;
   end
   in
   let module Row = struct
@@ -33,12 +41,8 @@ let%expect_test "first comparison" =
   end
   in
   let acoustic_interval (t : Row.t) (kind : Kind.t) =
-    let unimplemented here =
-      raise_s
-        [%sexp
-          "Unimplemented"
-        , (here : Source_code_position.t)
-        , (t.interval |> Interval.to_dyn |> Dyn.to_sexp : Sexp.t)]
+    let unimplemented () =
+      Code_error.raise "Unimplemented" [ "interval", t.interval |> Interval.to_dyn ]
     in
     match (kind : Kind.t) with
     | Equal_temperament -> Acoustic_interval.equal_tempered_12 t.interval
@@ -52,18 +56,18 @@ let%expect_test "first comparison" =
          (match t.interval.quality with
           | Minor -> Acoustic_interval.just_diatonic_semiton
           | Major -> Acoustic_interval.just_major_ton
-          | _ -> unimplemented [%here])
+          | _ -> unimplemented ())
        | Third ->
          (match t.interval.quality with
           | Minor -> Acoustic_interval.just_minor_third
           | Major -> Acoustic_interval.just_major_third
-          | _ -> unimplemented [%here])
+          | _ -> unimplemented ())
        | Sixth ->
          (match t.interval.quality with
           | Minor -> Acoustic_interval.just_minor_sixth
           | Major -> Acoustic_interval.just_major_sixth
-          | _ -> unimplemented [%here])
-       | _ -> unimplemented [%here])
+          | _ -> unimplemented ())
+       | _ -> unimplemented ())
     | E53 ->
       let number_of_divisions =
         match t.interval.number with
@@ -80,18 +84,18 @@ let%expect_test "first comparison" =
           (match t.interval.quality with
            | Minor -> 5
            | Major -> 9
-           | _ -> unimplemented [%here])
+           | _ -> unimplemented ())
         | Third ->
           (match t.interval.quality with
            | Minor -> 14
            | Major -> 17
-           | _ -> unimplemented [%here])
+           | _ -> unimplemented ())
         | Sixth ->
           (match t.interval.quality with
            | Minor -> 36
            | Major -> 39
-           | _ -> unimplemented [%here])
-        | _ -> unimplemented [%here]
+           | _ -> unimplemented ())
+        | _ -> unimplemented ()
       in
       Acoustic_interval.equal_division_of_the_octave ~divisor:53 ~number_of_divisions
     | E55 ->
@@ -110,18 +114,18 @@ let%expect_test "first comparison" =
           (match t.interval.quality with
            | Minor -> 5
            | Major -> 9
-           | _ -> unimplemented [%here])
+           | _ -> unimplemented ())
         | Third ->
           (match t.interval.quality with
            | Minor -> 14
            | Major -> 18
-           | _ -> unimplemented [%here])
+           | _ -> unimplemented ())
         | Sixth ->
           (match t.interval.quality with
            | Minor -> 37
            | Major -> 41
-           | _ -> unimplemented [%here])
-        | _ -> unimplemented [%here]
+           | _ -> unimplemented ())
+        | _ -> unimplemented ()
       in
       Acoustic_interval.equal_division_of_the_octave ~divisor:55 ~number_of_divisions
   in
@@ -129,7 +133,7 @@ let%expect_test "first comparison" =
     let cents_column kind =
       Print_table.Column.make
         ~align:Right
-        ~header:(Sexp.to_string [%sexp (kind : Kind.t)])
+        ~header:(Kind.constructor_name kind)
         (fun (t : Row.t) ->
            acoustic_interval t kind
            |> Acoustic_interval.to_cents
@@ -370,7 +374,35 @@ let%expect_test "ratios" =
       | Major_seventh_as_fifth_plus_just_major_third
       | Pythagorean_major_seventh
       | Octave
-    [@@deriving enumerate, sexp_of]
+    [@@deriving enumerate]
+
+    let constructor_name = function
+      | Unison -> "Unison"
+      | Syntonic_comma -> "Syntonic_comma"
+      | Pythagorean_comma -> "Pythagorean_comma"
+      | Pythagorean_diatonic_semiton -> "Pythagorean_diatonic_semiton"
+      | Just_diatonic_semiton -> "Just_diatonic_semiton"
+      | Pythagorean_chromatic_semiton -> "Pythagorean_chromatic_semiton"
+      | Just_minor_ton -> "Just_minor_ton"
+      | Just_major_ton -> "Just_major_ton"
+      | Pythagorean_minor_third -> "Pythagorean_minor_third"
+      | Just_minor_third -> "Just_minor_third"
+      | Just_major_third -> "Just_major_third"
+      | Pythagorean_major_third -> "Pythagorean_major_third"
+      | Fourth -> "Fourth"
+      | Fifth -> "Fifth"
+      | Pythagorean_minor_sixth -> "Pythagorean_minor_sixth"
+      | Just_minor_sixth -> "Just_minor_sixth"
+      | Just_major_sixth -> "Just_major_sixth"
+      | Pythagorean_major_sixth -> "Pythagorean_major_sixth"
+      | Pythagorean_minor_seventh -> "Pythagorean_minor_seventh"
+      | Minor_seventh_as_fifth_plus_just_minor_third ->
+        "Minor_seventh_as_fifth_plus_just_minor_third"
+      | Major_seventh_as_fifth_plus_just_major_third ->
+        "Major_seventh_as_fifth_plus_just_major_third"
+      | Pythagorean_major_seventh -> "Pythagorean_major_seventh"
+      | Octave -> "Octave"
+    ;;
 
     let pythagorean_comma =
       (* 6 tons minus an octave. *)
@@ -484,16 +516,14 @@ let%expect_test "ratios" =
       Natural_ratio.Reduced.create_exn ~prime:2 ~exponent:number_of_octaves
     | Reduced_natural_ratio nr -> nr
     | (Equal_division_of_the_octave _ | Cents _) as i ->
-      raise_s
-        [%sexp
-          "Unexpected non ratio"
-        , [%here]
-        , (i |> Acoustic_interval.to_dyn |> Dyn.to_sexp : Sexp.t)]
+      Code_error.raise
+        "Unexpected non ratio."
+        [ "interval", i |> Acoustic_interval.to_dyn ]
   in
   let columns =
     Print_table.O.
       [ Column.make ~header:"Interval" (fun (t : Row.t) ->
-          Cell.text (Sexp.to_string [%sexp (t.interval_kind : Interval_kind.t)]))
+          Cell.text (Interval_kind.constructor_name t.interval_kind))
       ; Column.make ~align:Right ~header:"Ratio" (fun (t : Row.t) ->
           Cell.text
             (Natural_ratio.to_string

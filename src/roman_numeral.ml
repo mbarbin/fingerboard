@@ -58,7 +58,10 @@ let of_int_exn = function
   | 5 -> V
   | 6 -> VI
   | 7 -> VII
-  | i -> raise_s [%sexp "Out of bounds", [%here], (i : int)]
+  | i ->
+    Code_error.raise
+      "Roman_numeral.of_int_exn: Input is out of bounds."
+      [ "input", i |> Dyn.int ]
 ;;
 
 let one = I

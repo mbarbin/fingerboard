@@ -68,19 +68,14 @@ let create_exn ~name ~acoustic_interval_to_the_open_string =
       Acoustic_interval.octave
     >= 0
   then
-    raise_s
-      [%sexp
-        "Interval out of bounds"
-      , [%here]
-      , { name : string
-        ; acoustic_interval_to_the_open_string =
-            (acoustic_interval_to_the_open_string
-             |> Acoustic_interval.to_dyn
-             |> Dyn.to_sexp
-             : Sexp.t)
-        ; in_cents =
-            (Acoustic_interval.to_cents acoustic_interval_to_the_open_string : Float.t)
-        }];
+    Code_error.raise
+      "Interval out of bounds."
+      [ "name", name |> Dyn.string
+      ; ( "acoustic_interval_to_the_open_string"
+        , acoustic_interval_to_the_open_string |> Acoustic_interval.to_dyn )
+      ; ( "in_cents"
+        , Acoustic_interval.to_cents acoustic_interval_to_the_open_string |> Dyn.float )
+      ];
   { name
   ; at_octave = 0
   ; basis_acoustic_interval_to_the_open_string = acoustic_interval_to_the_open_string

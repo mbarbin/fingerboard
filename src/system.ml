@@ -166,14 +166,11 @@ let vibrating_string_exn (t : t) string_number =
   if index < 0 || index >= Array.length t.vibrating_strings
   then (
     let available = Array.map t.vibrating_strings ~f:(fun t -> t.roman_numeral) in
-    raise_s
-      [%sexp
-        "String number out of bounds"
-      , [%here]
-      , { string_number = (string_number |> Roman_numeral.to_dyn |> Dyn.to_sexp : Sexp.t)
-        ; available =
-            (available |> Dyn.array Roman_numeral.to_dyn |> Dyn.to_sexp : Sexp.t)
-        }])
+    Code_error.raise
+      "String number out of bounds."
+      [ "string_number", string_number |> Roman_numeral.to_dyn
+      ; "available", available |> Dyn.array Roman_numeral.to_dyn
+      ])
   else t.vibrating_strings.(index)
 ;;
 
@@ -218,7 +215,8 @@ let find_fingerboard_position (t : t) ~name =
 let find_fingerboard_position_exn t ~name =
   match find_fingerboard_position t ~name with
   | Some x -> x
-  | None -> raise_s [%sexp "Fingerboard_position not found", [%here], { name : string }]
+  | None ->
+    Code_error.raise "Fingerboard_position not found." [ "name", name |> Dyn.string ]
 ;;
 
 let add_fingerboard_position_exn
@@ -232,28 +230,20 @@ let add_fingerboard_position_exn
       Acoustic_interval.octave
     > 0
   then
-    raise_s
-      [%sexp
-        "Interval out of bounds"
-      , [%here]
-      , { fingerboard_position =
-            (fingerboard_position |> Fingerboard_position.to_dyn |> Dyn.to_sexp : Sexp.t)
-        }];
+    Code_error.raise
+      "Interval out of bounds."
+      [ "fingerboard_position", fingerboard_position |> Fingerboard_position.to_dyn ];
   let name = Fingerboard_position.name fingerboard_position in
   (match find_fingerboard_position t ~name with
    | None -> ()
    | Some existing_fingerboard_position ->
-     raise_s
-       [%sexp
-         "Duplicated fingerboard position's name"
-       , [%here]
-       , { name : string
-         ; fingerboard_position =
-             (fingerboard_position |> Fingerboard_position.to_dyn |> Dyn.to_sexp : Sexp.t)
-         ; existing_fingerboard_position =
-             (existing_fingerboard_position |> Fingerboard_position.to_dyn |> Dyn.to_sexp
-              : Sexp.t)
-         }]);
+     Code_error.raise
+       "Duplicated fingerboard position's name."
+       [ "name", name |> Dyn.string
+       ; "fingerboard_position", fingerboard_position |> Fingerboard_position.to_dyn
+       ; ( "existing_fingerboard_position"
+         , existing_fingerboard_position |> Fingerboard_position.to_dyn )
+       ]);
   let fingerboard_positions =
     List.init on_n_octaves ~f:(fun i ->
       Fingerboard_position.at_octave fingerboard_position ~octave:i)

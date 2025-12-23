@@ -24,7 +24,14 @@ module Dyn = Dyn0
 
 val print_dyn : Dyn.t -> unit
 
-(** This value shadows [Base.force] and forces the code to use [Lazy.force].
-    This simplifies the transition from base to stdlib happening as future
-    work. *)
+(** {1 Transition helpers}
+
+    These helpers simplify the transition from base to stdlib happening as
+    future work. *)
+
+(** This value shadows [Base.force] and forces the code to use [Lazy.force]. *)
 val force : [ `use_Lazy_dot_force ]
+
+(** This value shadows [Base.raise_s] and forces the code to use
+    [Code_error.raise]. *)
+val raise_s : [ `use_Code_error_dot_raise ]

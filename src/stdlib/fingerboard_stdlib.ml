@@ -23,3 +23,4 @@ module Dyn = Dyn0
 let print pp = Format.printf "%a@." Pp.to_fmt pp
 let print_dyn dyn = print (Dyn.pp dyn)
 let force = `use_Lazy_dot_force
+let raise_s = `use_Code_error_dot_raise
