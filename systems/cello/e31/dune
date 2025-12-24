@@ -1,6 +1,6 @@
 (library
  (name fingerboard_cello_system_e31)
- (public_name fingerboard-system.cello.e31)
+ (package fingerboard-system)
  (flags
   :standard
   -w

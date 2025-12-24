@@ -1,6 +1,6 @@
 (library
  (name fingerboard_edo_systems)
- (public_name fingerboard-system.edo)
+ (package fingerboard-system)
  (flags
   :standard
   -w

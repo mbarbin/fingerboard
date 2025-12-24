@@ -1,6 +1,6 @@
 (library
  (name fingerboard_test)
- (public_name fingerboard-tests.fingerboard_test)
+ (package fingerboard-tests)
  (flags
   :standard
   -w
