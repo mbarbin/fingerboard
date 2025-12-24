@@ -2,8 +2,13 @@
 
 ### Added
 
+- Added `dunolint` config and workflow (#PR, @mbarbin).
+- Add table of harmonic serie in cents.
+
 ### Changed
 
+- Switch expec-tests to `dyn` syntax (#10, @mbarbin).
+- Assorted maintenance changes (CI, tests, deps, etc.).
 - Switch to standalone library `print-table`.
 - Split packages
 - Use `expect_test_helpers_core.expect_test_helpers_base`
