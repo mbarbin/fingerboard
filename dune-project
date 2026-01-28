@@ -32,7 +32,7 @@
   (pp
    (>= 2.0.0))
   (print-table
-   (>= 0.1.0))))
+   (>= 0.1.3))))
 
 (package
  (name fingerboard-system)
@@ -49,7 +49,7 @@
   (ppxlib
    (>= 0.33))
   (print-table
-   (>= 0.1.0))))
+   (>= 0.1.3))))
 
 (package
  (name fingerboard-tests)
@@ -68,7 +68,7 @@
   (ppxlib
    (>= 0.33))
   (print-table
-   (>= 0.1.0))))
+   (>= 0.1.3))))
 
 (package
  (name fingerboard-dev)

@@ -14,7 +14,7 @@ depends: [
   "dyn" {>= "3.20"}
   "ordering" {>= "3.20"}
   "pp" {>= "2.0.0"}
-  "print-table" {>= "0.1.0"}
+  "print-table" {>= "0.1.3"}
   "odoc" {with-doc}
 ]
 build: [
