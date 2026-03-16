@@ -17,4 +17,7 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
-include Stdlib0
+include Stdlib.Int
+
+let compare a b = Ordering.of_int (Int.compare a b)
+let incr = Stdlib.incr

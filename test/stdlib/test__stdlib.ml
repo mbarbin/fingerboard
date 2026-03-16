@@ -17,4 +17,11 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
-include Stdlib0
+(* This is to silence `dune build @unused-libs` and keeping intended deps. *)
+open! Fingerboard_stdlib
+
+let%expect_test "empty" =
+  ();
+  [%expect {||}];
+  ()
+;;

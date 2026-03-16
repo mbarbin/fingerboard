@@ -17,4 +17,19 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
-include Stdlib0
+include Stdlib.Float
+
+let compare a b = Ordering.of_int (Float.compare a b)
+
+let iround_nearest_exn f =
+  let i = Int.of_float f in
+  if i >= 0
+  then (
+    match compare (f -. Int.to_float i) 0.5 with
+    | Gt -> i + 1
+    | Eq | Lt -> i)
+  else (
+    match compare (Int.to_float i -. f) 0.5 with
+    | Gt -> i - 1
+    | Eq | Lt -> i)
+;;

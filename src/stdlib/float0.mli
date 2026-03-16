@@ -17,8 +17,9 @@
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
 
-(** Extending [Stdlib] for use in the project. *)
-
 include module type of struct
-  include Stdlib0
+  include Stdlib.Float
 end
+
+val compare : t -> t -> Ordering.t
+val iround_nearest_exn : t -> int

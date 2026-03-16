@@ -16,9 +16,3 @@
 (*_  You should have received a copy of the GNU Affero General Public License      *)
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
-
-(** Extending [Stdlib] for use in the project. *)
-
-include module type of struct
-  include Stdlib0
-end

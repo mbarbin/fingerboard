@@ -17,8 +17,13 @@
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
 
-(** Extending [Stdlib] for use in the project. *)
-
 include module type of struct
-  include Stdlib0
+  include Stdlib.ArrayLabels
 end
+
+val create : len:int -> 'a -> 'a t
+val exists : 'a t -> f:('a -> bool) -> bool
+val iter : 'a t -> f:('a -> unit) -> unit
+val fold : 'a t -> init:'acc -> f:('acc -> 'a -> 'acc) -> 'acc
+val map : 'a t -> f:('a -> 'b) -> 'b t
+val rev : 'a t -> 'a t
