@@ -17,8 +17,9 @@
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
 
-(** Extending [Stdlib] for use in the project. *)
-
 include module type of struct
-  include Stdlib0
+  include Stdlib.Int
 end
+
+val compare : t -> t -> Ordering.t
+val incr : t ref -> unit

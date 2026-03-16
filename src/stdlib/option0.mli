@@ -17,8 +17,9 @@
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
 
-(** Extending [Stdlib] for use in the project. *)
-
 include module type of struct
-  include Stdlib0
+  include Stdlib.Option
 end
+
+val bind : 'a t -> f:('a -> 'b t) -> 'b t
+val map : 'a t -> f:('a -> 'b) -> 'b t

@@ -17,8 +17,16 @@
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
 
-(** Extending [Stdlib] for use in the project. *)
+module Array = Array0
+module Bool = Bool0
+module Code_error = Code_error0
+module Dyn = Dyn0
+module Float = Float0
+module Int = Int0
+module List = List0
+module Option = Option0
+module Ordering = Ordering0
+module String = String0
 
-include module type of struct
-  include Stdlib0
-end
+val print_dyn : Dyn.t -> unit
+val phys_equal : 'a -> 'a -> bool
