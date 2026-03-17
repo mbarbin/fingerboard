@@ -11,11 +11,7 @@
   Fingerboard
   -open
   Fingerboard_stdlib)
- (libraries
-  fingerboard
-  fingerboard_stdlib
-  patdiff.expect_test_patdiff
-  print-table)
+ (libraries fingerboard fingerboard_stdlib print-table)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))

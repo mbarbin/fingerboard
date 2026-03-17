@@ -525,15 +525,16 @@ let%expect_test "removed" =
   let filtered_non_meantones =
     List.map non_meantones ~f:Edo_system.to_string_hum |> String.concat ~sep:"\n"
   in
-  Expect_test_patdiff.print_patdiff all_non_meantones filtered_non_meantones ~context:0;
+  Myers.print_diff all_non_meantones filtered_non_meantones ~context:0;
   [%expect
     {|
-    -1,3 +1,0
+    @@ -1,3 +1,0 @@
     -|EDO-15 ( 1,  2,  3)
     -|EDO-22 ( 2,  3,  4)
     -|EDO-27 ( 2,  4,  5)
-    -6,1 +3,0
-    -|EDO-39 ( 3,  6,  7) |}];
+    @@ -6,1 +3,0 @@
+    -|EDO-39 ( 3,  6,  7)
+    |}];
   ()
 ;;
 

@@ -42,8 +42,6 @@
    (>= 5.2))
   (fingerboard
    (= :version))
-  (patdiff
-   (>= v0.17))
   (ppx_expect
    (>= v0.17))
   (ppxlib
@@ -61,8 +59,6 @@
    (= :version))
   (fingerboard-system
    (= :version))
-  (patdiff
-   (>= v0.17))
   (ppx_expect
    (>= v0.17))
   (ppxlib

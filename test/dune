@@ -21,7 +21,6 @@
   fingerboard_cello_system_just
   fingerboard_cello_system_pythagorean
   fingerboard_stdlib
-  patdiff.expect_test_patdiff
   print-table)
  (inline_tests)
  (instrumentation
