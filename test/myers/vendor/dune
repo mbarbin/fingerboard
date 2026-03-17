@@ -1,0 +1,6 @@
+(test
+ (name test_myers)
+ (package fingerboard-tests)
+ (modules test_myers)
+ (flags -open Fingerboard_myers)
+ (libraries fingerboard_myers windtrap))

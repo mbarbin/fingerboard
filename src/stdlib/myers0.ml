@@ -17,18 +17,4 @@
 (*  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (**********************************************************************************)
 
-module Array = Array0
-module Bool = Bool0
-module Code_error = Code_error0
-module Dyn = Dyn0
-module Float = Float0
-module Int = Int0
-module List = List0
-module Myers = Myers0
-module Option = Option0
-module Ordering = Ordering0
-module String = String0
-
-let print pp = Format.printf "%a@." Pp.to_fmt pp
-let print_dyn dyn = print (Dyn.pp dyn)
-let phys_equal a b = a == b
+include Fingerboard_myers.Myers
