@@ -12,10 +12,10 @@ depends: [
   "ocaml" {>= "5.2"}
   "fingerboard" {= version}
   "fingerboard-system" {= version}
-  "patdiff" {>= "v0.17"}
   "ppx_expect" {>= "v0.17"}
   "ppxlib" {>= "0.33"}
   "print-table" {>= "0.1.3"}
+  "windtrap" {with-test & >= "0.1.0"}
   "odoc" {with-doc}
 ]
 build: [

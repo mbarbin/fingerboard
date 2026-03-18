@@ -1,6 +1,6 @@
 (library
- (name fingerboard_edo_systems)
- (package fingerboard-system)
+ (name fingerboard_myers_test)
+ (package fingerboard-tests)
  (flags
   :standard
   -w
@@ -8,10 +8,8 @@
   -warn-error
   +a
   -open
-  Fingerboard
-  -open
   Fingerboard_stdlib)
- (libraries fingerboard fingerboard_stdlib print-table)
+ (libraries fingerboard_stdlib)
  (inline_tests)
  (instrumentation
   (backend bisect_ppx))

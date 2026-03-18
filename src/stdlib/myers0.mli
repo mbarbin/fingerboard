@@ -17,17 +17,6 @@
 (*_  along with Fingerboard. If not, see <https://www.gnu.org/licenses/>.          *)
 (*_*********************************************************************************)
 
-module Array = Array0
-module Bool = Bool0
-module Code_error = Code_error0
-module Dyn = Dyn0
-module Float = Float0
-module Int = Int0
-module List = List0
-module Myers = Myers0
-module Option = Option0
-module Ordering = Ordering0
-module String = String0
-
-val print_dyn : Dyn.t -> unit
-val phys_equal : 'a -> 'a -> bool
+include module type of struct
+  include Fingerboard_myers.Myers
+end

@@ -431,7 +431,7 @@ let%expect_test "reset-pitch" =
   let change ~f =
     f ();
     let system2 = Dyn.to_string (system |> System.to_dyn) in
-    Expect_test_patdiff.print_patdiff system1 system2 ~context:3
+    Myers.print_diff system1 system2 ~context:3
   in
   change ~f:(fun () -> System.reset_pitch system (Roman_numeral.of_int_exn 1) ~pitch);
   [%expect {| |}];
@@ -444,7 +444,7 @@ let%expect_test "reset-pitch" =
          |> Acoustic_interval.shift_down Acoustic_interval.octave));
   [%expect
     {|
-    -1,22 +1,22
+    @@ -1,7 +1,7 @@
       { vibrating_strings =
           [| { open_string =
                  { letter_name = A; symbol = Natural; octave_designation = 3 }
@@ -453,18 +453,21 @@ let%expect_test "reset-pitch" =
              ; roman_numeral = I
              }
           ;  { open_string =
+    @@ -8,5 +8,5 @@
                  { letter_name = D; symbol = Natural; octave_designation = 3 }
     -|       ; pitch = 146.666666667
     +|       ; pitch = 147.333333333
              ; roman_numeral = II
              }
           ;  { open_string =
+    @@ -13,5 +13,5 @@
                  { letter_name = G; symbol = Natural; octave_designation = 2 }
     -|       ; pitch = 97.7777777778
     +|       ; pitch = 98.2222222222
              ; roman_numeral = III
              }
           ;  { open_string =
+    @@ -18,5 +18,5 @@
                  { letter_name = C; symbol = Natural; octave_designation = 2 }
     -|       ; pitch = 65.1851851852
     +|       ; pitch = 65.4814814815
@@ -479,7 +482,7 @@ let%expect_test "reset-pitch" =
       ~pitch:(Frequency.of_float_exn 147.));
   [%expect
     {|
-    -1,22 +1,22
+    @@ -1,7 +1,7 @@
       { vibrating_strings =
           [| { open_string =
                  { letter_name = A; symbol = Natural; octave_designation = 3 }
@@ -488,18 +491,21 @@ let%expect_test "reset-pitch" =
              ; roman_numeral = I
              }
           ;  { open_string =
+    @@ -8,5 +8,5 @@
                  { letter_name = D; symbol = Natural; octave_designation = 3 }
     -|       ; pitch = 146.666666667
     +|       ; pitch = 147.
              ; roman_numeral = II
              }
           ;  { open_string =
+    @@ -13,5 +13,5 @@
                  { letter_name = G; symbol = Natural; octave_designation = 2 }
     -|       ; pitch = 97.7777777778
     +|       ; pitch = 98.
              ; roman_numeral = III
              }
           ;  { open_string =
+    @@ -18,5 +18,5 @@
                  { letter_name = C; symbol = Natural; octave_designation = 2 }
     -|       ; pitch = 65.1851851852
     +|       ; pitch = 65.3333333333
