@@ -28,7 +28,7 @@ let%expect_test "edo53 and octaves" =
   [%expect {| Equal_division_of_the_octave { divisor = 53; number_of_divisions = 9 } |}];
   let cents_major_ton = Acoustic_interval.to_cents major_ton in
   print_dyn (cents_major_ton |> Dyn.float);
-  [%expect {| 203.773584906 |}];
+  [%expect {| 203.77358490566036 |}];
   print_dyn (Float.equal cents_i cents_major_ton |> Dyn.bool);
   [%expect {| true |}];
   ()

@@ -63,17 +63,17 @@ let%expect_test "4-strings cello" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 146.666666667
+           ; pitch = 146.66666666666666
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 97.7777777778
+           ; pitch = 97.777777777777771
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 65.1851851852
+           ; pitch = 65.185185185185176
            ; roman_numeral = IV
            }
         |]
@@ -211,17 +211,17 @@ let%expect_test "piccolo cello" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 146.666666667
+           ; pitch = 146.66666666666666
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 97.7777777778
+           ; pitch = 97.777777777777771
            ; roman_numeral = IV
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 65.1851851852
+           ; pitch = 65.185185185185176
            ; roman_numeral = V
            }
         |]
@@ -289,22 +289,22 @@ let%expect_test "5th Bach's suite for cello" =
     { vibrating_strings =
         [| { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 3 }
-           ; pitch = 195.555555556
+           ; pitch = 195.55555555555554
            ; roman_numeral = I
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 146.666666667
+           ; pitch = 146.66666666666666
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 97.7777777778
+           ; pitch = 97.777777777777771
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 65.1851851852
+           ; pitch = 65.185185185185176
            ; roman_numeral = IV
            }
         |]
@@ -362,17 +362,17 @@ let%expect_test "Kodaly sonata for cello solo" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 146.666666667
+           ; pitch = 146.66666666666666
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = F; symbol = Sharp; octave_designation = 2 }
-           ; pitch = 91.6666666667
+           ; pitch = 91.666666666666657
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = B; symbol = Natural; octave_designation = 1 }
-           ; pitch = 61.1111111111
+           ; pitch = 61.111111111111107
            ; roman_numeral = IV
            }
         |]
@@ -442,22 +442,22 @@ let%expect_test "reset-pitch" =
           ;  { open_string =
     @@ -8,5 +8,5 @@
                  { letter_name = D; symbol = Natural; octave_designation = 3 }
-    -|       ; pitch = 146.666666667
-    +|       ; pitch = 147.333333333
+    -|       ; pitch = 146.66666666666666
+    +|       ; pitch = 147.33333333333334
              ; roman_numeral = II
              }
           ;  { open_string =
     @@ -13,5 +13,5 @@
                  { letter_name = G; symbol = Natural; octave_designation = 2 }
-    -|       ; pitch = 97.7777777778
-    +|       ; pitch = 98.2222222222
+    -|       ; pitch = 97.777777777777771
+    +|       ; pitch = 98.222222222222229
              ; roman_numeral = III
              }
           ;  { open_string =
     @@ -18,5 +18,5 @@
                  { letter_name = C; symbol = Natural; octave_designation = 2 }
-    -|       ; pitch = 65.1851851852
-    +|       ; pitch = 65.4814814815
+    -|       ; pitch = 65.185185185185176
+    +|       ; pitch = 65.481481481481481
              ; roman_numeral = IV
              }
           |]
@@ -480,22 +480,22 @@ let%expect_test "reset-pitch" =
           ;  { open_string =
     @@ -8,5 +8,5 @@
                  { letter_name = D; symbol = Natural; octave_designation = 3 }
-    -|       ; pitch = 146.666666667
+    -|       ; pitch = 146.66666666666666
     +|       ; pitch = 147.
              ; roman_numeral = II
              }
           ;  { open_string =
     @@ -13,5 +13,5 @@
                  { letter_name = G; symbol = Natural; octave_designation = 2 }
-    -|       ; pitch = 97.7777777778
+    -|       ; pitch = 97.777777777777771
     +|       ; pitch = 98.
              ; roman_numeral = III
              }
           ;  { open_string =
     @@ -18,5 +18,5 @@
                  { letter_name = C; symbol = Natural; octave_designation = 2 }
-    -|       ; pitch = 65.1851851852
-    +|       ; pitch = 65.3333333333
+    -|       ; pitch = 65.185185185185176
+    +|       ; pitch = 65.333333333333329
              ; roman_numeral = IV
              }
           |]
