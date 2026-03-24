@@ -12,11 +12,11 @@ This notice file contains more details, as well as document the organization of 
 
 - **NOTICE.md** (this file) documents the project licensing.
 
-## A note about some functions from Base
+### A note about some functions from Base
 
 We copied some implementation of functions from [Base](https://github.com/janestreet/base) project. `Base` is released under `MIT`.
 
-### Notice
+#### Notice
 
 The files where we imported the functions is `src/stdlib/fingerboard_stdlib.ml`. We've added a notice in the file and a comment next to the code that was copied and modified, which includes `Base`'s original LICENSE:
 
@@ -43,3 +43,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+### A note about Dyn
+
+We vendor the module `Dyn` from the [dune](https://github.com/ocaml/dune) project. Dune is released under `MIT`. From time to time we may carry some minor changes.
+
+The files we imported are in `src/stdlib/dyn0.ml{,i}`. We've added a notice in the files and a comment next to the code that was copied and modified. We've included `Dune`'s original LICENSE, and also included it in this repo at ``third-party-license/ocaml/dune/LICENSE.md`.

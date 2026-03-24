@@ -25,17 +25,17 @@ let%expect_test "E12.to_dyn" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 146.832383959
+           ; pitch = 146.83238395870379
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 97.9988589954
+           ; pitch = 97.998858995437331
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 65.4063913251
+           ; pitch = 65.406391325149656
            ; roman_numeral = IV
            }
         |]
@@ -288,17 +288,17 @@ let%expect_test "E53.to_dyn" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 146.67244526
+           ; pitch = 146.67244526002719
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 97.7854827207
+           ; pitch = 97.785482720707591
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 65.1928902799
+           ; pitch = 65.192890279901448
            ; roman_numeral = IV
            }
         |]
@@ -768,17 +768,17 @@ let%expect_test "E19.to_dyn" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 147.279451135
+           ; pitch = 147.27945113469193
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 98.5965305752
+           ; pitch = 98.596530575164124
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 66.0056495768
+           ; pitch = 66.005649576795662
            ; roman_numeral = IV
            }
         |]
@@ -1158,17 +1158,17 @@ let%expect_test "E31.to_dyn" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 147.106231625
+           ; pitch = 147.10623162496987
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 98.3647426495
+           ; pitch = 98.364742649542208
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 65.7730300724
+           ; pitch = 65.773030072427773
            ; roman_numeral = IV
            }
         |]
@@ -1584,17 +1584,17 @@ let%expect_test "E55.to_dyn" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 146.98667171
+           ; pitch = 146.98667170969784
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 98.2049166377
+           ; pitch = 98.204916637702212
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 65.6127901914
+           ; pitch = 65.612790191382629
            ; roman_numeral = IV
            }
         |]
@@ -2010,17 +2010,17 @@ let%expect_test "Just.to_dyn" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 146.666666667
+           ; pitch = 146.66666666666666
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 97.7777777778
+           ; pitch = 97.777777777777771
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 65.1851851852
+           ; pitch = 65.185185185185176
            ; roman_numeral = IV
            }
         |]
@@ -2931,17 +2931,17 @@ let%expect_test "Pythagorean.to_dyn" =
            }
         ;  { open_string =
                { letter_name = D; symbol = Natural; octave_designation = 3 }
-           ; pitch = 146.666666667
+           ; pitch = 146.66666666666666
            ; roman_numeral = II
            }
         ;  { open_string =
                { letter_name = G; symbol = Natural; octave_designation = 2 }
-           ; pitch = 97.7777777778
+           ; pitch = 97.777777777777771
            ; roman_numeral = III
            }
         ;  { open_string =
                { letter_name = C; symbol = Natural; octave_designation = 2 }
-           ; pitch = 65.1851851852
+           ; pitch = 65.185185185185176
            ; roman_numeral = IV
            }
         |]
