@@ -44,8 +44,6 @@
    (= :version))
   (ppx_expect
    (>= v0.17))
-  (ppxlib
-   (>= 0.33))
   (print-table
    (>= 0.1.3))))
 
@@ -61,8 +59,6 @@
    (= :version))
   (ppx_expect
    (>= v0.17))
-  (ppxlib
-   (>= 0.33))
   (print-table
    (>= 0.1.3))))
 
@@ -85,7 +81,5 @@
    (= :version))
   (ppx_js_style
    (>= v0.17))
-  (ppxlib
-   (>= 0.33))
   (sherlodoc
    (>= 0.2))))

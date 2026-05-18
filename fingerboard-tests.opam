@@ -13,7 +13,6 @@ depends: [
   "fingerboard" {= version}
   "fingerboard-system" {= version}
   "ppx_expect" {>= "v0.17"}
-  "ppxlib" {>= "0.33"}
   "print-table" {>= "0.1.3"}
   "odoc" {with-doc}
 ]

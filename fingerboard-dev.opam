@@ -16,7 +16,6 @@ depends: [
   "fingerboard-system" {= version}
   "fingerboard-tests" {= version}
   "ppx_js_style" {>= "v0.17"}
-  "ppxlib" {>= "0.33"}
   "sherlodoc" {>= "0.2"}
   "odoc" {with-doc}
 ]
