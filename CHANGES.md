@@ -3,7 +3,7 @@
 ### Added
 
 - Added `dunolint` config and workflow (#12, @mbarbin).
-- Add table of harmonic serie in cents.
+- Add table of harmonic series in cents.
 
 ### Changed
 

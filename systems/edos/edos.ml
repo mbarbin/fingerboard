@@ -13,10 +13,10 @@
 
    In particular, we're interested in two things:
 
-   - Finding programatically all meantone EDO with [n <= 100].
+   - Finding programmatically all meantone EDO with [n <= 100].
 
    - Knowning that edo-53 allows such a good approximation of just and
-     pythagorean intervals, find it programatically, and determine whether there
+     pythagorean intervals, find it programmatically, and determine whether there
      are other EDO systems that have similar properties, with [n <= 100].
 
    The purpose is to understand where do well-known edo systems come from, as
