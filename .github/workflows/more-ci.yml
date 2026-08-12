@@ -31,13 +31,14 @@ jobs:
           - macos-latest
           - ubuntu-latest
         ocaml-compiler:
+          - 5.5.x
           - 5.4.x
           - 5.3.x
           - 5.2.x
         exclude:
           # We exclude the combination already tested in the 'ci' workflow.
           - os: ubuntu-latest
-            ocaml-compiler: 5.4.x
+            ocaml-compiler: 5.5.x
           # We exclude macos-5.3 - this fails when building core_unix.
           - os: macos-latest
             ocaml-compiler: 5.3.x
