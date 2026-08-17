@@ -1,15 +1,7 @@
 (library
- (name fingerboard_myers)
+ (name fingerboard_merge3)
  (package fingerboard)
- (libraries fingerboard_merge3)
- (flags
-  :standard
-  -w
-  +a-4-40-41-42-44-45-48-66
-  -warn-error
-  +a
-  -open
-  Fingerboard_merge3)
+ (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
  (instrumentation
   (backend bisect_ppx))
  (lint

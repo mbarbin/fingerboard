@@ -52,7 +52,7 @@ The files we imported are in `src/stdlib/dyn0.ml{,i}`. We've added a notice in t
 
 ### A note about ocaml-merge3 (Myers diff)
 
-The Myers shortest-edit-script computation in `src/myers/merge3.ml` is vendored from [ocaml-merge3](https://tangled.org/gazagnaire.org/ocaml-merge3) by Thomas Gazagnaire (released under `ISC`). Only the pure diff computation is vendored; the parts unused by this project are not included. The exact provenance and list of changes are documented at the top of `src/myers/merge3.ml` and in `src/myers/vendor.json`. A copy of the license file is included in this repo at `third-party-license/gazagnaire/ocaml-merge3/LICENSE`.
+The Myers shortest-edit-script computation in `src/merge3/merge3.ml` is vendored from [ocaml-merge3](https://tangled.org/gazagnaire.org/ocaml-merge3) by Thomas Gazagnaire (released under `ISC`). Only the pure diff computation is vendored; the parts unused by this project are not included. The exact provenance and list of changes are documented at the top of `src/merge3/merge3.ml` and in `src/merge3/vendor.json`. A copy of the license file is included in this repo at `third-party-license/gazagnaire/ocaml-merge3/LICENSE.md`.
 
 ### A note about Windtrap (unified-diff renderer)
 
