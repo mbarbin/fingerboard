@@ -1,0 +1,73 @@
+# Additional CI workflow using setup-dune (dune package management).
+#
+# This tests across multiple operating systems and OCaml versions, but skips
+# steps not necessary for every combination (linting, coverage, etc.).
+
+name: dune-pkg-more-ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+        ocaml-version:
+          - "5.5"
+          - "5.4"
+          - "5.3"
+          - "5.2"
+        include:
+          - os: ubuntu-latest
+            dune-version: "3.24.2"
+            dune-digest: "sha256:3a9cac891f0b6086bfbf58d16c6c17ddfd1d493e031b6b43901f585a7f6899c7"
+          - os: macos-latest
+            dune-version: "3.24.2"
+            dune-digest: "sha256:d4aa0d58370bb86e1f3f74635d9f7b69fd635fefe159173add82e851e85d12b2"
+        exclude:
+          # Exclude the combination already tested in the main ci workflow.
+          - os: ubuntu-latest
+            ocaml-version: "5.5"
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Environment setup
+        run: |
+          echo "DUNE_WORKSPACE=$PWD/dune-workspace.${{ matrix.ocaml-version }}" >> "$GITHUB_ENV"
+          echo "PACKAGES=fingerboard,fingerboard-system,fingerboard-tests" >> "$GITHUB_ENV"
+
+      - name: Setup Dune
+        uses: mbarbin/setup-dune@03ede0220d3fe665f250727d8e21b7c0f9517f3b # v2.0.0+patch-7
+        env:
+          GH_TOKEN: ${{ github.token }}
+        with:
+          version: "${{ matrix.dune-version }}"
+          dune-digest: "${{ matrix.dune-digest }}"
+          workspace: "${{ env.DUNE_WORKSPACE }}"
+          cache-prefix: "${{ matrix.ocaml-version }}"
+          cache-readonly: ${{ github.ref != 'refs/heads/main' }}
+          only-packages: ${{ env.PACKAGES }}
+          steps: install-dune enable-pkg lazy-update-depexts install-gpatch install-depexts
+
+      - name: Build & Run tests
+        run: dune build @all @runtest --only-packages=${{ env.PACKAGES }}

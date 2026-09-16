@@ -13,69 +13,56 @@ permissions:
 
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-        ocaml-compiler:
-          - 5.5.x
-
-    runs-on: ${{ matrix.os }}
-
-    # Keep Git maintenance in the foreground to avoid a race in opam 2.5.
-    # See https://github.com/ocaml/opam/issues/7031.
+    name: CI
+    runs-on: ubuntu-latest
     env:
-      GIT_CONFIG_COUNT: "2"
-      GIT_CONFIG_KEY_0: gc.autoDetach
-      GIT_CONFIG_VALUE_0: "false"
-      GIT_CONFIG_KEY_1: maintenance.autoDetach
-      GIT_CONFIG_VALUE_1: "false"
-
+      OCAML_VERSION: "5.5"
+      DUNE_VERSION: "3.24.2"
+      DUNE_DIGEST: "sha256:3a9cac891f0b6086bfbf58d16c6c17ddfd1d493e031b6b43901f585a7f6899c7"
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Setup OCaml
-        uses: ocaml/setup-ocaml@e89b2ded52a6e13f50162220cf5fe47290162032 # v3.8.0
+      - name: Environment setup
+        run: |
+          echo "DUNE_WORKSPACE=$PWD/dune-workspace.${{ env.OCAML_VERSION }}" >> "$GITHUB_ENV"
+
+      - name: Setup Dune
+        uses: mbarbin/setup-dune@03ede0220d3fe665f250727d8e21b7c0f9517f3b # v2.0.0+patch-7
+        env:
+          GH_TOKEN: ${{ github.token }}
         with:
-          ocaml-compiler: "${{ matrix.ocaml-compiler }}"
-          opam-repositories: |
-            default: https://github.com/ocaml/opam-repository.git
-            mbarbin: https://github.com/mbarbin/opam-repository.git
-            alpha:   https://github.com/kit-ty-kate/opam-alpha-repository.git
-      #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
-      #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
+          version: "${{ env.DUNE_VERSION }}"
+          dune-digest: "${{ env.DUNE_DIGEST }}"
+          workspace: "${{ env.DUNE_WORKSPACE }}"
+          cache-prefix: "main-ci-${{ env.OCAML_VERSION }}"
+          cache-readonly: ${{ github.ref != 'refs/heads/main' }}
+          steps: install-dune enable-pkg lazy-update-depexts install-gpatch install-depexts
 
-      - name: Install dependencies
-        run: opam install . --deps-only --with-doc --with-test --with-dev-setup
-
-      - name: Build
-        run: opam exec -- dune build @all @lint
-
-      - name: Run tests
+      - name: Build and Run tests
         run: |
           mkdir $BISECT_DIR
-          opam exec -- dune runtest --instrument-with bisect_ppx
+          dune build @all @runtest
+          dune build @runtest --force --instrument-with bisect_ppx
         env:
           BISECT_DIR: ${{ runner.temp }}/_bisect_ppx_data
           BISECT_FILE: ${{ runner.temp }}/_bisect_ppx_data/data
 
       - name: Send coverage report to Coveralls
-        run: opam exec -- bisect-ppx-report send-to Coveralls --coverage-path $BISECT_DIR
+        run: dune exec -- bisect-ppx-report send-to Coveralls --coverage-path $BISECT_DIR
         env:
           BISECT_DIR: ${{ runner.temp }}/_bisect_ppx_data
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PULL_REQUEST_NUMBER: ${{ github.event.number }}
 
+      - name: Lint
+        run: dune build @lint @fmt @unused-libs
+
+      - name: Build Doc
+        run: dune build @doc
+
       - name: Check for uncommitted changes
         run: git diff --exit-code
-
-      - name: Lint opam
-        uses: ocaml/setup-ocaml/lint-opam@e89b2ded52a6e13f50162220cf5fe47290162032 # v3.8.0
-
-      - name: Lint fmt
-        uses: ocaml/setup-ocaml/lint-fmt@e89b2ded52a6e13f50162220cf5fe47290162032 # v3.8.0
-
-      - name: Lint doc
-        uses: ocaml/setup-ocaml/lint-doc@e89b2ded52a6e13f50162220cf5fe47290162032 # v3.8.0
