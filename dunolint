@@ -29,20 +29,25 @@
 
 ;; Configure the ppx_js_style linter
 (rule
- (enforce
-  (dune
-   (lint
-    (pps
-     (and
-      (pp ppx_js_style)
-      (flag
-       (name -allow-let-operators)
-       (param none)
-       (applies_to (pp ppx_js_style)))
-      (flag
-       (name -check-doc-comments)
-       (param none)
-       (applies_to (pp ppx_js_style)))))))))
+ (cond
+  ((path
+    (glob src/merge3/*))
+   return)
+  (true
+   (enforce
+    (dune
+     (lint
+      (pps
+       (and
+        (pp ppx_js_style)
+        (flag
+         (name -allow-let-operators)
+         (param none)
+         (applies_to (pp ppx_js_style)))
+        (flag
+         (name -check-doc-comments)
+         (param none)
+         (applies_to (pp ppx_js_style)))))))))))
 
 ;; No preprocessing
 (rule
