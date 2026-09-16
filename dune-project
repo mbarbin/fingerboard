@@ -1,4 +1,4 @@
-(lang dune 3.20)
+(lang dune 3.22)
 
 (name fingerboard)
 
@@ -26,11 +26,13 @@
   (bitv
    (>= 2.1))
   (dyn
-   (>= 3.20))
+   (>= 3.22))
   (ordering
-   (>= 3.20))
+   (>= 3.22))
   (pp
    (>= 2.0.0))
+  (pplumbing-err
+   (>= 0.0.17))
   (print-table
    (>= 0.1.3))))
 

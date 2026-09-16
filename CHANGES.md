@@ -7,6 +7,8 @@
 
 ### Changed
 
+- Upgrade to dune lang `3.22` and drop the vendored copy of `Dyn` (@mbarbin).
+- `Fingerboard_stdlib.Code_error` is `Pplumbing_err.Code_error` (@mbarbin).
 - Switch expect-tests to `dyn` syntax (#10, @mbarbin).
 - Assorted maintenance changes (CI, tests, deps, etc.).
 - Switch to standalone library `print-table`.
