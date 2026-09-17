@@ -4,15 +4,23 @@
 (*  SPDX-License-Identifier: MIT OR AGPL-3.0-or-later                            *)
 (*********************************************************************************)
 
-include Ordering
+let%expect_test "to_dyn" =
+  List.iter [ Ordering.Lt; Eq; Gt ] ~f:(fun t -> print_dyn (t |> Ordering.to_dyn));
+  [%expect
+    {|
+    Lt
+    Eq
+    Gt
+    |}];
+  ()
+;;
 
-let equal a b = Int.equal (to_int a) (to_int b)
-
-let to_dyn t =
-  Dyn.variant
-    (match t with
-     | Lt -> "Lt"
-     | Eq -> "Eq"
-     | Gt -> "Gt")
-    []
+let%expect_test "equal" =
+  require (Ordering.equal Lt Lt);
+  require (Ordering.equal Eq Eq);
+  require (Ordering.equal Gt Gt);
+  require (not (Ordering.equal Lt Eq));
+  require (not (Ordering.equal Eq Gt));
+  require (not (Ordering.equal Gt Lt));
+  ()
 ;;

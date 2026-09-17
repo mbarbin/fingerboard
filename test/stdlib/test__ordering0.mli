@@ -4,9 +4,4 @@
 (*_  SPDX-License-Identifier: MIT OR AGPL-3.0-or-later                            *)
 (*_********************************************************************************)
 
-include module type of struct
-  include Ordering
-end
-
-val equal : t -> t -> bool
-val to_dyn : t -> Dyn.t
+(*_ This signature is deliberately empty. *)

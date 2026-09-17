@@ -2,6 +2,7 @@
 
 ### Added
 
+- Added expect test helpers (@mbarbin).
 - Added `dunolint` config and workflow (#12, @mbarbin).
 - Add table of harmonic series in cents.
 
