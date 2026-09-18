@@ -247,7 +247,7 @@ end = struct
   let edo_approximation t ~edo_system =
     let divisor = Edo_system.divisor edo_system in
     let interval_in_cents = Acoustic_interval.to_cents (acoustic_interval t) in
-    Float.iround_nearest_exn (Float.of_int divisor *. interval_in_cents /. 1200.)
+    Cents.iround_exn (Float.of_int divisor *. interval_in_cents /. 1200.)
   ;;
 end
 
@@ -263,9 +263,7 @@ end = struct
       let acoustic_interval =
         Acoustic_interval.equal_division_of_the_octave ~divisor ~number_of_divisions
       in
-      let cents =
-        Acoustic_interval.to_cents acoustic_interval |> Float.iround_nearest_exn
-      in
+      let cents = Acoustic_interval.to_cents acoustic_interval |> Cents.iround_exn in
       Print_table.Cell.text
         (Printf.sprintf "%4d - %*d" cents divisor_length number_of_divisions))
   ;;
@@ -279,7 +277,7 @@ end = struct
           (fun (t : Reference_interval.t) ->
              Reference_interval.acoustic_interval t
              |> Acoustic_interval.to_cents
-             |> Float.iround_nearest_exn
+             |> Cents.iround_exn
              |> Int.to_string
              |> fun i -> Print_table.Cell.text i)
       in
@@ -306,7 +304,7 @@ end
 
 let approximate_number_of_divisions ~divisor ~acoustic_interval =
   let interval_in_cents = Acoustic_interval.to_cents acoustic_interval in
-  Float.iround_nearest_exn (Float.of_int divisor *. interval_in_cents /. 1200.)
+  Cents.iround_exn (Float.of_int divisor *. interval_in_cents /. 1200.)
 ;;
 
 let major_just_scale_intervals =

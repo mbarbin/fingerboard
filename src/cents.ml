@@ -6,7 +6,10 @@
 
 type t = float
 
-let to_string_nearest t =
-  let nearest = t |> Float.iround_nearest_exn in
-  Int.to_string nearest
+let iround_exn t =
+  match Float.classify_float t with
+  | FP_zero | FP_subnormal -> 0
+  | FP_normal -> t |> Float.round |> Float.to_int
+  | FP_infinite | FP_nan ->
+    Code_error.raise "Cents.iround_exn: unexpected float value" [ "t", Dyn.float t ]
 ;;

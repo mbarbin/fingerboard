@@ -125,7 +125,7 @@ let%expect_test "first comparison" =
         (fun (t : Row.t) ->
            acoustic_interval t kind
            |> Acoustic_interval.to_cents
-           |> Float.iround_nearest_exn
+           |> Cents.iround_exn
            |> Int.to_string
            |> fun i -> Print_table.Cell.text i)
     in
@@ -206,7 +206,7 @@ let%expect_test "harmonic series and cents" =
              let equal = Acoustic_interval.equal_tempered_12 t.interval in
              let deviation =
                Acoustic_interval.to_cents harmonic -. Acoustic_interval.to_cents equal
-               |> Float.iround_nearest_exn
+               |> Cents.iround_exn
              in
              Cell.text
                (if deviation > 0
@@ -272,7 +272,7 @@ let%expect_test "harmonic series and cents bis" =
       [ Column.make ~header:"Harmonic" (fun (t : Row.t) ->
           Cell.text (Int.to_string t.harmonic))
       ; Column.make ~header:"Cents" (fun (t : Row.t) ->
-          Cell.text (t.cents |> Cents.to_string_nearest))
+          Cell.text (t.cents |> Cents.iround_exn |> Int.to_string))
       ]
   in
   let rows =
@@ -548,7 +548,7 @@ let%expect_test "ratios" =
           Cell.text
             (t.acoustic_interval
              |> Acoustic_interval.to_cents
-             |> Float.iround_nearest_exn
+             |> Cents.iround_exn
              |> Int.to_string))
       ; Column.make ~align:Right ~header:"53 EDO #" (fun (t : Row.t) ->
           Cell.text (Int.to_string t.to_53_edo))
@@ -566,8 +566,7 @@ let%expect_test "ratios" =
             | Gt -> "+"
             | Lt | Eq -> ""
           in
-          Cell.text
-            (Printf.sprintf "%d (%s%0.3f)" (Float.iround_nearest_exn cents) sign diff))
+          Cell.text (Printf.sprintf "%d (%s%0.3f)" (Cents.iround_exn cents) sign diff))
       ]
   in
   let rows =

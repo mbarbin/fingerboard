@@ -9,4 +9,3 @@ include module type of struct
 end
 
 val compare : t -> t -> Ordering.t
-val iround_nearest_exn : t -> int

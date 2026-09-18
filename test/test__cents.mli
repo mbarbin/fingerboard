@@ -4,8 +4,4 @@
 (*_  SPDX-License-Identifier: AGPL-3.0-or-later                                   *)
 (*_********************************************************************************)
 
-type t = float
-
-(** Raises on [nan] and infinite values. The result is unspecified if the argument
-    falls outside the range of representable integers. *)
-val iround_exn : t -> int
+(*_ This signature is deliberately empty. *)

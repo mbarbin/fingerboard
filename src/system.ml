@@ -83,7 +83,8 @@ let to_ascii_tables { vibrating_strings; intervals_going_down; fingerboard_posit
                 intervals_going_down.(i)
               in
               Cell.text
-                (Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval))))
+                (Cents.iround_exn (Acoustic_interval.to_cents acoustic_interval)
+                 |> Int.to_string)))
         ]
     in
     Print_table.make
@@ -392,7 +393,7 @@ module Double_stops = struct
                 (f t).fingerboard_location.fingerboard_position
             in
             let cents = Acoustic_interval.to_cents acoustic_interval in
-            Cell.text (Cents.to_string_nearest cents))
+            Cell.text (Cents.iround_exn cents |> Int.to_string))
         ]
       in
       [ common_columns ~name:"Low" ~f:(fun (t : Double_stop.t) -> t.low_note)
@@ -423,7 +424,8 @@ module Double_stops = struct
               |> Option.get
             in
             Cell.text
-              (Cents.to_string_nearest (Acoustic_interval.to_cents acoustic_interval)))
+              (Cents.iround_exn (Acoustic_interval.to_cents acoustic_interval)
+               |> Int.to_string))
         ]
       ]
       |> List.concat

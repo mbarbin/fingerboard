@@ -57,7 +57,7 @@ let ascii_table_columns =
     ; Column.make ~align:Right ~header:"Cents" (fun t ->
         let acoustic_interval = acoustic_interval_to_the_open_string t in
         let cents = Acoustic_interval.to_cents acoustic_interval in
-        Cell.text (Cents.to_string_nearest cents))
+        Cell.text (Cents.iround_exn cents |> Int.to_string))
     ; Column.make ~align:Right ~header:"Interval" (fun t ->
         let acoustic_interval = acoustic_interval_to_the_open_string t in
         Cell.text (Acoustic_interval.to_string acoustic_interval))
